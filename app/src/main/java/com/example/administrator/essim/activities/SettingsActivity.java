@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,9 +55,9 @@ import retrofit2.Callback;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private File mFile;
     private Context mContext;
     private Activity mActivity;
+    private ProgressBar mProgressBar;
     private TextView mTextView, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6, mTextView7,
             mTextView8, mTextView9, mTextView10, mTextView11, mTextView12;
     private StorageChooser.Builder builder = new StorageChooser.Builder();
@@ -77,6 +78,8 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_pixiv);
         toolbar.setNavigationOnClickListener(view -> finish());
         Switch aSwitch = findViewById(R.id.setting_switch);
+        mProgressBar = findViewById(R.id.mProgressbar);
+        mProgressBar.setVisibility(View.INVISIBLE);
         mTextView = findViewById(R.id.username);
         mTextView2 = findViewById(R.id.user_account);
         mTextView3 = findViewById(R.id.password);
@@ -223,6 +226,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void changeHeadImage(File file)
     {
+        mProgressBar.setVisibility(View.VISIBLE);
         RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("profile_image", file.getName(), photoRequestBody);
         Call<ResponseBody> call = new RestClient()
@@ -233,6 +237,7 @@ public class SettingsActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull retrofit2.Response<ResponseBody> response) {
+                mProgressBar.setVisibility(View.INVISIBLE);
                 Snackbar.make(mTextView12, "我也不知道修改成功了没，打开个人主页看看吧...", Snackbar.LENGTH_LONG)
                         .setAction("去看看", v -> {
                             Intent intent = new Intent(mContext, UserDetailActivity.class);

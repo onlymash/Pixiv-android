@@ -70,7 +70,15 @@ public class LoginActivity extends AppCompatActivity {
                         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     }
                 }
+                String headerImage = "";
+                if(Common.getLocalDataSet().getString("header_img_path", "").length() != 0)
+                {
+                    headerImage = Common.getLocalDataSet().getString("header_img_path", "");
+                }
                 Common.clearLocalData(LoginActivity.this);
+                SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
+                editor.putString("header_img_path", headerImage);
+                editor.apply();
                 mProgressBar.setVisibility(View.VISIBLE);
                 tryToLogin();
             }

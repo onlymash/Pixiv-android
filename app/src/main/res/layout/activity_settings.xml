@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".activities.SettingsActivity">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:id="@+id/mProgressbar"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_pixiv"
         android:layout_width="match_parent"

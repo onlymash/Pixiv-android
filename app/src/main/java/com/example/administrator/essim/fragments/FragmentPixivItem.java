@@ -331,16 +331,20 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 anim.start();
                 break;
             case R.id.get_related_illust:
-                intent = new Intent(mContext, RelatedActivity.class);
-                intent.putExtra("illust set", mRelatedIllust);
-                intent.putExtra("illust title", Reference.sIllustsBeans.get(index).getTitle());
-                mContext.startActivity(intent);
+                if(mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3) {
+                    intent = new Intent(mContext, RelatedActivity.class);
+                    intent.putExtra("illust set", mRelatedIllust);
+                    intent.putExtra("illust title", Reference.sIllustsBeans.get(index).getTitle());
+                    mContext.startActivity(intent);
+                }
                 break;
             case R.id.text_get_related:
-                intent = new Intent(mContext, RelatedActivity.class);
-                intent.putExtra("illust set", mRelatedIllust);
-                intent.putExtra("illust title", Reference.sIllustsBeans.get(index).getTitle());
-                mContext.startActivity(intent);
+                if(mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3) {
+                    intent = new Intent(mContext, RelatedActivity.class);
+                    intent.putExtra("illust set", mRelatedIllust);
+                    intent.putExtra("illust title", Reference.sIllustsBeans.get(index).getTitle());
+                    mContext.startActivity(intent);
+                }
                 break;
             default:
                 break;

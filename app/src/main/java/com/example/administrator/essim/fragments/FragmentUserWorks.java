@@ -102,68 +102,70 @@ public class FragmentUserWorks extends ScrollObservableFragment {
         call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
             @Override
             public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {
-                if (response.body().getIllusts().size() == 0 && getView() != null) {
-                    FragmentUserDetail.mShowProgress.showProgress(false);
-                    if (rcvGoodsList.getVisibility() == VISIBLE) {
-                        rcvGoodsList.setVisibility(View.INVISIBLE);
-                    }
-                    mTextView.setText("这里空空的，什么也没有~");
-                    mTextView.setVisibility(VISIBLE);
-                } else {
-                    UserIllustsResponse userWorksResponse = response.body();
-                    mIllustsBeanList.clear();
-                    mIllustsBeanList.addAll(userWorksResponse.getIllusts());
-                    mPixivAdapterGrid = new AuthorWorksAdapter(mIllustsBeanList, mContext);
-                    next_url = userWorksResponse.getNext_url();
-                    mPixivAdapterGrid.setOnItemClickListener(new OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position, int viewType) {
-                            if (position == -1) {
-                                if (next_url != null) {
-                                    getNextUserIllust();
-                                } else {
-                                    Snackbar.make(rcvGoodsList, "没有更多数据了", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(getView() != null) {
+                    if (response.body().getIllusts().size() == 0) {
+                        FragmentUserDetail.mShowProgress.showProgress(false);
+                        if (rcvGoodsList.getVisibility() == VISIBLE) {
+                            rcvGoodsList.setVisibility(View.INVISIBLE);
+                        }
+                        mTextView.setText("这里空空的，什么也没有~");
+                        mTextView.setVisibility(VISIBLE);
+                    } else {
+                        UserIllustsResponse userWorksResponse = response.body();
+                        mIllustsBeanList.clear();
+                        mIllustsBeanList.addAll(userWorksResponse.getIllusts());
+                        mPixivAdapterGrid = new AuthorWorksAdapter(mIllustsBeanList, mContext);
+                        next_url = userWorksResponse.getNext_url();
+                        mPixivAdapterGrid.setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position, int viewType) {
+                                if (position == -1) {
+                                    if (next_url != null) {
+                                        getNextUserIllust();
+                                    } else {
+                                        Snackbar.make(rcvGoodsList, "没有更多数据了", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                    }
+                                } else if (viewType == 0) {
+                                    Reference.sIllustsBeans = mIllustsBeanList;
+                                    Intent intent = new Intent(mContext, ViewPagerActivity.class);
+                                    intent.putExtra("which one is selected", position);
+                                    mContext.startActivity(intent);
+                                } else if (viewType == 1) {
+                                    if (!mIllustsBeanList.get(position).isIs_bookmarked()) {
+                                        ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
+                                        view.startAnimation(Common.getAnimation());
+                                        Common.postStarIllust(position, mIllustsBeanList,
+                                                mSharedPreferences.getString("Authorization", ""), mContext, "public");
+                                    } else {
+                                        ((ImageView) view).setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                                        view.startAnimation(Common.getAnimation());
+                                        Common.postUnstarIllust(position, mIllustsBeanList,
+                                                mSharedPreferences.getString("Authorization", ""), mContext);
+                                    }
                                 }
-                            } else if (viewType == 0) {
-                                Reference.sIllustsBeans = mIllustsBeanList;
-                                Intent intent = new Intent(mContext, ViewPagerActivity.class);
-                                intent.putExtra("which one is selected", position);
-                                mContext.startActivity(intent);
-                            } else if (viewType == 1) {
+                            }
+
+                            @Override
+                            public void onItemLongClick(View view, int position) {
                                 if (!mIllustsBeanList.get(position).isIs_bookmarked()) {
                                     ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
-                                    view.startAnimation(Common.getAnimation());
                                     Common.postStarIllust(position, mIllustsBeanList,
-                                            mSharedPreferences.getString("Authorization", ""), mContext, "public");
-                                } else {
-                                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                                    view.startAnimation(Common.getAnimation());
-                                    Common.postUnstarIllust(position, mIllustsBeanList,
-                                            mSharedPreferences.getString("Authorization", ""), mContext);
+                                            mSharedPreferences.getString("Authorization", ""), mContext, "private");
                                 }
                             }
+                        });
+                        // 有数据，textview不显示，显示recyclerview
+                        if (rcvGoodsList.getVisibility() == View.INVISIBLE) {
+                            rcvGoodsList.setVisibility(VISIBLE);
                         }
-
-                        @Override
-                        public void onItemLongClick(View view, int position) {
-                            if (!mIllustsBeanList.get(position).isIs_bookmarked()) {
-                                ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
-                                Common.postStarIllust(position, mIllustsBeanList,
-                                        mSharedPreferences.getString("Authorization", ""), mContext, "private");
-                            }
+                        if (mTextView.getVisibility() == VISIBLE) {
+                            mTextView.setVisibility(View.INVISIBLE);
                         }
-                    });
-                    // 有数据，textview不显示，显示recyclerview
-                    if (rcvGoodsList.getVisibility() == View.INVISIBLE) {
-                        rcvGoodsList.setVisibility(VISIBLE);
+                        FragmentUserDetail.mShowProgress.showProgress(false);
+                        rcvGoodsList.setAdapter(mPixivAdapterGrid);
+                        scrolledY = 0;
+                        rcvGoodsList.scrollBy(0, FragmentUserDetail.scrollYset);
                     }
-                    if (mTextView.getVisibility() == VISIBLE) {
-                        mTextView.setVisibility(View.INVISIBLE);
-                    }
-                    FragmentUserDetail.mShowProgress.showProgress(false);
-                    rcvGoodsList.setAdapter(mPixivAdapterGrid);
-                    scrolledY = 0;
-                    rcvGoodsList.scrollBy(0, FragmentUserDetail.scrollYset);
                 }
             }
 

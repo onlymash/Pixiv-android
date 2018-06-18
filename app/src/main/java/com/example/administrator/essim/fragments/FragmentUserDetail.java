@@ -123,6 +123,7 @@ public class FragmentUserDetail extends Fragment {
             @Override
             public void onResponse(Call<UserDetailResponse> call, retrofit2.Response<UserDetailResponse> response) {
                 try {
+                    if(getView() != null)
                     setData(response.body());
                 } catch (Exception e) {
                     Snackbar.make(mTextView, "不存在这个用户", Snackbar.LENGTH_SHORT).show();
