@@ -3,23 +3,32 @@ package com.example.administrator.essim.utils;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.PixivApplication;
+import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.BookmarkAddResponse;
+import com.example.administrator.essim.response.IllustDetailResponse;
 import com.example.administrator.essim.response.IllustsBean;
+import com.example.administrator.essim.response.PixivOAuthResponse;
+import com.example.administrator.essim.response.Reference;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -279,19 +288,6 @@ public class Common {
         return wave;
     }
 
-    public static void saveBitmap(Context context, File realFile, Bitmap mBitmap, IllustsBean illustsBean, int index) {
-        try {
-            FileOutputStream fos = new FileOutputStream(realFile);
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-            Common.sendBroadcast(context, realFile);
-            TastyToast.makeText(context, "下载完成~", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static File generatePictureFile(Context context, IllustsBean illustsBean, int positionInIllust) {
         //检验父文件夹是否存在在，若不存在则创建
         File parentFile = new File(Common.getLocalDataSet().getString("download_path",
@@ -301,8 +297,81 @@ public class Common {
             TastyToast.makeText(context, "文件夹创建成功~",
                     TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
         }
-        //File file = new File(路径， 文件名); 此格式生成具体的文件，File其他构造方法会生成文件夹无法写入
+        //File file = new File(父文件夹路径， 文件名); 此格式生成具体的文件，File其他构造方法会生成文件夹无法写入
         //文件命名方式： illust id + "_" + 第几p + ".jpeg"
         return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".jpeg");
+    }
+
+    public static void getSingleIllust(ProgressBar progressBar, Context context, Long illustID) {
+        progressBar.setVisibility(View.VISIBLE);
+        Call<IllustDetailResponse> call = new RestClient()
+                .getRetrofit_AppAPI()
+                .create(AppApiPixivService.class)
+                .getIllust(Common.getLocalDataSet().getString("Authorization", ""),
+                        illustID);
+        call.enqueue(new Callback<IllustDetailResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<IllustDetailResponse> call, @NonNull retrofit2.Response<IllustDetailResponse> response) {
+                IllustDetailResponse illustDetailResponse = response.body();
+                List<IllustsBean> singleIllust = new ArrayList<>();
+                try {
+                    singleIllust.add(illustDetailResponse.getIllust());
+                    Reference.sIllustsBeans = singleIllust;
+                    Intent intent = new Intent(context, ViewPagerActivity.class);
+                    intent.putExtra("which one is selected", 0);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    Snackbar.make(progressBar, "没有这个作品", Snackbar.LENGTH_SHORT).show();
+                }
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<IllustDetailResponse> call, @NonNull Throwable throwable) {
+            }
+        });
+    }
+
+    public static String getRealFilePath( final Context context, final Uri uri ) {
+        if ( null == uri ) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if ( scheme == null )
+            data = uri.getPath();
+        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+            data = uri.getPath();
+        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
+            if ( null != cursor ) {
+                if ( cursor.moveToFirst() ) {
+                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    if ( index > -1 ) {
+                        data = cursor.getString( index );
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
+    public static void saveLocalMessage(PixivOAuthResponse pixivOAuthResponse, String password)
+    {
+        SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
+        String localStringBuilder = "Bearer " +
+                pixivOAuthResponse.getResponse().getAccess_token();
+        editor.putString("Authorization", localStringBuilder);
+        editor.putInt("userid", pixivOAuthResponse.getResponse().getUser().getId());
+        editor.putBoolean("islogin", true);
+        editor.putBoolean("ispremium", pixivOAuthResponse.getResponse().getUser().isIs_premium());
+        editor.putString("useraccount", pixivOAuthResponse.getResponse().getUser().getAccount());
+        editor.putString("username", pixivOAuthResponse.getResponse().getUser().getName());
+        editor.putString("password", password);
+        editor.putString("email", pixivOAuthResponse.getResponse().getUser().getMail_address());
+        editor.putString("useremail", pixivOAuthResponse.getResponse().getUser().getMail_address());
+        editor.putString("hearurl", pixivOAuthResponse.getResponse().getUser().getProfile_image_urls().getPx_170x170());
+        editor.putBoolean("is_origin_pic", true);
+        editor.putString("download_path", "/storage/emulated/0/PixivPictures");
+        editor.apply();
     }
 }

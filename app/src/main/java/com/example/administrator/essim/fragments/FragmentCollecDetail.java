@@ -85,9 +85,10 @@ public class FragmentCollecDetail extends BaseFragment {
                     CollecDetailAdapter specialCollecAdapter = new CollecDetailAdapter(specialCollectionResponse, mContext);
                     specialCollecAdapter.setOnItemClickListener(new OnItemClickListener() {
                         @Override
-                        public void onItemClick(View view, int position, int viewType) {
+                        public void onItemClick(@NonNull View view, int position, int viewType) {
                             if (viewType == 0) {
-                                getSingleIllust(Long.parseLong(specialCollectionResponse.body.get(0).illusts.get(position).illust_id));
+                                Common.getSingleIllust(mProgressBar, mContext,
+                                        Long.parseLong(specialCollectionResponse.body.get(0).illusts.get(position).illust_id));
                             } else if (viewType == 1) {
                                 Intent intent = new Intent(mContext, UserDetailActivity.class);
                                 intent.putExtra("user id", Integer.valueOf(specialCollectionResponse.body
@@ -112,36 +113,6 @@ public class FragmentCollecDetail extends BaseFragment {
             @Override
             public void onFailure(Call<CollectionResponse> call, Throwable t) {
 
-            }
-        });
-    }
-
-    private void getSingleIllust(long illustID) {
-        mProgressBar.setVisibility(View.VISIBLE);
-        Call<IllustDetailResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
-                .create(AppApiPixivService.class)
-                .getIllust(Common.getLocalDataSet().getString("Authorization", ""),
-                        illustID);
-        call.enqueue(new Callback<IllustDetailResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<IllustDetailResponse> call, @NonNull retrofit2.Response<IllustDetailResponse> response) {
-                IllustDetailResponse illustDetailResponse = response.body();
-                List<IllustsBean> singleIllust = new ArrayList<>();
-                try {
-                    singleIllust.add(illustDetailResponse.getIllust());
-                    Reference.sIllustsBeans = singleIllust;
-                    Intent intent = new Intent(mContext, ViewPagerActivity.class);
-                    intent.putExtra("which one is selected", 0);
-                    mContext.startActivity(intent);
-                } catch (Exception e) {
-                    Snackbar.make(mRecyclerView, "没有这个作品", Snackbar.LENGTH_SHORT).show();
-                }
-                mProgressBar.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<IllustDetailResponse> call, @NonNull Throwable throwable) {
             }
         });
     }

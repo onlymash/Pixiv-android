@@ -34,7 +34,7 @@ import retrofit2.Call;
 
 import static android.view.View.VISIBLE;
 
-public class FragmentUserFollow extends ScrollObservableFragment {
+public class FragmentUserLikes extends ScrollObservableFragment {
 
     public static int dataType;
     public static RefreshLayout sRefreshLayout;
@@ -47,8 +47,8 @@ public class FragmentUserFollow extends ScrollObservableFragment {
     private int scrolledY = 0;
     private List<IllustsBean> mIllustsBeanList = new ArrayList<>();
 
-    public static FragmentUserFollow newInstance() {
-        FragmentUserFollow fragment = new FragmentUserFollow();
+    public static FragmentUserLikes newInstance() {
+        FragmentUserLikes fragment = new FragmentUserLikes();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -85,7 +85,7 @@ public class FragmentUserFollow extends ScrollObservableFragment {
             public void onScrolled(RecyclerView recyclerView, final int dx, final int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 scrolledY += dy;
-                if (FragmentUserFollow.this.isResumed()) {
+                if (FragmentUserLikes.this.isResumed()) {
                     doOnScrollChanged(0, scrolledY, dx, dy);
                 }
             }
@@ -103,7 +103,7 @@ public class FragmentUserFollow extends ScrollObservableFragment {
         call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
             @Override
             public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {
-                if (response.body().getIllusts().size() == 0) {
+                if (response.body().getIllusts().size() == 0 && getView() != null) {
                     // 没有数据，recyclerview不显示，显示textview提示
                     FragmentUserDetail.mShowProgress.showProgress(false);
                     if (rcvGoodsList.getVisibility() == VISIBLE) {

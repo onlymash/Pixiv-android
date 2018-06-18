@@ -151,6 +151,7 @@ class FragmentPixivLeft : BaseFragment() {
                     val localStringBuilder = "Bearer " + pixivOAuthResponse!!.response.access_token
                     editor.putString("Authorization", localStringBuilder)
                     editor.putBoolean("ispremium", pixivOAuthResponse.response.user.isIs_premium)
+                    editor.putString("email", pixivOAuthResponse.response.user.mail_address)
                     editor.apply()
                     getData()
                 } catch (e: Exception) {

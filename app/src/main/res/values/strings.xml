@@ -147,7 +147,7 @@
     <string name="special">特辑</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="not_login">未登录</string>
-    <string name="nothing_to_show">nothing to show</string>
+    <string name="nothing_to_show">没有绑定邮箱账号~</string>
     <string name="title_activity_try_to_login">TryToLoginActivity</string>
     <string name="password">密码</string>
     <string name="pixiv_name">pixiv用户名/邮箱</string>
@@ -192,9 +192,10 @@
     <string name="special_collection">特辑(不稳定)</string>
     <string name="header_main">侧滑栏Header图片</string>
     <string name="set_header">点击设置</string>
-    <string name="set_header_two">点击设置(未完成)</string>
+    <string name="set_header_two">点击设置</string>
     <string name="main_theme">主题颜色</string>
     <string name="ralated_illust">相关作品</string>
     <string name="get_ralated_illust">查看更多 〉</string>
+    <string name="head_image">修改头像</string>
 
 </resources>

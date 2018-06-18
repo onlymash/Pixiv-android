@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.essim.R
+import com.example.administrator.essim.R.id.mProgressbar
 import com.example.administrator.essim.activities.SearchResultActivity
 import com.example.administrator.essim.adapters.TrendingtagAdapter
 import com.example.administrator.essim.interf.OnItemClickListener
@@ -55,7 +56,11 @@ class FragmentPixivRight : BaseFragment() {
                             mContext.startActivity(intent)
                         }
 
-                        override fun onItemLongClick(view: View, position: Int) {}
+                        override fun onItemLongClick(view: View, position: Int) {
+                            //长按标签，可以跳转至标签封面的出处
+                            Common.getSingleIllust(mProgressbar, mContext,
+                                    response.body()!!.trend_tags[position].illust.id.toLong())
+                        }
                     })
                     mRecyclerView.adapter = mPixivAdapter
                     mProgressbar.visibility = View.INVISIBLE

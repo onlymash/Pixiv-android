@@ -1,17 +1,15 @@
 package com.example.administrator.essim.network
 
 
+import android.accounts.AuthenticatorDescription
 import com.example.administrator.essim.response.*
+import okhttp3.MultipartBody
+import okhttp3.Request
+import okhttp3.RequestBody
 
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.http.*
 
 interface AppApiPixivService {
 
@@ -83,10 +81,10 @@ interface AppApiPixivService {
                          @Field("user_id") paramLong: Long): Call<ResponseBody>
 
     //POST /v1/user/profile/edit HTTP/1.1
-    @FormUrlEncoded
+    @Multipart
     @POST("/v1/user/profile/edit")
     fun changeHeadImg(@Header("Authorization") paramString: String,
-                         @Field("user_id") paramLong: Long): Call<ResponseBody>
+                         @Part photo: MultipartBody.Part, @Part("description") description: RequestBody): Call<ResponseBody>
 
     // v1/user/related?filter=for_android&seed_user_id=1589657
     @GET("/v1/user/related?filter=for_android")

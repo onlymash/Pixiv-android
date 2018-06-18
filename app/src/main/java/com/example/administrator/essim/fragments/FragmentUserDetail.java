@@ -3,6 +3,7 @@ package com.example.administrator.essim.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -100,7 +101,7 @@ public class FragmentUserDetail extends Fragment {
         rlNavBar.setNavigationOnClickListener(v1 -> Objects.requireNonNull(getActivity()).finish());
         displayFragments = new ArrayList<>();
         displayFragments.add(FragmentUserWorks.newInstance());
-        displayFragments.add(FragmentUserFollow.newInstance());
+        displayFragments.add(FragmentUserLikes.newInstance());
 
         ScrollObservableFragment.OnScrollChangedListener onScrollChangedListener =
                 (fragment, scrolledX, scrolledY, dx, dy) -> {
@@ -215,6 +216,13 @@ public class FragmentUserDetail extends Fragment {
             });
         }
         Glide.with(mContext).load(new GlideUtil().getHead(userDetailResponse.getUser())).into(head);
+        if(!Common.getLocalDataSet().getString("hearurl", "")
+                .equals(userDetailResponse.getUser().getProfile_image_urls().getMedium()))
+        {
+            SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
+            editor.putString("hearurl", userDetailResponse.getUser().getProfile_image_urls().getMedium());
+            editor.apply();
+        }
     }
 
     /**
@@ -267,13 +275,13 @@ public class FragmentUserDetail extends Fragment {
         if (viewPager.getCurrentItem() == 1) {
             switch (item.getItemId()) {
                 case R.id.action_get_public:
-                    if (FragmentUserFollow.dataType != 0) {
-                        FragmentUserFollow.sRefreshLayout.refreData("public");
+                    if (FragmentUserLikes.dataType != 0) {
+                        FragmentUserLikes.sRefreshLayout.refreData("public");
                     }
                     break;
                 case R.id.action_get_private:
-                    if (FragmentUserFollow.dataType != 1) {
-                        FragmentUserFollow.sRefreshLayout.refreData("private");
+                    if (FragmentUserLikes.dataType != 1) {
+                        FragmentUserLikes.sRefreshLayout.refreData("private");
                     }
                     break;
                 default:

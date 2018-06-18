@@ -21,6 +21,7 @@ import com.example.administrator.essim.network.OAuthSecureService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.PixivAccountsResponse;
 import com.example.administrator.essim.response.PixivOAuthResponse;
+import com.example.administrator.essim.utils.Common;
 
 import java.util.HashMap;
 
@@ -103,23 +104,7 @@ public class NewUserActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PixivOAuthResponse> call, retrofit2.Response<PixivOAuthResponse> response) {
                 PixivOAuthResponse pixivOAuthResponse = response.body();
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(NewUserActivity.this);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                String localStringBuilder = "Bearer " +
-                        pixivOAuthResponse.getResponse().getAccess_token();
-                editor.putString("Authorization", localStringBuilder);
-                editor.putInt("userid", pixivOAuthResponse.getResponse().getUser().getId());
-                editor.putBoolean("islogin", true);
-                editor.putBoolean("ispremium", pixivOAuthResponse.getResponse().getUser().isIs_premium());
-                editor.putString("username", pixivOAuthResponse.getResponse().getUser().getName());
-                editor.putString("useraccount", pixivOAuthResponse.getResponse().getUser().getAccount());
-                editor.putString("password", localHashMap.get("password").toString());
-                editor.putString("hearurl", pixivOAuthResponse.getResponse().getUser().getProfile_image_urls().getPx_170x170());
-                editor.putString("useremail", pixivOAuthResponse.getResponse().getUser().getMail_address());
-                editor.putBoolean("r18on", false);
-                editor.putBoolean("is_origin_pic", true);
-                editor.putString("download_path", "/storage/emulated/0/PixivPictures");
-                editor.apply();
+                Common.saveLocalMessage(pixivOAuthResponse, localHashMap.get("password").toString());
                 mProgressBar.setVisibility(View.INVISIBLE);
                 Intent intent = new Intent(NewUserActivity.this, MainActivity.class);
                 startActivity(intent);

@@ -155,7 +155,7 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchB
             startActivity(intent);
         } else if (searchType == 1) {
             if (Common.isNumeric(searchBar.getText().trim())) {
-                getSingleIllust();
+                Common.getSingleIllust(mProgressBar, mContext, Long.parseLong(searchBar.getText().trim()));
             } else {
                 Snackbar.make(searchBar, "ID有误~（当前状态 ID搜作品）", Snackbar.LENGTH_SHORT).show();
             }
@@ -266,36 +266,6 @@ public class SearchActivity extends AppCompatActivity implements MaterialSearchB
             @Override
             public void onFailure(@NonNull Call<PixivResponse> call, @NonNull Throwable throwable) {
 
-            }
-        });
-    }
-
-    private void getSingleIllust() {
-        mProgressBar.setVisibility(View.VISIBLE);
-        Call<IllustDetailResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
-                .create(AppApiPixivService.class)
-                .getIllust(mSharedPreferences.getString("Authorization", ""),
-                        Long.parseLong(searchBar.getText()));
-        call.enqueue(new Callback<IllustDetailResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<IllustDetailResponse> call, @NonNull retrofit2.Response<IllustDetailResponse> response) {
-                IllustDetailResponse illustDetailResponse = response.body();
-                List<IllustsBean> singleIllust = new ArrayList<>();
-                try {
-                    singleIllust.add(illustDetailResponse.getIllust());
-                    Reference.sIllustsBeans = singleIllust;
-                    Intent intent = new Intent(mContext, ViewPagerActivity.class);
-                    intent.putExtra("which one is selected", 0);
-                    mContext.startActivity(intent);
-                } catch (Exception e) {
-                    Snackbar.make(searchBar, "没有这个作品", Snackbar.LENGTH_SHORT).show();
-                }
-                mProgressBar.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<IllustDetailResponse> call, @NonNull Throwable throwable) {
             }
         });
     }

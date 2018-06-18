@@ -96,21 +96,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<PixivOAuthResponse> call, retrofit2.Response<PixivOAuthResponse> response) {
                 PixivOAuthResponse pixivOAuthResponse = response.body();
                 if (pixivOAuthResponse != null) {
-                    SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
-                    String localStringBuilder = "Bearer " +
-                            pixivOAuthResponse.getResponse().getAccess_token();
-                    editor.putString("Authorization", localStringBuilder);
-                    editor.putInt("userid", pixivOAuthResponse.getResponse().getUser().getId());
-                    editor.putBoolean("islogin", true);
-                    editor.putBoolean("ispremium", pixivOAuthResponse.getResponse().getUser().isIs_premium());
-                    editor.putString("useraccount", pixivOAuthResponse.getResponse().getUser().getAccount());
-                    editor.putString("username", pixivOAuthResponse.getResponse().getUser().getName());
-                    editor.putString("password", mEditText2.getText().toString().trim());
-                    editor.putString("useremail", pixivOAuthResponse.getResponse().getUser().getMail_address());
-                    editor.putString("hearurl", pixivOAuthResponse.getResponse().getUser().getProfile_image_urls().getPx_170x170());
-                    editor.putBoolean("is_origin_pic", true);
-                    editor.putString("download_path", "/storage/emulated/0/PixivPictures");
-                    editor.apply();
+                    //将登陆后的账号信息保存到本地
+                    Common.saveLocalMessage(pixivOAuthResponse, mEditText2.getText().toString().trim());
                     mProgressBar.setVisibility(View.INVISIBLE);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

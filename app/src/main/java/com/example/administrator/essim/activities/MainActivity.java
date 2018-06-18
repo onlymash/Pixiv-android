@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private int lastShowFragment;
     private Fragment[] mFragments;
-    private ImageView mImageView;
+    private ImageView mImageView, userHead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +54,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //判断是否有登录记录，没登录就去LoginActivity，登录了就加载视图
         if (Common.getLocalDataSet().getBoolean("islogin", false)) {
             TextView textView = navigationView.getHeaderView(0).findViewById(R.id.username);
+            TextView textView2 = navigationView.getHeaderView(0).findViewById(R.id.useremail);
             textView.setText(Common.getLocalDataSet().getString("username", "")
                     .equals(Common.getLocalDataSet().getString("useraccount", "")) ?
                     Common.getLocalDataSet().getString("username", "") : String.format("%s (%s)",
                     Common.getLocalDataSet().getString("username", ""),
                     Common.getLocalDataSet().getString("useraccount", "")));
-            ImageView imageView = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+            if (Common.getLocalDataSet().getString("email", "").length() != 0) {
+                textView2.setText(Common.getLocalDataSet().getString("email", ""));
+            }
+            userHead = navigationView.getHeaderView(0).findViewById(R.id.imageView);
             Glide.with(mContext).load(new GlideUtil().getHead(Common.getLocalDataSet().getInt("userid", 0),
-                    Common.getLocalDataSet().getString("hearurl", ""))).into(imageView);
-            imageView.setOnClickListener(view -> {
+                    Common.getLocalDataSet().getString("hearurl", ""))).into(userHead);
+            userHead.setOnClickListener(view -> {
                 if (Common.getLocalDataSet().getBoolean("islogin", false)) {
                     Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
                     intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
@@ -205,6 +209,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .load(Common.getLocalDataSet().getString("header_img_path", ""))
                     .into(mImageView);
         }
+        Glide.with(mContext)
+                .load(new GlideUtil().getHead(Common.getLocalDataSet().getString("hearurl", "")))
+                .into(userHead);
     }
 
     @Override

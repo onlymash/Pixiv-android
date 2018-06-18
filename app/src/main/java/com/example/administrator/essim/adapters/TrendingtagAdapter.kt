@@ -30,6 +30,10 @@ class TrendingtagAdapter(private val mPixivRankItem: List<TrendingtagResponse.Tr
                 .into((holder as TagHolder).itemView.pixiv_image)
         holder.itemView.pixiv_item_size.text = mPixivRankItem[position].tag
         holder.itemView.setOnClickListener { view -> mOnItemClickListener!!.onItemClick(view, position, 0) }
+        holder.itemView.setOnLongClickListener { view ->
+            mOnItemClickListener!!.onItemLongClick(view, position)
+            true
+        }
     }
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {

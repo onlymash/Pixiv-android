@@ -102,7 +102,7 @@ public class FragmentUserWorks extends ScrollObservableFragment {
         call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
             @Override
             public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {
-                if (response.body().getIllusts().size() == 0) {
+                if (response.body().getIllusts().size() == 0 && getView() != null) {
                     FragmentUserDetail.mShowProgress.showProgress(false);
                     if (rcvGoodsList.getVisibility() == VISIBLE) {
                         rcvGoodsList.setVisibility(View.INVISIBLE);

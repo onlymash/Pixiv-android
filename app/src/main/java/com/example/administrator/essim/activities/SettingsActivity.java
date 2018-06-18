@@ -11,28 +11,46 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codekidlabs.storagechooser.Content;
 import com.codekidlabs.storagechooser.StorageChooser;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.interf.MyImagePicker;
+import com.example.administrator.essim.network.AppApiPixivService;
+import com.example.administrator.essim.network.RestClient;
+import com.example.administrator.essim.response.IllustDetailResponse;
+import com.example.administrator.essim.response.IllustsBean;
+import com.example.administrator.essim.response.PixivOAuthResponse;
+import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideCacheUtil;
 import com.qingmei2.rximagepicker.core.RxImagePicker;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -131,7 +149,14 @@ public class SettingsActivity extends AppCompatActivity {
                     editor.putString("header_img_path", result.getUri().toString());
                     editor.apply();
                 }));
-        mTextView12.setOnClickListener(v -> Common.showLog("TODO, set theme color"));
+        mTextView12.setOnClickListener(v -> {
+            imagePicker
+            .openGallery()
+            .subscribe(result -> {
+                File file = new File(Common.getRealFilePath(mContext, result.getUri()));
+                changeHeadImage(file);
+            });
+        });
 
         //初始化路径选择对话框
         Content c = new Content();
@@ -194,6 +219,32 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void changeHeadImage(File file)
+    {
+        RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        MultipartBody.Part photo = MultipartBody.Part.createFormData("profile_image", file.getName(), photoRequestBody);
+        Call<ResponseBody> call = new RestClient()
+                .getRetrofit_AppAPI()
+                .create(AppApiPixivService.class)
+                .changeHeadImg(Common.getLocalDataSet().getString("Authorization", ""), photo,
+                        RequestBody.create(null, file.getName()));
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull retrofit2.Response<ResponseBody> response) {
+                Snackbar.make(mTextView12, "我也不知道修改成功了没，打开个人主页看看吧...", Snackbar.LENGTH_LONG)
+                        .setAction("去看看", v -> {
+                            Intent intent = new Intent(mContext, UserDetailActivity.class);
+                            intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
+                            startActivity(intent);
+                        }).show();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
+            }
+        });
     }
 
     @Override

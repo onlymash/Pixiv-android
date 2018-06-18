@@ -269,7 +269,7 @@
                 android:layout_below="@+id/set_header"
                 android:layout_marginTop="@dimen/sixteen_dip"
                 android:layout_marginStart="@dimen/sixteen_dip"
-                android:text="@string/main_theme"
+                android:text="@string/head_image"
                 android:layout_height="wrap_content" />
 
             <TextView
