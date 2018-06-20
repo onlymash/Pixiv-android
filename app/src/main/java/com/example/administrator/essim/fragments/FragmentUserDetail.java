@@ -123,8 +123,9 @@ public class FragmentUserDetail extends Fragment {
             @Override
             public void onResponse(Call<UserDetailResponse> call, retrofit2.Response<UserDetailResponse> response) {
                 try {
-                    if(getView() != null)
-                    setData(response.body());
+                    if(getView() != null) {
+                        setData(response.body());
+                    }
                 } catch (Exception e) {
                     Snackbar.make(mTextView, "不存在这个用户", Snackbar.LENGTH_SHORT).show();
                 }
@@ -216,14 +217,14 @@ public class FragmentUserDetail extends Fragment {
                 return true;
             });
         }
-        Glide.with(mContext).load(new GlideUtil().getHead(userDetailResponse.getUser())).into(head);
-        if(!Common.getLocalDataSet().getString("hearurl", "")
+        else if(!Common.getLocalDataSet().getString("hearurl", "")
                 .equals(userDetailResponse.getUser().getProfile_image_urls().getMedium()))
         {
             SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
             editor.putString("hearurl", userDetailResponse.getUser().getProfile_image_urls().getMedium());
             editor.apply();
         }
+        Glide.with(mContext).load(new GlideUtil().getHead(userDetailResponse.getUser())).into(head);
     }
 
     /**

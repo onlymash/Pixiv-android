@@ -43,7 +43,10 @@ class PixivAdapterGrid(private val mPixivRankItem: List<IllustsBean>,
                 else -> holder.itemView.post_like.setImageResource(R.drawable.ic_favorite_border_black_24dp)
             }
             when {
-                mPixivRankItem[position].page_count > 1 -> holder.itemView.pixiv_item_size.text = String.format("%sP", mPixivRankItem[position].page_count.toString())
+                mPixivRankItem[position].page_count > 1 -> {
+                    holder.itemView.pixiv_item_size.visibility = View.VISIBLE
+                    holder.itemView.pixiv_item_size.text = String.format("%sP", mPixivRankItem[position].page_count.toString())
+                }
                 else -> holder.itemView.pixiv_item_size.visibility = View.INVISIBLE
             }
             //为收藏按钮设置点击事件

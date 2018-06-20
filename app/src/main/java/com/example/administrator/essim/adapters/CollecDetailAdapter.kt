@@ -10,6 +10,7 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.example.administrator.essim.R
 import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.response.CollectionResponse
+import com.example.administrator.essim.utils.Common
 import com.example.administrator.essim.utils.GlideUtil
 import kotlinx.android.synthetic.main.pixiv_item.view.*
 
@@ -38,6 +39,8 @@ class CollecDetailAdapter(private val mPixivRankItem: CollectionResponse,
         //设置大图和头像的点击事件
         holder.itemView.setOnClickListener { v -> mOnItemClickListener!!.onItemClick(v, position, 0) }
         holder.itemView.pixiv_head.setOnClickListener { v -> mOnItemClickListener!!.onItemClick(v, position, 1) }
+
+        Common.showLog(mPixivRankItem.body[0].introduction)
     }
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {

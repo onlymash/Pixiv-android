@@ -30,7 +30,7 @@ class FragmentImageDetail : BaseFragment() {
         Glide.with(mContext).load<GlideUrl>(GlideUtil().getLargeImageUrl(illustsBean, index))
                 .into<GlideDrawableImageViewTarget>(object : GlideDrawableImageViewTarget(originalImage) {
                     override fun onResourceReady(drawable: GlideDrawable?, animation: GlideAnimation<in GlideDrawable>?) {
-                        if(getView() != null) {
+                        if(mProgressbar != null) {
                             mProgressbar.visibility = View.INVISIBLE
                             super.onResourceReady(drawable, animation)
                         }

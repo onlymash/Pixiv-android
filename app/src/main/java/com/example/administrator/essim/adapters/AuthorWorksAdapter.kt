@@ -45,8 +45,10 @@ class AuthorWorksAdapter(private val mPixivRankItem: List<IllustsBean>,
                 else -> holder.itemView.post_like.setImageResource(R.drawable.ic_favorite_border_black_24dp)
             }
             when {
-                mPixivRankItem[position].page_count > 1 ->
+                mPixivRankItem[position].page_count > 1 -> {
+                    holder.itemView.pixiv_item_size.visibility = View.VISIBLE
                     holder.itemView.pixiv_item_size.text = String.format("%sP", mPixivRankItem[position].page_count.toString())
+                }
                 else -> holder.itemView.pixiv_item_size.visibility = View.INVISIBLE
             }
             //单个item被点击，交给外界处理

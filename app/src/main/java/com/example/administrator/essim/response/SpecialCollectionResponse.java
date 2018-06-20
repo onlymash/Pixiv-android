@@ -11,6 +11,16 @@ public class SpecialCollectionResponse {
         public String publishDate;
         public String thumbnailUrl;
 
+        public String getIntroduction() {
+            return introduction;
+        }
+
+        public void setIntroduction(String introduction) {
+            this.introduction = introduction;
+        }
+
+        public String introduction;
+
         public String getId() {
             return id;
         }
