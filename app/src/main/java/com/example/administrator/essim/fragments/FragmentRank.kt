@@ -24,6 +24,7 @@ import com.nightonke.boommenu.Util
 import kotlinx.android.synthetic.main.fragment_rank.*
 import retrofit2.Call
 import retrofit2.Callback
+import java.io.Serializable
 
 
 /**
@@ -246,8 +247,9 @@ class FragmentRank : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        if (mPixivAdapter != null) {
-            mPixivAdapter!!.notifyDataSetChanged()
+        when (mPixivAdapter) {
+            null -> return
+            else -> mPixivAdapter!!.notifyDataSetChanged()
         }
     }
 }

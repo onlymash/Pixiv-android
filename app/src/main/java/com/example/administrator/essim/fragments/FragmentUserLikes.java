@@ -27,6 +27,7 @@ import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.UserIllustsResponse;
 import com.example.administrator.essim.utils.Common;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

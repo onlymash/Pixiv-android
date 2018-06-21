@@ -8,13 +8,8 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.ProgressBar
-
 import com.example.administrator.essim.R
 import com.example.administrator.essim.adapters.IllustCommentAdapter
 import com.example.administrator.essim.interf.OnItemClickListener
@@ -25,12 +20,10 @@ import com.example.administrator.essim.utils.Common
 import com.example.administrator.essim.utils.DividerItemDecoration
 import com.sdsmdg.tastytoast.TastyToast
 import kotlinx.android.synthetic.main.activity_commetn.*
-
-import java.util.ArrayList
-
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
+import java.util.*
 
 class CommentActivity : AppCompatActivity() {
 
@@ -94,7 +87,7 @@ class CommentActivity : AppCompatActivity() {
     private fun postComment() {
         if (mEditText.text.toString().trim { it <= ' ' }.isNotEmpty()) {
             when (parentCommentID) {
-                //没有父评论，就是普通评论
+            //没有父评论，就是普通评论
                 0 -> {
                     val call = RestClient()
                             .retrofit_AppAPI
@@ -110,7 +103,7 @@ class CommentActivity : AppCompatActivity() {
                         override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {}
                     })
                 }
-                //有父评论则是在回复他人
+            //有父评论则是在回复他人
                 else -> {
                     val call = RestClient()
                             .retrofit_AppAPI
@@ -145,28 +138,31 @@ class CommentActivity : AppCompatActivity() {
                 .getIllustComments(Common.getLocalDataSet().getString("Authorization", "")!!, illustID.toLong())
         call.enqueue(object : Callback<IllustCommentsResponse> {
             override fun onResponse(call: Call<IllustCommentsResponse>, response: retrofit2.Response<IllustCommentsResponse>) {
-                mIllustCommentsResponse = response.body()
-                mCommentsBeanList.clear()
-                mCommentsBeanList.addAll(mIllustCommentsResponse!!.comments)
-                illustCommentAdapter = IllustCommentAdapter(mCommentsBeanList, mContext!!)
-                illustCommentAdapter!!.setOnItemClickListener(object : OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int, viewType: Int) {
-                        when (viewType) {
-                            0 -> if (mEditText.text.toString().trim { it <= ' ' }.isEmpty()) {
-                                parentCommentID = mCommentsBeanList[position].id
-                                mEditText.hint = String.format("回复@%s", mCommentsBeanList[position].user.name)
-                            }
-                            1 -> {
-                                val intent = Intent(mContext, UserDetailActivity::class.java)
-                                intent.putExtra("user id", mCommentsBeanList[position].user.id)
-                                startActivity(intent)
+                if (response.body() != null) {
+                    mIllustCommentsResponse = response.body()
+                    mCommentsBeanList.clear()
+                    mCommentsBeanList.addAll(mIllustCommentsResponse!!.comments)
+                    illustCommentAdapter = IllustCommentAdapter(mCommentsBeanList, mContext!!)
+                    illustCommentAdapter!!.setOnItemClickListener(object : OnItemClickListener {
+                        override fun onItemClick(view: View, position: Int, viewType: Int) {
+                            when (viewType) {
+                                0 -> if (mEditText.text.toString().trim { it <= ' ' }.isEmpty()) {
+                                    parentCommentID = mCommentsBeanList[position].id
+                                    mEditText.hint = String.format("回复@%s", mCommentsBeanList[position].user.name)
+                                }
+                                1 -> {
+                                    val intent = Intent(mContext, UserDetailActivity::class.java)
+                                    intent.putExtra("user id", mCommentsBeanList[position].user.id)
+                                    startActivity(intent)
+                                }
                             }
                         }
-                    }
 
-                    override fun onItemLongClick(view: View, position: Int) {}
-                })
-                mRecyclerView.adapter = illustCommentAdapter
+                        override fun onItemLongClick(view: View, position: Int) {}
+                    })
+                    mRecyclerView.adapter = illustCommentAdapter
+
+                }
                 mProgressbar.visibility = View.INVISIBLE
             }
 
@@ -184,11 +180,13 @@ class CommentActivity : AppCompatActivity() {
                             mIllustCommentsResponse!!.next_url)
             call.enqueue(object : Callback<IllustCommentsResponse> {
                 override fun onResponse(call: Call<IllustCommentsResponse>, response: retrofit2.Response<IllustCommentsResponse>) {
-                    mIllustCommentsResponse = response.body()
-                    mCommentsBeanList.addAll(mIllustCommentsResponse!!.comments)
-                    illustCommentAdapter!!.notifyDataSetChanged()
-                    mProgressbar.visibility = View.INVISIBLE
-                    isLoadingMore = false
+                    if (response.body() != null) {
+                        mIllustCommentsResponse = response.body()
+                        mCommentsBeanList.addAll(mIllustCommentsResponse!!.comments)
+                        illustCommentAdapter!!.notifyDataSetChanged()
+                        mProgressbar.visibility = View.INVISIBLE
+                        isLoadingMore = false
+                    }
                 }
 
                 override fun onFailure(call: Call<IllustCommentsResponse>, throwable: Throwable) {}

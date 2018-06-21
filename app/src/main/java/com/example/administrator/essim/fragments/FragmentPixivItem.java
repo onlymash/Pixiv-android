@@ -5,7 +5,6 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -26,7 +25,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.CommentActivity;
 import com.example.administrator.essim.activities.ImageDetailActivity;
@@ -220,7 +218,6 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         mImageView2.setLayoutParams(params2);
         mImageView3 = view.findViewById(R.id.related_three);
         mImageView3.setLayoutParams(params2);
-
         TextView textView9 = view.findViewById(R.id.text_get_related);
         TextView textView10 = view.findViewById(R.id.text_related);
         textView9.setOnClickListener(this);
@@ -237,8 +234,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
             @Override
             public void onResponse(Call<RelatedIllust> call, retrofit2.Response<RelatedIllust> response) {
                 mRelatedIllust = response.body();
-                assert mRelatedIllust != null;
-                if (mRelatedIllust.illusts.size() >= 3 && getView()!=null) {
+                if (mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3 && getView() != null) {
                     loadImage(mRelatedIllust.illusts.get(0), mImageView);
                     loadImage(mRelatedIllust.illusts.get(1), mImageView2);
                     loadImage(mRelatedIllust.illusts.get(2), mImageView3);
@@ -331,7 +327,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 anim.start();
                 break;
             case R.id.get_related_illust:
-                if(mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3) {
+                if (mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3) {
                     intent = new Intent(mContext, RelatedActivity.class);
                     intent.putExtra("illust set", mRelatedIllust);
                     intent.putExtra("illust title", Reference.sIllustsBeans.get(index).getTitle());
@@ -339,7 +335,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 }
                 break;
             case R.id.text_get_related:
-                if(mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3) {
+                if (mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3) {
                     intent = new Intent(mContext, RelatedActivity.class);
                     intent.putExtra("illust set", mRelatedIllust);
                     intent.putExtra("illust title", Reference.sIllustsBeans.get(index).getTitle());

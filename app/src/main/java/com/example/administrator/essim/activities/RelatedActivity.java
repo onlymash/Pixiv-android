@@ -22,6 +22,7 @@ import com.example.administrator.essim.utils.Common;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class RelatedActivity extends AppCompatActivity {
@@ -104,5 +105,13 @@ public class RelatedActivity extends AppCompatActivity {
             }
         });
         mRecyclerView.setAdapter(mPixivAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPixivAdapter != null) {
+            mPixivAdapter.notifyDataSetChanged();
+        }
     }
 }

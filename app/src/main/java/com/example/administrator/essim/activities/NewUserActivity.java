@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -75,13 +76,14 @@ public class NewUserActivity extends AppCompatActivity {
                         authorization);
         call.enqueue(new Callback<PixivAccountsResponse>() {
             @Override
-            public void onResponse(Call<PixivAccountsResponse> call, retrofit2.Response<PixivAccountsResponse> response) {
+            public void onResponse(@NonNull Call<PixivAccountsResponse> call,
+                                   @NonNull retrofit2.Response<PixivAccountsResponse> response) {
                 PixivAccountsResponse pixivOAuthResponse = response.body();
                 assert pixivOAuthResponse != null;
                 if (!pixivOAuthResponse.isError()) {
                     HashMap localHashMap = new HashMap();
-                    localHashMap.put("client_id", "KzEZED7aC0vird8jWyHM38mXjNTY");
-                    localHashMap.put("client_secret", "W9JZoJe00qPvJsiyCGT3CCtC6ZUtdpKpzMbNlUGP");
+                    localHashMap.put("client_id", "MOBrBDS8blbauoSck0ZfDbtuzpyT");
+                    localHashMap.put("client_secret", "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj");
                     localHashMap.put("grant_type", "password");
                     localHashMap.put("username", pixivOAuthResponse.getBody().getUser_account());
                     localHashMap.put("password", pixivOAuthResponse.getBody().getPassword());
@@ -93,7 +95,7 @@ public class NewUserActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PixivAccountsResponse> call, Throwable throwable) {
+            public void onFailure(@NonNull Call<PixivAccountsResponse> call, @NonNull Throwable throwable) {
             }
         });
     }
@@ -102,7 +104,7 @@ public class NewUserActivity extends AppCompatActivity {
         Call<PixivOAuthResponse> call = new RestClient().getretrofit_OAuthSecure().create(OAuthSecureService.class).postAuthToken(localHashMap);
         call.enqueue(new Callback<PixivOAuthResponse>() {
             @Override
-            public void onResponse(Call<PixivOAuthResponse> call, retrofit2.Response<PixivOAuthResponse> response) {
+            public void onResponse(@NonNull Call<PixivOAuthResponse> call, @NonNull retrofit2.Response<PixivOAuthResponse> response) {
                 PixivOAuthResponse pixivOAuthResponse = response.body();
                 Common.saveLocalMessage(pixivOAuthResponse, localHashMap.get("password").toString());
                 mProgressBar.setVisibility(View.INVISIBLE);
@@ -112,7 +114,7 @@ public class NewUserActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PixivOAuthResponse> call, Throwable throwable) {
+            public void onFailure(@NonNull Call<PixivOAuthResponse> call, @NonNull Throwable throwable) {
             }
         });
     }

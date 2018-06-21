@@ -12,9 +12,10 @@ import com.example.administrator.essim.fragments.FragmentPixivItem
 import com.example.administrator.essim.response.Reference
 import kotlinx.android.synthetic.main.activity_view_pager.*
 
+
 class ViewPagerActivity : AppCompatActivity() {
 
-    lateinit var mViewPager : ViewPager
+    lateinit var mViewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

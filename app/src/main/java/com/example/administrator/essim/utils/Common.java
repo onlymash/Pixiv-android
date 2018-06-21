@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -33,8 +32,7 @@ import com.github.ybq.android.spinkit.style.Wave;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -147,6 +145,35 @@ public class Common {
         });
     }
 
+    public static void postStarIllust(IllustsBean illustsBean, String token, Context context, String starType) {
+        List<String> illustTag = new ArrayList();
+        Iterator localIterator = illustsBean.getTags().iterator();
+        while (localIterator.hasNext()) {
+            illustTag.add(((IllustsBean.TagsBean) localIterator.next()).getName());
+        }
+        Call<BookmarkAddResponse> call = new RestClient()
+                .getRetrofit_AppAPI()
+                .create(AppApiPixivService.class)
+                .postLikeIllust(token, illustsBean.getId(), starType, illustTag);
+        call.enqueue(new Callback<BookmarkAddResponse>() {
+            @Override
+            public void onResponse(Call<BookmarkAddResponse> call, retrofit2.Response<BookmarkAddResponse> response) {
+                illustsBean.setIs_bookmarked(true);
+                if (starType.equals("private")) {
+                    TastyToast.makeText(context, "成功添加到非公开收藏~",
+                            TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                } else {
+                    TastyToast.makeText(context, "成功添加到公开收藏~",
+                            TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BookmarkAddResponse> call, Throwable throwable) {
+            }
+        });
+    }
+
     public static void postUnstarIllust(int position, List<IllustsBean> illustsBeans, String token, Context context) {
         Call<ResponseBody> call = new RestClient()
                 .getRetrofit_AppAPI()
@@ -156,6 +183,26 @@ public class Common {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 illustsBeans.get(position).setIs_bookmarked(false);
+                TastyToast.makeText(context, "取消收藏~",
+                        TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+
+            }
+        });
+    }
+
+    public static void postUnstarIllust(IllustsBean illustsBean, String token, Context context) {
+        Call<ResponseBody> call = new RestClient()
+                .getRetrofit_AppAPI()
+                .create(AppApiPixivService.class)
+                .postUnlikeIllust(token, illustsBean.getId());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                illustsBean.setIs_bookmarked(false);
                 TastyToast.makeText(context, "取消收藏~",
                         TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
             }
@@ -318,6 +365,7 @@ public class Common {
                     singleIllust.add(illustDetailResponse.getIllust());
                     Reference.sIllustsBeans = singleIllust;
                     Intent intent = new Intent(context, ViewPagerActivity.class);
+                    intent.putExtra("all illusts", (Serializable) singleIllust);
                     intent.putExtra("which one is selected", 0);
                     context.startActivity(intent);
                 } catch (Exception e) {

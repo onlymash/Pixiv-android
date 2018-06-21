@@ -189,7 +189,7 @@
     <string name="follow_k">关注: %dK</string>
     <string name="sinple_illust">查看普通投稿</string>
     <string name="simple_manga">查看画集投稿</string>
-    <string name="special_collection">特辑(不稳定)</string>
+    <string name="special_collection">Pixiv特辑(不稳定)</string>
     <string name="header_main">侧滑栏Header图片</string>
     <string name="set_header">点击设置</string>
     <string name="set_header_two">点击设置</string>
@@ -197,5 +197,7 @@
     <string name="ralated_illust">相关作品</string>
     <string name="get_ralated_illust">查看更多 〉</string>
     <string name="head_image">修改头像</string>
+    <string name="sub_users">关注的画师</string>
+    <string name="favor_illusts">收藏的作品</string>
 
 </resources>

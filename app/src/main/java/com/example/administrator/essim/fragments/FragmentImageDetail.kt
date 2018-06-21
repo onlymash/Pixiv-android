@@ -27,6 +27,7 @@ class FragmentImageDetail : BaseFragment() {
         val illustsBean = ((activity) as ImageDetailActivity).mIllustsBean
         val wave = Wave()
         mProgressbar.indeterminateDrawable = wave
+        Glide.get(mContext).clearMemory()
         Glide.with(mContext).load<GlideUrl>(GlideUtil().getLargeImageUrl(illustsBean, index))
                 .into<GlideDrawableImageViewTarget>(object : GlideDrawableImageViewTarget(originalImage) {
                     override fun onResourceReady(drawable: GlideDrawable?, animation: GlideAnimation<in GlideDrawable>?) {

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.model.GlideUrl
 import com.example.administrator.essim.R
 import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.response.IllustsBean
@@ -36,6 +35,11 @@ class PixivAdapterGrid(private val mPixivRankItem: List<IllustsBean>,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (holder) {
         is PhotoHolder -> {
             //加载图片及其信息
+            /*val params = holder.itemView.pixiv_image.layoutParams
+            params.width = (mContext.resources.displayMetrics.widthPixels -
+                    mContext.resources.getDimensionPixelSize(R.dimen.thirty_two_dp))/2
+            params.height = params.width * mPixivRankItem[position].height/mPixivRankItem[position].width
+            holder.itemView.pixiv_image.layoutParams = params*/
             Glide.with(mContext).load(GlideUtil().getMediumImageUrl(mPixivRankItem[position]))
                     .into(holder.itemView.pixiv_image)
             when {

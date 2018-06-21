@@ -40,6 +40,7 @@ class FragmentPixivLeft : BaseFragment() {
         getData()
     }
 
+
     private fun initView() {
         mProgressbar.visibility = View.INVISIBLE
         val gridLayoutManager = GridLayoutManager(mContext, 2)
@@ -86,9 +87,13 @@ class FragmentPixivLeft : BaseFragment() {
                 .getNext(Common.getLocalDataSet().getString("Authorization", "")!!, nextDataUrl!!)
         call.enqueue(object : Callback<RecommendResponse> {
             override fun onResponse(call: Call<RecommendResponse>, response: retrofit2.Response<RecommendResponse>) {
-                nextDataUrl = response.body()!!.next_url
-                initAdapter(response.body()!!.illusts)
-                mProgressbar.visibility = View.INVISIBLE
+                try {
+                    nextDataUrl = response.body()!!.next_url
+                    initAdapter(response.body()!!.illusts)
+                    mProgressbar.visibility = View.INVISIBLE
+                } catch (exception: Exception) {
+                    reLogin()
+                }
             }
 
             override fun onFailure(call: Call<RecommendResponse>, throwable: Throwable) {}
@@ -107,16 +112,19 @@ class FragmentPixivLeft : BaseFragment() {
                         intent.putExtra("which one is selected", position)
                         mContext.startActivity(intent)
                     }
-                    viewType == 1 -> if (!illustsBeans[position].isIs_bookmarked) {
-                        (view as ImageView).setImageResource(R.drawable.ic_favorite_white_24dp)
-                        view.startAnimation(Common.getAnimation())
-                        Common.postStarIllust(position, illustsBeans,
-                                Common.getLocalDataSet().getString("Authorization", ""), mContext, "public")
-                    } else {
-                        (view as ImageView).setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                        view.startAnimation(Common.getAnimation())
-                        Common.postUnstarIllust(position, illustsBeans,
-                                Common.getLocalDataSet().getString("Authorization", ""), mContext)
+                    viewType == 1 -> when {
+                        !illustsBeans[position].isIs_bookmarked -> {
+                            (view as ImageView).setImageResource(R.drawable.ic_favorite_white_24dp)
+                            view.startAnimation(Common.getAnimation())
+                            Common.postStarIllust(position, illustsBeans,
+                                    Common.getLocalDataSet().getString("Authorization", ""), mContext, "public")
+                        }
+                        else -> {
+                            (view as ImageView).setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                            view.startAnimation(Common.getAnimation())
+                            Common.postUnstarIllust(position, illustsBeans,
+                                    Common.getLocalDataSet().getString("Authorization", ""), mContext)
+                        }
                     }
                 }
             }
@@ -137,8 +145,8 @@ class FragmentPixivLeft : BaseFragment() {
     private fun reLogin() {
         Snackbar.make(mRecyclerView, "获取登录信息, 请稍候", Snackbar.LENGTH_SHORT).show()
         val localHashMap = HashMap<String, Any>()
-        localHashMap["client_id"] = "KzEZED7aC0vird8jWyHM38mXjNTY"
-        localHashMap["client_secret"] = "W9JZoJe00qPvJsiyCGT3CCtC6ZUtdpKpzMbNlUGP"
+        localHashMap["client_id"] = "MOBrBDS8blbauoSck0ZfDbtuzpyT"
+        localHashMap["client_secret"] = "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj"
         localHashMap["grant_type"] = "password"
         localHashMap["username"] = Common.getLocalDataSet().getString("useraccount", "")
         localHashMap["password"] = Common.getLocalDataSet().getString("password", "")

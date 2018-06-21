@@ -7,13 +7,13 @@
         android:id="@+id/group_one"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/show_my_followed_users"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="@string/sub_users" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/show_my_favorite"
+            android:icon="@drawable/ic_favorite_white_24dp"
+            android:title="@string/favor_illusts" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"

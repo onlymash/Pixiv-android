@@ -10,6 +10,7 @@ import com.example.administrator.essim.R
 class UserDetailActivity : AppCompatActivity() {
 
     var userId: Int = 0
+    var showFavoriteIllust = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +18,7 @@ class UserDetailActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         val intent = intent
         userId = intent.getIntExtra("user id", 0)
+        showFavoriteIllust = intent.getBooleanExtra("show favorite illust", false)
         setContentView(R.layout.activity_myself)
     }
 }

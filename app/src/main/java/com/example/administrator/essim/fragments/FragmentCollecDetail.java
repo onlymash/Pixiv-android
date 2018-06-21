@@ -15,19 +15,13 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.UserDetailActivity;
-import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.adapters.CollecDetailAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.CollectionResponse;
-import com.example.administrator.essim.response.IllustDetailResponse;
-import com.example.administrator.essim.response.IllustsBean;
-import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.utils.Common;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;

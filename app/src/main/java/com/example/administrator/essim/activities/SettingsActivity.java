@@ -26,25 +26,18 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.codekidlabs.storagechooser.Content;
 import com.codekidlabs.storagechooser.StorageChooser;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.interf.MyImagePicker;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
-import com.example.administrator.essim.response.IllustDetailResponse;
-import com.example.administrator.essim.response.IllustsBean;
-import com.example.administrator.essim.response.PixivOAuthResponse;
-import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideCacheUtil;
 import com.qingmei2.rximagepicker.core.RxImagePicker;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;

@@ -25,10 +25,7 @@ import com.example.administrator.essim.adapters.AutoFieldAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
-import com.example.administrator.essim.response.IllustDetailResponse;
-import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.PixivResponse;
-import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.TagResponse;
 import com.example.administrator.essim.utils.Common;
 import com.google.gson.Gson;
@@ -39,7 +36,6 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;

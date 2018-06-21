@@ -186,7 +186,7 @@ public class FragmentUserDetail extends Fragment {
             }
         });
         tabStrip.setViewPager(viewPager);
-        viewPager.setCurrentItem(currentPosition);
+        viewPager.setCurrentItem(((UserDetailActivity) getActivity()).getShowFavoriteIllust() ? 1 : currentPosition);
         if (userDetailResponse.getUser().getId() != Common.getLocalDataSet().getInt("userid", 0)) {
             mTextView3.setVisibility(View.VISIBLE);
             if (userDetailResponse.getUser().isIs_followed()) {

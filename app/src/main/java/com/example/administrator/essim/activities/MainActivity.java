@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //super.onSaveInstanceState(outState);
+        //注释掉上面那一行，就不会出现fragment界面重叠的问题，，
     }
 
     private void initFragments() {
@@ -179,14 +180,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.show_my_followed_users) {
+            Intent intent = new Intent(mContext, FollowShowActivity.class);
+            intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
+            intent.putExtra("user name", Common.getLocalDataSet().getString("username", ""));
+            mContext.startActivity(intent);
         } else if (id == R.id.nav_gallery) {
             //特辑走一波
             Intent intent = new Intent(mContext, SpecialCollectionActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.show_my_favorite) {
+            Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
+            intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
+            intent.putExtra("show favorite illust", true);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(mContext, SettingsActivity.class);
             startActivity(intent);

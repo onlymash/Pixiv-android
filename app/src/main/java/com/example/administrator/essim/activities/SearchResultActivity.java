@@ -29,6 +29,7 @@ import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.SearchIllustResponse;
 import com.example.administrator.essim.utils.Common;
 
+import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -100,9 +101,11 @@ public class SearchResultActivity extends AppCompatActivity {
         call.enqueue(new Callback<SearchIllustResponse>() {
             @Override
             public void onResponse(Call<SearchIllustResponse> call, retrofit2.Response<SearchIllustResponse> response) {
-                next_url = response.body().getNext_url();
-                initAdapter(response.body().getIllusts());
-                mProgressBar.setVisibility(View.INVISIBLE);
+                if(response.body() != null) {
+                    next_url = response.body().getNext_url();
+                    initAdapter(response.body().getIllusts());
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -122,9 +125,11 @@ public class SearchResultActivity extends AppCompatActivity {
             call.enqueue(new Callback<RecommendResponse>() {
                 @Override
                 public void onResponse(Call<RecommendResponse> call, retrofit2.Response<RecommendResponse> response) {
-                    next_url = response.body().getNext_url();
-                    initAdapter(response.body().getIllusts());
-                    mProgressBar.setVisibility(View.INVISIBLE);
+                    if(response.body() != null) {
+                        next_url = response.body().getNext_url();
+                        initAdapter(response.body().getIllusts());
+                        mProgressBar.setVisibility(View.INVISIBLE);
+                    }
                 }
 
                 @Override

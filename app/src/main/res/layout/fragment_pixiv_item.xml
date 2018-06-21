@@ -253,14 +253,14 @@
                 android:layout_below="@+id/card_fifth"
                 android:textColor="@color/white"
                 android:text="@string/ralated_illust"
-                android:textSize="@dimen/sixteen_sp"
+                android:textSize="14sp"
                 android:layout_marginStart="@dimen/sixteen_dip"
                 android:id="@+id/text_related"
                 android:layout_marginBottom="@dimen/eight_dip"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:textSize="@dimen/sixteen_sp"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:id="@+id/text_get_related"
                 android:layout_below="@+id/card_fifth"
