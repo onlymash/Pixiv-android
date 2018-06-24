@@ -188,8 +188,10 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_black_24dp);
         mFloatingActionButton.setOnClickListener(this);
         mFloatingActionButton.setOnLongClickListener(view1 -> {
-            fragmentDialog = new FragmentDialog(mContext, Reference.sIllustsBeans.get(index));
-            fragmentDialog.showDialog(mContext);
+            if(!Reference.sIllustsBeans.get(index).isIs_bookmarked()) {
+                fragmentDialog = new FragmentDialog(mContext, Reference.sIllustsBeans.get(index));
+                fragmentDialog.showDialog();
+            }
             return true;
         });
         CardView cardView = view.findViewById(R.id.card_left);
@@ -345,5 +347,11 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 ((ViewPagerActivity) getActivity()).changeTitle();
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentDialog = null;
     }
 }

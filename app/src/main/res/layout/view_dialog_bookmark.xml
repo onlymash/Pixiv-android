@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="筛选"
+        android:textSize="@dimen/sixteen_sp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/sixteen_dip"
+        android:id="@+id/title"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:id="@+id/close"
+        android:layout_margin="@dimen/sixteen_dip"
+        android:scaleType="centerCrop"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_clear_black_24dp"
+        android:layout_height="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/title"
+        android:id="@+id/linearLayout"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="50dp"
+            android:padding="@dimen/eight_dip"
+            android:id="@+id/text_public"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/text_bg"
+            android:textSize="@dimen/sixteen_sp"
+            android:gravity="center"
+            android:text="公开"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginStart="50dp"
+            android:padding="@dimen/eight_dip"
+            android:id="@+id/text_private"
+            android:layout_marginEnd="50dp"
+            android:textSize="@dimen/sixteen_sp"
+            android:layout_weight="1"
+            android:text="私人"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/second_title"
+        android:text="你搜集的标签"
+        android:layout_below="@+id/linearLayout"
+        android:layout_margin="@dimen/sixteen_dip"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/second_title"
+        android:layout_width="match_parent"
+        android:id="@+id/bookmark_recy"
+        android:layout_height="300dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/mProgressbar"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

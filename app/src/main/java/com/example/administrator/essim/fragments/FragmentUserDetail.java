@@ -50,6 +50,7 @@ public class FragmentUserDetail extends Fragment {
     public static int scrollYset;
     public static ShowProgress mShowProgress;
     private static float offset = 1f;
+    private FragmentBookmarkShow fragmentDialog;
     private static float a;
     private static float b = 400.0f;
     private ImageView bg;
@@ -123,7 +124,7 @@ public class FragmentUserDetail extends Fragment {
             @Override
             public void onResponse(Call<UserDetailResponse> call, retrofit2.Response<UserDetailResponse> response) {
                 try {
-                    if(getView() != null) {
+                    if (getView() != null) {
                         setData(response.body());
                     }
                 } catch (Exception e) {
@@ -216,10 +217,8 @@ public class FragmentUserDetail extends Fragment {
                 }
                 return true;
             });
-        }
-        else if(!Common.getLocalDataSet().getString("hearurl", "")
-                .equals(userDetailResponse.getUser().getProfile_image_urls().getMedium()))
-        {
+        } else if (!Common.getLocalDataSet().getString("hearurl", "")
+                .equals(userDetailResponse.getUser().getProfile_image_urls().getMedium())) {
             SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
             editor.putString("hearurl", userDetailResponse.getUser().getProfile_image_urls().getMedium());
             editor.apply();
@@ -277,18 +276,11 @@ public class FragmentUserDetail extends Fragment {
         if (viewPager.getCurrentItem() == 1) {
             switch (item.getItemId()) {
                 case R.id.action_get_public:
-                    if (FragmentUserLikes.dataType != 0) {
-                        FragmentUserLikes.sRefreshLayout.refreData("public");
-                    }
-                    break;
-                case R.id.action_get_private:
-                    if (FragmentUserLikes.dataType != 1) {
-                        FragmentUserLikes.sRefreshLayout.refreData("private");
-                    }
+                    fragmentDialog = new FragmentBookmarkShow(mContext, Common.getLocalDataSet().getInt("userid", 0));
+                    fragmentDialog.showDialog();
                     break;
                 default:
                     break;
-
             }
         }
         return super.onOptionsItemSelected(item);
@@ -309,5 +301,6 @@ public class FragmentUserDetail extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mShowProgress = null;
+        fragmentDialog = null;
     }
 }

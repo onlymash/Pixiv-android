@@ -61,7 +61,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
         mSharedPreferences = Common.getLocalDataSet();
         View v = inflater.inflate(R.layout.fragment_home_list, container, false);
         initView(v);
-        getLikeIllust("public");
+        getLikeIllust("public", null);
         return v;
     }
 
@@ -94,13 +94,14 @@ public class FragmentUserLikes extends ScrollObservableFragment {
         mTextView = v.findViewById(R.id.post_like_user);
     }
 
-    private void getLikeIllust(String starType) {
+    private void getLikeIllust(String starType, String tag) {
         FragmentUserDetail.mShowProgress.showProgress(true);
         dataType = starType.equals("public") ? 0 : 1;
         Call<UserIllustsResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getLikeIllust(mSharedPreferences.getString("Authorization", ""), ((UserDetailActivity) getActivity()).getUserId(), starType);
+                .getLikeIllust(mSharedPreferences.getString("Authorization", ""),
+                        ((UserDetailActivity) getActivity()).getUserId(), starType, tag);
         call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
             @Override
             public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {

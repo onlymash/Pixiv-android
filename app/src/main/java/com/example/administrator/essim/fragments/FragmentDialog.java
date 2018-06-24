@@ -10,12 +10,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.adapters.BookmarkTagAdapter;
+import com.example.administrator.essim.adapters.IllustTagAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
@@ -36,7 +37,7 @@ public class FragmentDialog {
 
     private Context mContext;
     private IllustsBean mIllustsBean;
-    private BookmarkTagAdapter bookmarkTagAdapter;
+    private IllustTagAdapter illustTagAdapter;
 
     public FragmentDialog(Context context, IllustsBean i){
         mContext = context;
@@ -52,8 +53,8 @@ public class FragmentDialog {
         call.enqueue(new Callback<BookmarkDetailResponse>() {
             @Override
             public void onResponse(Call<BookmarkDetailResponse> call, retrofit2.Response<BookmarkDetailResponse> response) {
-                bookmarkTagAdapter = new BookmarkTagAdapter(response.body().bookmark_detail.tags, mContext);
-                bookmarkTagAdapter.setOnItemClickListener(new OnItemClickListener() {
+                illustTagAdapter = new IllustTagAdapter(response.body().bookmark_detail.tags, mContext);
+                illustTagAdapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(@NotNull View view, int position, int viewType) {
                         if (viewType == 0) {
@@ -69,7 +70,7 @@ public class FragmentDialog {
                     }
                 });
                 progressBar.setVisibility(View.INVISIBLE);
-                recyclerView.setAdapter(bookmarkTagAdapter);
+                recyclerView.setAdapter(illustTagAdapter);
             }
 
             @Override
@@ -79,12 +80,14 @@ public class FragmentDialog {
         });
     }
 
-    public void showDialog(Context context) {
+    public void showDialog() {
         Dialog mDialog;
-        mDialog = new Dialog(context);
+        mDialog = new Dialog(mContext);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
         View dialogView = inflater.inflate(R.layout.view_dialog, null);
+        ImageView close = dialogView.findViewById(R.id.close);
+        close.setOnClickListener(v -> mDialog.dismiss());
         RecyclerView recyclerView = dialogView.findViewById(R.id.tag_recy);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setHasFixedSize(true);
@@ -108,7 +111,7 @@ public class FragmentDialog {
             @Override
             public void onClick(View v) {
                 if(editText.getText().toString().trim().length() != 0) {
-                    bookmarkTagAdapter.addData(editText.getText().toString());
+                    illustTagAdapter.addData(editText.getText().toString());
                     tagList.add(editText.getText().toString());
                     editText.setText("");
                     editText.setHint("添加标签");

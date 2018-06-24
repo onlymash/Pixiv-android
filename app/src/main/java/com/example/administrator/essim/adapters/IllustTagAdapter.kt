@@ -13,8 +13,8 @@ import com.example.administrator.essim.response.PixivResponse
 import kotlinx.android.synthetic.main.bookmark_tag_item.view.*
 import kotlinx.android.synthetic.main.item_custom_suggestion.view.*
 
-class BookmarkTagAdapter(private var mPixivRankItem: ArrayList<BookmarkTagResponse>,
-                         context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class IllustTagAdapter(private var mPixivRankItem: ArrayList<BookmarkTagResponse>,
+                       context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var mOnItemClickListener: OnItemClickListener? = null

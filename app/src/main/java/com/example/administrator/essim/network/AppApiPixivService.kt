@@ -34,7 +34,16 @@ interface AppApiPixivService {
     @GET("/v1/user/bookmarks/illust")
     fun getLikeIllust(@Header("Authorization") paramString1: String,
                       @Query("user_id") paramLong: Long,
-                      @Query("restrict") paramString2: String ): Call<UserIllustsResponse>
+                      @Query("restrict") paramString2: String,
+                      @Query("tag") paramString3: String): Call<UserIllustsResponse>
+
+    // GET /v1/user/bookmark-tags/illust?user_id=32483920&restrict=public
+    // GET /v1/user/bookmark-tags/illust?user_id=32483920&restrict=private
+    // 获取自己搜集的标签
+    @GET("/v1/user/bookmark-tags/illust")
+    fun getBookedTags(@Header("Authorization") paramString1: String,
+                      @Query("user_id") paramLong: Long,
+                      @Query("restrict") paramString2: String): Call<AllBookmarkTagResponse>
 
     @FormUrlEncoded
     @POST("v1/illust/comment/add")
@@ -103,6 +112,10 @@ interface AppApiPixivService {
     @GET
     fun getNextComment(@Header("Authorization") paramString1: String,
                        @Url paramString2: String): Call<IllustCommentsResponse>
+
+    @GET
+    fun getNextTags(@Header("Authorization") paramString1: String,
+                       @Url paramString2: String): Call<AllBookmarkTagResponse>
 
     @GET("/v1/search/user?filter=for_ios")
     fun getSearchUser(@Header("Authorization") paramString1: String,

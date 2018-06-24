@@ -6,12 +6,21 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="收藏"
+        android:text="收藏选项"
         android:id="@+id/text_title"
         android:textSize="@dimen/sixteen_sp"
         android:layout_margin="@dimen/sixteen_sp"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:id="@+id/close"
+        android:layout_margin="@dimen/sixteen_dip"
+        android:scaleType="centerCrop"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_clear_black_24dp"
+        android:layout_height="24dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -79,9 +88,5 @@
             android:layout_marginBottom="@dimen/sixteen_dip"
             android:layout_below="@+id/text_private"
             android:layout_height="wrap_content" />
-
-
     </RelativeLayout>
-
-
 </RelativeLayout>
