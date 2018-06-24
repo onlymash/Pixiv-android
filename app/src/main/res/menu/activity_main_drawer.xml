@@ -11,6 +11,10 @@
             android:icon="@drawable/ic_people_black_24dp"
             android:title="@string/sub_users" />
         <item
+            android:id="@+id/show_recommend_users"
+            android:icon="@drawable/ic_person_add_black_24dp"
+            android:title="@string/recommend_user" />
+        <item
             android:id="@+id/show_my_favorite"
             android:icon="@drawable/ic_favorite_white_24dp"
             android:title="@string/favor_illusts" />

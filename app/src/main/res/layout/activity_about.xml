@@ -85,10 +85,6 @@
                 android:text="@string/arclayout_development"
                 android:textColor="@color/colorNavItemUnselected"
                 android:textSize="15sp" />
-
-
         </LinearLayout>
-
     </RelativeLayout>
-
 </ScrollView>

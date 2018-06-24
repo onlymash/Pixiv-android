@@ -53,6 +53,10 @@ interface AppApiPixivService {
     fun getRelatedIllust(@Header("Authorization") paramString1: String,
                          @Query("illust_id") paramLong: Long): Call<RelatedIllust>
 
+    //GET /v1/user/recommended?filter=for_android HTTP/1.1
+    @GET("/v1/user/recommended?filter=for_android")
+    fun getRecommendUser(@Header("Authorization") paramString1: String): Call<SearchUserResponse>
+
     @GET("v1/ugoira/metadata")
     fun getUgoiraMetadata(@Header("Authorization") paramString: String, @Query("illust_id") paramLong: Long): Call<UgoiraMetadataResponse>
 
@@ -90,6 +94,11 @@ interface AppApiPixivService {
     @GET("/v1/user/related?filter=for_android")
     fun getRelatedAuthor(@Header("Authorization") paramString: String,
                          @Field("seed_user_id") paramLong: Long): Call<SearchUserResponse>
+
+    // GET /v2/illust/bookmark/detail?illust_id=69350247 HTTP/1.1
+    @GET("/v2/illust/bookmark/detail")
+    fun getBookmarkDetail(@Header("Authorization") paramString: String,
+                         @Query("illust_id") paramLong: Long): Call<BookmarkDetailResponse>
 
     @GET
     fun getNextComment(@Header("Authorization") paramString1: String,

@@ -53,7 +53,11 @@ public class FollowShowActivity extends AppCompatActivity {
             getUserByName();
         } else {
             title = intent.getStringExtra("user name");
-            getUserFollowing("public");
+            if (intent.getBooleanExtra("show recommend user", false)) {
+                getRecommendUser();
+            } else {
+                getUserFollowing("public");
+            }
         }
     }
 
@@ -89,7 +93,68 @@ public class FollowShowActivity extends AppCompatActivity {
                 } else {
                     next_url = response.body().getNext_url();
                     mUserFollowAdapter = new UserFollowAdapter(response.body().getUser_previews(), mContext);
-                    mToolbar.setTitle(title + "的关注");
+                    mToolbar.setTitle(dataType == 0 ? title + "的关注(公开)" : title + "的关注(非公开)");
+                    mUserFollowAdapter.setOnItemClickListener(new OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position, int viewType) {
+                            if (position == -1) {
+                                if (next_url != null) {
+                                    getNextData();
+                                } else {
+                                    Snackbar.make(mRecyclerView, "没有其他数据了", Snackbar.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                try {
+                                    Intent intent = new Intent(mContext, UserDetailActivity.class);
+                                    intent.putExtra("user id", response.body().getUser_previews().get(position)
+                                            .getUser().getId());
+                                    startActivity(intent);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onItemLongClick(View view, int position) {
+
+                        }
+                    });
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setAdapter(mUserFollowAdapter);
+                    if (mRecyclerView.getVisibility() == View.INVISIBLE) {
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        mTextView.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchUserResponse> call, Throwable throwable) {
+
+            }
+        });
+    }
+
+    private void getRecommendUser() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        dataType = 2;
+        Call<SearchUserResponse> call = new RestClient()
+                .getRetrofit_AppAPI()
+                .create(AppApiPixivService.class)
+                .getRecommendUser(Common.getLocalDataSet().getString("Authorization", ""));
+        call.enqueue(new Callback<SearchUserResponse>() {
+            @Override
+            public void onResponse(Call<SearchUserResponse> call, retrofit2.Response<SearchUserResponse> response) {
+                if (response.body().getUser_previews().size() == 0) {
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    mTextView.setText("这里空空的，什么也没有~");
+                    mTextView.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.INVISIBLE);
+                } else {
+                    next_url = response.body().getNext_url();
+                    mUserFollowAdapter = new UserFollowAdapter(response.body().getUser_previews(), mContext);
+                    mToolbar.setTitle(title + "的关注(推荐)");
                     mUserFollowAdapter.setOnItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position, int viewType) {
@@ -234,7 +299,7 @@ public class FollowShowActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         if (Common.getLocalDataSet().getInt("userid", 0) == userID) {
             //加载关于自己的菜单，可以查看自己的公开或者非公开收藏
-            getMenuInflater().inflate(R.menu.user_star, menu);
+            getMenuInflater().inflate(R.menu.user_follow, menu);
         }
         return true;
     }
@@ -250,6 +315,11 @@ public class FollowShowActivity extends AppCompatActivity {
             case R.id.action_get_private:
                 if (dataType != 1) {
                     getUserFollowing("private");
+                }
+                break;
+            case R.id.action_get_recommend:
+                if (dataType != 2) {
+                    getRecommendUser();
                 }
                 break;
             default:

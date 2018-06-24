@@ -117,15 +117,15 @@ public class Common {
     }
 
     public static void postStarIllust(int position, List<IllustsBean> illustsBeans, String token, Context context, String starType) {
-        List<String> illustTag = new ArrayList();
+        /*List<String> illustTag = new ArrayList();
         Iterator localIterator = illustsBeans.get(position).getTags().iterator();
         while (localIterator.hasNext()) {
             illustTag.add(((IllustsBean.TagsBean) localIterator.next()).getName());
-        }
+        }*/
         Call<BookmarkAddResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .postLikeIllust(token, illustsBeans.get(position).getId(), starType, illustTag);
+                .postLikeIllust(token, illustsBeans.get(position).getId(), starType, null);
         call.enqueue(new Callback<BookmarkAddResponse>() {
             @Override
             public void onResponse(Call<BookmarkAddResponse> call, retrofit2.Response<BookmarkAddResponse> response) {
@@ -145,16 +145,11 @@ public class Common {
         });
     }
 
-    public static void postStarIllust(IllustsBean illustsBean, String token, Context context, String starType) {
-        List<String> illustTag = new ArrayList();
-        Iterator localIterator = illustsBean.getTags().iterator();
-        while (localIterator.hasNext()) {
-            illustTag.add(((IllustsBean.TagsBean) localIterator.next()).getName());
-        }
+    public static void postStarIllust(IllustsBean illustsBean,List<String> tagList, Context context, String starType) {
         Call<BookmarkAddResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .postLikeIllust(token, illustsBean.getId(), starType, illustTag);
+                .postLikeIllust(getLocalDataSet().getString("Authorization", ""), illustsBean.getId(), starType, tagList);
         call.enqueue(new Callback<BookmarkAddResponse>() {
             @Override
             public void onResponse(Call<BookmarkAddResponse> call, retrofit2.Response<BookmarkAddResponse> response) {
@@ -380,21 +375,21 @@ public class Common {
         });
     }
 
-    public static String getRealFilePath( final Context context, final Uri uri ) {
-        if ( null == uri ) return null;
+    public static String getRealFilePath(final Context context, final Uri uri) {
+        if (null == uri) return null;
         final String scheme = uri.getScheme();
         String data = null;
-        if ( scheme == null )
+        if (scheme == null)
             data = uri.getPath();
-        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
             data = uri.getPath();
-        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
-            if ( null != cursor ) {
-                if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-                    if ( index > -1 ) {
-                        data = cursor.getString( index );
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
                     }
                 }
                 cursor.close();
@@ -403,8 +398,7 @@ public class Common {
         return data;
     }
 
-    public static void saveLocalMessage(PixivOAuthResponse pixivOAuthResponse, String password)
-    {
+    public static void saveLocalMessage(PixivOAuthResponse pixivOAuthResponse, String password) {
         SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
         String localStringBuilder = "Bearer " +
                 pixivOAuthResponse.getResponse().getAccess_token();

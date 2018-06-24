@@ -54,9 +54,7 @@ public class DownloadTask extends AsyncTask<String, Integer, Bitmap> {
             connection.setRequestProperty("Referer", "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=" +
                     mIllustsBeans.getId());
             connection.connect();
-            // 获取输入流
             inputStream = connection.getInputStream();
-            // 获取文件流大小，用于更新进度
             long file_length = connection.getContentLength();
             int len;
             int total_length = 0;

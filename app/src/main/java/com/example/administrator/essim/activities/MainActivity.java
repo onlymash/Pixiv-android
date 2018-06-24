@@ -180,28 +180,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.show_my_followed_users) {
-            Intent intent = new Intent(mContext, FollowShowActivity.class);
-            intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
-            intent.putExtra("user name", Common.getLocalDataSet().getString("username", ""));
-            mContext.startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
-            //特辑走一波
-            Intent intent = new Intent(mContext, SpecialCollectionActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.show_my_favorite) {
-            Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
-            intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
-            intent.putExtra("show favorite illust", true);
-            startActivity(intent);
-        } else if (id == R.id.nav_manage) {
-            Intent intent = new Intent(mContext, SettingsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_share) {
-            createDialog();
-        } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(mContext, AboutActivity.class);
-            startActivity(intent);
+        switch (id) {
+            case R.id.show_my_followed_users: {
+                Intent intent = new Intent(mContext, FollowShowActivity.class);
+                intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
+                intent.putExtra("user name", Common.getLocalDataSet().getString("username", ""));
+                mContext.startActivity(intent);
+                break;
+            }
+            case R.id.show_recommend_users: {
+                Intent intent = new Intent(MainActivity.this, FollowShowActivity.class);
+                intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
+                intent.putExtra("user name", Common.getLocalDataSet().getString("username", ""));
+                intent.putExtra("show recommend user", true);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_gallery: {
+                //特辑走一波
+                Intent intent = new Intent(mContext, SpecialCollectionActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.show_my_favorite: {
+                Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
+                intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
+                intent.putExtra("show favorite illust", true);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_manage: {
+                Intent intent = new Intent(mContext, SettingsActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_share:
+                createDialog();
+                break;
+            case R.id.nav_send: {
+                Intent intent = new Intent(mContext, AboutActivity.class);
+                startActivity(intent);
+                break;
+            }
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -211,14 +231,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        if (Common.getLocalDataSet().getString("header_img_path", "").length() != 0) {
+        if (Common.getLocalDataSet().getString("header_img_path", "").length() != 0 &&
+                mImageView.getDrawable() == null) {
             Glide.with(mContext)
                     .load(Common.getLocalDataSet().getString("header_img_path", ""))
                     .into(mImageView);
         }
-        Glide.with(mContext)
-                .load(new GlideUtil().getHead(Common.getLocalDataSet().getString("hearurl", "")))
-                .into(userHead);
+        if(userHead.getDrawable() == null){
+            Glide.with(mContext)
+                    .load(new GlideUtil().getHead(Common.getLocalDataSet().getString("hearurl", "")))
+                    .into(userHead);
+        }
     }
 
     @Override

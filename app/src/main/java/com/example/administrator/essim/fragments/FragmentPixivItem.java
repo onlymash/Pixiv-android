@@ -63,6 +63,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
     private String priority;
     private ProgressBar mProgressBar;
     private RelatedIllust mRelatedIllust;
+    private FragmentDialog fragmentDialog;
     private FloatingActionButton mFloatingActionButton;
     private ImageView mImageView, mImageView2, mImageView3;
 
@@ -187,19 +188,8 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_black_24dp);
         mFloatingActionButton.setOnClickListener(this);
         mFloatingActionButton.setOnLongClickListener(view1 -> {
-            if (!Reference.sIllustsBeans.get(index).isIs_bookmarked()) {
-                mFloatingActionButton.setImageResource(R.drawable.ic_favorite_white_24dp);
-                mFloatingActionButton.startAnimation(Common.getAnimation());
-                Reference.sIllustsBeans.get(index).setIs_bookmarked(true);
-                Common.postStarIllust(index, Reference.sIllustsBeans,
-                        Common.getLocalDataSet().getString("Authorization", ""), mContext, "private");
-
-                Animator anim = ViewAnimationUtils.createCircularReveal(getView(), (int) mFloatingActionButton.getX(),
-                        (int) mFloatingActionButton.getY(),
-                        0, (float) Math.hypot(getView().getWidth(), getView().getHeight()));
-                anim.setDuration(600);
-                anim.start();
-            }
+            fragmentDialog = new FragmentDialog(mContext, Reference.sIllustsBeans.get(index));
+            fragmentDialog.showDialog(mContext);
             return true;
         });
         CardView cardView = view.findViewById(R.id.card_left);

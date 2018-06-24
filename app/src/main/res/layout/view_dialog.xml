@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="收藏"
+        android:id="@+id/text_title"
+        android:textSize="@dimen/sixteen_sp"
+        android:layout_margin="@dimen/sixteen_sp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:id="@+id/add_tag"
+        android:layout_marginStart="@dimen/eight_dip"
+        android:layout_marginEnd="@dimen/sixteen_dip"
+        android:layout_alignParentEnd="true"
+        android:padding="@dimen/eight_dip"
+        android:background="@drawable/btn_bg"
+        android:layout_below="@+id/text_title"
+        android:src="@drawable/arclayout_ic_add"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_below="@+id/text_title"
+        android:id="@+id/mEditText"
+        android:layout_marginStart="@dimen/twelve_dip"
+        android:layout_toStartOf="@+id/add_tag"
+        android:hint="添加标签(收藏夹)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/tag_recy"
+        android:layout_below="@+id/mEditText"
+        android:layout_height="320dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/mProgressbar"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#f4f4f4"
+        android:layout_below="@+id/tag_recy"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/text_private"
+            android:text="私人收藏"
+            android:layout_margin="@dimen/sixteen_sp"
+            android:textSize="@dimen/sixteen_sp"
+            android:layout_height="wrap_content" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:id="@+id/private_switch"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@+id/text_private"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/eighteen_sp"
+            android:layout_centerHorizontal="true"
+            android:text="❤加为喜欢"
+            android:id="@+id/post_like_illust"
+            android:layout_marginBottom="@dimen/sixteen_dip"
+            android:layout_below="@+id/text_private"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

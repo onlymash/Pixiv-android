@@ -56,7 +56,30 @@
     <string name="item_swipe_dismissed">Dismissed</string>
     <string name="item_swipe_undo">Undo</string>
     <string name="arclayout_description">九条可怜（Kujou Karen），漫画《黄金拼图》及其衍生作品中的女主角之一。日本人和英国人的混血少女。金发、灰色瞳孔的少女。和爱丽丝·卡塔雷特是青梅竹马。因为好奇日本而追随爱丽丝来到日本留学。制服的衬衫和其他4个人不同，并披着英国国旗花纹的外套。个性开朗好相处，很快就习惯了日本的学校生活。经常故意装傻而被吐嘈</string>
-    <string name="arclayout_development">日本的女性声优、歌手，东京都出身，所属事务所为INTENTION，唱片公司为FlyingDog。代表作有《只有神知道的世界》中川花音、《异国迷宫的十字路口》汤音、《天才麻将少女阿知贺篇 episode of side-A》新子憧、《我的青春恋爱物语果然有问题》由比滨结衣、《打工吧！魔王大人》佐佐木千穗、《黄金拼图》九条可怜、《伪恋》桐崎千棘、《舰队Collection》金刚、《GATE 奇幻自卫队》蕾莱·拉·列娜、《爆音少女！！》铃乃木凛、《魔法少女育成计划》白雪等。\n\n另： 只有东山大法的声音才能抚慰我受伤的心灵...</string>
+    <string name="arclayout_development">日本的女性声优、歌手，东京都出身，所属事务所为INTENTION，唱片公司为FlyingDog。代表作有《只有神知道的世界》中川花音、《异国迷宫的十字路口》汤音、《天才麻将少女阿知贺篇 episode of side-A》新子憧、《我的青春恋爱物语果然有问题》由比滨结衣、《打工吧！魔王大人》佐佐木千穗、《黄金拼图》九条可怜、《伪恋》桐崎千棘、《舰队Collection》金刚、《GATE 奇幻自卫队》蕾莱·拉·列娜、《爆音少女！！》铃乃木凛、《魔法少女育成计划》白雪等。\n\n另： 只有东山大法的声音才能抚慰我受伤的心灵…
+    \n\n 使用到的开源库：
+    \n\n com.roughike:bottom-bar:2.3.1
+    \n\n com.astuetz:pagerslidingtabstrip:1.0.1
+    \n\n de.hdodenhof:circleimageview:2.2.0
+    \n\n jp.wasabeef:glide-transformations:2.0.1
+    \n\n com.github.bumptech.glide:glide:3.8.0
+    \n\n com.google.code.gson:gson:2.8.0
+    \n\n com.squareup.okhttp3:okhttp:3.8.0
+    \n\n org.litepal.android:core:1.3.2
+    \n\n com.sdsmdg.tastytoast:tastytoast:0.1.1
+    \n\n com.github.florent37:arclayout:1.0.3
+    \n\n com.flaviofaria:kenburnsview:1.0.7
+    \n\n com.nightonke:boommenu:2.1.1
+    \n\n com.github.mancj:MaterialSearchBar:0.7.6
+    \n\n com.squareup.retrofit2:retrofit:2.3.0
+    \n\n com.squareup.retrofit2:converter-gson:2.3.0
+    \n\n com.squareup.okhttp3:logging-interceptor:3.4.1
+    \n\n com.hyman:flowlayout-lib:1.1.2
+    \n\n com.github.codekidX:storage-chooser:2.0.3
+    \n\n com.github.ybq:Android-SpinKit:1.1.0
+    \n\n com.github.qingmei2:rximagepicker:0.4.0
+    \n\n com.github.chrisbanes:PhotoView:2.1.3
+    </string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -176,7 +199,9 @@
     <string name="ceuilisa_detail">目前团队中只有一个人 CeuiLiSA 如果觉得这款软件不错的话，请开发者喝杯咖啡吧~</string>
     <string name="pay_way">支付宝：13990845246</string>
     <string name="public_item">显示公开项目</string>
+    <string name="public_follow">显示公开关注</string>
     <string name="private_item">显示非公开项目</string>
+    <string name="private_follow">显示非公开关注</string>
     <string name="app_detail">KujouKaren Ver. %s/%d</string>
     <string name="sd_permission">如果你需要将图片下载至可插拔SD卡，请配置此选项，以便于对可插拔SD卡进行读写操作。点击上方蓝色文字开始配置，然后请选择可插拔SD卡的根目录，点击确认，使用过ES管理器的朋友一定记得这个步骤（注：图片默认下载至可插拔SD卡的某个文件夹之后，部分机型的相册可能不会更新下载的图片，只可以在文件管理器中查看，所以还是推荐朋友们把图片默认下载至不可移动的机身存储介质中）</string>
     <string name="clear_cache">清除缓存</string>
@@ -199,5 +224,8 @@
     <string name="head_image">修改头像</string>
     <string name="sub_users">关注的画师</string>
     <string name="favor_illusts">收藏的作品</string>
-
+    <string name="refresh_bottom">刷新</string>
+    <string name="recommend_item">显示推荐项目</string>
+    <string name="recommend_follow">显示推荐关注</string>
+    <string name="recommend_user">推荐用户</string>
 </resources>
