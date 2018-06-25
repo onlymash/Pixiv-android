@@ -2,6 +2,7 @@ package com.example.administrator.essim.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,7 +23,6 @@ import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.BookmarkDetailResponse;
 import com.example.administrator.essim.response.IllustsBean;
-import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.utils.Common;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,13 +35,15 @@ import retrofit2.Callback;
 
 public class FragmentDialog {
 
+    private View view;
     private Context mContext;
     private IllustsBean mIllustsBean;
     private IllustTagAdapter illustTagAdapter;
 
-    public FragmentDialog(Context context, IllustsBean i){
+    public FragmentDialog(Context context, View v, IllustsBean illustsBean){
         mContext = context;
-        mIllustsBean = i;
+        view = v;
+        mIllustsBean = illustsBean;
     }
 
     private void getBookedTag(RecyclerView recyclerView, ProgressBar progressBar, List<String> tagList) {
@@ -103,6 +105,7 @@ public class FragmentDialog {
                 Common.postStarIllust(mIllustsBean, tagList,
                         mContext, swit.isChecked() ? "private" : "public");
                 mDialog.dismiss();
+                ((ImageView)view).setImageResource(R.drawable.ic_favorite_white_24dp);
             }
         });
         EditText editText = dialogView.findViewById(R.id.mEditText);

@@ -130,13 +130,7 @@ class FragmentPixivLeft : BaseFragment() {
             }
 
             override fun onItemLongClick(view: View, position: Int) {
-                when {
-                    !illustsBeans[position].isIs_bookmarked -> {
-                        (view as ImageView).setImageResource(R.drawable.ic_favorite_white_24dp)
-                        Common.postStarIllust(position, illustsBeans,
-                                Common.getLocalDataSet().getString("Authorization", ""), mContext, "private")
-                    }
-                }
+                FragmentDialog(mContext, view, illustsBeans[position]).showDialog()
             }
         })
         mRecyclerView.adapter = mPixivAdapter

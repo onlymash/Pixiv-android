@@ -66,14 +66,9 @@ class PixivAdapterGrid(private val mPixivRankItem: List<IllustsBean>,
                 anim.start()
             }
             holder.itemView.post_like.setOnLongClickListener { v ->
-                mOnItemClickListener!!.onItemLongClick(holder.itemView.post_like, position)
-                val anim = ViewAnimationUtils.createCircularReveal(holder.itemView,
-                        v.x.toInt(),
-                        v.y.toInt(),
-                        0f, Math.hypot(holder.itemView.width.toDouble(),
-                        holder.itemView.height.toDouble()).toFloat())
-                anim.duration = 400
-                anim.start()
+                if (!mPixivRankItem[position].isIs_bookmarked) {
+                    mOnItemClickListener!!.onItemLongClick(holder.itemView.post_like, position)
+                }
                 true
             }
         }

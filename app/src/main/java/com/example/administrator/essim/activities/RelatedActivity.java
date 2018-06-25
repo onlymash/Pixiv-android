@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.PixivAdapterGrid;
+import com.example.administrator.essim.fragments.FragmentDialog;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.Reference;
@@ -97,11 +98,7 @@ public class RelatedActivity extends AppCompatActivity {
 
             @Override
             public void onItemLongClick(@NotNull View view, int position) {
-                if (!illustsBeans.get(position).isIs_bookmarked()) {
-                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
-                    Common.postStarIllust(position, illustsBeans,
-                            Common.getLocalDataSet().getString("Authorization", ""), mContext, "private");
-                }
+                new FragmentDialog(mContext, view, illustsBeans.get(position)).showDialog();
             }
         });
         mRecyclerView.setAdapter(mPixivAdapter);

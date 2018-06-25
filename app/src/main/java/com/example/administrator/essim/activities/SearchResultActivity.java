@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.PixivAdapterGrid;
+import com.example.administrator.essim.fragments.FragmentDialog;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
@@ -171,12 +172,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                if (!illustsBeans.get(position).isIs_bookmarked()) {
-                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
-                    view.startAnimation(alphaAnimationShowIcon);
-                    Common.postStarIllust(position, illustsBeans,
-                            mSharedPreferences.getString("Authorization", ""), mContext, "private");
-                }
+                new FragmentDialog(mContext, view, illustsBeans.get(position)).showDialog();
             }
         });
         mRecyclerView.setAdapter(mPixivAdapter);

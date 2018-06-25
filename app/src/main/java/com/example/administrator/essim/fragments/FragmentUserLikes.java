@@ -153,11 +153,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
 
                             @Override
                             public void onItemLongClick(View view, int position) {
-                                if (!mIllustsBeanList.get(position).isIs_bookmarked()) {
-                                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
-                                    Common.postStarIllust(position, mIllustsBeanList,
-                                            mSharedPreferences.getString("Authorization", ""), mContext, "private");
-                                }
+                                new FragmentDialog(mContext, view, mIllustsBeanList.get(position)).showDialog();
                             }
                         });
                         // 有数据，textview不显示，显示recyclerview

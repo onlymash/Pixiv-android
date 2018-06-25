@@ -189,7 +189,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         mFloatingActionButton.setOnClickListener(this);
         mFloatingActionButton.setOnLongClickListener(view1 -> {
             if(!Reference.sIllustsBeans.get(index).isIs_bookmarked()) {
-                fragmentDialog = new FragmentDialog(mContext, Reference.sIllustsBeans.get(index));
+                fragmentDialog = new FragmentDialog(mContext, mFloatingActionButton, Reference.sIllustsBeans.get(index));
                 fragmentDialog.showDialog();
             }
             return true;
