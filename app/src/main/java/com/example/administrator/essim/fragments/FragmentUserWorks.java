@@ -99,7 +99,7 @@ public class FragmentUserWorks extends ScrollObservableFragment {
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
                 .getUserIllusts(mSharedPreferences.getString("Authorization", ""),
-                        ((UserDetailActivity) Objects.requireNonNull(getActivity())).getUserId(), null);
+                        ((UserDetailActivity) Objects.requireNonNull(getActivity())).getUserID(), null);
         call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
             @Override
             public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {

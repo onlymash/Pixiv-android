@@ -119,7 +119,7 @@ public class FragmentUserDetail extends Fragment {
         Call<UserDetailResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getUserDetail(Common.getLocalDataSet().getString("Authorization", ""), ((UserDetailActivity) getActivity()).getUserId());
+                .getUserDetail(Common.getLocalDataSet().getString("Authorization", ""), ((UserDetailActivity) getActivity()).getUserID());
         call.enqueue(new retrofit2.Callback<UserDetailResponse>() {
             @Override
             public void onResponse(Call<UserDetailResponse> call, retrofit2.Response<UserDetailResponse> response) {
@@ -265,7 +265,7 @@ public class FragmentUserDetail extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (((UserDetailActivity) Objects.requireNonNull(getActivity())).getUserId() ==
+        if (((UserDetailActivity) Objects.requireNonNull(getActivity())).getUserID() ==
                 Common.getLocalDataSet().getInt("userid", 0)) {
             inflater.inflate(R.menu.user_star, menu);
         }

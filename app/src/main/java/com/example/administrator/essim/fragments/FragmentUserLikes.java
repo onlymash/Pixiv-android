@@ -43,6 +43,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
     private Context mContext;
     private TextView mTextView;
     private RecyclerView rcvGoodsList;
+    private FragmentDialog mFragmentDialog;
     private AuthorWorksAdapter mPixivAdapterGrid;
     private SharedPreferences mSharedPreferences;
     private int scrolledY = 0;
@@ -101,7 +102,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
                 .getLikeIllust(mSharedPreferences.getString("Authorization", ""),
-                        ((UserDetailActivity) getActivity()).getUserId(), starType, tag);
+                        ((UserDetailActivity) getActivity()).getUserID(), starType, tag);
         call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
             @Override
             public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {
@@ -153,7 +154,8 @@ public class FragmentUserLikes extends ScrollObservableFragment {
 
                             @Override
                             public void onItemLongClick(View view, int position) {
-                                new FragmentDialog(mContext, view, mIllustsBeanList.get(position)).showDialog();
+                                mFragmentDialog = new FragmentDialog(mContext, view, Reference.sIllustsBeans.get(0));
+                                mFragmentDialog.showDialog();
                             }
                         });
                         // 有数据，textview不显示，显示recyclerview
