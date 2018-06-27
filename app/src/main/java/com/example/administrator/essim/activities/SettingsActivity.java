@@ -52,7 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Activity mActivity;
     private ProgressBar mProgressBar;
     private TextView mTextView, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6, mTextView7,
-            mTextView8, mTextView9, mTextView10, mTextView11, mTextView12;
+            mTextView8, mTextView9, mTextView10, mTextView11, mTextView12, mTextView13, mTextView14;
     private StorageChooser.Builder builder = new StorageChooser.Builder();
     private StorageChooser chooser;
 
@@ -85,6 +85,8 @@ public class SettingsActivity extends AppCompatActivity {
         mTextView10 = findViewById(R.id.cache_size);
         mTextView11 = findViewById(R.id.set_header);
         mTextView12 = findViewById(R.id.set_color);
+        mTextView13 = findViewById(R.id.set_file_name);
+        mTextView14 = findViewById(R.id.set_file_last_name);
         aSwitch.setChecked(Common.getLocalDataSet().getBoolean("is_origin_pic", false));
         aSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
             editor.putBoolean("is_origin_pic", b);
@@ -152,6 +154,18 @@ public class SettingsActivity extends AppCompatActivity {
                 File file = new File(Common.getRealFilePath(mContext, result.getUri()));
                 changeHeadImage(file);
             });
+        });
+        mTextView13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "过几天来写这个功能111", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mTextView14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "过几天来写这个功能222", Toast.LENGTH_SHORT).show();
+            }
         });
 
         //初始化路径选择对话框

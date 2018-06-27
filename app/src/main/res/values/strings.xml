@@ -24,8 +24,8 @@
     <string name="string_create_time">投稿时间：%s</string>
     <string name="string_viewd">%sK</string>
     <string name="action_refresh">Refresh</string>
-    <string name="action_search">Search</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_search">搜索</string>
+    <string name="action_settings">设置</string>
     <string name="title_activity_scroll">ScrollActivity</string>
     <string name="ceuilisa">未登录</string>
     <string name="fatemercis">没有什么能展示的</string>
@@ -58,8 +58,8 @@
     <string name="arclayout_description">九条可怜（Kujou Karen），漫画《黄金拼图》及其衍生作品中的女主角之一。日本人和英国人的混血少女。金发、灰色瞳孔的少女。和爱丽丝·卡塔雷特是青梅竹马。因为好奇日本而追随爱丽丝来到日本留学。制服的衬衫和其他4个人不同，并披着英国国旗花纹的外套。个性开朗好相处，很快就习惯了日本的学校生活。经常故意装傻而被吐嘈</string>
     <string name="arclayout_development">日本的女性声优、歌手，东京都出身，所属事务所为INTENTION，唱片公司为FlyingDog。代表作有《只有神知道的世界》中川花音、《异国迷宫的十字路口》汤音、《天才麻将少女阿知贺篇 episode of side-A》新子憧、《我的青春恋爱物语果然有问题》由比滨结衣、《打工吧！魔王大人》佐佐木千穗、《黄金拼图》九条可怜、《伪恋》桐崎千棘、《舰队Collection》金刚、《GATE 奇幻自卫队》蕾莱·拉·列娜、《爆音少女！！》铃乃木凛、《魔法少女育成计划》白雪等。\n\n另： 只有东山大法的声音才能抚慰我受伤的心灵…
     \n\n感谢以下朋友的热心捐赠(排名不分前后)：
-    \n\n@黄鹏飞，@海洋，@陈硕，@花国，@南墙，@最萌三千，@易霏，@康鑫，@灵零子，@咸鱼，@天美削弱部
-    \n\n感谢以下朋友的热心建议：@守护世界之树，@康鑫，@震宇，@俞易
+    \n\n@黄鹏飞，@海洋，@陈硕，@花国，@南墙，@最萌三千，@易霏，@◤康◢◤鑫◢，@灵零子，@咸鱼，@天美削弱部
+    \n\n感谢以下朋友的热心建议：@守护世界之树，@◤康◢◤鑫◢，@震宇，@俞易
     \n\n使用到的开源库：
     \n\ncom.roughike:bottom-bar:2.3.1
     \n\ncom.astuetz:pagerslidingtabstrip:1.0.1

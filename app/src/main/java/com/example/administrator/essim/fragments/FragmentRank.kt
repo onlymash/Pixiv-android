@@ -102,7 +102,7 @@ class FragmentRank : BaseFragment() {
         mToolbar.title = "动态"
         mRecyclerView.layoutManager = gridLayoutManager
         mRecyclerView.setHasFixedSize(true)
-        mFab.isUse3DTransformAnimation = true
+        //mFab.isUse3DTransformAnimation = true
         mFab.showDuration = 400
         mFab.hideDuration = 400
         mFab.frames = 60

@@ -164,11 +164,56 @@
                 android:layout_marginTop="@dimen/sixteen_dip"
                 android:textSize="@dimen/sixteen_sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/cache_size"
+                android:text="文件命名方式"
+                android:id="@+id/text_name_type"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:textSize="@dimen/sixteen_sp"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/cache_size"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/set_file_name"
+                android:text="62535061_0.jpeg"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sixteen_sp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="保存文件格式"
+                android:textSize="@dimen/sixteen_sp"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:id="@+id/save_name_type"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_below="@+id/text_name_type"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="jpeg"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:textColor="@color/colorPrimary"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/set_file_last_name"
+                android:textSize="@dimen/sixteen_sp"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_below="@+id/text_name_type"
+                android:layout_height="wrap_content" />
+
             <View
                 android:id="@+id/cut_line_two"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/clear_cache"
+                android:layout_below="@+id/save_name_type"
                 android:layout_marginTop="@dimen/sixteen_dip"
                 android:background="#CDC5BF" />
 
