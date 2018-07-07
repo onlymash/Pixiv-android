@@ -14,7 +14,7 @@ public interface OAuthSecureService {
 
     @FormUrlEncoded
     @POST("/auth/token")
-    Call<PixivOAuthResponse> postAuthToken(@FieldMap Map<String, Object> paramMap);
+    Call<PixivOAuthResponse> postAuthToken(@FieldMap Map<String, String> paramMap);
 
     @FormUrlEncoded
     @POST("/auth/token")

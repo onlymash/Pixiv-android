@@ -16,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -48,12 +49,15 @@ import retrofit2.Callback;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private int fileNameStyle;
     private Context mContext;
     private Activity mActivity;
     private ProgressBar mProgressBar;
     private TextView mTextView, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6, mTextView7,
             mTextView8, mTextView9, mTextView10, mTextView11, mTextView12, mTextView13, mTextView14;
     private StorageChooser.Builder builder = new StorageChooser.Builder();
+    private static final String[] arrayOfFileNameType = {"作品id_p数.jpeg", "作品id_p数.png",
+            "作品标题_作品id_p数.jpeg", "作品标题_作品id_p数.png"};
     private StorageChooser chooser;
 
     @Override
@@ -86,7 +90,6 @@ public class SettingsActivity extends AppCompatActivity {
         mTextView11 = findViewById(R.id.set_header);
         mTextView12 = findViewById(R.id.set_color);
         mTextView13 = findViewById(R.id.set_file_name);
-        mTextView14 = findViewById(R.id.set_file_last_name);
         aSwitch.setChecked(Common.getLocalDataSet().getBoolean("is_origin_pic", false));
         aSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
             editor.putBoolean("is_origin_pic", b);
@@ -149,22 +152,17 @@ public class SettingsActivity extends AppCompatActivity {
                 }));
         mTextView12.setOnClickListener(v -> {
             imagePicker
-            .openGallery()
-            .subscribe(result -> {
-                File file = new File(Common.getRealFilePath(mContext, result.getUri()));
-                changeHeadImage(file);
-            });
+                    .openGallery()
+                    .subscribe(result -> {
+                        File file = new File(Common.getRealFilePath(mContext, result.getUri()));
+                        changeHeadImage(file);
+                    });
         });
+        mTextView13.setText(arrayOfFileNameType[Common.getLocalDataSet().getInt("file_name_style", 0)]);
         mTextView13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "过几天来写这个功能111", Toast.LENGTH_SHORT).show();
-            }
-        });
-        mTextView14.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "过几天来写这个功能222", Toast.LENGTH_SHORT).show();
+                setFileNameStyle();
             }
         });
 
@@ -231,8 +229,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void changeHeadImage(File file)
-    {
+    private void changeHeadImage(File file) {
         mProgressBar.setVisibility(View.VISIBLE);
         RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("profile_image", file.getName(), photoRequestBody);
@@ -257,6 +254,30 @@ public class SettingsActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable throwable) {
             }
         });
+    }
+
+    private void setFileNameStyle() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setIcon(R.mipmap.logo);
+        builder.setTitle("文件命名方式：");
+        builder.setCancelable(true);
+        builder.setSingleChoiceItems(arrayOfFileNameType, Common.getLocalDataSet().getInt("file_name_style", 0),
+                (dialogInterface, i) -> {
+                    if (fileNameStyle != i) {
+                        fileNameStyle = i;
+                    }
+                });
+        builder.setPositiveButton("确定", (dialogInterface, i) -> {
+            if (fileNameStyle != Common.getLocalDataSet().getInt("file_name_style", 0)) {
+                SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
+                editor.putInt("file_name_style", fileNameStyle);
+                editor.apply();
+            }
+        })
+        .setNegativeButton("取消", (dialogInterface, i) -> {
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override

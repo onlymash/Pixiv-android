@@ -38,7 +38,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/eight_dip"
         app:bmb_buttonEnum="textInsideCircle"
-        app:bmb_buttonPlaceEnum="buttonPlace_sc_8_6"
-        app:bmb_piecePlaceEnum="piecePlace_dot_8_6" />
+        app:bmb_buttonPlaceEnum="buttonPlace_sc_9_1"
+        app:bmb_piecePlaceEnum="piecePlace_dot_9_1" />
 
 </RelativeLayout>

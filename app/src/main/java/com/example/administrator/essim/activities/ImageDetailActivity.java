@@ -43,7 +43,8 @@ public class ImageDetailActivity extends AppCompatActivity {
         mTextView = findViewById(R.id.image_order);
         findViewById(R.id.download_origin).setOnClickListener(view -> {
             //生成图片文件，准备开始下载
-            realFile = Common.generatePictureFile(mContext, mIllustsBean, mViewPager.getCurrentItem());
+            realFile = Common.generatePictureFile(mContext, mIllustsBean, mViewPager.getCurrentItem(),
+                    Common.getLocalDataSet().getInt("file_name_style", 0));
             if (realFile.length() != 0) {
                 TastyToast.makeText(mContext, "该文件已存在~",
                         TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();

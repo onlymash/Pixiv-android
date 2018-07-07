@@ -138,7 +138,7 @@ class FragmentPixivLeft : BaseFragment() {
 
     private fun reLogin() {
         Snackbar.make(mRecyclerView, "获取登录信息, 请稍候", Snackbar.LENGTH_SHORT).show()
-        val localHashMap = HashMap<String, Any>()
+        val localHashMap = HashMap<String, String>()
         localHashMap["client_id"] = "MOBrBDS8blbauoSck0ZfDbtuzpyT"
         localHashMap["client_secret"] = "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj"
         localHashMap["grant_type"] = "password"

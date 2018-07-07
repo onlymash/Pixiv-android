@@ -158,10 +158,6 @@ public class FragmentHitikoto extends BaseFragment {
             case R.id.action_refresh:
                 getData(url_head + catname);
                 return true;
-            case R.id.action_settings:
-                Intent intent = new Intent(mContext, SettingsActivity.class);
-                mContext.startActivity(intent);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

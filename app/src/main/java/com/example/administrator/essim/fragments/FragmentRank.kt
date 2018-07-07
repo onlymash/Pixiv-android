@@ -33,8 +33,8 @@ import java.io.Serializable
 
 class FragmentRank : BaseFragment() {
 
-    private val arrayOfRankMode = arrayOf("动态", "日榜", "周榜", "月榜", "新人", "原创", "男性向", "女性向")
-    private val modeList = arrayOf("day", "week", "month", "week_rookie", "week_original", "day_male", "day_female")
+    private val arrayOfRankMode = arrayOf("动态", "日榜", "周榜", "月榜", "新人", "原创", "男性向", "女性向", "R-80")
+    private val modeList = arrayOf("day", "week", "month", "week_rookie", "week_original", "day_male", "day_female", "day_r18")
     private var currentDataType = -1
     private var nextDataUrl: String? = null
     private var mPixivAdapter: PixivAdapterGrid? = null
@@ -70,6 +70,10 @@ class FragmentRank : BaseFragment() {
             }
             7 -> if (currentDataType != 6) {
                 currentDataType = 6
+                getRankList(currentDataType)
+            }
+            8 -> if (currentDataType != 7) {
+                currentDataType = 7
                 getRankList(currentDataType)
             }
             else -> {
@@ -229,11 +233,6 @@ class FragmentRank : BaseFragment() {
         return when (item!!.itemId) {
             R.id.action_search -> {
                 intent = Intent(mContext, SearchActivity::class.java)
-                mContext.startActivity(intent)
-                true
-            }
-            R.id.action_settings -> {
-                intent = Intent(mContext, SettingsActivity::class.java)
                 mContext.startActivity(intent)
                 true
             }

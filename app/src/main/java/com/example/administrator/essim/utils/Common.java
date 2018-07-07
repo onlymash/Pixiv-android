@@ -37,7 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -145,7 +144,7 @@ public class Common {
         });
     }
 
-    public static void postStarIllust(IllustsBean illustsBean,List<String> tagList, Context context, String starType) {
+    public static void postStarIllust(IllustsBean illustsBean, List<String> tagList, Context context, String starType) {
         Call<BookmarkAddResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
@@ -330,7 +329,7 @@ public class Common {
         return wave;
     }
 
-    public static File generatePictureFile(Context context, IllustsBean illustsBean, int positionInIllust) {
+    public static File generatePictureFile(Context context, IllustsBean illustsBean, int positionInIllust, int fileNameStyle) {
         //检验父文件夹是否存在在，若不存在则创建
         File parentFile = new File(Common.getLocalDataSet().getString("download_path",
                 "/storage/emulated/0/PixivPictures"));
@@ -340,8 +339,18 @@ public class Common {
                     TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
         }
         //File file = new File(父文件夹路径， 文件名); 此格式生成具体的文件，File其他构造方法会生成文件夹无法写入
-        //文件命名方式： illust id + "_" + 第几p + ".jpeg"
-        return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".jpeg");
+        if (fileNameStyle == 0) {
+            return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".jpeg");
+        } else if (fileNameStyle == 1) {
+            return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".png");
+        } else if (fileNameStyle == 2) {
+            return new File(parentFile.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                    String.valueOf(positionInIllust) + ".jpeg");
+        } else if (fileNameStyle == 3) {
+            return new File(parentFile.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                    String.valueOf(positionInIllust) + ".png");
+        }
+        return null;
     }
 
     public static void getSingleIllust(ProgressBar progressBar, Context context, Long illustID) {
@@ -399,7 +408,24 @@ public class Common {
     }
 
     public static void saveLocalMessage(PixivOAuthResponse pixivOAuthResponse, String password) {
+        String headerImage = "";
+        int fileNameStyle = 0;
+        if (Common.getLocalDataSet().getString("header_img_path", "").length() != 0) {
+            //清空本地数据之前，先保存header图片的路径
+            headerImage = Common.getLocalDataSet().getString("header_img_path", "");
+        }
+        if (Common.getLocalDataSet().getInt("file_name_style", 0) != 0) {
+            fileNameStyle = Common.getLocalDataSet().getInt("file_name_style", 0);
+        }
+
         SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
+        editor.clear();
+        editor.apply();
+        //清空本地数据之后，重新保存header图片的路径和文件命名类型
+        editor.putString("header_img_path", headerImage);
+        editor.putInt("file_name_style", fileNameStyle);
+        editor.apply();
+
         String localStringBuilder = "Bearer " +
                 pixivOAuthResponse.getResponse().getAccess_token();
         editor.putString("Authorization", localStringBuilder);

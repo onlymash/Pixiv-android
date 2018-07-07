@@ -60,11 +60,6 @@ class FragmentPixiv : BaseFragment() {
                 mContext.startActivity(intent)
                 true
             }
-            R.id.action_settings -> {
-                intent = Intent(mContext, SettingsActivity::class.java)
-                mContext.startActivity(intent)
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -69,20 +69,8 @@ public class LoginActivity extends AppCompatActivity {
                         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     }
                 }
-
-                String headerImage = "";
-                if(Common.getLocalDataSet().getString("header_img_path", "").length() != 0)
-                {
-                    //清空本地数据之前，先保存header图片的路径
-                    headerImage = Common.getLocalDataSet().getString("header_img_path", "");
-                }
-                Common.clearLocalData(LoginActivity.this);
-                SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
-                //清空本地数据之后，重新保存header图片的路径
-                editor.putString("header_img_path", headerImage);
-                editor.apply();
-                mProgressBar.setVisibility(View.VISIBLE);
                 tryToLogin();
+                mProgressBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -94,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void tryToLogin() {
-        HashMap localHashMap = new HashMap();
+        HashMap<String, String> localHashMap = new HashMap<>();
         localHashMap.put("client_id", "MOBrBDS8blbauoSck0ZfDbtuzpyT");
         localHashMap.put("client_secret", "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj");
         localHashMap.put("grant_type", "password");
