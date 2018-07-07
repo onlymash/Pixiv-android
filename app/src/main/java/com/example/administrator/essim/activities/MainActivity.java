@@ -56,6 +56,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //获取读写本地文件的权限
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions((Activity) mContext, new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
         //判断是否有登录记录，没登录就去LoginActivity，登录了就加载视图
         if (Common.getLocalDataSet().getBoolean("islogin", false)) {
             TextView textView = navigationView.getHeaderView(0).findViewById(R.id.username);

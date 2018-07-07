@@ -13,11 +13,5 @@ public class PixivApplication extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        //获取读写本地文件的权限
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
     }
 }
