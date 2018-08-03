@@ -27,11 +27,13 @@ import android.widget.TextView;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities.BatchDownloadActivity;
 import com.example.administrator.essim.activities.FollowShowActivity;
 import com.example.administrator.essim.activities.UserDetailActivity;
 import com.example.administrator.essim.interf.ShowProgress;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
+import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.UserDetailResponse;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideUtil;
@@ -268,6 +270,8 @@ public class FragmentUserDetail extends Fragment {
         if (((UserDetailActivity) Objects.requireNonNull(getActivity())).getUserID() ==
                 Common.getLocalDataSet().getInt("userid", 0)) {
             inflater.inflate(R.menu.user_star, menu);
+        } else {
+            inflater.inflate(R.menu.other_user, menu);
         }
     }
 
@@ -278,6 +282,29 @@ public class FragmentUserDetail extends Fragment {
                 case R.id.action_get_public:
                     fragmentDialog = new FragmentBookmarkShow(mContext, Common.getLocalDataSet().getInt("userid", 0));
                     fragmentDialog.showDialog();
+                    break;
+                case R.id.action_download:
+                    Reference.sIllustsBeans = ((FragmentUserLikes) displayFragments.get(1)).mIllustsBeanList;
+                    Intent intent = new Intent(mContext, BatchDownloadActivity.class);
+                    intent.putExtra("scroll dist", ((FragmentUserLikes) displayFragments.get(1))
+                            .gridLayoutManager.findFirstCompletelyVisibleItemPosition());
+                    mContext.startActivity(intent);
+                    break;
+                default:
+                    break;
+            }
+        } else if (viewPager.getCurrentItem() == 0) {
+            switch (item.getItemId()) {
+                case R.id.action_get_public:
+                    fragmentDialog = new FragmentBookmarkShow(mContext, Common.getLocalDataSet().getInt("userid", 0));
+                    fragmentDialog.showDialog();
+                    break;
+                case R.id.action_download:
+                    Reference.sIllustsBeans = ((FragmentUserWorks) displayFragments.get(0)).mIllustsBeanList;
+                    Intent intent = new Intent(mContext, BatchDownloadActivity.class);
+                    intent.putExtra("scroll dist", ((FragmentUserWorks) displayFragments.get(0))
+                            .gridLayoutManager.findFirstCompletelyVisibleItemPosition());
+                    mContext.startActivity(intent);
                     break;
                 default:
                     break;

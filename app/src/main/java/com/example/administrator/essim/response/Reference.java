@@ -1,7 +1,9 @@
 package com.example.administrator.essim.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Reference {
     public static List<IllustsBean> sIllustsBeans;
+    public static List<IllustsBean> downloadList;
 }

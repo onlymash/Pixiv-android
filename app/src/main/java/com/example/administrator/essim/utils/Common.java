@@ -339,16 +339,37 @@ public class Common {
                     TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
         }
         //File file = new File(父文件夹路径， 文件名); 此格式生成具体的文件，File其他构造方法会生成文件夹无法写入
-        if (fileNameStyle == 0) {
-            return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".jpeg");
-        } else if (fileNameStyle == 1) {
-            return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".png");
-        } else if (fileNameStyle == 2) {
-            return new File(parentFile.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
-                    String.valueOf(positionInIllust) + ".jpeg");
-        } else if (fileNameStyle == 3) {
-            return new File(parentFile.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
-                    String.valueOf(positionInIllust) + ".png");
+        if (illustsBean.getPage_count() == 1) {
+            switch (fileNameStyle) {
+                case 0:
+                    return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".jpeg");
+                case 1:
+                    return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".png");
+                case 2:
+                    return new File(parentFile.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                            String.valueOf(positionInIllust) + ".jpeg");
+                case 3:
+                    return new File(parentFile.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                            String.valueOf(positionInIllust) + ".png");
+            }
+        } else {
+            File secondParent = new File(parentFile.getPath() + "/" + illustsBean.getTitle() + "_" + illustsBean.getId());
+            if (!secondParent.exists()) {
+                secondParent.mkdir();
+            }
+            Common.showLog(secondParent.getPath());
+            switch (fileNameStyle) {
+                case 0:
+                    return new File(secondParent.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".jpeg");
+                case 1:
+                    return new File(secondParent.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".png");
+                case 2:
+                    return new File(secondParent.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                            String.valueOf(positionInIllust) + ".jpeg");
+                case 3:
+                    return new File(secondParent.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                            String.valueOf(positionInIllust) + ".png");
+            }
         }
         return null;
     }

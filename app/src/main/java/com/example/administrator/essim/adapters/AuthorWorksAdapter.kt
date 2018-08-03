@@ -23,7 +23,6 @@ class AuthorWorksAdapter(private val mPixivRankItem: List<IllustsBean>,
                          private val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val itemHead = 3
-    private val itemBottom = 2
     private val itemContent = 1
     private var mOnItemClickListener: OnItemClickListener? = null
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
@@ -31,7 +30,6 @@ class AuthorWorksAdapter(private val mPixivRankItem: List<IllustsBean>,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             when (viewType) {
                 itemHead -> ItemHolder(mLayoutInflater.inflate(R.layout.head_blank, parent, false))
-                itemBottom -> BottomViewHolder(mLayoutInflater.inflate(R.layout.bottom_refresh, parent, false))
                 else -> PhotoHolder(mLayoutInflater.inflate(R.layout.pixiv_item_grid, parent, false))
             }
 
@@ -72,21 +70,13 @@ class AuthorWorksAdapter(private val mPixivRankItem: List<IllustsBean>,
                 true
             }
         }
-        is BottomViewHolder -> {
-            holder.itemView.get_more_data.text = "加载更多"
-            holder.itemView.card_footer.setOnClickListener { mOnItemClickListener!!.onItemClick(holder.itemView, -1, 0) }
-        }
         else -> {
         }
     }
 
     override fun getItemViewType(position: Int): Int = when (position) {
         0 -> itemHead
-        else -> if (position > 0 && position < mPixivRankItem.size + 1) {
-            itemContent
-        } else {
-            itemBottom
-        }
+        else -> itemContent
     }
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
@@ -95,10 +85,9 @@ class AuthorWorksAdapter(private val mPixivRankItem: List<IllustsBean>,
 
     override fun getItemCount(): Int = when {
         mPixivRankItem.isEmpty() -> 0
-        else -> mPixivRankItem.size + 2
+        else -> mPixivRankItem.size + 1
     }
 
     private class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private class PhotoHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-    private class BottomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

@@ -27,7 +27,6 @@ import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.UserIllustsResponse;
 import com.example.administrator.essim.utils.Common;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,12 +41,14 @@ public class FragmentUserLikes extends ScrollObservableFragment {
     private String next_url;
     private Context mContext;
     private TextView mTextView;
+    private boolean isLoadingMore;
+    public GridLayoutManager gridLayoutManager;
     private RecyclerView rcvGoodsList;
     private FragmentDialog mFragmentDialog;
     private AuthorWorksAdapter mPixivAdapterGrid;
     private SharedPreferences mSharedPreferences;
     private int scrolledY = 0;
-    private List<IllustsBean> mIllustsBeanList = new ArrayList<>();
+    public List<IllustsBean> mIllustsBeanList = new ArrayList<>();
 
     public static FragmentUserLikes newInstance() {
         FragmentUserLikes fragment = new FragmentUserLikes();
@@ -67,12 +68,11 @@ public class FragmentUserLikes extends ScrollObservableFragment {
     }
 
     private void initView(View v) {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
+        gridLayoutManager = new GridLayoutManager(mContext, 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (mPixivAdapterGrid.getItemViewType(position) == 3 ||
-                        mPixivAdapterGrid.getItemViewType(position) == 2) {
+                if (mPixivAdapterGrid.getItemViewType(position) == 3) {
                     return gridLayoutManager.getSpanCount();
                 } else {
                     return 1;
@@ -90,6 +90,12 @@ public class FragmentUserLikes extends ScrollObservableFragment {
                 if (FragmentUserLikes.this.isResumed()) {
                     doOnScrollChanged(0, scrolledY, dx, dy);
                 }
+                int lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
+                int totalItemCount = mPixivAdapterGrid.getItemCount();
+                if (lastVisibleItem >= totalItemCount - 4 && dy > 0 && !isLoadingMore) {
+                    getNextUserIllust();
+                    isLoadingMore = true;
+                }
             }
         });
         mTextView = v.findViewById(R.id.post_like_user);
@@ -106,7 +112,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
         call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
             @Override
             public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {
-                if(getView() != null) {
+                if (getView() != null) {
                     if (response.body().getIllusts().size() == 0) {
                         // 没有数据，recyclerview不显示，显示textview提示
                         FragmentUserDetail.mShowProgress.showProgress(false);
@@ -118,21 +124,14 @@ public class FragmentUserLikes extends ScrollObservableFragment {
                             mTextView.setVisibility(VISIBLE);
                         }
                     } else {
-                        UserIllustsResponse userIllustsResponse = response.body();
                         mIllustsBeanList.clear();
-                        mIllustsBeanList.addAll(userIllustsResponse.getIllusts());
+                        mIllustsBeanList.addAll(response.body().getIllusts());
                         mPixivAdapterGrid = new AuthorWorksAdapter(mIllustsBeanList, mContext);
-                        next_url = userIllustsResponse.getNext_url();
+                        next_url = response.body().getNext_url();
                         mPixivAdapterGrid.setOnItemClickListener(new OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position, int viewType) {
-                                if (position == -1) {
-                                    if (next_url != null) {
-                                        getNextUserIllust();
-                                    } else {
-                                        Snackbar.make(rcvGoodsList, "没有更多数据了", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                                    }
-                                } else if (viewType == 0) {
+                                if (viewType == 0) {
                                     Reference.sIllustsBeans = mIllustsBeanList;
                                     Intent intent = new Intent(mContext, ViewPagerActivity.class);
                                     intent.putExtra("which one is selected", position);
@@ -181,26 +180,30 @@ public class FragmentUserLikes extends ScrollObservableFragment {
     }
 
     private void getNextUserIllust() {
-        FragmentUserDetail.mShowProgress.showProgress(true);
-        Call<UserIllustsResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
-                .create(AppApiPixivService.class)
-                .getNextUserIllusts(mSharedPreferences.getString("Authorization", ""), next_url);
-        call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
-            @Override
-            public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {
-                UserIllustsResponse userIllustsResponse = response.body();
-                next_url = userIllustsResponse.getNext_url();
-                mIllustsBeanList.addAll(userIllustsResponse.getIllusts());
-                FragmentUserDetail.mShowProgress.showProgress(false);
-                mPixivAdapterGrid.notifyDataSetChanged();
-            }
+        if (next_url != null) {
+            FragmentUserDetail.mShowProgress.showProgress(true);
+            Call<UserIllustsResponse> call = new RestClient()
+                    .getRetrofit_AppAPI()
+                    .create(AppApiPixivService.class)
+                    .getNextUserIllusts(mSharedPreferences.getString("Authorization", ""), next_url);
+            call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
+                @Override
+                public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {
+                    next_url = response.body().getNext_url();
+                    mIllustsBeanList.addAll(response.body().getIllusts());
+                    mPixivAdapterGrid.notifyDataSetChanged();
+                    isLoadingMore = false;
+                    FragmentUserDetail.mShowProgress.showProgress(false);
+                }
 
-            @Override
-            public void onFailure(Call<UserIllustsResponse> call, Throwable throwable) {
+                @Override
+                public void onFailure(Call<UserIllustsResponse> call, Throwable throwable) {
 
-            }
-        });
+                }
+            });
+        } else {
+            Snackbar.make(rcvGoodsList, "再怎么找也找不到了~", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override

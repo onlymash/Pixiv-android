@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.UserFollowAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
@@ -23,22 +22,24 @@ import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.SearchUserResponse;
 import com.example.administrator.essim.utils.Common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class FollowShowActivity extends AppCompatActivity {
 
-    private int dataType;
-    private int userID;
-    private String title;
-    private String next_url;
-    private String searchKey;
     private Toolbar mToolbar;
     private Context mContext;
     private TextView mTextView;
+    private int userID, dataType;
+    private boolean isLoadingMore;
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerView;
+    private String title, next_url, searchKey;
     private UserFollowAdapter mUserFollowAdapter;
+    private List<SearchUserResponse.UserPreviewsBean> mUserPreviewsBeanList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,18 @@ public class FollowShowActivity extends AppCompatActivity {
         linearLayout.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayout);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, final int dx, final int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItem = linearLayout.findLastVisibleItemPosition();
+                int totalItemCount = mUserFollowAdapter.getItemCount();
+                if (lastVisibleItem >= totalItemCount - 2 && dy > 0 && !isLoadingMore) {
+                    getNextData();
+                    isLoadingMore = true;
+                }
+            }
+        });
         mTextView = findViewById(R.id.show_nothing);
     }
 
@@ -92,26 +105,20 @@ public class FollowShowActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.INVISIBLE);
                 } else {
                     next_url = response.body().getNext_url();
-                    mUserFollowAdapter = new UserFollowAdapter(response.body().getUser_previews(), mContext);
+                    mUserPreviewsBeanList.clear();
+                    mUserPreviewsBeanList.addAll(response.body().getUser_previews());
+                    mUserFollowAdapter = new UserFollowAdapter(mUserPreviewsBeanList, mContext);
                     mToolbar.setTitle(dataType == 0 ? title + "的关注(公开)" : title + "的关注(非公开)");
                     mUserFollowAdapter.setOnItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position, int viewType) {
-                            if (position == -1) {
-                                if (next_url != null) {
-                                    getNextData();
-                                } else {
-                                    Snackbar.make(mRecyclerView, "没有其他数据了", Snackbar.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                try {
-                                    Intent intent = new Intent(mContext, UserDetailActivity.class);
-                                    intent.putExtra("user id", response.body().getUser_previews().get(position)
-                                            .getUser().getId());
-                                    startActivity(intent);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                            try {
+                                Intent intent = new Intent(mContext, UserDetailActivity.class);
+                                intent.putExtra("user id", response.body().getUser_previews().get(position)
+                                        .getUser().getId());
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
 
@@ -153,26 +160,20 @@ public class FollowShowActivity extends AppCompatActivity {
                     mRecyclerView.setVisibility(View.INVISIBLE);
                 } else {
                     next_url = response.body().getNext_url();
-                    mUserFollowAdapter = new UserFollowAdapter(response.body().getUser_previews(), mContext);
+                    mUserPreviewsBeanList.clear();
+                    mUserPreviewsBeanList.addAll(response.body().getUser_previews());
+                    mUserFollowAdapter = new UserFollowAdapter(mUserPreviewsBeanList, mContext);
                     mToolbar.setTitle(title + "的关注(推荐)");
                     mUserFollowAdapter.setOnItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position, int viewType) {
-                            if (position == -1) {
-                                if (next_url != null) {
-                                    getNextData();
-                                } else {
-                                    Snackbar.make(mRecyclerView, "没有其他数据了", Snackbar.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                try {
-                                    Intent intent = new Intent(mContext, UserDetailActivity.class);
-                                    intent.putExtra("user id", response.body().getUser_previews().get(position)
-                                            .getUser().getId());
-                                    startActivity(intent);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                            try {
+                                Intent intent = new Intent(mContext, UserDetailActivity.class);
+                                intent.putExtra("user id", response.body().getUser_previews().get(position)
+                                        .getUser().getId());
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
 
@@ -207,26 +208,20 @@ public class FollowShowActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SearchUserResponse> call, retrofit2.Response<SearchUserResponse> response) {
                 next_url = response.body().getNext_url();
-                mUserFollowAdapter = new UserFollowAdapter(response.body().getUser_previews(), mContext);
+                mUserPreviewsBeanList.clear();
+                mUserPreviewsBeanList.addAll(response.body().getUser_previews());
+                mUserFollowAdapter = new UserFollowAdapter(mUserPreviewsBeanList, mContext);
                 mToolbar.setTitle("搜索结果");
                 mUserFollowAdapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position, int viewType) {
-                        if (position == -1) {
-                            if (next_url != null) {
-                                getNextData();
-                            } else {
-                                Snackbar.make(mRecyclerView, "没有其他数据了", Snackbar.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            try {
-                                Intent intent = new Intent(mContext, UserDetailActivity.class);
-                                intent.putExtra("user id", response.body().getUser_previews().get(position)
-                                        .getUser().getId());
-                                startActivity(intent);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                        try {
+                            Intent intent = new Intent(mContext, UserDetailActivity.class);
+                            intent.putExtra("user id", response.body().getUser_previews().get(position)
+                                    .getUser().getId());
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
@@ -247,51 +242,30 @@ public class FollowShowActivity extends AppCompatActivity {
     }
 
     private void getNextData() {
-        mProgressBar.setVisibility(View.VISIBLE);
-        Call<SearchUserResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
-                .create(AppApiPixivService.class)
-                .getNextUser(Common.getLocalDataSet().getString("Authorization", ""), next_url);
-        call.enqueue(new Callback<SearchUserResponse>() {
-            @Override
-            public void onResponse(Call<SearchUserResponse> call, retrofit2.Response<SearchUserResponse> response) {
-                mUserFollowAdapter = new UserFollowAdapter(response.body().getUser_previews(), mContext);
-                next_url = response.body().getNext_url();
-                mUserFollowAdapter.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position, int viewType) {
-                        if (position == -1) {
-                            if (next_url != null) {
-                                getNextData();
-                            } else {
-                                Snackbar.make(mRecyclerView, "没有其他数据了", Snackbar.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            try {
-                                Intent intent = new Intent(mContext, UserDetailActivity.class);
-                                intent.putExtra("user id", response.body().getUser_previews().get(position)
-                                        .getUser().getId());
-                                startActivity(intent);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
+        if (next_url != null) {
+            mProgressBar.setVisibility(View.VISIBLE);
+            Call<SearchUserResponse> call = new RestClient()
+                    .getRetrofit_AppAPI()
+                    .create(AppApiPixivService.class)
+                    .getNextUser(Common.getLocalDataSet().getString("Authorization", ""), next_url);
+            call.enqueue(new Callback<SearchUserResponse>() {
+                @Override
+                public void onResponse(Call<SearchUserResponse> call, retrofit2.Response<SearchUserResponse> response) {
+                    next_url = response.body().getNext_url();
+                    mUserPreviewsBeanList.addAll(response.body().getUser_previews());
+                    mUserFollowAdapter.notifyDataSetChanged();
+                    isLoadingMore = false;
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                }
 
-                    @Override
-                    public void onItemLongClick(View view, int position) {
+                @Override
+                public void onFailure(Call<SearchUserResponse> call, Throwable throwable) {
 
-                    }
-                });
-                mRecyclerView.setAdapter(mUserFollowAdapter);
-                mProgressBar.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onFailure(Call<SearchUserResponse> call, Throwable throwable) {
-
-            }
-        });
+                }
+            });
+        } else {
+            Snackbar.make(mRecyclerView, "再怎么找也找不到了~", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override

@@ -30,7 +30,9 @@ import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.SearchIllustResponse;
 import com.example.administrator.essim.utils.Common;
 
-import java.io.Serializable;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,18 +42,19 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private static final String[] sort = {"popular_desc", "date_desc"};
     private static final String[] arrayOfSearchType = {" 500users入り", " 1000users入り",
-            " 5000users入り", " 10000users入り"};
+            " 5000users入り", " 10000users入り", "不筛选"};
     public String ketWords;
     private String temp;
     private String next_url;
     private Context mContext;
     private boolean isBestSort;
+    private boolean isLoadingMore;
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerView;
     private PixivAdapterGrid mPixivAdapter;
-    private int nowSearchType = -1, togo = -1;
+    private int nowSearchType = 4, togo = 4;
     private SharedPreferences mSharedPreferences;
-    private AlphaAnimation alphaAnimationShowIcon;
+    private List<IllustsBean> mIllustsBeanList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,12 @@ public class SearchResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ketWords = intent.getStringExtra("what is the keyword");
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+        initView();
+        getData(sort[1], "");
+    }
+
+    private void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar_pixiv);
         toolbar.setTitle(ketWords);
         setSupportActionBar(toolbar);
@@ -70,21 +79,22 @@ public class SearchResultActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.INVISIBLE);
         mRecyclerView = findViewById(R.id.pixiv_recy);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public int getSpanSize(int position) {
-                if (mPixivAdapter.getItemViewType(position) == 2) {
-                    return gridLayoutManager.getSpanCount();
-                } else {
-                    return 1;
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
+                int totalItemCount = mPixivAdapter.getItemCount();
+                if (lastVisibleItem >= totalItemCount - 4 && dy > 0 && !isLoadingMore) {
+                    getNextData();
+                    isLoadingMore = true;
                 }
             }
         });
-        mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        alphaAnimationShowIcon = new AlphaAnimation(0.2f, 1.0f);
+        AlphaAnimation alphaAnimationShowIcon = new AlphaAnimation(0.2f, 1.0f);
         alphaAnimationShowIcon.setDuration(500);
-        getData(sort[1], "");
     }
 
     private void getData(String rankType, String usersyori) {
@@ -94,17 +104,45 @@ public class SearchResultActivity extends AppCompatActivity {
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
                 .getSearchIllust(ketWords + usersyori,
-                        rankType,
-                        "partial_match_for_tags",
-                        null,
-                        null,
+                        rankType, "partial_match_for_tags", null, null,
                         mSharedPreferences.getString("Authorization", ""));
         call.enqueue(new Callback<SearchIllustResponse>() {
             @Override
             public void onResponse(Call<SearchIllustResponse> call, retrofit2.Response<SearchIllustResponse> response) {
-                if(response.body() != null) {
+                if (response.body() != null) {
                     next_url = response.body().getNext_url();
-                    initAdapter(response.body().getIllusts());
+                    mIllustsBeanList.clear();
+                    mIllustsBeanList.addAll(response.body().getIllusts());
+                    mPixivAdapter = new PixivAdapterGrid(mIllustsBeanList, mContext);
+                    mPixivAdapter.setOnItemClickListener(new OnItemClickListener() {
+                        @Override
+                        public void onItemClick(@NotNull View view, int position, int viewType) {
+                            if (viewType == 0) {
+                                Reference.sIllustsBeans = mIllustsBeanList;
+                                Intent intent = new Intent(mContext, ViewPagerActivity.class);
+                                intent.putExtra("which one is selected", position);
+                                mContext.startActivity(intent);
+                            } else if (viewType == 1) {
+                                if (!mIllustsBeanList.get(position).isIs_bookmarked()) {
+                                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
+                                    view.startAnimation(Common.getAnimation());
+                                    Common.postStarIllust(position, mIllustsBeanList,
+                                            Common.getLocalDataSet().getString("Authorization", ""), mContext, "public");
+                                } else {
+                                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                                    view.startAnimation(Common.getAnimation());
+                                    Common.postUnstarIllust(position, mIllustsBeanList,
+                                            Common.getLocalDataSet().getString("Authorization", ""), mContext);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onItemLongClick(@NotNull View view, int position) {
+                            new FragmentDialog(mContext, view, mIllustsBeanList.get(position)).showDialog();
+                        }
+                    });
+                    mRecyclerView.setAdapter(mPixivAdapter);
                     mProgressBar.setVisibility(View.INVISIBLE);
                 }
             }
@@ -126,9 +164,11 @@ public class SearchResultActivity extends AppCompatActivity {
             call.enqueue(new Callback<RecommendResponse>() {
                 @Override
                 public void onResponse(Call<RecommendResponse> call, retrofit2.Response<RecommendResponse> response) {
-                    if(response.body() != null) {
+                    if (response.body() != null) {
                         next_url = response.body().getNext_url();
-                        initAdapter(response.body().getIllusts());
+                        mIllustsBeanList.addAll(response.body().getIllusts());
+                        mPixivAdapter.notifyDataSetChanged();
+                        isLoadingMore = false;
                         mProgressBar.setVisibility(View.INVISIBLE);
                     }
                 }
@@ -143,41 +183,6 @@ public class SearchResultActivity extends AppCompatActivity {
         }
     }
 
-    private void initAdapter(List<IllustsBean> illustsBeans) {
-        mPixivAdapter = new PixivAdapterGrid(illustsBeans, mContext);
-        mPixivAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position, int viewType) {
-                if (position == -1) {
-                    getNextData();
-                } else if (viewType == 0) {
-                    Reference.sIllustsBeans = illustsBeans;
-                    Intent intent = new Intent(mContext, ViewPagerActivity.class);
-                    intent.putExtra("which one is selected", position);
-                    mContext.startActivity(intent);
-                } else if (viewType == 1) {
-                    if (!illustsBeans.get(position).isIs_bookmarked()) {
-                        ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
-                        view.startAnimation(alphaAnimationShowIcon);
-                        Common.postStarIllust(position, illustsBeans,
-                                mSharedPreferences.getString("Authorization", ""), mContext, "public");
-                    } else {
-                        ((ImageView) view).setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                        view.startAnimation(alphaAnimationShowIcon);
-                        Common.postUnstarIllust(position, illustsBeans,
-                                mSharedPreferences.getString("Authorization", ""), mContext);
-                    }
-                }
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                new FragmentDialog(mContext, view, illustsBeans.get(position)).showDialog();
-            }
-        });
-        mRecyclerView.setAdapter(mPixivAdapter);
-    }
-
     private void createSearchTypeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setIcon(R.mipmap.logo);
@@ -185,13 +190,21 @@ public class SearchResultActivity extends AppCompatActivity {
         builder.setCancelable(true);
         builder.setSingleChoiceItems(arrayOfSearchType, nowSearchType,
                 (dialogInterface, i) -> {
-                    temp = arrayOfSearchType[i];
+                    if(i!=4) {
+                        temp = arrayOfSearchType[i];
+                    }
                     togo = i;
                 });
         builder.setPositiveButton("确定", (dialogInterface, i) -> {
             if (nowSearchType != togo) {
                 nowSearchType = togo;
-                getData(sort[1], arrayOfSearchType[nowSearchType]);
+                if(togo!=4) {
+                    getData(sort[1], arrayOfSearchType[nowSearchType]);
+                }
+                else
+                {
+                    getData(sort[1], "");
+                }
             }
         })
                 .setNegativeButton("取消", (dialogInterface, i) -> {

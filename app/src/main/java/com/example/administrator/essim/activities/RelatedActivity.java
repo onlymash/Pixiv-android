@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,6 +17,7 @@ import android.widget.ProgressBar;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.PixivAdapterGrid;
 import com.example.administrator.essim.fragments.FragmentDialog;
+import com.example.administrator.essim.fragments.FragmentUserLikes;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.Reference;
@@ -32,6 +35,8 @@ public class RelatedActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerView;
     private PixivAdapterGrid mPixivAdapter;
+    private RelatedIllust mRelatedIllust;
+    private GridLayoutManager mGridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,32 +45,33 @@ public class RelatedActivity extends AppCompatActivity {
 
         mContext = this;
         Intent intent = getIntent();
-        RelatedIllust relatedIllust = (RelatedIllust) intent.getSerializableExtra("illust set");
+        mRelatedIllust = (RelatedIllust) intent.getSerializableExtra("illust set");
         String illustTitle = intent.getStringExtra("illust title");
 
         initView(illustTitle);
-        initAdapter(relatedIllust.illusts);
+        initAdapter(mRelatedIllust.illusts);
     }
 
     private void initView(String title) {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setTitle(title + "的相关作品");
         mProgressBar = findViewById(R.id.try_login);
         mProgressBar.setVisibility(View.INVISIBLE);
         mRecyclerView = findViewById(R.id.pixiv_recy);
         toolbar.setNavigationOnClickListener(view -> finish());
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        mGridLayoutManager = new GridLayoutManager(mContext, 2);
+        mGridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 if (mPixivAdapter.getItemViewType(position) == 2) {
-                    return gridLayoutManager.getSpanCount();
+                    return mGridLayoutManager.getSpanCount();
                 } else {
                     return 1;
                 }
             }
         });
-        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
     }
 
@@ -110,5 +116,26 @@ public class RelatedActivity extends AppCompatActivity {
         if (mPixivAdapter != null) {
             mPixivAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.download, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_download) {
+            Reference.sIllustsBeans = mRelatedIllust.illusts;
+            Intent intent = new Intent(mContext, BatchDownloadActivity.class);
+            intent.putExtra("scroll dist", mGridLayoutManager.findFirstCompletelyVisibleItemPosition());
+            mContext.startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

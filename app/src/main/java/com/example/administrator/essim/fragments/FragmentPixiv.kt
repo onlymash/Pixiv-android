@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import com.example.administrator.essim.R
+import com.example.administrator.essim.activities.BatchDownloadActivity
 import com.example.administrator.essim.activities.MainActivity
 import com.example.administrator.essim.activities.SearchActivity
 import com.example.administrator.essim.activities.SettingsActivity
 import com.example.administrator.essim.adapters.FragmentPixivAdapter
+import com.example.administrator.essim.response.Reference
 import kotlinx.android.synthetic.main.fragment_pixiv.*
 import java.util.*
 
@@ -57,6 +59,14 @@ class FragmentPixiv : BaseFragment() {
         return when (item!!.itemId) {
             R.id.action_search -> {
                 intent = Intent(mContext, SearchActivity::class.java)
+                mContext.startActivity(intent)
+                true
+            }
+            R.id.action_download ->{
+                Reference.sIllustsBeans = (mFragments[0] as FragmentPixivLeft).mIllustsBeanList
+                intent = Intent(mContext, BatchDownloadActivity::class.java)
+                intent.putExtra("scroll dist", (mFragments[0] as FragmentPixivLeft)
+                        .gridLayoutManager.findFirstVisibleItemPosition())
                 mContext.startActivity(intent)
                 true
             }

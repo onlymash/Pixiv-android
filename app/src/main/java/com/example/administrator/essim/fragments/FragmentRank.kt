@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.ImageView
 import com.example.administrator.essim.R
-import com.example.administrator.essim.activities.MainActivity
-import com.example.administrator.essim.activities.SearchActivity
-import com.example.administrator.essim.activities.SettingsActivity
-import com.example.administrator.essim.activities.ViewPagerActivity
+import com.example.administrator.essim.activities.*
 import com.example.administrator.essim.adapters.PixivAdapterGrid
 import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.network.AppApiPixivService
@@ -25,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_rank.*
 import retrofit2.Call
 import retrofit2.Callback
 import java.io.Serializable
+import java.util.ArrayList
 
 
 /**
@@ -33,11 +32,14 @@ import java.io.Serializable
 
 class FragmentRank : BaseFragment() {
 
+    private var isLoadingMore = false
+    private var gridLayoutManager = GridLayoutManager(mContext, 2)
     private val arrayOfRankMode = arrayOf("动态", "日榜", "周榜", "月榜", "新人", "原创", "男性向", "女性向", "R-80")
     private val modeList = arrayOf("day", "week", "month", "week_rookie", "week_original", "day_male", "day_female", "day_r18")
     private var currentDataType = -1
     private var nextDataUrl: String? = null
     private var mPixivAdapter: PixivAdapterGrid? = null
+    private var mIllustsBeanList = ArrayList<IllustsBean>()
     private val clickListener = { index: Int ->
         when (index) {
             0 -> if (currentDataType != -1) {
@@ -92,15 +94,21 @@ class FragmentRank : BaseFragment() {
     }
 
     private fun initView() {
-        val gridLayoutManager = GridLayoutManager(mContext, 2)
-        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return when {
-                    mPixivAdapter!!.getItemViewType(position) == 2 -> gridLayoutManager.spanCount
-                    else -> 1
+        mRecyclerView.layoutManager = gridLayoutManager
+        mRecyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition()
+                val totalItemCount = mPixivAdapter!!.itemCount
+                when {
+                    lastVisibleItem >= totalItemCount - 4 && dy > 0 && !isLoadingMore -> {
+                        getNextData()
+                        isLoadingMore = true
+                    }
                 }
             }
-        }
+        })
+        mRecyclerView.setHasFixedSize(true)
         (activity as AppCompatActivity).setSupportActionBar(mToolbar)
         mToolbar.setNavigationOnClickListener { (activity as MainActivity).drawer.openDrawer(Gravity.START, true) }
         mToolbar.title = "动态"
@@ -132,9 +140,38 @@ class FragmentRank : BaseFragment() {
         call.enqueue(object : Callback<IllustfollowResponse> {
             override fun onResponse(call: Call<IllustfollowResponse>,
                                     response: retrofit2.Response<IllustfollowResponse>) {
-                val illustfollowResponse = response.body()
-                nextDataUrl = illustfollowResponse!!.next_url
-                initAdapter(illustfollowResponse.illusts)
+                nextDataUrl = response.body()!!.next_url
+                mIllustsBeanList.clear()
+                mIllustsBeanList.addAll(response.body()!!.illusts)
+                mPixivAdapter = PixivAdapterGrid(mIllustsBeanList, mContext)
+                mPixivAdapter!!.setOnItemClickListener(object : OnItemClickListener {
+                    override fun onItemClick(view: View, position: Int, viewType: Int) {
+                        when {
+                            viewType == 0 -> {
+                                Reference.sIllustsBeans = mIllustsBeanList
+                                val intent = Intent(mContext, ViewPagerActivity::class.java)
+                                intent.putExtra("which one is selected", position)
+                                mContext.startActivity(intent)
+                            }
+                            viewType == 1 -> if (!mIllustsBeanList[position].isIs_bookmarked) {
+                                (view as ImageView).setImageResource(R.drawable.ic_favorite_white_24dp)
+                                view.startAnimation(Common.getAnimation())
+                                Common.postStarIllust(position, mIllustsBeanList,
+                                        Common.getLocalDataSet().getString("Authorization", ""), mContext, "public")
+                            } else {
+                                (view as ImageView).setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                                view.startAnimation(Common.getAnimation())
+                                Common.postUnstarIllust(position, mIllustsBeanList,
+                                        Common.getLocalDataSet().getString("Authorization", ""), mContext)
+                            }
+                        }
+                    }
+
+                    override fun onItemLongClick(view: View, position: Int) {
+                        FragmentDialog(mContext, view, mIllustsBeanList[position]).showDialog()
+                    }
+                })
+                mRecyclerView.adapter = mPixivAdapter
                 mToolbar.title = "动态"
                 mProgressbar.visibility = View.INVISIBLE
             }
@@ -154,8 +191,11 @@ class FragmentRank : BaseFragment() {
             override fun onResponse(call: Call<IllustRankingResponse>,
                                     response: retrofit2.Response<IllustRankingResponse>) {
                 nextDataUrl = response.body()!!.next_url
-                initAdapter(response.body()!!.illusts)
+                mIllustsBeanList.clear()
+                mIllustsBeanList.addAll(response.body()!!.illusts)
                 mToolbar.title = arrayOfRankMode[currentDataType + 1]
+                mPixivAdapter!!.notifyDataSetChanged()
+                mRecyclerView.scrollToPosition(0)
                 mProgressbar.visibility = View.INVISIBLE
             }
 
@@ -174,7 +214,9 @@ class FragmentRank : BaseFragment() {
                 override fun onResponse(call: Call<RecommendResponse>,
                                         response: retrofit2.Response<RecommendResponse>) {
                     nextDataUrl = response.body()!!.next_url
-                    initAdapter(response.body()!!.illusts)
+                    mIllustsBeanList.addAll(response.body()!!.illusts)
+                    mPixivAdapter!!.notifyDataSetChanged()
+                    isLoadingMore = false
                     mProgressbar.visibility = View.INVISIBLE
                 }
 
@@ -183,39 +225,6 @@ class FragmentRank : BaseFragment() {
         } else {
             Snackbar.make(mProgressbar, "再怎么找也找不到了~", Snackbar.LENGTH_SHORT).show()
         }
-    }
-
-    private fun initAdapter(illustsBeans: List<IllustsBean>) {
-        mPixivAdapter = PixivAdapterGrid(illustsBeans, mContext)
-        mPixivAdapter!!.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(view: View, position: Int, viewType: Int) {
-                when {
-                    position == -1 -> getNextData()
-                    viewType == 0 -> {
-                        Reference.sIllustsBeans = illustsBeans
-                        val intent = Intent(mContext, ViewPagerActivity::class.java)
-                        intent.putExtra("which one is selected", position)
-                        mContext.startActivity(intent)
-                    }
-                    viewType == 1 -> if (!illustsBeans[position].isIs_bookmarked) {
-                        (view as ImageView).setImageResource(R.drawable.ic_favorite_white_24dp)
-                        view.startAnimation(Common.getAnimation())
-                        Common.postStarIllust(position, illustsBeans,
-                                Common.getLocalDataSet().getString("Authorization", ""), mContext, "public")
-                    } else {
-                        (view as ImageView).setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                        view.startAnimation(Common.getAnimation())
-                        Common.postUnstarIllust(position, illustsBeans,
-                                Common.getLocalDataSet().getString("Authorization", ""), mContext)
-                    }
-                }
-            }
-
-            override fun onItemLongClick(view: View, position: Int) {
-                FragmentDialog(mContext, view, illustsBeans[position]).showDialog()
-            }
-        })
-        mRecyclerView.adapter = mPixivAdapter
     }
 
     override fun onCreate(b: Bundle?) {
@@ -233,6 +242,14 @@ class FragmentRank : BaseFragment() {
         return when (item!!.itemId) {
             R.id.action_search -> {
                 intent = Intent(mContext, SearchActivity::class.java)
+                mContext.startActivity(intent)
+                true
+            }
+            R.id.action_download ->{
+                Reference.sIllustsBeans = mIllustsBeanList
+                intent = Intent(mContext, BatchDownloadActivity::class.java)
+                intent.putExtra("scroll dist", gridLayoutManager
+                        .findFirstVisibleItemPosition())
                 mContext.startActivity(intent)
                 true
             }
