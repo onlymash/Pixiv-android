@@ -1,12 +1,9 @@
 package com.example.administrator.essim.network
 
 
-import android.accounts.AuthenticatorDescription
 import com.example.administrator.essim.response.*
 import okhttp3.MultipartBody
-import okhttp3.Request
 import okhttp3.RequestBody
-
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -97,7 +94,7 @@ interface AppApiPixivService {
     @Multipart
     @POST("/v1/user/profile/edit")
     fun changeHeadImg(@Header("Authorization") paramString: String,
-                         @Part photo: MultipartBody.Part, @Part("description") description: RequestBody): Call<ResponseBody>
+                      @Part photo: MultipartBody.Part, @Part("description") description: RequestBody): Call<ResponseBody>
 
     // v1/user/related?filter=for_android&seed_user_id=1589657
     @GET("/v1/user/related?filter=for_android")
@@ -107,7 +104,7 @@ interface AppApiPixivService {
     // GET /v2/illust/bookmark/detail?illust_id=69350247 HTTP/1.1
     @GET("/v2/illust/bookmark/detail")
     fun getBookmarkDetail(@Header("Authorization") paramString: String,
-                         @Query("illust_id") paramLong: Long): Call<BookmarkDetailResponse>
+                          @Query("illust_id") paramLong: Long): Call<BookmarkDetailResponse>
 
     @GET
     fun getNextComment(@Header("Authorization") paramString1: String,
@@ -115,7 +112,7 @@ interface AppApiPixivService {
 
     @GET
     fun getNextTags(@Header("Authorization") paramString1: String,
-                       @Url paramString2: String): Call<AllBookmarkTagResponse>
+                    @Url paramString2: String): Call<AllBookmarkTagResponse>
 
     @GET("/v1/search/user?filter=for_ios")
     fun getSearchUser(@Header("Authorization") paramString1: String,

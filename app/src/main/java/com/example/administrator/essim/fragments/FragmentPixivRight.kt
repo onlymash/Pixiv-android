@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.essim.R
-import com.example.administrator.essim.R.id.mProgressbar
 import com.example.administrator.essim.activities.SearchResultActivity
 import com.example.administrator.essim.adapters.TrendingtagAdapter
 import com.example.administrator.essim.interf.OnItemClickListener

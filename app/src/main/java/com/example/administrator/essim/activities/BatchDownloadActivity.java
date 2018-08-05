@@ -112,7 +112,7 @@ public class BatchDownloadActivity extends AppCompatActivity {
                     Snackbar.make(mRecyclerView, "你要下个什么？！", Snackbar.LENGTH_SHORT).show();
                 } else {
                     if (Common.getLocalDataSet().getString("download_path", "/storage/emulated/0/PixivPictures").contains("emulated")) {
-                        TastyToast.makeText(mContext, "开始下载了",TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                        TastyToast.makeText(mContext, "开始下载了", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                         Intent intentService = new Intent(this, BatchDownloadService.class);
                         startService(intentService);
                     } else {

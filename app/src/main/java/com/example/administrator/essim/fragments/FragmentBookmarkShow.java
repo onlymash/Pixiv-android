@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.BookedTagAdapter;
-import com.example.administrator.essim.adapters.IllustTagAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;

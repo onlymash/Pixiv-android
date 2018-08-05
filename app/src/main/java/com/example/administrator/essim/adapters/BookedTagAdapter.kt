@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.essim.R
 import com.example.administrator.essim.interf.OnItemClickListener
-import com.example.administrator.essim.response.AllBookmarkTagResponse
-import com.example.administrator.essim.response.PixivResponse
 import com.example.administrator.essim.response.SingleTag
 import kotlinx.android.synthetic.main.booked_tag_item.view.*
-import kotlinx.android.synthetic.main.item_custom_suggestion.view.*
 
 class BookedTagAdapter(private val mPixivRankItem: List<SingleTag>,
                        context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

@@ -37,6 +37,8 @@ import static android.view.View.VISIBLE;
 
 public class FragmentUserWorks extends ScrollObservableFragment {
 
+    public GridLayoutManager gridLayoutManager;
+    public List<IllustsBean> mIllustsBeanList = new ArrayList<>();
     private String next_url;
     private Context mContext;
     private TextView mTextView;
@@ -44,9 +46,7 @@ public class FragmentUserWorks extends ScrollObservableFragment {
     private RecyclerView rcvGoodsList;
     private AuthorWorksAdapter mPixivAdapterGrid;
     private SharedPreferences mSharedPreferences;
-    public GridLayoutManager gridLayoutManager;
     private int scrolledY = 0;
-    public List<IllustsBean> mIllustsBeanList = new ArrayList<>();
 
     public static FragmentUserWorks newInstance() {
         FragmentUserWorks fragment = new FragmentUserWorks();

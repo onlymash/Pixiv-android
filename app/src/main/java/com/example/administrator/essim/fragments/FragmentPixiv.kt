@@ -8,7 +8,6 @@ import com.example.administrator.essim.R
 import com.example.administrator.essim.activities.BatchDownloadActivity
 import com.example.administrator.essim.activities.MainActivity
 import com.example.administrator.essim.activities.SearchActivity
-import com.example.administrator.essim.activities.SettingsActivity
 import com.example.administrator.essim.adapters.FragmentPixivAdapter
 import com.example.administrator.essim.response.Reference
 import kotlinx.android.synthetic.main.fragment_pixiv.*
@@ -62,7 +61,7 @@ class FragmentPixiv : BaseFragment() {
                 mContext.startActivity(intent)
                 true
             }
-            R.id.action_download ->{
+            R.id.action_download -> {
                 Reference.sIllustsBeans = (mFragments[0] as FragmentPixivLeft).mIllustsBeanList
                 intent = Intent(mContext, BatchDownloadActivity::class.java)
                 intent.putExtra("scroll dist", (mFragments[0] as FragmentPixivLeft)

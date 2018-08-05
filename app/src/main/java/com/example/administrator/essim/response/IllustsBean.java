@@ -7,14 +7,6 @@ import java.util.List;
 
 public class IllustsBean
         implements Serializable {
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
-
     private boolean isSelected;
     private String caption;
     private String create_date;
@@ -39,6 +31,14 @@ public class IllustsBean
     private boolean visible;
     private int width;
     private String total_comments;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public String getTotal_comments() {
         return total_comments;

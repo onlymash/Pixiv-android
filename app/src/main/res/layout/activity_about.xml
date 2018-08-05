@@ -85,6 +85,23 @@
                 android:text="@string/arclayout_development"
                 android:textColor="@color/colorNavItemUnselected"
                 android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/donate_names"
+                android:id="@+id/getDonaterList"
+                android:layout_marginBottom="@dimen/sixteen_dip"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textSize="18sp"
+                android:id="@+id/getUsedLibraries"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/libraries"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

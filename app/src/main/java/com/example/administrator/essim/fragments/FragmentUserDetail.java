@@ -52,9 +52,9 @@ public class FragmentUserDetail extends Fragment {
     public static int scrollYset;
     public static ShowProgress mShowProgress;
     private static float offset = 1f;
-    private FragmentBookmarkShow fragmentDialog;
     private static float a;
     private static float b = 400.0f;
+    private FragmentBookmarkShow fragmentDialog;
     private ImageView bg;
     private RelativeLayout mRelativeLayout;
     private CircleImageView head;

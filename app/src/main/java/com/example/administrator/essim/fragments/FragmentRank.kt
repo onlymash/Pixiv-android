@@ -10,7 +10,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.ImageView
 import com.example.administrator.essim.R
-import com.example.administrator.essim.activities.*
+import com.example.administrator.essim.activities.BatchDownloadActivity
+import com.example.administrator.essim.activities.MainActivity
+import com.example.administrator.essim.activities.SearchActivity
+import com.example.administrator.essim.activities.ViewPagerActivity
 import com.example.administrator.essim.adapters.PixivAdapterGrid
 import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.network.AppApiPixivService
@@ -22,8 +25,7 @@ import com.nightonke.boommenu.Util
 import kotlinx.android.synthetic.main.fragment_rank.*
 import retrofit2.Call
 import retrofit2.Callback
-import java.io.Serializable
-import java.util.ArrayList
+import java.util.*
 
 
 /**
@@ -245,7 +247,7 @@ class FragmentRank : BaseFragment() {
                 mContext.startActivity(intent)
                 true
             }
-            R.id.action_download ->{
+            R.id.action_download -> {
                 Reference.sIllustsBeans = mIllustsBeanList
                 intent = Intent(mContext, BatchDownloadActivity::class.java)
                 intent.putExtra("scroll dist", gridLayoutManager

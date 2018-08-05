@@ -1,17 +1,17 @@
 package com.example.administrator.essim.activities;
 
-import android.app.Activity;
 import android.app.IntentService;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.Nullable;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.utils.Common;
-import com.sdsmdg.tastytoast.TastyToast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,6 +31,7 @@ public class BatchDownloadService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+
         Notification.Builder myBuilder = new Notification.Builder(mContext);
         myBuilder.setSubText("批量下载通知")
                 .setTicker("开始下载了")
@@ -39,14 +40,20 @@ public class BatchDownloadService extends IntentService {
                 //设置默认声音和震动
                 .setAutoCancel(true)//点击后取消
                 .setWhen(System.currentTimeMillis())//设置通知时间
-                .setPriority(Notification.PRIORITY_HIGH)//高优先级
+                .setPriority(Notification.PRIORITY_LOW)//高优先级
                 .setVisibility(Notification.VISIBILITY_PUBLIC);
         NotificationManager myManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        Notification myNotification;
+        if (Build.VERSION.SDK_INT >= 26) {
+            NotificationChannel mChannel = new NotificationChannel("channel_id", "channel_name", NotificationManager.IMPORTANCE_LOW);
+            myManager.createNotificationChannel(mChannel);
+            myBuilder.setChannelId("channel_id");
+        }
         //android5.0加入了一种新的模式Notification的显示等级，共有三种：
         //VISIBILITY_PUBLIC  只有在没有锁屏时会显示通知
         //VISIBILITY_PRIVATE 任何情况都会显示通知
         //VISIBILITY_SECRET  在安全锁和没有锁屏的情况下显示通知
-        Notification myNotification;
         for (int i = 0; i < Reference.downloadList.size(); i++) {
             if (Reference.downloadList.get(i).getPage_count() == 1) {
                 myBuilder.setContentText("单个进度1/1");

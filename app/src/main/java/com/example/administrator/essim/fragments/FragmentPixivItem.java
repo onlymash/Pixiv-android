@@ -1,15 +1,11 @@
 package com.example.administrator.essim.fragments;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,6 +131,11 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         TextView textView6 = view.findViewById(R.id.illust_id);
         TextView textView7 = view.findViewById(R.id.author_id);
         TextView textView8 = view.findViewById(R.id.all_item_size);
+        TextView textView9 = view.findViewById(R.id.description);
+        textView9.setOnLongClickListener(v -> {
+            Common.copyMessage(mContext, textView9.getText().toString());
+            return true;
+        });
         TagFlowLayout mTagGroup = view.findViewById(R.id.tag_group);
         String allTag[] = new String[Reference.sIllustsBeans.get(index).getTags().size()];
         for (int i = 0; i < Reference.sIllustsBeans.get(index).getTags().size(); i++) {
@@ -178,6 +179,17 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
             textView8.setText(String.format("%sP", String.valueOf(Reference.sIllustsBeans.get(index).getPage_count())));
         } else {
             textView8.setVisibility(View.INVISIBLE);
+        }
+        if (Reference.sIllustsBeans.get(index).getCaption().length() > 0) {
+            if (textView9.getVisibility() == View.GONE) {
+                textView9.setVisibility(View.VISIBLE);
+            }
+            textView9.setText(Html.fromHtml(Reference.sIllustsBeans.get(index).getCaption()));
+        } else {
+
+            if (textView9.getVisibility() == View.VISIBLE) {
+                textView9.setVisibility(View.GONE);
+            }
         }
         mFloatingActionButton.setImageResource(Reference.sIllustsBeans.get(index).isIs_bookmarked() ?
                 R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_black_24dp);

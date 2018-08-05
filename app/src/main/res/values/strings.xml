@@ -57,38 +57,11 @@
     <string name="item_swipe_undo">Undo</string>
     <string name="arclayout_description">九条可怜（Kujou Karen），漫画《黄金拼图》及其衍生作品中的女主角之一。日本人和英国人的混血少女。金发、灰色瞳孔的少女。和爱丽丝·卡塔雷特是青梅竹马。因为好奇日本而追随爱丽丝来到日本留学。制服的衬衫和其他4个人不同，并披着英国国旗花纹的外套。个性开朗好相处，很快就习惯了日本的学校生活。经常故意装傻而被吐嘈</string>
     <string name="arclayout_development">日本的女性声优、歌手，东京都出身，所属事务所为INTENTION，唱片公司为FlyingDog。代表作有《只有神知道的世界》中川花音、《异国迷宫的十字路口》汤音、《天才麻将少女阿知贺篇 episode of side-A》新子憧、《我的青春恋爱物语果然有问题》由比滨结衣、《打工吧！魔王大人》佐佐木千穗、《黄金拼图》九条可怜、《伪恋》桐崎千棘、《舰队Collection》金刚、《GATE 奇幻自卫队》蕾莱·拉·列娜、《爆音少女！！》铃乃木凛、《魔法少女育成计划》白雪等。\n\n另： 只有东山大法的声音才能抚慰我受伤的心灵…
-    \n\n感谢以下朋友的热心捐赠(排名不分前后)：
-    \n\n@黄鹏飞，@海洋，@陈硕，@花国，@南墙，@最萌三千，@易霏，@◤康◢◤鑫◢，@灵零子，@咸鱼，@天美削弱部，@震宇，@俞易, @钧, @阿Q， @W-two world，@简单，就好，@仙女走路都带风，@Biu，@海~少年，@风舞月咏叹调子，@可乐酱，@随心，@星辰沐雨，@萌芽的狂想，@辰许262，@墨魇， @灵玲子，@Cation，@白夜行er，@此号三秒后删除
     \n\n感谢以下朋友的热心建议：@守护世界之树，@◤康◢◤鑫◢
     \n\n感谢@Notsfsssf(Pixiv-Ez作者) 的RestClient类（里面有机智的联网策略），使得我们能够直连Pixiv
-    \n\n使用到的开源库：
-    \n\ncom.roughike:bottom-bar:2.3.1
-    \n\ncom.astuetz:pagerslidingtabstrip:1.0.1
-    \n\nde.hdodenhof:circleimageview:2.2.0
-    \n\njp.wasabeef:glide-transformations:2.0.1
-    \n\ncom.github.bumptech.glide:glide:3.8.0
-    \n\ncom.google.code.gson:gson:2.8.0
-    \n\ncom.squareup.okhttp3:okhttp:3.8.0
-    \n\norg.litepal.android:core:1.3.2
-    \n\ncom.sdsmdg.tastytoast:tastytoast:0.1.1
-    \n\ncom.github.florent37:arclayout:1.0.3
-    \n\ncom.flaviofaria:kenburnsview:1.0.7
-    \n\ncom.nightonke:boommenu:2.1.1
-    \n\ncom.github.mancj:MaterialSearchBar:0.7.6
-    \n\ncom.squareup.retrofit2:retrofit:2.3.0
-    \n\ncom.squareup.retrofit2:converter-gson:2.3.0
-    \n\ncom.squareup.okhttp3:logging-interceptor:3.4.1
-    \n\ncom.hyman:flowlayout-lib:1.1.2
-    \n\ncom.github.codekidX:storage-chooser:2.0.3
-    \n\ncom.github.ybq:Android-SpinKit:1.1.0
-    \n\ncom.github.qingmei2:rximagepicker:0.4.0
-    \n\ncom.github.chrisbanes:PhotoView:2.1.3
     </string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
@@ -237,4 +210,6 @@
     <string name="action_start">开始</string>
     <string name="action_not_select">全部取消</string>
     <string name="batch_download">批量下载</string>
+    <string name="donate_names">查看应用捐赠名单</string>
+    <string name="libraries">使用到的开源库</string>
 </resources>

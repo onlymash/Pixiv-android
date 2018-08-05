@@ -36,9 +36,11 @@
         <activity android:name=".activities.SettingsActivity" />
         <activity android:name=".activities.SpecialCollectionActivity" />
         <activity android:name=".activities.RelatedActivity" />
-        <activity android:name=".activities.BatchDownloadActivity"></activity>
+        <activity android:name=".activities.BatchDownloadActivity" />
 
         <service android:name=".activities.BatchDownloadService" />
+
+        <activity android:name=".activities.AboutDonationActivity"></activity>
     </application>
 
 </manifest>

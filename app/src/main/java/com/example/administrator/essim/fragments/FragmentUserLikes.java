@@ -38,17 +38,17 @@ public class FragmentUserLikes extends ScrollObservableFragment {
 
     public static int dataType;
     public static RefreshLayout sRefreshLayout;
+    public GridLayoutManager gridLayoutManager;
+    public List<IllustsBean> mIllustsBeanList = new ArrayList<>();
     private String next_url;
     private Context mContext;
     private TextView mTextView;
     private boolean isLoadingMore;
-    public GridLayoutManager gridLayoutManager;
     private RecyclerView rcvGoodsList;
     private FragmentDialog mFragmentDialog;
     private AuthorWorksAdapter mPixivAdapterGrid;
     private SharedPreferences mSharedPreferences;
     private int scrolledY = 0;
-    public List<IllustsBean> mIllustsBeanList = new ArrayList<>();
 
     public static FragmentUserLikes newInstance() {
         FragmentUserLikes fragment = new FragmentUserLikes();

@@ -70,6 +70,10 @@ public class BatchSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return allIllust.size();
     }
 
+    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
+        mOnItemClickListener = itemClickListener;
+    }
+
     public class TagHolder extends RecyclerView.ViewHolder {
         private ImageView mImageView;
         private TextView mTextView;
@@ -81,9 +85,5 @@ public class BatchSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mImageView = itemView.findViewById(R.id.pixiv_image);
             mCheckBox = itemView.findViewById(R.id.is_checked);
         }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        mOnItemClickListener = itemClickListener;
     }
 }

@@ -1,9 +1,7 @@
 package com.example.administrator.essim.activities
 
 import android.os.Bundle
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-
 import com.example.administrator.essim.R
 import com.example.administrator.essim.fragments.FragmentSpecialCollec
 

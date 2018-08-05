@@ -55,7 +55,6 @@ class FragmentPixivLeft : BaseFragment() {
                 val lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition()
                 val totalItemCount = mPixivAdapter!!.itemCount
                 scrollLength += dy
-                Common.showLog(scrollLength)
                 when {
                     lastVisibleItem >= totalItemCount - 4 && dy > 0 && !isLoadingMore -> {
                         getNextData()

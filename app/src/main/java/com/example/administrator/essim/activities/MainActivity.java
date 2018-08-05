@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .load(Common.getLocalDataSet().getString("header_img_path", ""))
                     .into(mImageView);
         }
-        if(userHead.getDrawable() == null){
+        if (userHead.getDrawable() == null) {
             Glide.with(mContext)
                     .load(new GlideUtil().getHead(Common.getLocalDataSet().getString("hearurl", "")))
                     .into(userHead);

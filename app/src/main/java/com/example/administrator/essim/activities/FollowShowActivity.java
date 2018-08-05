@@ -114,7 +114,7 @@ public class FollowShowActivity extends AppCompatActivity {
                         public void onItemClick(View view, int position, int viewType) {
                             try {
                                 Intent intent = new Intent(mContext, UserDetailActivity.class);
-                                intent.putExtra("user id", response.body().getUser_previews().get(position)
+                                intent.putExtra("user id", mUserPreviewsBeanList.get(position)
                                         .getUser().getId());
                                 startActivity(intent);
                             } catch (Exception e) {
@@ -169,7 +169,7 @@ public class FollowShowActivity extends AppCompatActivity {
                         public void onItemClick(View view, int position, int viewType) {
                             try {
                                 Intent intent = new Intent(mContext, UserDetailActivity.class);
-                                intent.putExtra("user id", response.body().getUser_previews().get(position)
+                                intent.putExtra("user id", mUserPreviewsBeanList.get(position)
                                         .getUser().getId());
                                 startActivity(intent);
                             } catch (Exception e) {
@@ -217,7 +217,7 @@ public class FollowShowActivity extends AppCompatActivity {
                     public void onItemClick(View view, int position, int viewType) {
                         try {
                             Intent intent = new Intent(mContext, UserDetailActivity.class);
-                            intent.putExtra("user id", response.body().getUser_previews().get(position)
+                            intent.putExtra("user id", mUserPreviewsBeanList.get(position)
                                     .getUser().getId());
                             startActivity(intent);
                         } catch (Exception e) {

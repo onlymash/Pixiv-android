@@ -51,7 +51,7 @@ class PixivAdapterGrid(private val mPixivRankItem: List<IllustsBean>,
             anim.duration = 400
             anim.start()
         }
-        holder.itemView.post_like.setOnLongClickListener { v ->
+        holder.itemView.post_like.setOnLongClickListener {
             if (!mPixivRankItem[position].isIs_bookmarked) {
                 mOnItemClickListener!!.onItemLongClick(holder.itemView.post_like, position)
             }

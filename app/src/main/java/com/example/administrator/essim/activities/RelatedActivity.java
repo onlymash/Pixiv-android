@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.PixivAdapterGrid;
 import com.example.administrator.essim.fragments.FragmentDialog;
-import com.example.administrator.essim.fragments.FragmentUserLikes;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.Reference;
@@ -26,7 +25,6 @@ import com.example.administrator.essim.utils.Common;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class RelatedActivity extends AppCompatActivity {

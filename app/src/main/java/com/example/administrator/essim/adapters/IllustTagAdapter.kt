@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.administrator.essim.R
 import com.example.administrator.essim.interf.OnItemClickListener
-import com.example.administrator.essim.response.BookmarkDetailResponse
 import com.example.administrator.essim.response.BookmarkTagResponse
-import com.example.administrator.essim.response.PixivResponse
 import kotlinx.android.synthetic.main.bookmark_tag_item.view.*
-import kotlinx.android.synthetic.main.item_custom_suggestion.view.*
 
 class IllustTagAdapter(private var mPixivRankItem: ArrayList<BookmarkTagResponse>,
                        context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

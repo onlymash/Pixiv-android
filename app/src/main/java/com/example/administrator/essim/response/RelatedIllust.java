@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 public class RelatedIllust implements Serializable {
+    public String next_url;
+    public List<IllustsBean> illusts;
+
     public String getNext_url() {
         return next_url;
     }
@@ -19,7 +22,4 @@ public class RelatedIllust implements Serializable {
     public void setIllusts(List<IllustsBean> illusts) {
         this.illusts = illusts;
     }
-
-    public String next_url;
-    public List<IllustsBean> illusts;
 }

@@ -190,7 +190,7 @@ public class SearchResultActivity extends AppCompatActivity {
         builder.setCancelable(true);
         builder.setSingleChoiceItems(arrayOfSearchType, nowSearchType,
                 (dialogInterface, i) -> {
-                    if(i!=4) {
+                    if (i != 4) {
                         temp = arrayOfSearchType[i];
                     }
                     togo = i;
@@ -198,11 +198,9 @@ public class SearchResultActivity extends AppCompatActivity {
         builder.setPositiveButton("确定", (dialogInterface, i) -> {
             if (nowSearchType != togo) {
                 nowSearchType = togo;
-                if(togo!=4) {
+                if (togo != 4) {
                     getData(sort[1], arrayOfSearchType[nowSearchType]);
-                }
-                else
-                {
+                } else {
                     getData(sort[1], "");
                 }
             }

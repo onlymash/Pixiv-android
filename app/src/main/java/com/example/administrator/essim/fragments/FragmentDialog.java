@@ -2,7 +2,6 @@ package com.example.administrator.essim.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,7 +39,7 @@ public class FragmentDialog {
     private IllustsBean mIllustsBean;
     private IllustTagAdapter illustTagAdapter;
 
-    public FragmentDialog(Context context, View v, IllustsBean illustsBean){
+    public FragmentDialog(Context context, View v, IllustsBean illustsBean) {
         mContext = context;
         view = v;
         mIllustsBean = illustsBean;
@@ -105,7 +104,7 @@ public class FragmentDialog {
                 Common.postStarIllust(mIllustsBean, tagList,
                         mContext, swit.isChecked() ? "private" : "public");
                 mDialog.dismiss();
-                ((ImageView)view).setImageResource(R.drawable.ic_favorite_white_24dp);
+                ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
             }
         });
         EditText editText = dialogView.findViewById(R.id.mEditText);
@@ -113,7 +112,7 @@ public class FragmentDialog {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editText.getText().toString().trim().length() != 0) {
+                if (editText.getText().toString().trim().length() != 0) {
                     illustTagAdapter.addData(editText.getText().toString());
                     tagList.add(editText.getText().toString());
                     editText.setText("");

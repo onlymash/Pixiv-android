@@ -346,14 +346,14 @@ public class Common {
                 case 1:
                     return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".png");
                 case 2:
-                    return new File(parentFile.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                    return new File(parentFile.getPath(), illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId() + "_" +
                             String.valueOf(positionInIllust) + ".jpeg");
                 case 3:
-                    return new File(parentFile.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                    return new File(parentFile.getPath(), illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId() + "_" +
                             String.valueOf(positionInIllust) + ".png");
             }
         } else {
-            File secondParent = new File(parentFile.getPath() + "/" + illustsBean.getTitle() + "_" + illustsBean.getId());
+            File secondParent = new File(parentFile.getPath() + "/" + illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId());
             if (!secondParent.exists()) {
                 secondParent.mkdir();
             }
@@ -364,10 +364,10 @@ public class Common {
                 case 1:
                     return new File(secondParent.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".png");
                 case 2:
-                    return new File(secondParent.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                    return new File(secondParent.getPath(), illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId() + "_" +
                             String.valueOf(positionInIllust) + ".jpeg");
                 case 3:
-                    return new File(secondParent.getPath(), illustsBean.getTitle() + "_" + illustsBean.getId() + "_" +
+                    return new File(secondParent.getPath(), illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId() + "_" +
                             String.valueOf(positionInIllust) + ".png");
             }
         }

@@ -49,6 +49,8 @@ import retrofit2.Callback;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private static final String[] arrayOfFileNameType = {"作品id_p数.jpeg", "作品id_p数.png",
+            "作品标题_作品id_p数.jpeg", "作品标题_作品id_p数.png"};
     private int fileNameStyle;
     private Context mContext;
     private Activity mActivity;
@@ -56,8 +58,6 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView mTextView, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6, mTextView7,
             mTextView8, mTextView9, mTextView10, mTextView11, mTextView12, mTextView13, mTextView14;
     private StorageChooser.Builder builder = new StorageChooser.Builder();
-    private static final String[] arrayOfFileNameType = {"作品id_p数.jpeg", "作品id_p数.png",
-            "作品标题_作品id_p数.jpeg", "作品标题_作品id_p数.png"};
     private StorageChooser chooser;
 
     @Override
@@ -274,8 +274,8 @@ public class SettingsActivity extends AppCompatActivity {
                 editor.apply();
             }
         })
-        .setNegativeButton("取消", (dialogInterface, i) -> {
-        });
+                .setNegativeButton("取消", (dialogInterface, i) -> {
+                });
         AlertDialog dialog = builder.create();
         dialog.show();
     }

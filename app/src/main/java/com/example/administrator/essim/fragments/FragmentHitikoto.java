@@ -1,6 +1,5 @@
 package com.example.administrator.essim.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.MainActivity;
-import com.example.administrator.essim.activities.SettingsActivity;
 import com.example.administrator.essim.response.HitoModel;
 import com.example.administrator.essim.response.HitokotoType;
 import com.example.administrator.essim.utils.Common;

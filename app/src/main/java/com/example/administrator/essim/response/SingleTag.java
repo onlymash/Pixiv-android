@@ -2,8 +2,10 @@ package com.example.administrator.essim.response;
 
 public class SingleTag {
 
-    public SingleTag(String paramName)
-    {
+    public String count;
+    public String name;
+
+    public SingleTag(String paramName) {
         this.name = paramName;
     }
 
@@ -22,7 +24,4 @@ public class SingleTag {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String count;
-    public String name;
 }
