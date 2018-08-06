@@ -329,7 +329,7 @@ public class Common {
         return wave;
     }
 
-    public static File generatePictureFile(Context context, IllustsBean illustsBean, int positionInIllust, int fileNameStyle) {
+    public static File generatePictureFile(Context context, IllustsBean illustsBean, int positionInIllust, int fileNameStyle, int downloadType) {
         //检验父文件夹是否存在在，若不存在则创建
         File parentFile = new File(Common.getLocalDataSet().getString("download_path",
                 "/storage/emulated/0/PixivPictures"));
@@ -352,7 +352,7 @@ public class Common {
                     return new File(parentFile.getPath(), illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId() + "_" +
                             String.valueOf(positionInIllust) + ".png");
             }
-        } else {
+        } else if (downloadType == 0) {
             File secondParent = new File(parentFile.getPath() + "/" + illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId());
             if (!secondParent.exists()) {
                 secondParent.mkdir();
@@ -368,6 +368,19 @@ public class Common {
                             String.valueOf(positionInIllust) + ".jpeg");
                 case 3:
                     return new File(secondParent.getPath(), illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId() + "_" +
+                            String.valueOf(positionInIllust) + ".png");
+            }
+        } else if (downloadType == 1) {
+            switch (fileNameStyle) {
+                case 0:
+                    return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".jpeg");
+                case 1:
+                    return new File(parentFile.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".png");
+                case 2:
+                    return new File(parentFile.getPath(), illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId() + "_" +
+                            String.valueOf(positionInIllust) + ".jpeg");
+                case 3:
+                    return new File(parentFile.getPath(), illustsBean.getTitle().replace("/", " ") + "_" + illustsBean.getId() + "_" +
                             String.valueOf(positionInIllust) + ".png");
             }
         }

@@ -272,7 +272,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.card_left:
                 File realFile = Common.generatePictureFile(mContext, Reference.sIllustsBeans.get(index), 0,
-                        Common.getLocalDataSet().getInt("file_name_style", 0));
+                        Common.getLocalDataSet().getInt("file_name_style", 0), 1);
                 if (realFile.length() != 0) {
                     TastyToast.makeText(mContext, "该文件已存在~",
                             TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
