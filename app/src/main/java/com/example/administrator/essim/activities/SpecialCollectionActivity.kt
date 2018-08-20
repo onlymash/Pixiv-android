@@ -20,4 +20,10 @@ class SpecialCollectionActivity : AppCompatActivity() {
         }
         transaction.show(mFragmentSpecialCollec).commit()
     }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        //super.onSaveInstanceState(outState);
+        //注释掉上面那一行，就不会出现fragment界面重叠的问题，，
+    }
 }

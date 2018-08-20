@@ -21,6 +21,7 @@ import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.CollectionResponse;
 import com.example.administrator.essim.utils.Common;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.Objects;
 
@@ -88,6 +89,9 @@ public class FragmentCollecDetail extends BaseFragment {
                                 intent.putExtra("user id", Integer.valueOf(specialCollectionResponse.body
                                         .get(0).illusts.get(position).illust_user_id));
                                 startActivity(intent);
+                            } else if (viewType == 2) {
+                                TastyToast.makeText(mContext, "收藏功能还没填坑，以后更新哦",
+                                        TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
                             }
                         }
 

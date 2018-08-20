@@ -42,7 +42,18 @@ public class HttpDns implements Dns {
     210.140.92.135  pixiv.pximg.net
     210.129.120.56  fanbox.pixiv.net
     #Pixiv End*/
-    private String[] addresses = {"210.129.120.49", "210.140.131.146", "210.129.120.56", "210.129.120.44", "210.129.120.48"};
+
+    /**
+     *
+     * 210.129.120.55 pixiv.net
+     210.129.120.44 accounts.pixiv.net
+     210.140.131.145 source.pixiv.net
+     210.140.131.160 d.pixiv.org
+     210.140.131.144 imagaz.pixiv.net
+     210.129.120.55 www.pixiv.net
+     */
+    private String[] addresses = {"210.129.120.55", "210.129.120.44", "210.140.131.145", "210.140.131.160", "210.140.131.144"};
+    //private String[] addresses = {"210.129.120.49", "210.140.131.146", "210.129.120.56", "210.129.120.44", "210.129.120.48"};
     //private String[] addresses = {"123.207.137.88", "202.141.162.123", "123.207.56.160", "115.159.220.214"};
 
     public List<InetAddress> lookup(String paramString)

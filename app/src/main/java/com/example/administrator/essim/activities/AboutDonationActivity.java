@@ -6,16 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.DonaterAdapter;
 
-public class AboutDonationActivity extends AppCompatActivity {
+public class AboutDonationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String[] donaterList = new String[]{"@黄鹏飞", "@海洋", "@陈硕", "@花国", "@南墙", "@最萌三千", "@易霏", "@◤康◢◤鑫◢",
             "@灵零子", "@咸鱼", "@天美削弱部", "@震宇", "@俞易", "@钧", "@阿Q", "@W-two world", "@简单，就好", "@仙女走路都带风",
             "@Biu", "@海~少年", "@风舞月咏叹调子", "@可乐酱", "@随心", "@星辰沐雨", "@萌芽的狂想", "@辰许262", "@墨魇",
-            " @灵玲子", "@Cation", "@白夜行er", "@此号三秒后删除"};
+            " @灵玲子", "@Cation", "@白夜行er", "@此号三秒后删除", "@桃花煮雨", "@此号三秒后删除", "@不灭", "@空AE白", "@f3rab", "@琦"
+            , "@老L", "@这名字特别帅", "@占秋", "@军师祭酒"};
     private static final String[] libraries = new String[]{
             "com.roughike:bottom-bar:2.3.1",
             "com.astuetz:pagerslidingtabstrip:1.0.1",
@@ -61,5 +63,10 @@ public class AboutDonationActivity extends AppCompatActivity {
         }
 
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

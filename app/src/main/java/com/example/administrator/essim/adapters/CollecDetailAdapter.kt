@@ -37,6 +37,7 @@ class CollecDetailAdapter(private val mPixivRankItem: CollectionResponse,
         holder.itemView.pixiv_author.text = mPixivRankItem.body[0].illusts[position].user_name
         //设置大图和头像的点击事件
         holder.itemView.setOnClickListener { v -> mOnItemClickListener!!.onItemClick(v, position, 0) }
+        holder.itemView.like.setOnClickListener { v -> mOnItemClickListener!!.onItemClick(v, position, 2) }
         holder.itemView.pixiv_head.setOnClickListener { v -> mOnItemClickListener!!.onItemClick(v, position, 1) }
 
         Common.showLog(mPixivRankItem.body[0].introduction)

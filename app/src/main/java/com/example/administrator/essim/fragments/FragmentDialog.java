@@ -98,14 +98,11 @@ public class FragmentDialog {
 
         Switch swit = dialogView.findViewById(R.id.private_switch);
         TextView likeIllust = dialogView.findViewById(R.id.post_like_illust);
-        likeIllust.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Common.postStarIllust(mIllustsBean, tagList,
-                        mContext, swit.isChecked() ? "private" : "public");
-                mDialog.dismiss();
-                ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
-            }
+        likeIllust.setOnClickListener(v -> {
+            Common.postStarIllust(mIllustsBean, tagList,
+                    mContext, swit.isChecked() ? "private" : "public");
+            mDialog.dismiss();
+            ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
         });
         EditText editText = dialogView.findViewById(R.id.mEditText);
         ImageButton button = dialogView.findViewById(R.id.add_tag);

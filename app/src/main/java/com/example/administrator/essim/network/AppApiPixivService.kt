@@ -26,6 +26,11 @@ interface AppApiPixivService {
                        @Field("restrict") paramString2: String,
                        @Field("tags[]") paramList: List<String>): Call<BookmarkAddResponse>
 
+    //v1/spotlight/articles?filter=for_android&category=all HTTP/1.1
+    @GET("/v1/spotlight/articles?filter=for_android&category=all")
+    fun getSpecialArtical(@Header("Authorization") paramString1: String,
+                       @Query("offset") paramInt: Int): Call<SpecialArticalResponse>
+
 
     // https://app-api.pixiv.net/v1/user/bookmarks/illust?user_id=31655571&restrict=public
     @GET("/v1/user/bookmarks/illust")
