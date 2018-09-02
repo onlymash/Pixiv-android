@@ -40,7 +40,8 @@
 
         <service android:name=".activities.BatchDownloadService" />
 
-        <activity android:name=".activities.AboutDonationActivity"></activity>
+        <activity android:name=".activities.AboutDonationActivity" />
+        <activity android:name=".activities.DnsEditActivity"></activity>
     </application>
 
 </manifest>

@@ -185,11 +185,23 @@
                 android:textSize="@dimen/sixteen_sp"
                 android:layout_height="wrap_content" />
 
+
+            <TextView
+                android:id="@+id/dns_setting"
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:textSize="@dimen/sixteen_sp"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_below="@+id/text_name_type"
+                android:text="软件内置DNS设置"
+                android:layout_height="wrap_content" />
+
             <View
                 android:id="@+id/cut_line_two"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/text_name_type"
+                android:layout_below="@+id/dns_setting"
                 android:layout_marginTop="@dimen/sixteen_dip"
                 android:background="#CDC5BF" />
 

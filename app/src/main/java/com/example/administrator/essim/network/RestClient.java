@@ -60,7 +60,7 @@ public class RestClient {
         });
         localHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.dns(new HttpDns());
+        builder.dns(HttpDns.getInstance());
         builder.addInterceptor(paramChain -> {//User-Agent: PixivAndroidApp/5.0.104 (Android 6.0.1; D6653)
             Request localRequest = paramChain.request().newBuilder().addHeader("User-Agent", "PixivAndroidApp/5.0.104 (Android 6.0.1; D6653)").build();
             if (localRequest.header("Authorization") != null)

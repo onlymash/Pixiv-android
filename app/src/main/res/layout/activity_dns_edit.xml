@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_height="match_parent"
+        tools:context=".activities.DnsEditActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_pixiv"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:elevation="@dimen/eight_dip"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_arrow_back_black_two_24dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="编辑DNS"
+            app:titleTextColor="#fff" />
+
+        <RelativeLayout
+            android:id="@+id/rela"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar_pixiv">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/sixteen_dip"
+                android:text="使用自带DNS"
+                android:textSize="@dimen/sixteen_sp" />
+
+            <Switch
+                android:id="@+id/switch_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/sixteen_dip" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/all_dns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rela"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/all_dns"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/sixteen_dip"
+            android:text="@string/save_edit" />
+
+        <Button
+            android:id="@+id/feed_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/all_dns"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="@dimen/sixteen_dip"
+            android:text="恢复默认设置" />
+
+    </RelativeLayout>
+</ScrollView>

@@ -90,6 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
         mTextView11 = findViewById(R.id.set_header);
         mTextView12 = findViewById(R.id.set_color);
         mTextView13 = findViewById(R.id.set_file_name);
+        mTextView14 = findViewById(R.id.dns_setting);
         aSwitch.setChecked(Common.getLocalDataSet().getBoolean("is_origin_pic", false));
         aSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
             editor.putBoolean("is_origin_pic", b);
@@ -159,11 +160,10 @@ public class SettingsActivity extends AppCompatActivity {
                     });
         });
         mTextView13.setText(arrayOfFileNameType[Common.getLocalDataSet().getInt("file_name_style", 0)]);
-        mTextView13.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFileNameStyle();
-            }
+        mTextView13.setOnClickListener(v -> setFileNameStyle());
+        mTextView14.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, DnsEditActivity.class);
+            mContext.startActivity(intent);
         });
 
         //初始化路径选择对话框

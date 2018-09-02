@@ -1,19 +1,80 @@
 package com.example.administrator.essim.network;
 
+import com.example.administrator.essim.activities.PixivApplication;
+import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.LocalData;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Dns;
 
 public class HttpDns implements Dns {
+
+    private static HttpDns sHttpDns = null;
+
+    private HttpDns() {
+        if (Common.getLocalDataSet().getBoolean("inner_dns", true)) {
+            for (String address : addresses) {
+                try {
+                    newDns.add(InetAddress.getByName(address));
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else {
+            Map<String, ?> map = LocalData.getAllDns(PixivApplication.getContext());
+            for (Map.Entry<String, ?> entry : map.entrySet()) {
+                try {
+                    newDns.add(InetAddress.getByName(String.valueOf(entry.getValue())));
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void reformatLocalDns(){
+        newDns.clear();
+        for (String address : addresses) {
+            try {
+                newDns.add(InetAddress.getByName(address));
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static HttpDns getInstance() {
+        if (sHttpDns == null) {
+            sHttpDns = new HttpDns();
+        }
+        return sHttpDns;
+    }
+
+
+    public static List<InetAddress> newDns = new ArrayList<>();
+    private static final String[] addresses = {"210.129.120.50", "210.140.92.135", "210.140.131.144", "210.129.120.46", "210.140.131.144", "210.140.131.147"};
+
+    public List<InetAddress> lookup(String paramString)
+            throws UnknownHostException {
+        try {
+            return newDns;
+        } catch (Exception localException) {
+            localException.printStackTrace();
+        }
+        return Dns.SYSTEM.lookup(paramString);
+    }
+
     /*著作权归作者所有。
     商业转载请联系作者获得授权，非商业转载请注明出处。
     Mashiro
     链接：https://2heng.xin/2017/09/19/pixiv/
     来源：樱花庄的白猫
-
     #Pixiv Start
     210.129.120.49  pixiv.net
     210.129.120.49  www.pixiv.net
@@ -42,7 +103,6 @@ public class HttpDns implements Dns {
     210.140.92.135  pixiv.pximg.net
     210.129.120.56  fanbox.pixiv.net
     #Pixiv End*/
-
     /**
      *
      * 210.129.120.55 pixiv.net
@@ -52,29 +112,9 @@ public class HttpDns implements Dns {
      210.140.131.144 imagaz.pixiv.net
      210.129.120.55 www.pixiv.net
      */
-    private String[] addresses = {"210.129.120.55", "210.129.120.44", "210.140.131.145", "210.140.131.160", "210.140.131.144"};
+
+
+    //private String[] addresses = {"210.129.120.55", "210.129.120.44", "210.140.131.145", "210.140.131.160", "210.140.131.144"};
     //private String[] addresses = {"210.129.120.49", "210.140.131.146", "210.129.120.56", "210.129.120.44", "210.129.120.48"};
     //private String[] addresses = {"123.207.137.88", "202.141.162.123", "123.207.56.160", "115.159.220.214"};
-
-    public List<InetAddress> lookup(String paramString)
-            throws UnknownHostException {
-        try {
-            ArrayList localArrayList = new ArrayList();
-            String[] arrayOfString = this.addresses;
-            int j = 0;
-            int i = j;
-            if (arrayOfString != null) {
-                i = this.addresses.length;
-                i = j;
-            }
-            while (i < this.addresses.length) {
-                localArrayList.add(InetAddress.getByName(this.addresses[i]));
-                i += 1;
-            }
-            return localArrayList;
-        } catch (Exception localException) {
-            localException.printStackTrace();
-        }
-        return Dns.SYSTEM.lookup(paramString);
-    }
 }
