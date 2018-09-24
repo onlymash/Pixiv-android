@@ -22,6 +22,9 @@ import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.RelatedIllust;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.DensityUtil;
+import com.example.administrator.essim.utils.GridItemDecoration;
+import com.example.administrator.essim.utils.PixivOperate;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -71,6 +74,8 @@ public class RelatedActivity extends AppCompatActivity {
         });
         mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new GridItemDecoration(
+                2, DensityUtil.dip2px(mContext, 8.0f), true));
     }
 
     private void initAdapter(List<IllustsBean> illustsBeans) {
@@ -89,13 +94,13 @@ public class RelatedActivity extends AppCompatActivity {
                     if (!illustsBeans.get(position).isIs_bookmarked()) {
                         ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
                         view.startAnimation(Common.getAnimation());
-                        Common.postStarIllust(position, illustsBeans,
-                                Common.getLocalDataSet().getString("Authorization", ""), mContext, "public");
+                        illustsBeans.get(position).setIs_bookmarked(true);
+                        PixivOperate.postStarIllust(illustsBeans.get(position).getId(), mContext, "public");
                     } else {
-                        ((ImageView) view).setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                        ((ImageView) view).setImageResource(R.drawable.no_favor);
                         view.startAnimation(Common.getAnimation());
-                        Common.postUnstarIllust(position, illustsBeans,
-                                Common.getLocalDataSet().getString("Authorization", ""), mContext);
+                        illustsBeans.get(position).setIs_bookmarked(false);
+                        PixivOperate.postUnstarIllust(illustsBeans.get(position).getId(), mContext);
                     }
                 }
             }

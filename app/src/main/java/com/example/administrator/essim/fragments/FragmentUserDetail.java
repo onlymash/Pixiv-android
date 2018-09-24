@@ -37,6 +37,7 @@ import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.UserDetailResponse;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideUtil;
+import com.example.administrator.essim.utils.LocalData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,7 +122,7 @@ public class FragmentUserDetail extends Fragment {
         Call<UserDetailResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getUserDetail(Common.getLocalDataSet().getString("Authorization", ""), ((UserDetailActivity) getActivity()).getUserID());
+                .getUserDetail(LocalData.getToken(), ((UserDetailActivity) getActivity()).getUserID());
         call.enqueue(new retrofit2.Callback<UserDetailResponse>() {
             @Override
             public void onResponse(Call<UserDetailResponse> call, retrofit2.Response<UserDetailResponse> response) {
@@ -136,6 +137,8 @@ public class FragmentUserDetail extends Fragment {
 
             @Override
             public void onFailure(Call<UserDetailResponse> call, Throwable throwable) {
+                mProgressBar.setVisibility(View.INVISIBLE);
+                Common.showToast(mContext, getString(R.string.no_proxy));
             }
         });
     }

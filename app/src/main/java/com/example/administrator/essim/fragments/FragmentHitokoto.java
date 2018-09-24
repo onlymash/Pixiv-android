@@ -35,7 +35,7 @@ import okhttp3.Response;
  * Created by Administrator on 2018/1/15 0015.
  */
 
-public class FragmentHitikoto extends BaseFragment {
+public class FragmentHitokoto extends BaseFragment {
 
     public static boolean need_to_refresh = false;
     private final String url_head = "https://v1.hitokoto.cn/?c=";

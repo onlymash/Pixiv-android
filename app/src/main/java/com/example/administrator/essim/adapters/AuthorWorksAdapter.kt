@@ -38,7 +38,7 @@ class AuthorWorksAdapter(private val mPixivRankItem: List<IllustsBean>,
                     .into(holder.itemView.pixiv_image)
             when {
                 mPixivRankItem[position].isIs_bookmarked -> holder.itemView.post_like.setImageResource(R.drawable.ic_favorite_white_24dp)
-                else -> holder.itemView.post_like.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                else -> holder.itemView.post_like.setImageResource(R.drawable.no_favor)
             }
             when {
                 mPixivRankItem[position].page_count > 1 -> {
@@ -48,7 +48,7 @@ class AuthorWorksAdapter(private val mPixivRankItem: List<IllustsBean>,
                 else -> holder.itemView.pixiv_item_size.visibility = View.INVISIBLE
             }
             //单个item被点击，交给外界处理
-            holder.itemView.setOnClickListener { mOnItemClickListener!!.onItemClick(holder.itemView, position, 0) }
+            holder.itemView.setOnClickListener { mOnItemClickListener?.onItemClick(holder.itemView, position, 0) }
             //设置收藏按钮的点击事件
             holder.itemView.post_like.setOnClickListener { v ->
                 mOnItemClickListener!!.onItemClick(holder.itemView.post_like, position, 1)

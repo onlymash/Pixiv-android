@@ -117,10 +117,10 @@ public class FragmentMine extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hide) {
         if (!hide) {
-            if (FragmentHitikoto.need_to_refresh) {
+            if (FragmentHitokoto.need_to_refresh) {
                 reFreshLocalData();
                 mRecyclerView.smoothScrollToPosition(mHitoModels.size());
-                FragmentHitikoto.need_to_refresh = false;
+                FragmentHitokoto.need_to_refresh = false;
             }
         }
     }

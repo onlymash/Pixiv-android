@@ -2,7 +2,6 @@ package com.example.administrator.essim.activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -16,7 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.fragments.FragmentHitikoto;
+import com.example.administrator.essim.fragments.FragmentHitokoto;
 import com.example.administrator.essim.fragments.FragmentMine;
 import com.example.administrator.essim.fragments.FragmentPixiv;
 import com.example.administrator.essim.fragments.FragmentRank;
@@ -36,10 +34,9 @@ import com.example.administrator.essim.utils.GlideUtil;
 import com.roughike.bottombar.BottomBar;
 import com.sdsmdg.tastytoast.TastyToast;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private long mExitTime;
-    private Context mContext;
     private DrawerLayout drawer;
     private int lastShowFragment;
     private Fragment[] mFragments;
@@ -52,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         setContentView(R.layout.activity_main);
-        mContext = this;
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -89,28 +85,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             bottomBar.setOnTabSelectListener(tabId -> {
                 switch (tabId) {
                     case R.id.tab_pixiv:
-                        if (lastShowFragment != 0) {
-                            switchFrament(lastShowFragment, 0);
-                            lastShowFragment = 0;
-                        }
+                        switchFrament(0);
                         break;
                     case R.id.tab_rank:
-                        if (lastShowFragment != 1) {
-                            switchFrament(lastShowFragment, 1);
-                            lastShowFragment = 1;
-                        }
+                        switchFrament(1);
                         break;
                     case R.id.tab_hitokoto:
-                        if (lastShowFragment != 2) {
-                            switchFrament(lastShowFragment, 2);
-                            lastShowFragment = 2;
-                        }
+                        switchFrament(2);
                         break;
                     case R.id.tab_mine:
-                        if (lastShowFragment != 3) {
-                            switchFrament(lastShowFragment, 3);
-                            lastShowFragment = 3;
-                        }
+                        switchFrament(3);
                         break;
                     default:
                         break;
@@ -124,27 +108,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void switchFrament(int lastIndex, int index) {
+    /**
+     * 切换Fragment
+     *
+     * @param index 需要显示的index
+     */
+    public void switchFrament(int index) {
+        if (lastShowFragment == index) {
+            return;
+        }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.hide(mFragments[lastIndex]);
+        transaction.hide(mFragments[lastShowFragment]);
         if (!mFragments[index].isAdded()) {
             transaction.add(R.id.fragment_container, mFragments[index]);
         }
         transaction.show(mFragments[index]).commitAllowingStateLoss();
+        lastShowFragment = index;
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //super.onSaveInstanceState(outState);
-        //注释掉上面那一行，就不会出现fragment界面重叠的问题，，
+        //注释掉上面那一行，就不会出现fragment界面重叠的问题，，我佛了
     }
 
     private void initFragments() {
         FragmentPixiv fragmentPixiv = new FragmentPixiv();
-        FragmentRank fragmentHitikoto = new FragmentRank();
-        FragmentHitikoto fragmentHitokoto = new FragmentHitikoto();
+        FragmentRank fragmentRank = new FragmentRank();
+        FragmentHitokoto fragmentHitokoto = new FragmentHitokoto();
         FragmentMine fragmentMine = new FragmentMine();
-        mFragments = new Fragment[]{fragmentPixiv, fragmentHitikoto, fragmentHitokoto, fragmentMine};
+        mFragments = new Fragment[]{fragmentPixiv, fragmentRank, fragmentHitokoto, fragmentMine};
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, fragmentPixiv)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,38 +9,54 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#00000000"
         android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back_black_two_24dp"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:title=" " />
+        app:title="@string/login_title" />
 
     <ImageView
-        android:id="@+id/login_logo"
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/sixteen_dip"
-        android:layout_marginTop="100dp"
-        android:src="@mipmap/login_logo" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@mipmap/login_logo"
+        app:layout_constraintBottom_toTopOf="@+id/card_pixiv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_pixiv"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_logo"
-        android:layout_marginBottom="6dp"
-        android:layout_marginEnd="45dp"
+        android:layout_centerInParent="true"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="8dp"
         android:background="@android:color/white"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         android:stateListAnimator="@animator/touch_raise"
         app:cardCornerRadius="@dimen/card_recycler_elevation"
-        app:cardElevation="@dimen/card_recycler_elevation">
+        app:cardElevation="@dimen/card_recycler_elevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.5">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -72,17 +88,21 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_login"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_below="@+id/card_pixiv"
-        android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/sixteen_dip"
+        android:layout_marginEnd="45dp"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         android:stateListAnimator="@animator/touch_raise"
         app:cardCornerRadius="@dimen/card_recycler_elevation"
-        app:cardElevation="@dimen/card_recycler_elevation">
+        app:cardElevation="@dimen/card_recycler_elevation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_pixiv">
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,13 +118,30 @@
         android:id="@+id/new_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/card_login"
         android:layout_below="@+id/card_login"
+        android:layout_alignEnd="@+id/card_login"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/sixteen_dip"
+        android:layout_marginTop="@dimen/twelve_dip"
         android:text="@string/dont_have_account"
         android:textColor="@android:color/white"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/card_pixiv"
+        app:layout_constraintTop_toBottomOf="@+id/card_login" />
+
+    <TextView
+        android:id="@+id/study_now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card_login"
+        android:layout_alignStart="@+id/card_login"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/twelve_dip"
+        android:text="@string/cant_login"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/try_login"
+        app:layout_constraintStart_toStartOf="@+id/card_pixiv"
+        app:layout_constraintTop_toBottomOf="@+id/card_login" />
 
     <ProgressBar
         android:id="@+id/try_login"
@@ -112,6 +149,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/study_now" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

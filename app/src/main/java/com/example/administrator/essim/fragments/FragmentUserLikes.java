@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.UserDetailActivity;
@@ -26,6 +25,9 @@ import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.UserIllustsResponse;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.DensityUtil;
+import com.example.administrator.essim.utils.PixivOperate;
+import com.example.administrator.essim.utils.WorksItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +44,10 @@ public class FragmentUserLikes extends ScrollObservableFragment {
     public List<IllustsBean> mIllustsBeanList = new ArrayList<>();
     private String next_url;
     private Context mContext;
-    private TextView mTextView;
     private boolean isLoadingMore;
     private RecyclerView rcvGoodsList;
     private FragmentDialog mFragmentDialog;
+    private ImageView mImageView;
     private AuthorWorksAdapter mPixivAdapterGrid;
     private SharedPreferences mSharedPreferences;
     private int scrolledY = 0;
@@ -82,6 +84,8 @@ public class FragmentUserLikes extends ScrollObservableFragment {
         rcvGoodsList = v.findViewById(R.id.rcvGoodsList);
         rcvGoodsList.setLayoutManager(gridLayoutManager);
         rcvGoodsList.setHasFixedSize(true);
+        rcvGoodsList.addItemDecoration(new WorksItemDecoration(
+                2, DensityUtil.dip2px(mContext, 8.0f), true));
         rcvGoodsList.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, final int dx, final int dy) {
@@ -98,7 +102,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
                 }
             }
         });
-        mTextView = v.findViewById(R.id.post_like_user);
+        mImageView = v.findViewById(R.id.no_data);
     }
 
     private void getLikeIllust(String starType, String tag) {
@@ -115,14 +119,8 @@ public class FragmentUserLikes extends ScrollObservableFragment {
                 if (getView() != null) {
                     if (response.body().getIllusts().size() == 0) {
                         // 没有数据，recyclerview不显示，显示textview提示
-                        FragmentUserDetail.mShowProgress.showProgress(false);
-                        if (rcvGoodsList.getVisibility() == VISIBLE) {
-                            rcvGoodsList.setVisibility(View.INVISIBLE);
-                        }
-                        if (mTextView.getVisibility() == View.INVISIBLE) {
-                            mTextView.setText("这里空空的，什么也没有~");
-                            mTextView.setVisibility(VISIBLE);
-                        }
+                        rcvGoodsList.setVisibility(View.INVISIBLE);
+                        mImageView.setVisibility(VISIBLE);
                     } else {
                         mIllustsBeanList.clear();
                         mIllustsBeanList.addAll(response.body().getIllusts());
@@ -140,13 +138,13 @@ public class FragmentUserLikes extends ScrollObservableFragment {
                                     if (!mIllustsBeanList.get(position).isIs_bookmarked()) {
                                         ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
                                         view.startAnimation(Common.getAnimation());
-                                        Common.postStarIllust(position, mIllustsBeanList,
-                                                mSharedPreferences.getString("Authorization", ""), mContext, "public");
+                                        mIllustsBeanList.get(position).setIs_bookmarked(true);
+                                        PixivOperate.postStarIllust(mIllustsBeanList.get(position).getId(), mContext, "public");
                                     } else {
-                                        ((ImageView) view).setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                                        ((ImageView) view).setImageResource(R.drawable.no_favor);
                                         view.startAnimation(Common.getAnimation());
-                                        Common.postUnstarIllust(position, mIllustsBeanList,
-                                                mSharedPreferences.getString("Authorization", ""), mContext);
+                                        mIllustsBeanList.get(position).setIs_bookmarked(false);
+                                        PixivOperate.postUnstarIllust(mIllustsBeanList.get(position).getId(), mContext);
                                     }
                                 }
                             }
@@ -158,23 +156,22 @@ public class FragmentUserLikes extends ScrollObservableFragment {
                             }
                         });
                         // 有数据，textview不显示，显示recyclerview
-                        if (rcvGoodsList.getVisibility() == View.INVISIBLE) {
-                            rcvGoodsList.setVisibility(VISIBLE);
-                        }
-                        if (mTextView.getVisibility() == VISIBLE) {
-                            mTextView.setVisibility(View.INVISIBLE);
-                        }
-                        FragmentUserDetail.mShowProgress.showProgress(false);
+                        rcvGoodsList.setVisibility(VISIBLE);
+                        mImageView.setVisibility(View.INVISIBLE);
                         rcvGoodsList.setAdapter(mPixivAdapterGrid);
                         scrolledY = 0;
                         rcvGoodsList.scrollBy(0, FragmentUserDetail.scrollYset);
                     }
+                    FragmentUserDetail.mShowProgress.showProgress(false);
                 }
             }
 
             @Override
             public void onFailure(Call<UserIllustsResponse> call, Throwable throwable) {
-
+                rcvGoodsList.setVisibility(View.INVISIBLE);
+                mImageView.setVisibility(VISIBLE);
+                FragmentUserDetail.mShowProgress.showProgress(false);
+                Common.showToast(mContext, getString(R.string.no_proxy));
             }
         });
     }

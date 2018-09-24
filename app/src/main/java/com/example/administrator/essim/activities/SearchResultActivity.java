@@ -29,6 +29,10 @@ import com.example.administrator.essim.response.RecommendResponse;
 import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.SearchIllustResponse;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.DensityUtil;
+import com.example.administrator.essim.utils.GridItemDecoration;
+import com.example.administrator.essim.utils.LocalData;
+import com.example.administrator.essim.utils.PixivOperate;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -50,6 +54,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private boolean isBestSort;
     private boolean isLoadingMore;
     private ProgressBar mProgressBar;
+    private ImageView mImageView;
     private RecyclerView mRecyclerView;
     private PixivAdapterGrid mPixivAdapter;
     private int nowSearchType = 4, togo = 4;
@@ -77,6 +82,7 @@ public class SearchResultActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(view -> finish());
         mProgressBar = findViewById(R.id.try_login);
         mProgressBar.setVisibility(View.INVISIBLE);
+        mImageView = findViewById(R.id.no_data);
         mRecyclerView = findViewById(R.id.pixiv_recy);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
@@ -93,6 +99,8 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         });
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new GridItemDecoration(
+                2, DensityUtil.dip2px(mContext, 8.0f), true));
         AlphaAnimation alphaAnimationShowIcon = new AlphaAnimation(0.2f, 1.0f);
         alphaAnimationShowIcon.setDuration(500);
     }
@@ -100,6 +108,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private void getData(String rankType, String usersyori) {
         isBestSort = rankType.equals(sort[0]);
         mProgressBar.setVisibility(View.VISIBLE);
+        mImageView.setVisibility(View.INVISIBLE);
         Call<SearchIllustResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
@@ -110,46 +119,57 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SearchIllustResponse> call, retrofit2.Response<SearchIllustResponse> response) {
                 if (response.body() != null) {
-                    next_url = response.body().getNext_url();
-                    mIllustsBeanList.clear();
-                    mIllustsBeanList.addAll(response.body().getIllusts());
-                    mPixivAdapter = new PixivAdapterGrid(mIllustsBeanList, mContext);
-                    mPixivAdapter.setOnItemClickListener(new OnItemClickListener() {
-                        @Override
-                        public void onItemClick(@NotNull View view, int position, int viewType) {
-                            if (viewType == 0) {
-                                Reference.sIllustsBeans = mIllustsBeanList;
-                                Intent intent = new Intent(mContext, ViewPagerActivity.class);
-                                intent.putExtra("which one is selected", position);
-                                mContext.startActivity(intent);
-                            } else if (viewType == 1) {
-                                if (!mIllustsBeanList.get(position).isIs_bookmarked()) {
-                                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
-                                    view.startAnimation(Common.getAnimation());
-                                    Common.postStarIllust(position, mIllustsBeanList,
-                                            Common.getLocalDataSet().getString("Authorization", ""), mContext, "public");
-                                } else {
-                                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                                    view.startAnimation(Common.getAnimation());
-                                    Common.postUnstarIllust(position, mIllustsBeanList,
-                                            Common.getLocalDataSet().getString("Authorization", ""), mContext);
+                    if(response.body().getIllusts().size() > 0) {
+                        next_url = response.body().getNext_url();
+                        mIllustsBeanList.clear();
+                        mIllustsBeanList.addAll(response.body().getIllusts());
+                        mPixivAdapter = new PixivAdapterGrid(mIllustsBeanList, mContext);
+                        mPixivAdapter.setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onItemClick(@NotNull View view, int position, int viewType) {
+                                if (viewType == 0) {
+                                    Reference.sIllustsBeans = mIllustsBeanList;
+                                    Intent intent = new Intent(mContext, ViewPagerActivity.class);
+                                    intent.putExtra("which one is selected", position);
+                                    mContext.startActivity(intent);
+                                } else if (viewType == 1) {
+                                    if (!mIllustsBeanList.get(position).isIs_bookmarked()) {
+                                        ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
+                                        view.startAnimation(Common.getAnimation());
+                                        mIllustsBeanList.get(position).setIs_bookmarked(true);
+                                        PixivOperate.postStarIllust(mIllustsBeanList.get(position).getId(), mContext, "public");
+                                    } else {
+                                        ((ImageView) view).setImageResource(R.drawable.no_favor);
+                                        view.startAnimation(Common.getAnimation());
+                                        mIllustsBeanList.get(position).setIs_bookmarked(false);
+                                        PixivOperate.postUnstarIllust(mIllustsBeanList.get(position).getId(), mContext);
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onItemLongClick(@NotNull View view, int position) {
-                            new FragmentDialog(mContext, view, mIllustsBeanList.get(position)).showDialog();
-                        }
-                    });
-                    mRecyclerView.setAdapter(mPixivAdapter);
+                            @Override
+                            public void onItemLongClick(@NotNull View view, int position) {
+                                new FragmentDialog(mContext, view, mIllustsBeanList.get(position)).showDialog();
+                            }
+                        });
+                        mRecyclerView.setAdapter(mPixivAdapter);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        mImageView.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        mRecyclerView.setVisibility(View.INVISIBLE);
+                        mImageView.setVisibility(View.VISIBLE);
+                    }
                     mProgressBar.setVisibility(View.INVISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<SearchIllustResponse> call, Throwable throwable) {
-
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                mImageView.setVisibility(View.VISIBLE);
+                Common.showToast(mContext, getString(R.string.no_proxy));
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -160,7 +180,7 @@ public class SearchResultActivity extends AppCompatActivity {
             Call<RecommendResponse> call = new RestClient()
                     .getRetrofit_AppAPI()
                     .create(AppApiPixivService.class)
-                    .getNext(mSharedPreferences.getString("Authorization", ""), next_url);
+                    .getNext(LocalData.getToken(), next_url);
             call.enqueue(new Callback<RecommendResponse>() {
                 @Override
                 public void onResponse(Call<RecommendResponse> call, retrofit2.Response<RecommendResponse> response) {
@@ -175,11 +195,14 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<RecommendResponse> call, Throwable throwable) {
-
+                    mRecyclerView.setVisibility(View.INVISIBLE);
+                    mImageView.setVisibility(View.VISIBLE);
+                    Common.showToast(mContext, getString(R.string.no_proxy));
+                    mProgressBar.setVisibility(View.INVISIBLE);
                 }
             });
         } else {
-            Snackbar.make(mProgressBar, "再怎么找也找不到了~", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mProgressBar, getString(R.string.no_more_data), Snackbar.LENGTH_SHORT).show();
         }
     }
 

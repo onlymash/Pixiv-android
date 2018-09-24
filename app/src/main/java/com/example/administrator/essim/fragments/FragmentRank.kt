@@ -19,7 +19,7 @@ import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.network.AppApiPixivService
 import com.example.administrator.essim.network.RestClient
 import com.example.administrator.essim.response.*
-import com.example.administrator.essim.utils.Common
+import com.example.administrator.essim.utils.*
 import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton
 import com.nightonke.boommenu.Util
 import kotlinx.android.synthetic.main.fragment_rank.*
@@ -111,12 +111,13 @@ class FragmentRank : BaseFragment() {
             }
         })
         mRecyclerView.setHasFixedSize(true)
+        mRecyclerView.addItemDecoration(GridItemDecoration(
+                2, DensityUtil.dip2px(mContext, 8.0f), true));
         (activity as AppCompatActivity).setSupportActionBar(mToolbar)
         mToolbar.setNavigationOnClickListener { (activity as MainActivity).drawer.openDrawer(Gravity.START, true) }
         mToolbar.title = "动态"
         mRecyclerView.layoutManager = gridLayoutManager
         mRecyclerView.setHasFixedSize(true)
-        //mFab.isUse3DTransformAnimation = true
         mFab.showDuration = 400
         mFab.hideDuration = 400
         mFab.frames = 60
@@ -131,10 +132,14 @@ class FragmentRank : BaseFragment() {
                     .listener(clickListener)
             mFab.addBuilder(builder)
         }
+        no_data.setOnClickListener {
+            getFollowUserNewIllust()
+        }
     }
 
     private fun getFollowUserNewIllust() {
         mProgressbar.visibility = View.VISIBLE
+        no_data.visibility = View.INVISIBLE
         val call = RestClient()
                 .retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
@@ -142,48 +147,63 @@ class FragmentRank : BaseFragment() {
         call.enqueue(object : Callback<IllustfollowResponse> {
             override fun onResponse(call: Call<IllustfollowResponse>,
                                     response: retrofit2.Response<IllustfollowResponse>) {
-                nextDataUrl = response.body()!!.next_url
-                mIllustsBeanList.clear()
-                mIllustsBeanList.addAll(response.body()!!.illusts)
-                mPixivAdapter = PixivAdapterGrid(mIllustsBeanList, mContext)
-                mPixivAdapter!!.setOnItemClickListener(object : OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int, viewType: Int) {
-                        when {
-                            viewType == 0 -> {
-                                Reference.sIllustsBeans = mIllustsBeanList
-                                val intent = Intent(mContext, ViewPagerActivity::class.java)
-                                intent.putExtra("which one is selected", position)
-                                mContext.startActivity(intent)
-                            }
-                            viewType == 1 -> if (!mIllustsBeanList[position].isIs_bookmarked) {
-                                (view as ImageView).setImageResource(R.drawable.ic_favorite_white_24dp)
-                                view.startAnimation(Common.getAnimation())
-                                Common.postStarIllust(position, mIllustsBeanList,
-                                        Common.getLocalDataSet().getString("Authorization", ""), mContext, "public")
-                            } else {
-                                (view as ImageView).setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                                view.startAnimation(Common.getAnimation())
-                                Common.postUnstarIllust(position, mIllustsBeanList,
-                                        Common.getLocalDataSet().getString("Authorization", ""), mContext)
+                if(response.body()?.illusts != null && response.body()!!.illusts.size > 0) {
+                    nextDataUrl = response.body()!!.next_url
+                    mIllustsBeanList.clear()
+                    mIllustsBeanList.addAll(response.body()!!.illusts)
+                    mPixivAdapter = PixivAdapterGrid(mIllustsBeanList, mContext)
+                    mPixivAdapter!!.setOnItemClickListener(object : OnItemClickListener {
+                        override fun onItemClick(view: View, position: Int, viewType: Int) {
+                            when {
+                                viewType == 0 -> {
+                                    Reference.sIllustsBeans = mIllustsBeanList
+                                    val intent = Intent(mContext, ViewPagerActivity::class.java)
+                                    intent.putExtra("which one is selected", position)
+                                    mContext.startActivity(intent)
+                                }
+                                viewType == 1 -> if (!mIllustsBeanList[position].isIs_bookmarked) {
+                                    (view as ImageView).setImageResource(R.drawable.ic_favorite_white_24dp)
+                                    view.startAnimation(Common.getAnimation())
+                                    mIllustsBeanList[position].isIs_bookmarked = true;
+                                    PixivOperate.postStarIllust(mIllustsBeanList[position].id, mContext, "public")
+                                } else {
+                                    (view as ImageView).setImageResource(R.drawable.no_favor)
+                                    view.startAnimation(Common.getAnimation())
+                                    mIllustsBeanList[position].isIs_bookmarked = false;
+                                    PixivOperate.postUnstarIllust(mIllustsBeanList[position].id, mContext)
+                                }
                             }
                         }
-                    }
 
-                    override fun onItemLongClick(view: View, position: Int) {
-                        FragmentDialog(mContext, view, mIllustsBeanList[position]).showDialog()
-                    }
-                })
-                mRecyclerView.adapter = mPixivAdapter
-                mToolbar.title = "动态"
-                mProgressbar.visibility = View.INVISIBLE
+                        override fun onItemLongClick(view: View, position: Int) {
+                            FragmentDialog(mContext, view, mIllustsBeanList[position]).showDialog()
+                        }
+                    })
+                    mRecyclerView.adapter = mPixivAdapter
+                    mToolbar.title = "动态"
+                    mRecyclerView.visibility = View.VISIBLE
+                    no_data.visibility = View.INVISIBLE
+                    mProgressbar.visibility = View.INVISIBLE
+                }else{
+                    mProgressbar.visibility = View.INVISIBLE
+                    no_data.visibility = View.VISIBLE
+                    mRecyclerView.visibility = View.INVISIBLE
+                    Common.showToast(mContext, getString(R.string.no_proxy));
+                }
             }
 
-            override fun onFailure(call: Call<IllustfollowResponse>, throwable: Throwable) {}
+            override fun onFailure(call: Call<IllustfollowResponse>, throwable: Throwable) {
+                mProgressbar.visibility = View.INVISIBLE
+                no_data.visibility = View.VISIBLE;
+                mRecyclerView.visibility = View.INVISIBLE
+                Common.showToast(mContext, getString(R.string.no_proxy));
+            }
         })
     }
 
     private fun getRankList(dataType: Int) {
         mProgressbar.visibility = View.VISIBLE
+        no_data.visibility = View.INVISIBLE
         val call = RestClient()
                 .retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
@@ -198,10 +218,17 @@ class FragmentRank : BaseFragment() {
                 mToolbar.title = arrayOfRankMode[currentDataType + 1]
                 mPixivAdapter!!.notifyDataSetChanged()
                 mRecyclerView.scrollToPosition(0)
+                mRecyclerView.visibility = View.VISIBLE
                 mProgressbar.visibility = View.INVISIBLE
+                no_data.visibility = View.INVISIBLE
             }
 
-            override fun onFailure(call: Call<IllustRankingResponse>, throwable: Throwable) {}
+            override fun onFailure(call: Call<IllustRankingResponse>, throwable: Throwable) {
+                mProgressbar.visibility = View.INVISIBLE
+                mRecyclerView.visibility = View.INVISIBLE
+                no_data.visibility = View.VISIBLE;
+                Common.showToast(mContext, getString(R.string.no_proxy));
+            }
         })
     }
 
@@ -211,7 +238,7 @@ class FragmentRank : BaseFragment() {
             val call = RestClient()
                     .retrofit_AppAPI
                     .create(AppApiPixivService::class.java)
-                    .getNext(Common.getLocalDataSet().getString("Authorization", "")!!, nextDataUrl!!)
+                    .getNext(LocalData.getToken(), nextDataUrl!!)
             call.enqueue(object : Callback<RecommendResponse> {
                 override fun onResponse(call: Call<RecommendResponse>,
                                         response: retrofit2.Response<RecommendResponse>) {
@@ -225,7 +252,7 @@ class FragmentRank : BaseFragment() {
                 override fun onFailure(call: Call<RecommendResponse>, throwable: Throwable) {}
             })
         } else {
-            Snackbar.make(mProgressbar, "再怎么找也找不到了~", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(mProgressbar, getString(R.string.no_more_data), Snackbar.LENGTH_SHORT).show()
         }
     }
 

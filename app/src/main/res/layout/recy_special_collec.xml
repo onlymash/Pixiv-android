@@ -4,10 +4,10 @@
     android:id="@+id/card_pixiv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/eight_dip"
-    android:layout_marginTop="@dimen/eight_dip"
     android:layout_marginStart="@dimen/sixteen_dip"
+    android:layout_marginTop="@dimen/eight_dip"
     android:layout_marginEnd="@dimen/sixteen_dip"
+    android:layout_marginBottom="@dimen/eight_dip"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     android:stateListAnimator="@animator/touch_raise"
@@ -18,34 +18,36 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:scaleType="centerCrop"
             android:id="@+id/imageView"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:padding="@dimen/sixteen_dip"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/imageView"
-            android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/text_title"
-            android:layout_centerVertical="true"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/colorPrimary"
-            android:textSize="17sp"
-            android:layout_marginEnd="85dp"
-            android:layout_height="wrap_content" />
+            android:padding="@dimen/sixteen_dip">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/text_date"
+                android:id="@+id/text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/text_date"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/text_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_height="wrap_content" />
+                android:layout_centerVertical="true" />
 
         </RelativeLayout>
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.example.administrator.essim.R
+import com.sdsmdg.tastytoast.TastyToast
 import kotlinx.android.synthetic.main.activity_about.*
 
 
@@ -25,6 +26,10 @@ class AboutActivity : AppCompatActivity() {
         getUsedLibraries.setOnClickListener {
             val intent = Intent(context, AboutDonationActivity::class.java)
             intent.putExtra("dataType", "libraries")
+            context.startActivity(intent)
+        }
+        you_are_free.setOnClickListener {
+            val intent = Intent(context, FreeActivity::class.java)
             context.startActivity(intent)
         }
     }

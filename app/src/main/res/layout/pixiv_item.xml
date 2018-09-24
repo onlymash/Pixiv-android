@@ -75,7 +75,7 @@
                 android:id="@+id/like"
                 android:layout_marginEnd="@dimen/sixteen_dip"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_favorite_border_black_24dp"
+                android:src="@drawable/no_favor"
                 android:layout_height="30dp" />
 
         </RelativeLayout>

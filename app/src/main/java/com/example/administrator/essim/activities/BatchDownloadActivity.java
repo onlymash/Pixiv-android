@@ -18,6 +18,8 @@ import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.DensityUtil;
+import com.example.administrator.essim.utils.GridItemDecoration;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.jetbrains.annotations.NotNull;
@@ -47,6 +49,8 @@ public class BatchDownloadActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new GridItemDecoration(
+                2, DensityUtil.dip2px(mContext, 8.0f), true));
         BatchSelectAdapter adapter = new BatchSelectAdapter(Reference.sIllustsBeans, mContext);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override

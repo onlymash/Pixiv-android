@@ -193,6 +193,7 @@
                 android:layout_marginStart="@dimen/sixteen_dip"
                 android:textSize="@dimen/sixteen_sp"
                 android:layout_marginTop="@dimen/sixteen_dip"
+                android:visibility="gone"
                 android:layout_below="@+id/text_name_type"
                 android:text="软件内置DNS设置"
                 android:layout_height="wrap_content" />

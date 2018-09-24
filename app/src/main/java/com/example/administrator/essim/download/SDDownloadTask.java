@@ -71,8 +71,10 @@ public class SDDownloadTask extends AsyncTask<String, Integer, Bitmap> {
     protected Bitmap doInBackground(String... params) {
         //能够下载到可插拔SD卡的最重要一步，是生成目标文件的DocumentFile
         try {
-            DocumentFile document = DocumentFile.fromTreeUri(mContext, Uri.parse(mSharedPreferences.getString("treeUri", "")));
-            String picturePath = mSharedPreferences.getString("download_path", "") + "/" + realFile.getName();
+            DocumentFile document = DocumentFile.fromTreeUri(mContext,
+                    Uri.parse(mSharedPreferences.getString("treeUri", "")));
+            String picturePath = mSharedPreferences.getString("download_path", "")
+                    + "/" + realFile.getName();
             Common.showLog(picturePath);
             String[] parts = picturePath.split("/");
             for (int i = 3; i < parts.length; i++) {

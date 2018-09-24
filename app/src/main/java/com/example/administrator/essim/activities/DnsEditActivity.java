@@ -11,19 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.network.HttpDns;
 import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.LocalData;
+import com.example.administrator.essim.utils.DnsData;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DnsEditActivity extends AppCompatActivity {
 
@@ -116,11 +114,11 @@ public class DnsEditActivity extends AppCompatActivity {
     }
 
     private void saveLocalDns(){
-        LocalData.clearDns(mContext);
+        DnsData.clearDns(mContext);
         HttpDns.getInstance().newDns.clear();
         for (int i = 0; i < mEditTextList.size(); i++) {
             if(mEditTextList.get(i).getText().toString().length() > 0){
-                LocalData.saveDns(mContext, mEditTextList.get(i).getText().toString());
+                DnsData.saveDns(mContext, mEditTextList.get(i).getText().toString());
                 try {
                     HttpDns.getInstance().newDns.add(InetAddress.getByName(mEditTextList.get(i).getText().toString()));
                 } catch (UnknownHostException e) {

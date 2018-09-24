@@ -110,7 +110,8 @@ public class FragmentCollecDetail extends BaseFragment {
 
             @Override
             public void onFailure(Call<CollectionResponse> call, Throwable t) {
-
+                mProgressBar.setVisibility(View.INVISIBLE);
+                Snackbar.make(mRecyclerView, "服务器不稳定，出了点小问题", Snackbar.LENGTH_SHORT).show();
             }
         });
     }

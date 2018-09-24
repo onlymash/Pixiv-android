@@ -52,13 +52,13 @@
     <string name="tv_recycler_item_3">Drag up or down to move it and I will do some overhere</string>
     <string name="title_activity_share_view">Share View</string>
     <string name="share_view_press_it">You can press it</string>
-    <string name="no_more_data">No more data</string>
     <string name="item_swipe_dismissed">Dismissed</string>
     <string name="item_swipe_undo">Undo</string>
-    <string name="arclayout_description">九条可怜（Kujou Karen），漫画《黄金拼图》及其衍生作品中的女主角之一。日本人和英国人的混血少女。金发、灰色瞳孔的少女。和爱丽丝·卡塔雷特是青梅竹马。因为好奇日本而追随爱丽丝来到日本留学。制服的衬衫和其他4个人不同，并披着英国国旗花纹的外套。个性开朗好相处，很快就习惯了日本的学校生活。经常故意装傻而被吐嘈</string>
+    <string name="arclayout_description">伪恋 （SHAFT改编的电视动画），一条乐，一个随处可见的普通高中生，同时也是黑道集团“集英组”的小少爷。10年前，他和关系很好的某个女孩子做了一个约定，“下次见面的时候，我们就结婚吧”，分别时女孩送他的一条项链，10年来他一直都寸不离身地佩戴着。
+某一天，一条乐的班级里来了一位美少女转学生·桐崎千棘。从最初的相遇开始，一条乐和桐崎千棘就异常的合不来，不论什么事最后都会发展成吵架。但就是这样的两人，因为某件事情开始假扮成恋人关系。
+一边关注着暗恋的同班同学·小野寺小咲，一边继续着和桐崎千棘假扮恋人关系的一条乐。在这“伪恋物语”的前方，究竟会有怎样的结局呢？</string>
     <string name="arclayout_development">日本的女性声优、歌手，东京都出身，所属事务所为INTENTION，唱片公司为FlyingDog。代表作有《只有神知道的世界》中川花音、《异国迷宫的十字路口》汤音、《天才麻将少女阿知贺篇 episode of side-A》新子憧、《我的青春恋爱物语果然有问题》由比滨结衣、《打工吧！魔王大人》佐佐木千穗、《黄金拼图》九条可怜、《伪恋》桐崎千棘、《舰队Collection》金刚、《GATE 奇幻自卫队》蕾莱·拉·列娜、《爆音少女！！》铃乃木凛、《魔法少女育成计划》白雪等。\n\n另： 只有东山大法的声音才能抚慰我受伤的心灵…
     \n\n感谢以下朋友的热心建议：@守护世界之树，@◤康◢◤鑫◢
-    \n\n感谢@Notsfsssf(Pixiv-Ez作者) 的RestClient类（里面有机智的联网策略），使得我们能够直连Pixiv
     </string>
     <string name="title_activity_settings">Settings</string>
 
@@ -213,4 +213,20 @@
     <string name="donate_names">查看应用捐赠名单</string>
     <string name="libraries">使用到的开源库</string>
     <string name="save_edit">保存当前修改</string>
+    <string name="you_are_free">零境交错</string>
+    <string name="login_title">战场原の起点</string>
+    <string name="cant_login">无法登陆看这里</string>
+    <string name="no_proxy">你的飞机飞的不够高啊</string>
+    <string name="private_star">成功添加到非公开收藏~</string>
+    <string name="public_star">成功添加到公开收藏~</string>
+    <string name="remove_star">取消收藏~</string>
+    <string name="client_id">client_id</string>
+    <string name="client_secret">client_secret</string>
+    <string name="grant_type">grant_type</string>
+    <string name="user_name">username</string>
+    <string name="pass_word">password</string>
+    <string name="account_error">您的账户或密码有误</string>
+    <string name="input_pwd">请输入密码</string>
+    <string name="username_no_null">用户名不能为空</string>
+    <string name="no_more_data">再怎么找也找不到了~</string>
 </resources>

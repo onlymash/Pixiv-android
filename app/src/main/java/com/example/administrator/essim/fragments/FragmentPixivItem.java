@@ -34,6 +34,7 @@ import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.RelatedIllust;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideUtil;
+import com.example.administrator.essim.utils.PixivOperate;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -192,7 +193,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
             }
         }
         mFloatingActionButton.setImageResource(Reference.sIllustsBeans.get(index).isIs_bookmarked() ?
-                R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_black_24dp);
+                R.drawable.ic_favorite_white_24dp : R.drawable.no_favor);
         mFloatingActionButton.setOnClickListener(this);
         mFloatingActionButton.setOnLongClickListener(view1 -> {
             if (!Reference.sIllustsBeans.get(index).isIs_bookmarked()) {
@@ -321,17 +322,15 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.fab_like:
                 if (Reference.sIllustsBeans.get(index).isIs_bookmarked()) {
-                    mFloatingActionButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                    mFloatingActionButton.setImageResource(R.drawable.no_favor);
                     mFloatingActionButton.startAnimation(Common.getAnimation());
                     Reference.sIllustsBeans.get(index).setIs_bookmarked(false);
-                    Common.postUnstarIllust(index, Reference.sIllustsBeans,
-                            Common.getLocalDataSet().getString("Authorization", ""), mContext);
+                    PixivOperate.postUnstarIllust(Reference.sIllustsBeans.get(index).getId(), mContext);
                 } else {
                     mFloatingActionButton.setImageResource(R.drawable.ic_favorite_white_24dp);
                     mFloatingActionButton.startAnimation(Common.getAnimation());
                     Reference.sIllustsBeans.get(index).setIs_bookmarked(true);
-                    Common.postStarIllust(index, Reference.sIllustsBeans,
-                            Common.getLocalDataSet().getString("Authorization", ""), mContext, "public");
+                    PixivOperate.postStarIllust(Reference.sIllustsBeans.get(index).getId(), mContext, "public");
                 }
                 break;
             case R.id.get_related_illust:

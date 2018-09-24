@@ -4,10 +4,6 @@
     android:id="@+id/card_pixiv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/eight_dip"
-    android:layout_marginLeft="@dimen/eight_dip"
-    android:layout_marginRight="@dimen/eight_dip"
-    android:layout_marginTop="@dimen/eight_dip"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     android:stateListAnimator="@animator/touch_raise"
@@ -33,6 +29,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/sixteen_sp" />
 
+
         <ImageView
             android:id="@+id/post_like"
             android:layout_width="wrap_content"
@@ -42,7 +39,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:padding="6dp"
-            android:src="@drawable/ic_favorite_border_black_24dp" />
+            android:src="@drawable/no_favor" />
 
     </RelativeLayout>
 

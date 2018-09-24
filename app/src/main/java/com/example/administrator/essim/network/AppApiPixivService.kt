@@ -165,10 +165,26 @@ interface AppApiPixivService {
     fun getNextUserIllusts(@Header("Authorization") paramString1: String,
                            @Url paramString2: String): Call<UserIllustsResponse>
 
+
+
     @GET("/pixiv/v1/")
     fun getSpecialCollection(@Query("type") cate: String,
                              @Query("page") page: Int): Call<SpecialCollectionResponse>
 
     @GET("/pixiv/v1/?type=showcase")
     fun getCollecDetail(@Query("id") cate: String): Call<CollectionResponse>
+
+
+    // /v1/spotlight/articles?filter=for_android&category=all
+
+
+    @GET("/v1/spotlight/articles?filter=for_android&category=all")
+    fun getSpecialCollection(@Header("Authorization") paramString: String): Call<PixivCollectionResponse>
+
+    @GET
+    fun getNextSpecialCollection(@Header("Authorization") paramString: String, @Url paramString2: String):
+            Call<PixivCollectionResponse>
+
+    /*@GET("/pixiv/v1/?type=showcase")
+    fun getCollecDetail(@Query("id") cate: String): Call<CollectionResponse>*/
 }

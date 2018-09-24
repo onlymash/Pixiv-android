@@ -23,6 +23,7 @@ import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.BookmarkDetailResponse;
 import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.PixivOperate;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -99,7 +100,7 @@ public class FragmentDialog {
         Switch swit = dialogView.findViewById(R.id.private_switch);
         TextView likeIllust = dialogView.findViewById(R.id.post_like_illust);
         likeIllust.setOnClickListener(v -> {
-            Common.postStarIllust(mIllustsBean, tagList,
+            PixivOperate.postStarIllust(mIllustsBean, tagList,
                     mContext, swit.isChecked() ? "private" : "public");
             mDialog.dismiss();
             ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);

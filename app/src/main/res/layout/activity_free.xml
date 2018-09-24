@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".activities.FreeActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:navigationIcon="@drawable/ic_arrow_back_black_two_24dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="零境交错"
+            app:titleTextColor="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sixteen_dip"
+            android:text="前言：Pixiv (beta) 前期的联网策略失效，为了让大家可以继续使用pixiv，我找哥们租用了一台海外服务器，公开来让大家使用。
+
+在我完全公开服务器信息之后，大家可以用shadowsocks终端 + 服务器地址信息实现代理访问pixiv。会用shadowsocks的同学，直接复制下面这段文字，到shadowsocks中点击右上角的“通过剪贴板导入”，导入服务器信息之后就可以开启右下角的小飞机了" />
+
+        <TextView
+            android:id="@+id/key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen_dip"
+            android:layout_marginEnd="@dimen/sixteen_dip"
+            android:layout_marginBottom="@dimen/sixteen_dip"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="ss://YWVzLTI1Ni1jZmI6TldZMlpEQmlNVA@65.49.235.100:443"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen_dip"
+            android:text="注意：请务必将SS的全局代理改为自定义规则"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sixteen_dip"
+            android:text="SS启用之后，默认是开启全局代理。你如果看新闻看视频都开启ss的话那我的流量两天就用完了，所以我希望你在SS中更改路由设置为“自定义规则”，自定义规则添加方式可以参考下面链接指向的word文档。添加自定义规则之后就相当于你只有访问pixiv相关网站的时候流量才会走SS过，我这边服务器压力就稍微小点了（没有Shadowsocks的同学，下方链接指向的word文档里有下载链接）" />
+
+        <TextView
+            android:id="@+id/way"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen_dip"
+            android:layout_marginEnd="@dimen/sixteen_dip"
+            android:autoLink="web"
+            android:text="https://pan.baidu.com/s/1VYe9bFIm56L8-fL9zNJo0w 密码：YAFD"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sixteen_dip"
+            android:text="密码有个彩蛋，有人能读懂吗。。"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</ScrollView>

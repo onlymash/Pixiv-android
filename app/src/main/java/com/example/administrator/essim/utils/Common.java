@@ -1,6 +1,7 @@
 package com.example.administrator.essim.utils;
 
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
@@ -16,7 +17,11 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.PixivApplication;
@@ -113,99 +118,6 @@ public class Common {
             }
         }
         return true;
-    }
-
-    public static void postStarIllust(int position, List<IllustsBean> illustsBeans, String token, Context context, String starType) {
-        /*List<String> illustTag = new ArrayList();
-        Iterator localIterator = illustsBeans.get(position).getTags().iterator();
-        while (localIterator.hasNext()) {
-            illustTag.add(((IllustsBean.TagsBean) localIterator.next()).getName());
-        }*/
-        Call<BookmarkAddResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
-                .create(AppApiPixivService.class)
-                .postLikeIllust(token, illustsBeans.get(position).getId(), starType, null);
-        call.enqueue(new Callback<BookmarkAddResponse>() {
-            @Override
-            public void onResponse(Call<BookmarkAddResponse> call, retrofit2.Response<BookmarkAddResponse> response) {
-                illustsBeans.get(position).setIs_bookmarked(true);
-                if (starType.equals("private")) {
-                    TastyToast.makeText(context, "成功添加到非公开收藏~",
-                            TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-                } else {
-                    TastyToast.makeText(context, "成功添加到公开收藏~",
-                            TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BookmarkAddResponse> call, Throwable throwable) {
-            }
-        });
-    }
-
-    public static void postStarIllust(IllustsBean illustsBean, List<String> tagList, Context context, String starType) {
-        Call<BookmarkAddResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
-                .create(AppApiPixivService.class)
-                .postLikeIllust(getLocalDataSet().getString("Authorization", ""), illustsBean.getId(), starType, tagList);
-        call.enqueue(new Callback<BookmarkAddResponse>() {
-            @Override
-            public void onResponse(Call<BookmarkAddResponse> call, retrofit2.Response<BookmarkAddResponse> response) {
-                illustsBean.setIs_bookmarked(true);
-                if (starType.equals("private")) {
-                    TastyToast.makeText(context, "成功添加到非公开收藏~",
-                            TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-                } else {
-                    TastyToast.makeText(context, "成功添加到公开收藏~",
-                            TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BookmarkAddResponse> call, Throwable throwable) {
-            }
-        });
-    }
-
-    public static void postUnstarIllust(int position, List<IllustsBean> illustsBeans, String token, Context context) {
-        Call<ResponseBody> call = new RestClient()
-                .getRetrofit_AppAPI()
-                .create(AppApiPixivService.class)
-                .postUnlikeIllust(token, illustsBeans.get(position).getId());
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                illustsBeans.get(position).setIs_bookmarked(false);
-                TastyToast.makeText(context, "取消收藏~",
-                        TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-
-            }
-        });
-    }
-
-    public static void postUnstarIllust(IllustsBean illustsBean, String token, Context context) {
-        Call<ResponseBody> call = new RestClient()
-                .getRetrofit_AppAPI()
-                .create(AppApiPixivService.class)
-                .postUnlikeIllust(token, illustsBean.getId());
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                illustsBean.setIs_bookmarked(false);
-                TastyToast.makeText(context, "取消收藏~",
-                        TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-
-            }
-        });
     }
 
     public static void postFollowUser(String auth, int userID, View view, String followType) {
@@ -441,39 +353,48 @@ public class Common {
         return data;
     }
 
-    public static void saveLocalMessage(PixivOAuthResponse pixivOAuthResponse, String password) {
-        String headerImage = "";
-        int fileNameStyle = 0;
-        if (Common.getLocalDataSet().getString("header_img_path", "").length() != 0) {
-            //清空本地数据之前，先保存header图片的路径
-            headerImage = Common.getLocalDataSet().getString("header_img_path", "");
-        }
-        if (Common.getLocalDataSet().getInt("file_name_style", 0) != 0) {
-            fileNameStyle = Common.getLocalDataSet().getInt("file_name_style", 0);
-        }
 
-        SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
-        editor.clear();
-        editor.apply();
-        //清空本地数据之后，重新保存header图片的路径和文件命名类型
-        editor.putString("header_img_path", headerImage);
-        editor.putInt("file_name_style", fileNameStyle);
-        editor.apply();
 
-        String localStringBuilder = "Bearer " +
-                pixivOAuthResponse.getResponse().getAccess_token();
-        editor.putString("Authorization", localStringBuilder);
-        editor.putInt("userid", pixivOAuthResponse.getResponse().getUser().getId());
-        editor.putBoolean("islogin", true);
-        editor.putBoolean("ispremium", pixivOAuthResponse.getResponse().getUser().isIs_premium());
-        editor.putString("useraccount", pixivOAuthResponse.getResponse().getUser().getAccount());
-        editor.putString("username", pixivOAuthResponse.getResponse().getUser().getName());
-        editor.putString("password", password);
-        editor.putString("email", pixivOAuthResponse.getResponse().getUser().getMail_address());
-        editor.putString("useremail", pixivOAuthResponse.getResponse().getUser().getMail_address());
-        editor.putString("hearurl", pixivOAuthResponse.getResponse().getUser().getProfile_image_urls().getPx_170x170());
-        editor.putBoolean("is_origin_pic", true);
-        editor.putString("download_path", "/storage/emulated/0/PixivPictures");
-        editor.apply();
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert imm != null;
+        if (imm.isActive() && activity.getCurrentFocus() != null) {
+            if (activity.getCurrentFocus().getWindowToken() != null) {
+                imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
+
+
+
+    private static Toast toast = null;
+
+    /**
+     * 应用内显示消息
+     *
+     * @param v
+     * @param t
+     * @param <T>
+     */
+    public static <T> void showSnack(View v, T t) {
+        Snackbar.make(v, String.valueOf(t), Snackbar.LENGTH_SHORT).show();
+    }
+
+
+
+    /**
+     * 应用内显示吐司
+     *
+     * @param context 上下文
+     * @param t       泛型参数
+     */
+    public static <T> void showToast(Context context, T t) {
+        if (toast == null) {
+            toast = Toast.makeText(context, String.valueOf(t), Toast.LENGTH_SHORT);
+        } else {
+            toast.setText(String.valueOf(t));
+            toast.setDuration(Toast.LENGTH_SHORT);
+        }
+        toast.show();
     }
 }

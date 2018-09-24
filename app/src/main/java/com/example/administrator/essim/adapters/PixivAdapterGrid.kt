@@ -30,7 +30,7 @@ class PixivAdapterGrid(private val mPixivRankItem: List<IllustsBean>,
                 .into(holder.itemView.pixiv_image)
         when {
             mPixivRankItem[position].isIs_bookmarked -> holder.itemView.post_like.setImageResource(R.drawable.ic_favorite_white_24dp)
-            else -> holder.itemView.post_like.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+            else -> holder.itemView.post_like.setImageResource(R.drawable.no_favor)
         }
         when {
             mPixivRankItem[position].page_count > 1 -> {

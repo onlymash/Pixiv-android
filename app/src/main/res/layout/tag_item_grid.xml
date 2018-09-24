@@ -4,7 +4,6 @@
     android:id="@+id/card_pixiv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     android:stateListAnimator="@animator/touch_raise"
