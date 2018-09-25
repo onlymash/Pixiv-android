@@ -28,6 +28,7 @@ import com.example.administrator.essim.utils.PixivOperate;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class RelatedActivity extends AppCompatActivity {

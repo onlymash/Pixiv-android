@@ -23,6 +23,7 @@ import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.BookmarkDetailResponse;
 import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.LocalData;
 import com.example.administrator.essim.utils.PixivOperate;
 
 import org.jetbrains.annotations.NotNull;
@@ -50,8 +51,7 @@ public class FragmentDialog {
         Call<BookmarkDetailResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getBookmarkDetail(Common.getLocalDataSet().getString("Authorization", ""),
-                        mIllustsBean.getId());
+                .getBookmarkDetail(LocalData.getToken(), mIllustsBean.getId());
         call.enqueue(new Callback<BookmarkDetailResponse>() {
             @Override
             public void onResponse(Call<BookmarkDetailResponse> call, retrofit2.Response<BookmarkDetailResponse> response) {

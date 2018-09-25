@@ -28,6 +28,7 @@ import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.PixivOperate;
 import com.example.administrator.essim.utils.WorksItemDecoration;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

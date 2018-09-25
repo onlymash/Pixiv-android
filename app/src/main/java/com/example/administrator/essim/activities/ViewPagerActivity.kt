@@ -9,13 +9,16 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.example.administrator.essim.R
 import com.example.administrator.essim.fragments.FragmentPixivItem
+import com.example.administrator.essim.response.IllustsBean
 import com.example.administrator.essim.response.Reference
 import kotlinx.android.synthetic.main.activity_view_pager.*
+import java.util.ArrayList
 
 
 class ViewPagerActivity : AppCompatActivity() {
 
     lateinit var mViewPager: ViewPager
+    var allIllust = ArrayList<IllustsBean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,7 @@ class ViewPagerActivity : AppCompatActivity() {
 
         val intent = intent
         val index = intent.getIntExtra("which one is selected", 0)
+        allIllust.addAll(Reference.sIllustsBeans)
 
         mToolbar.setNavigationOnClickListener { finish() }
         val fragmentManager = supportFragmentManager
@@ -32,12 +36,12 @@ class ViewPagerActivity : AppCompatActivity() {
         mViewPager.adapter = object : FragmentStatePagerAdapter(fragmentManager) {
             override fun getItem(position: Int): Fragment = FragmentPixivItem.newInstance(position)
 
-            override fun getCount(): Int = Reference.sIllustsBeans.size
+            override fun getCount(): Int = allIllust.size
         }
         mViewPager.currentItem = index
     }
 
     fun changeTitle() {
-        mToolbar.title = Reference.sIllustsBeans[mViewPager.currentItem].title
+        mToolbar.title = allIllust[mViewPager.currentItem].title
     }
 }

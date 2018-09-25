@@ -90,4 +90,5 @@ android {
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:+'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

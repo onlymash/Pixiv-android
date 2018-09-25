@@ -315,7 +315,6 @@ public class Common {
                     singleIllust.add(illustDetailResponse.getIllust());
                     Reference.sIllustsBeans = singleIllust;
                     Intent intent = new Intent(context, ViewPagerActivity.class);
-                    intent.putExtra("all illusts", (Serializable) singleIllust);
                     intent.putExtra("which one is selected", 0);
                     context.startActivity(intent);
                 } catch (Exception e) {

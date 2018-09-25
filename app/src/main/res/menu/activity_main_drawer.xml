@@ -34,5 +34,10 @@
             android:id="@+id/nav_send"
             android:icon="@drawable/ic_mood_black_24dp"
             android:title="@string/about_app" />
+
+        <item
+            android:id="@+id/thanks"
+            android:icon="@drawable/ic_local_cafe_black_24dp"
+            android:title="@string/tranks" />
     </group>
 </menu>
