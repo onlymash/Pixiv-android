@@ -21,7 +21,7 @@ import com.sdsmdg.tastytoast.TastyToast;
 
 import java.io.File;
 
-public class ImageDetailActivity extends AppCompatActivity {
+public class ImageDetailActivity extends BaseActivity {
 
     public ViewPager mViewPager;
     public IllustsBean mIllustsBean;

@@ -64,7 +64,7 @@ class FragmentPixivLeft : BaseFragment() {
         })
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.addItemDecoration(GridItemDecoration(
-                2, DensityUtil.dip2px(mContext, 8.0f), true));
+                2, DensityUtil.dip2px(mContext, 8.0f), true))
         no_data.setOnClickListener {
             initData()
         }

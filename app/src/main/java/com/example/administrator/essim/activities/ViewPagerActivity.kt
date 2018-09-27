@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_view_pager.*
 import java.util.ArrayList
 
 
-class ViewPagerActivity : AppCompatActivity() {
+class ViewPagerActivity : BaseActivity() {
 
     lateinit var mViewPager: ViewPager
     var allIllust = ArrayList<IllustsBean>()

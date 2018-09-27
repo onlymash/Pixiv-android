@@ -26,7 +26,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class BatchDownloadActivity extends AppCompatActivity {
+
+public class BatchDownloadActivity extends BaseActivity {
 
     private Context mContext;
     private int startPosition;

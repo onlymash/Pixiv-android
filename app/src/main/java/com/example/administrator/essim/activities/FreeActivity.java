@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.utils.Common;
 
-public class FreeActivity extends AppCompatActivity {
+public class FreeActivity extends BaseActivity {
 
     private Context mContext;
     private TextView mTextView, mTextView2;

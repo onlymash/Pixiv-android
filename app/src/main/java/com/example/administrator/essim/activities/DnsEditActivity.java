@@ -23,7 +23,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DnsEditActivity extends AppCompatActivity {
+public class DnsEditActivity extends BaseActivity {
 
     private Context mContext;
     private Switch mSwitch;

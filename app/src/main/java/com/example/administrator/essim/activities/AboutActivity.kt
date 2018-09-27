@@ -9,7 +9,7 @@ import com.sdsmdg.tastytoast.TastyToast
 import kotlinx.android.synthetic.main.activity_about.*
 
 
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

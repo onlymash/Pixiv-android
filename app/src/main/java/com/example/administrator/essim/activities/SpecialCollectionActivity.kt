@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import com.example.administrator.essim.R
 import com.example.administrator.essim.fragments.FragmentSpecialCollec
 
-class SpecialCollectionActivity : AppCompatActivity() {
+class SpecialCollectionActivity : BaseActivity() {
 
     lateinit var mFragmentSpecialCollec: FragmentSpecialCollec
 

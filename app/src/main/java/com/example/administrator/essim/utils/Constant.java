@@ -12,6 +12,8 @@ public class Constant {
 
     public static final String TRANSITION_NAME = "image";
 
+    public static final Integer SPLASH_TIME = 1000;
+
     public static final String EXTRA_START_POSITION = "extra_start_position";
     public static final String EXTRA_CURRENT_POSITION = "extra_current_position";
 

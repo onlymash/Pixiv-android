@@ -7,7 +7,7 @@ import android.view.View
 import com.example.administrator.essim.R
 
 
-class UserDetailActivity : AppCompatActivity() {
+class UserDetailActivity : BaseActivity() {
 
     var userID: Int = 0
     var showFavoriteIllust = false

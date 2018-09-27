@@ -21,6 +21,8 @@ import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.CollectionResponse;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.DensityUtil;
+import com.example.administrator.essim.utils.LinearItemDecoration;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.Objects;
@@ -63,6 +65,7 @@ public class FragmentCollecDetail extends BaseFragment {
         linearLayout.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayout);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
         Glide.get(mContext).clearMemory();
     }
 
@@ -76,33 +79,38 @@ public class FragmentCollecDetail extends BaseFragment {
             @Override
             public void onResponse(Call<CollectionResponse> call, retrofit2.Response<CollectionResponse> response) {
                 CollectionResponse specialCollectionResponse = response.body();
-                try {
-                    CollecDetailAdapter specialCollecAdapter = new CollecDetailAdapter(specialCollectionResponse, mContext);
-                    specialCollecAdapter.setOnItemClickListener(new OnItemClickListener() {
-                        @Override
-                        public void onItemClick(@NonNull View view, int position, int viewType) {
-                            if (viewType == 0) {
-                                Common.getSingleIllust(mProgressBar, mContext,
-                                        Long.parseLong(specialCollectionResponse.body.get(0).illusts.get(position).illust_id));
-                            } else if (viewType == 1) {
-                                Intent intent = new Intent(mContext, UserDetailActivity.class);
-                                intent.putExtra("user id", Integer.valueOf(specialCollectionResponse.body
-                                        .get(0).illusts.get(position).illust_user_id));
-                                startActivity(intent);
-                            } else if (viewType == 2) {
-                                TastyToast.makeText(mContext, "收藏功能还没填坑，以后更新哦",
-                                        TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
+                if(specialCollectionResponse.body != null && specialCollectionResponse.body.size() != 0) {
+                    try {
+                        CollecDetailAdapter specialCollecAdapter = new CollecDetailAdapter(specialCollectionResponse, mContext);
+                        specialCollecAdapter.setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onItemClick(@NonNull View view, int position, int viewType) {
+                                if (viewType == 0) {
+                                    Common.getSingleIllust(mProgressBar, mContext,
+                                            Long.parseLong(specialCollectionResponse.body.get(0).illusts.get(position).illust_id));
+                                } else if (viewType == 1) {
+                                    Intent intent = new Intent(mContext, UserDetailActivity.class);
+                                    intent.putExtra("user id", Integer.valueOf(specialCollectionResponse.body
+                                            .get(0).illusts.get(position).illust_user_id));
+                                    startActivity(intent);
+                                } else if (viewType == 2) {
+                                    TastyToast.makeText(mContext, "收藏功能还没填坑，以后更新哦",
+                                            TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onItemLongClick(View view, int position) {
+                            @Override
+                            public void onItemLongClick(View view, int position) {
 
-                        }
-                    });
-                    mProgressBar.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setAdapter(specialCollecAdapter);
-                } catch (Exception e) {
+                            }
+                        });
+                        mProgressBar.setVisibility(View.INVISIBLE);
+                        mRecyclerView.setAdapter(specialCollecAdapter);
+                    } catch (Exception e) {
+                        mProgressBar.setVisibility(View.INVISIBLE);
+                        Snackbar.make(mRecyclerView, "服务器不稳定，出了点小问题", Snackbar.LENGTH_SHORT).show();
+                    }
+                }else {
                     mProgressBar.setVisibility(View.INVISIBLE);
                     Snackbar.make(mRecyclerView, "服务器不稳定，出了点小问题", Snackbar.LENGTH_SHORT).show();
                 }

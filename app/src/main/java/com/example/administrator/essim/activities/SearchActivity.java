@@ -43,7 +43,7 @@ import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class SearchActivity extends AppCompatActivity implements MaterialSearchBar.OnSearchActionListener {
+public class SearchActivity extends BaseActivity implements MaterialSearchBar.OnSearchActionListener {
 
     private static final String url = "https://api.imjad.cn/pixiv/v1/?type=tags";
     private int searchType;

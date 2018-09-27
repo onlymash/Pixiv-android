@@ -23,6 +23,8 @@ import com.example.administrator.essim.activities.MainActivity;
 import com.example.administrator.essim.adapters.ListHitokotoAdapter;
 import com.example.administrator.essim.interf.OnListHitokotoClickListener;
 import com.example.administrator.essim.response.HitoModel;
+import com.example.administrator.essim.utils.DensityUtil;
+import com.example.administrator.essim.utils.LinearItemDecoration;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.litepal.crud.DataSupport;
@@ -55,7 +57,7 @@ public class FragmentMine extends BaseFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
         //读取数据库
         mHitoModels = DataSupport.findAll(HitoModel.class);
         mAdapter = new ListHitokotoAdapter(mHitoModels, mContext);

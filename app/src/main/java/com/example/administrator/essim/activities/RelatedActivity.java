@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
-public class RelatedActivity extends AppCompatActivity {
+public class RelatedActivity extends BaseActivity {
 
     private Context mContext;
     private ProgressBar mProgressBar;
