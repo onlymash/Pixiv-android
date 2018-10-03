@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_pixiv">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:text="公司与组织："
+                android:textColor="#666666"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/toolbar_pixiv"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_pixiv" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pixiv" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line1"
+                    android:autoLink="web"
+                    android:text="http://www.pixiv.net/" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VCB-Studio" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line2"
+                    android:autoLink="web"
+                    android:text="https://vcb-s.com/" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="索尼中国" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line3"
+                    android:autoLink="web"
+                    android:text="http://www.sony.com.cn/" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/line4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:paddingStart="@dimen/sixteen_dip"
+                android:paddingTop="@dimen/sixteen_dip"
+                android:padding="@dimen/sixteen_dip"
+                android:text="J.C.STAFF(株式会社 ジェーシースタッフ)" />
+
+
+            <TextView
+                android:id="@+id/line5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip"
+                android:text="动画工房(動画工房)" />
+
+
+            <TextView
+                android:id="@+id/line6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip"
+                android:text="京都动画(株式会社京都アニメーション)" />
+
+
+            <TextView
+                android:id="@+id/line7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip"
+                android:text="芳文社(ほうぶんしゃ)" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#f2f2f2"
+                android:layout_height="1dp">
+
+            </View>
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:text="制作协力："
+                android:textColor="#666666"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/toolbar_pixiv"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_pixiv" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="石立太一" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line8"
+                    android:autoLink="web"
+                    android:text="太田雅彦" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="高松信司" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line9"
+                    android:autoLink="web"
+                    android:text="新房昭之" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="足立慎吾" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line10"
+                    android:autoLink="web"
+                    android:text="田中雄一" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/line11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip"
+                android:text="渡航" />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#f2f2f2"
+                android:layout_height="1dp">
+
+            </View>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:text="音乐："
+                android:textColor="#666666"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/toolbar_pixiv"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_pixiv" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="深澤秀行" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line12"
+                    android:autoLink="web"
+                    android:text="横山克" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="泽野弘之" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line13"
+                    android:autoLink="web"
+                    android:text="梶浦由記" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="三澤康広" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line14"
+                    android:autoLink="web"
+                    android:text="井内舞子" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/line15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip"
+                android:text="神前晓(MONACA)" />
+
+            <TextView
+                android:id="@+id/line16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip"
+                android:text="Foxtail-Grass Studio" />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#f2f2f2"
+                android:layout_height="1dp">
+
+            </View>
+
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:text="出现人物："
+                android:textColor="#666666"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/toolbar_pixiv"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_pixiv" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="桐崎千棘" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line17"
+                    android:autoLink="web"
+                    android:text="战场原黑仪" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="田畑秀则" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line18"
+                    android:autoLink="web"
+                    android:text="安兹·乌尔·恭" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="九条可怜" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line19"
+                    android:autoLink="web"
+                    android:text="间桐樱" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line20"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:text="五更琉璃" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line20"
+                    android:autoLink="web"
+                    android:text="由比滨结衣" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="御坂美琴" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line21"
+                    android:autoLink="web"
+                    android:text="缠流子" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上条当麻" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line22"
+                    android:autoLink="web"
+                    android:text="小野寺小咲" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="照桥心美" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line23"
+                    android:autoLink="web"
+                    android:text="薙切绘里奈" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#f2f2f2"
+                android:layout_height="1dp">
+
+            </View>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:text="@string/donate_names"
+                android:id="@+id/getDonaterList"
+                android:layout_marginBottom="@dimen/sixteen_dip"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/getUsedLibraries"
+                android:textStyle="bold"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginBottom="@dimen/sixteen_dip"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/libraries"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_pixiv"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/eight_dip"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:navigationIcon="@drawable/ic_arrow_back_black_two_24dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="支持与赞助"
+        app:titleTextColor="#fff" />
+</RelativeLayout>

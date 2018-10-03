@@ -9,7 +9,7 @@ import com.sdsmdg.tastytoast.TastyToast
 import kotlinx.android.synthetic.main.activity_about.*
 
 
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,16 +18,6 @@ class AboutActivity : AppCompatActivity() {
         setContentView(R.layout.activity_about)
 
         val context = this
-        getDonaterList.setOnClickListener {
-            val intent = Intent(context, AboutDonationActivity::class.java)
-            intent.putExtra("dataType", "donation")
-            context.startActivity(intent)
-        }
-        getUsedLibraries.setOnClickListener {
-            val intent = Intent(context, AboutDonationActivity::class.java)
-            intent.putExtra("dataType", "libraries")
-            context.startActivity(intent)
-        }
         you_are_free.setOnClickListener {
             val intent = Intent(context, FreeActivity::class.java)
             context.startActivity(intent)

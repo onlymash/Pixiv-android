@@ -4,6 +4,7 @@ import com.tencent.stat.StatService;
 
 import org.litepal.LitePalApplication;
 
+
 public class PixivApplication extends LitePalApplication {
 
     @Override

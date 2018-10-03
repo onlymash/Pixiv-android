@@ -22,17 +22,32 @@
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/special_collection" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/about_account" />
+
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_directions_car_black_24dp"
             android:title="@string/go_to_R18" />
+
+    </group>
+
+    <group
+        android:id="@+id/nav_commnunicate"
+        android:title="Communicate">
+
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/about_account" />
+
         <item
             android:id="@+id/nav_send"
             android:icon="@drawable/ic_mood_black_24dp"
             android:title="@string/about_app" />
+
+        <item
+            android:id="@+id/thanks"
+            android:icon="@drawable/ic_local_cafe_black_24dp"
+            android:title="@string/tranks" />
     </group>
+
 </menu>

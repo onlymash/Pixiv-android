@@ -24,6 +24,7 @@ import com.example.administrator.essim.utils.*
 import kotlinx.android.synthetic.main.fragment_pixiv_left.*
 import retrofit2.Call
 import retrofit2.Callback
+import java.io.Serializable
 import java.util.*
 
 class FragmentPixivLeft : BaseFragment() {
@@ -63,7 +64,7 @@ class FragmentPixivLeft : BaseFragment() {
         })
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.addItemDecoration(GridItemDecoration(
-                2, DensityUtil.dip2px(mContext, 8.0f), true));
+                2, DensityUtil.dip2px(mContext, 8.0f), true))
         no_data.setOnClickListener {
             initData()
         }
@@ -85,14 +86,14 @@ class FragmentPixivLeft : BaseFragment() {
                         mPixivAdapter = PixivAdapterGrid(mIllustsBeanList, mContext)
                         mPixivAdapter?.setOnItemClickListener(object : OnItemClickListener {
                             override fun onItemClick(view: View, position: Int, viewType: Int) {
-                                when {
-                                    viewType == 0 -> {
+                                when (viewType) {
+                                    0 -> {
                                         Reference.sIllustsBeans = mIllustsBeanList
                                         val intent = Intent(mContext, ViewPagerActivity::class.java)
                                         intent.putExtra("which one is selected", position)
                                         mContext.startActivity(intent)
                                     }
-                                    viewType == 1 -> when {
+                                    1 -> when {
                                         !mIllustsBeanList[position].isIs_bookmarked -> {
                                             (view as ImageView).setImageResource(R.drawable.ic_favorite_white_24dp)
                                             view.startAnimation(Common.getAnimation())

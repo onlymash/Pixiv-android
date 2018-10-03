@@ -21,6 +21,8 @@ import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.SearchUserResponse;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.DensityUtil;
+import com.example.administrator.essim.utils.LinearItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class FollowShowActivity extends AppCompatActivity {
+public class FollowShowActivity extends BaseActivity {
 
     private Toolbar mToolbar;
     private Context mContext;
@@ -73,6 +75,7 @@ public class FollowShowActivity extends AppCompatActivity {
         linearLayout.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayout);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, final int dx, final int dy) {

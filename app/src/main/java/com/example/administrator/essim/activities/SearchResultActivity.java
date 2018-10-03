@@ -36,13 +36,14 @@ import com.example.administrator.essim.utils.PixivOperate;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class SearchResultActivity extends AppCompatActivity {
+public class SearchResultActivity extends BaseActivity {
 
     private static final String[] sort = {"popular_desc", "date_desc"};
     private static final String[] arrayOfSearchType = {" 500users入り", " 1000users入り",

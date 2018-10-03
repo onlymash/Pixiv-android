@@ -226,6 +226,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             }
+            case R.id.thanks: {
+                Intent intent = new Intent(mContext, ThanksActivity.class);
+                startActivity(intent);
+                break;
+            }
+            default:
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);

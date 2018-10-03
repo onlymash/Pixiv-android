@@ -47,7 +47,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
 
     private static final String[] arrayOfFileNameType = {"作品id_p数.jpeg", "作品id_p数.png",
             "作品标题_作品id_p数.jpeg", "作品标题_作品id_p数.png"};

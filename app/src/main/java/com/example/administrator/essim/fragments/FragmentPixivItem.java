@@ -1,6 +1,7 @@
 package com.example.administrator.essim.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -30,7 +31,7 @@ import com.example.administrator.essim.download.DownloadTask;
 import com.example.administrator.essim.download.SDDownloadTask;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
-import com.example.administrator.essim.response.Reference;
+import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.RelatedIllust;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideUtil;
@@ -57,6 +58,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
     private String priority;
     private TextView mTextView;
     private RelatedIllust mRelatedIllust;
+    private IllustsBean mIllustsBean;
     private FloatingActionButton mFloatingActionButton;
 
     public static FragmentPixivItem newInstance(int index) {
@@ -71,6 +73,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pixiv_item, container, false);
         index = (int) getArguments().getSerializable("index");
+        mIllustsBean = ((ViewPagerActivity) getActivity()).getAllIllust().get(index);
         if (index == ((ViewPagerActivity) Objects.requireNonNull(getActivity())).mViewPager.getCurrentItem()) {
             setUserVisibleHint(true);
             priority = "high";
@@ -87,18 +90,18 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         ImageView imageView3 = view.findViewById(R.id.author_head);
         ViewGroup.LayoutParams params = imageView2.getLayoutParams();
         params.height = (((getResources().getDisplayMetrics().widthPixels - getResources().getDimensionPixelSize(R.dimen.thirty_two_dp)) *
-                Reference.sIllustsBeans.get(index).getHeight()) / Reference.sIllustsBeans.get(index).getWidth());
+                mIllustsBean.getHeight()) / mIllustsBean.getWidth());
         imageView2.setLayoutParams(params);
         imageView2.setOnClickListener(this);
         imageView3.setOnClickListener(this);
         Glide.get(mContext).clearMemory();
-        Glide.with(getContext()).load(new GlideUtil().getMediumImageUrl(Reference.sIllustsBeans.get(index)))
+        Glide.with(getContext()).load(new GlideUtil().getMediumImageUrl(mIllustsBean))
                 .bitmapTransform(new BlurTransformation(mContext, 20, 2))
                 .into(imageView);
         ProgressBar progressBar = view.findViewById(R.id.try_login);
         progressBar.setIndeterminateDrawable(Common.getLoaderAnimation(mContext));
         if (Common.getLocalDataSet().getBoolean("is_origin_pic", true)) {
-            Glide.with(mContext).load(new GlideUtil().getLargeImageUrl(Reference.sIllustsBeans.get(index), 0))
+            Glide.with(mContext).load(new GlideUtil().getLargeImageUrl(mIllustsBean, 0))
                     .priority(priority.equals("high") ? Priority.IMMEDIATE : Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(new GlideDrawableImageViewTarget(imageView2) {
@@ -109,7 +112,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                         }
                     });
         } else {
-            Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(Reference.sIllustsBeans.get(index)))
+            Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(mIllustsBean))
                     .priority(priority.equals("high") ? Priority.IMMEDIATE : Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(new GlideDrawableImageViewTarget(imageView2) {
@@ -120,7 +123,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                         }
                     });
         }
-        Glide.with(mContext).load(new GlideUtil().getHead(Reference.sIllustsBeans.get(index).getUser().getProfile_image_urls().getMedium()))
+        Glide.with(mContext).load(new GlideUtil().getHead(mIllustsBean.getUser().getProfile_image_urls().getMedium()))
                 .into(imageView3);
         TextView textView = view.findViewById(R.id.detail_author);
         mTextView = view.findViewById(R.id.is_following);
@@ -138,9 +141,9 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
             return true;
         });
         TagFlowLayout mTagGroup = view.findViewById(R.id.tag_group);
-        String allTag[] = new String[Reference.sIllustsBeans.get(index).getTags().size()];
-        for (int i = 0; i < Reference.sIllustsBeans.get(index).getTags().size(); i++) {
-            allTag[i] = Reference.sIllustsBeans.get(index).getTags().get(i).getName();
+        String allTag[] = new String[mIllustsBean.getTags().size()];
+        for (int i = 0; i < mIllustsBean.getTags().size(); i++) {
+            allTag[i] = mIllustsBean.getTags().get(i).getName();
         }
         mTagGroup.setAdapter(new TagAdapter<String>(allTag) {
             @Override
@@ -161,43 +164,43 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
             }
         });
         mFloatingActionButton = view.findViewById(R.id.fab_like);
-        textView.setText(Reference.sIllustsBeans.get(index).getUser().getName());
+        textView.setText(mIllustsBean.getUser().getName());
         textView.setOnClickListener(this);
-        mTextView.setText(Reference.sIllustsBeans.get(index).getUser().isIs_followed() ? "取消关注" : "+关注");
-        textView2.setText(getString(R.string.string_full_size, Reference.sIllustsBeans.get(index).getWidth(),
-                Reference.sIllustsBeans.get(index).getHeight()));
-        textView3.setText(getString(R.string.string_create_time, Reference.sIllustsBeans.get(index).getCreate_date().
-                substring(0, Reference.sIllustsBeans.get(index).getCreate_date().length() - 9)));
-        textView4.setText(Reference.sIllustsBeans.get(index).getTotal_view() >= 1000 ? getString(R.string.string_viewd,
-                String.valueOf(Reference.sIllustsBeans.get(index).getTotal_view() / 1000)) :
-                String.valueOf(Reference.sIllustsBeans.get(index).getTotal_view()));
-        textView5.setText(Reference.sIllustsBeans.get(index).getTotal_bookmarks() >= 1000 ? getString(R.string.string_viewd,
-                String.valueOf(Reference.sIllustsBeans.get(index).getTotal_bookmarks() / 1000)) :
-                String.valueOf(Reference.sIllustsBeans.get(index).getTotal_bookmarks()));
-        textView6.setText(getString(R.string.illust_id, String.valueOf(Reference.sIllustsBeans.get(index).getId())));
-        textView7.setText(getString(R.string.author_id, String.valueOf(Reference.sIllustsBeans.get(index).getUser().getId())));
-        if (Reference.sIllustsBeans.get(index).getPage_count() > 1) {
-            textView8.setText(String.format("%sP", String.valueOf(Reference.sIllustsBeans.get(index).getPage_count())));
+        mTextView.setText(mIllustsBean.getUser().isIs_followed() ? "取消关注" : "+关注");
+        textView2.setText(getString(R.string.string_full_size, mIllustsBean.getWidth(),
+                mIllustsBean.getHeight()));
+        textView3.setText(getString(R.string.string_create_time, mIllustsBean.getCreate_date().
+                substring(0, mIllustsBean.getCreate_date().length() - 9)));
+        textView4.setText(mIllustsBean.getTotal_view() >= 1000 ? getString(R.string.string_viewd,
+                String.valueOf(mIllustsBean.getTotal_view() / 1000)) :
+                String.valueOf(mIllustsBean.getTotal_view()));
+        textView5.setText(mIllustsBean.getTotal_bookmarks() >= 1000 ? getString(R.string.string_viewd,
+                String.valueOf(mIllustsBean.getTotal_bookmarks() / 1000)) :
+                String.valueOf(mIllustsBean.getTotal_bookmarks()));
+        textView6.setText(getString(R.string.illust_id, String.valueOf(mIllustsBean.getId())));
+        textView7.setText(getString(R.string.author_id, String.valueOf(mIllustsBean.getUser().getId())));
+        if (mIllustsBean.getPage_count() > 1) {
+            textView8.setText(String.format("%sP", String.valueOf(mIllustsBean.getPage_count())));
         } else {
             textView8.setVisibility(View.INVISIBLE);
         }
-        if (Reference.sIllustsBeans.get(index).getCaption().length() > 0) {
+        if (mIllustsBean.getCaption().length() > 0) {
             if (textView9.getVisibility() == View.GONE) {
                 textView9.setVisibility(View.VISIBLE);
             }
-            textView9.setText(Html.fromHtml(Reference.sIllustsBeans.get(index).getCaption()));
+            textView9.setText(Html.fromHtml(mIllustsBean.getCaption()));
         } else {
 
             if (textView9.getVisibility() == View.VISIBLE) {
                 textView9.setVisibility(View.GONE);
             }
         }
-        mFloatingActionButton.setImageResource(Reference.sIllustsBeans.get(index).isIs_bookmarked() ?
+        mFloatingActionButton.setImageResource(mIllustsBean.isIs_bookmarked() ?
                 R.drawable.ic_favorite_white_24dp : R.drawable.no_favor);
         mFloatingActionButton.setOnClickListener(this);
         mFloatingActionButton.setOnLongClickListener(view1 -> {
-            if (!Reference.sIllustsBeans.get(index).isIs_bookmarked()) {
-                new FragmentDialog(mContext, mFloatingActionButton, Reference.sIllustsBeans.get(index)).showDialog();
+            if (!mIllustsBean.isIs_bookmarked()) {
+                new FragmentDialog(mContext, mFloatingActionButton, mIllustsBean).showDialog();
             }
             return true;
         });
@@ -228,7 +231,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
                 .getRelatedIllust(Common.getLocalDataSet().getString("Authorization", ""),
-                        Reference.sIllustsBeans.get(index).getId());
+                        mIllustsBean.getId());
         call.enqueue(new retrofit2.Callback<RelatedIllust>() {
             @Override
             public void onResponse(Call<RelatedIllust> call, retrofit2.Response<RelatedIllust> response) {
@@ -262,75 +265,76 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         switch (view.getId()) {
             case R.id.detail_img:
                 intent = new Intent(mContext, ImageDetailActivity.class);
-                intent.putExtra("illust", Reference.sIllustsBeans.get(index));
+                intent.putExtra("illust", mIllustsBean);
                 mContext.startActivity(intent);
                 break;
             case R.id.detail_author:
             case R.id.author_head:
                 intent = new Intent(mContext, UserDetailActivity.class);
-                intent.putExtra("user id", Reference.sIllustsBeans.get(index).getUser().getId());
+                intent.putExtra("user id", mIllustsBean.getUser().getId());
                 mContext.startActivity(intent);
                 break;
             case R.id.card_left:
-                File realFile = Common.generatePictureFile(mContext, Reference.sIllustsBeans.get(index), 0,
+                File realFile = Common.generatePictureFile(mContext, mIllustsBean, 0,
                         Common.getLocalDataSet().getInt("file_name_style", 0), 1);
                 if (realFile.length() != 0) {
                     TastyToast.makeText(mContext, "该文件已存在~",
                             TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
                 } else {
                     //只有一张图的情况下，从meta_single_page获取原图链接
-                    if (Reference.sIllustsBeans.get(index).getPage_count() == 1) {
+                    if (mIllustsBean.getPage_count() == 1) {
                         if (Common.getLocalDataSet().getString("download_path",
                                 "/storage/emulated/0/PixivPictures").contains("emulated")) {
                             //下载至内置SD存储介质，使用传统文件模式;
-                            new DownloadTask(realFile, mContext, Reference.sIllustsBeans.get(index)).execute(Reference.sIllustsBeans
-                                    .get(index).getMeta_single_page().getOriginal_image_url());
+                            new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean
+                                    .getMeta_single_page().getOriginal_image_url());
                         } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
-                            new SDDownloadTask(realFile, mContext, Reference.sIllustsBeans.get(index), Common.getLocalDataSet())
-                                    .execute(Reference.sIllustsBeans.get(index).getMeta_single_page().getOriginal_image_url());
+                            new SDDownloadTask(realFile, mContext, mIllustsBean,
+                                    Common.getLocalDataSet()).execute(mIllustsBean.getMeta_single_page()
+                                    .getOriginal_image_url());
                         }
                     } else { //有多图的情况下，从meta_pages获取原图链接
                         if (Common.getLocalDataSet().getString("download_path", "/storage/emulated/0/PixivPictures").contains("emulated")) {
                             //下载至内置SD存储介质，使用传统文件模式;
-                            new DownloadTask(realFile, mContext, Reference.sIllustsBeans.get(index)).execute(Reference.sIllustsBeans
-                                    .get(index).getMeta_pages().get(0).getImage_urlsX().getOriginal());
+                            new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean
+                                    .getMeta_pages().get(0).getImage_urlsX().getOriginal());
                         } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
-                            new SDDownloadTask(realFile, mContext, Reference.sIllustsBeans.get(index), Common.getLocalDataSet())
-                                    .execute(Reference.sIllustsBeans.get(index).getMeta_pages().get(0).getImage_urlsX().getOriginal());
+                            new SDDownloadTask(realFile, mContext, mIllustsBean, Common.getLocalDataSet())
+                                    .execute(mIllustsBean.getMeta_pages().get(0).getImage_urlsX().getOriginal());
                         }
                     }
                 }
                 break;
             case R.id.is_following:
-                if (Reference.sIllustsBeans.get(index).getUser().isIs_followed()) {
+                if (mIllustsBean.getUser().isIs_followed()) {
                     Common.postUnFollowUser(Common.getLocalDataSet().getString("Authorization", ""),
-                            Reference.sIllustsBeans.get(index).getUser().getId(), mTextView);
-                    Reference.sIllustsBeans.get(index).getUser().setIs_followed(false);
+                            mIllustsBean.getUser().getId(), mTextView);
+                    mIllustsBean.getUser().setIs_followed(false);
                     mTextView.setText("+关注");
                 } else {
                     Common.postFollowUser(Common.getLocalDataSet().getString("Authorization", ""),
-                            Reference.sIllustsBeans.get(index).getUser().getId(), mTextView, "public");
-                    Reference.sIllustsBeans.get(index).getUser().setIs_followed(true);
+                            mIllustsBean.getUser().getId(), mTextView, "public");
+                    mIllustsBean.getUser().setIs_followed(true);
                     mTextView.setText("取消关注");
                 }
                 break;
             case R.id.card_right:
                 intent = new Intent(mContext, CommentActivity.class);
-                intent.putExtra("title", Reference.sIllustsBeans.get(index).getTitle());
-                intent.putExtra("id", Reference.sIllustsBeans.get(index).getId());
+                intent.putExtra("title", mIllustsBean.getTitle());
+                intent.putExtra("id", mIllustsBean.getId());
                 mContext.startActivity(intent);
                 break;
             case R.id.fab_like:
-                if (Reference.sIllustsBeans.get(index).isIs_bookmarked()) {
+                if (mIllustsBean.isIs_bookmarked()) {
                     mFloatingActionButton.setImageResource(R.drawable.no_favor);
                     mFloatingActionButton.startAnimation(Common.getAnimation());
-                    Reference.sIllustsBeans.get(index).setIs_bookmarked(false);
-                    PixivOperate.postUnstarIllust(Reference.sIllustsBeans.get(index).getId(), mContext);
+                    mIllustsBean.setIs_bookmarked(false);
+                    PixivOperate.postUnstarIllust(mIllustsBean.getId(), mContext);
                 } else {
                     mFloatingActionButton.setImageResource(R.drawable.ic_favorite_white_24dp);
                     mFloatingActionButton.startAnimation(Common.getAnimation());
-                    Reference.sIllustsBeans.get(index).setIs_bookmarked(true);
-                    PixivOperate.postStarIllust(Reference.sIllustsBeans.get(index).getId(), mContext, "public");
+                    mIllustsBean.setIs_bookmarked(true);
+                    PixivOperate.postStarIllust(mIllustsBean.getId(), mContext, "public");
                 }
                 break;
             case R.id.get_related_illust:
@@ -338,7 +342,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 if (mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3) {
                     intent = new Intent(mContext, RelatedActivity.class);
                     intent.putExtra("illust set", mRelatedIllust);
-                    intent.putExtra("illust title", Reference.sIllustsBeans.get(index).getTitle());
+                    intent.putExtra("illust title", mIllustsBean.getTitle());
                     mContext.startActivity(intent);
                 }
                 break;

@@ -29,6 +29,8 @@ import com.example.administrator.essim.response.SpecialArticalResponse;
 import com.example.administrator.essim.response.SpecialCollectionResponse;
 import com.example.administrator.essim.response.UserIllustsResponse;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.DensityUtil;
+import com.example.administrator.essim.utils.LinearItemDecoration;
 import com.example.administrator.essim.utils.LocalData;
 
 import java.util.ArrayList;
@@ -68,7 +70,7 @@ public class FragmentSpecialCollec extends BaseFragment {
         linearLayout.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayout);
         mRecyclerView.setHasFixedSize(true);
-
+        mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

@@ -1,15 +1,18 @@
 package com.example.administrator.essim.utils;
 
 public class Constant {
+
     /**
      * DO NOTHING
      */
     public static void wtfMethord() {
-        //
+        //do the wtf things is do nothing;
     }
 
 
     public static final String TRANSITION_NAME = "image";
+
+    public static final Integer SPLASH_TIME = 1000;
 
     public static final String EXTRA_START_POSITION = "extra_start_position";
     public static final String EXTRA_CURRENT_POSITION = "extra_current_position";
@@ -52,7 +55,7 @@ public class Constant {
     /**
      * 捐赠用户列表
      */
-    public static final String[] donaterList = new String[]{"@太原古交", "@黄鹏飞", "@魏浩杰", "@海洋", "@陈硕",
+    public static final String[] donaterList = new String[]{"@阳厨啦", "@太原古交", "@黄鹏飞", "@魏浩杰", "@海洋", "@陈硕",
             "@花国", "@南墙", "@最萌三千", "@易霏", "@◤康◢◤鑫◢", "@灵零子", "@咸鱼", "@天美削弱部", "@震宇", "@俞易",
             "@钧", "@阿Q", "@W-two world", "@简单，就好", "@仙女走路都带风", "@Biu", "@海~少年", "@风舞月咏叹调子",
             "@可乐酱", "@随心", "@星辰沐雨", "@萌芽的狂想", "@辰许262", "@墨魇", " @灵玲子", "@Cation", "@白夜行er",

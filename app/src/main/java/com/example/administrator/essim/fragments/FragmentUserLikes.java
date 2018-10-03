@@ -29,6 +29,7 @@ import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.PixivOperate;
 import com.example.administrator.essim.utils.WorksItemDecoration;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,7 +152,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
 
                             @Override
                             public void onItemLongClick(View view, int position) {
-                                mFragmentDialog = new FragmentDialog(mContext, view, Reference.sIllustsBeans.get(0));
+                                mFragmentDialog = new FragmentDialog(mContext, view, Reference.sIllustsBeans.get(position));
                                 mFragmentDialog.showDialog();
                             }
                         });

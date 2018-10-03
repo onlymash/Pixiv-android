@@ -25,11 +25,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import java.util.*
 
-class CommentActivity : AppCompatActivity() {
+class CommentActivity : BaseActivity() {
 
     private var title: String? = null
     private var illustID: Int = 0
-    private var mContext: Context? = null
     private var parentCommentID: Int = 0
     private var isLoadingMore: Boolean = false
     private var illustCommentAdapter: IllustCommentAdapter? = null
@@ -53,7 +52,6 @@ class CommentActivity : AppCompatActivity() {
         mToolbar.title = title!! + "的评论"
         val linearLayoutManager = LinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        mRecyclerView.setHasFixedSize(true)
         mRecyclerView.layoutManager = linearLayoutManager
         mProgressbar.visibility = View.INVISIBLE
         mRecyclerView.addItemDecoration(DividerItemDecoration(mContext!!, DividerItemDecoration.VERTICAL_LIST))
