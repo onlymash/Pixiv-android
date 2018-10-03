@@ -69,7 +69,8 @@ interface AppApiPixivService {
     fun getRecommendUser(@Header("Authorization") paramString1: String): Call<SearchUserResponse>
 
     @GET("v1/ugoira/metadata")
-    fun getUgoiraMetadata(@Header("Authorization") paramString: String, @Query("illust_id") paramLong: Long): Call<UgoiraMetadataResponse>
+    fun getUgoiraMetadata(@Header("Authorization") paramString: String,
+                          @Query("illust_id") paramLong: Long): Call<UgoiraMetadataResponse>
 
     @GET("/v1/user/illusts?filter=for_ios")
     fun getUserIllusts(@Header("Authorization") paramString1: String,
@@ -187,4 +188,7 @@ interface AppApiPixivService {
 
     /*@GET("/pixiv/v1/?type=showcase")
     fun getCollecDetail(@Query("id") cate: String): Call<CollectionResponse>*/
+
+    @GET("/v1/user/me/state")
+    fun getMyAccountState(): Call<AccountStateResponse>
 }
