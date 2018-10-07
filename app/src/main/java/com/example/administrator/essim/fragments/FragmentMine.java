@@ -17,18 +17,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.MainActivity;
 import com.example.administrator.essim.adapters.ListHitokotoAdapter;
 import com.example.administrator.essim.interf.OnListHitokotoClickListener;
 import com.example.administrator.essim.response.HitoModel;
+import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.LinearItemDecoration;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,8 +42,9 @@ import java.util.Objects;
 public class FragmentMine extends BaseFragment {
 
     private RecyclerView mRecyclerView;
-    private List<HitoModel> mHitoModels;
+    private List<HitoModel> mHitoModels = new ArrayList<>();
     private ListHitokotoAdapter mAdapter;
+    private ImageView mImageView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
@@ -58,8 +62,7 @@ public class FragmentMine extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
-        //读取数据库
-        mHitoModels = DataSupport.findAll(HitoModel.class);
+        mImageView = view.findViewById(R.id.no_data);
         mAdapter = new ListHitokotoAdapter(mHitoModels, mContext);
         mAdapter.setOnItemClickListener(new OnListHitokotoClickListener() {
             @Override
@@ -81,6 +84,8 @@ public class FragmentMine extends BaseFragment {
             }
         });
         mRecyclerView.setAdapter(mAdapter);
+        //读取数据库
+        reFreshLocalData();
     }
 
     private void setEditableMode() {
@@ -93,7 +98,7 @@ public class FragmentMine extends BaseFragment {
             if (deleteType == 0) {
                 DataSupport.deleteAll(HitoModel.class, "hitokoto = ?", mHitoModels.get(index).getHitokoto());
                 mHitoModels.remove(index);
-                mAdapter.notifyItemRemoved(index);
+                reFreshLocalData();
             } else if (deleteType == 1) {
                 for (int i = 0; i < mHitoModels.size(); i++) {
                     if (mHitoModels.get(i).getSelected()) {
@@ -114,14 +119,25 @@ public class FragmentMine extends BaseFragment {
     private void reFreshLocalData() {
         mHitoModels.clear();
         mHitoModels.addAll(DataSupport.findAll(HitoModel.class));
+        if(mHitoModels.size() == 0){
+            mImageView.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            mAdapter.notifyDataSetChanged();
+        }else {
+            mImageView.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void onHiddenChanged(boolean hide) {
         if (!hide) {
+            Common.showLog("跑到这里来了啊");
             if (FragmentHitokoto.need_to_refresh) {
                 reFreshLocalData();
                 mRecyclerView.smoothScrollToPosition(mHitoModels.size());
+                mAdapter.notifyDataSetChanged();
                 FragmentHitokoto.need_to_refresh = false;
             }
         }

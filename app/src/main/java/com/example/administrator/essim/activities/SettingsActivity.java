@@ -17,12 +17,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +55,9 @@ public class SettingsActivity extends BaseActivity {
     private Context mContext;
     private Activity mActivity;
     private ProgressBar mProgressBar;
+    private RelativeLayout mRelativeLayout, mRelativeLayout2, mRelativeLayout3,
+            mRelativeLayout4, mRelativeLayout5, mRelativeLayout6, mRelativeLayout7, mRelativeLayout8,
+            mRelativeLayout9, mRelativeLayout10;
     private TextView mTextView, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6, mTextView7,
             mTextView8, mTextView9, mTextView10, mTextView11, mTextView12, mTextView13, mTextView14;
     private StorageChooser.Builder builder = new StorageChooser.Builder();
@@ -77,37 +80,44 @@ public class SettingsActivity extends BaseActivity {
         Switch aSwitch = findViewById(R.id.setting_switch);
         mProgressBar = findViewById(R.id.mProgressbar);
         mProgressBar.setVisibility(View.INVISIBLE);
-        mTextView = findViewById(R.id.username);
-        mTextView2 = findViewById(R.id.user_account);
-        mTextView3 = findViewById(R.id.password);
+        mTextView = findViewById(R.id.user_real_name);
+        mRelativeLayout2 = findViewById(R.id.username);
+        mTextView2 = findViewById(R.id.user_account_real);
+        mRelativeLayout3 = findViewById(R.id.user_account);
+        mRelativeLayout4 = findViewById(R.id.password);
+        mTextView3 = findViewById(R.id.password_real);
         mTextView4 = findViewById(R.id.quit);
-        mTextView5 = findViewById(R.id.real_path);
-        mTextView6 = findViewById(R.id.setting_text_has_sdCard);
+        mTextView5 = findViewById(R.id.real_path_real);
+        mRelativeLayout5 = findViewById(R.id.real_path);
+        mRelativeLayout = findViewById(R.id.rela_2);
         mTextView7 = findViewById(R.id.text_has_permission);
         mTextView8 = findViewById(R.id.app_detail);
         mTextView9 = findViewById(R.id.clear_cache);
-        mTextView10 = findViewById(R.id.cache_size);
-        mTextView11 = findViewById(R.id.set_header);
-        mTextView12 = findViewById(R.id.set_color);
-        mTextView13 = findViewById(R.id.set_file_name);
-        mTextView14 = findViewById(R.id.dns_setting);
+        mTextView10 = findViewById(R.id.cache_size_real);
+        mRelativeLayout6 = findViewById(R.id.cache_size);
+        mRelativeLayout7 = findViewById(R.id.set_header);
+        mRelativeLayout8 = findViewById(R.id.set_color);
+        mTextView13 = findViewById(R.id.set_file_name_real);
+        mRelativeLayout9 = findViewById(R.id.set_file_name);
+        mRelativeLayout10 = findViewById(R.id.set_email);
+        mTextView6 = findViewById(R.id.real_email);
         aSwitch.setChecked(Common.getLocalDataSet().getBoolean("is_origin_pic", false));
         aSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
             editor.putBoolean("is_origin_pic", b);
             editor.apply();
         });
         mTextView.setText(Common.getLocalDataSet().getString("username", ""));
-        mTextView.setOnLongClickListener(view -> {
+        mRelativeLayout2.setOnLongClickListener(view -> {
             Common.copyMessage(mContext, mTextView.getText().toString());
             return true;
         });
         mTextView2.setText(Common.getLocalDataSet().getString("useraccount", ""));
-        mTextView2.setOnLongClickListener(view -> {
+        mRelativeLayout3.setOnLongClickListener(view -> {
             Common.copyMessage(mContext, mTextView2.getText().toString());
             return true;
         });
         mTextView3.setText(Common.getLocalDataSet().getString("password", ""));
-        mTextView3.setOnLongClickListener(view -> {
+        mRelativeLayout4.setOnLongClickListener(view -> {
             ClipboardManager cm = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData mClipData = ClipData.newPlainText("Label", mTextView3.getText().toString());
             assert cm != null;
@@ -121,7 +131,7 @@ public class SettingsActivity extends BaseActivity {
             finish();
         });
         mTextView5.setText(Common.getLocalDataSet().getString("download_path", "/storage/emulated/0/PixivPictures"));
-        mTextView6.setOnClickListener(view -> {
+        mRelativeLayout.setOnClickListener(view -> {
             Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             mActivity.startActivityForResult(i, 1);
             TastyToast.makeText(mContext, "请进入可插拔sd卡根目录，然后点击'确定'", Toast.LENGTH_LONG, TastyToast.DEFAULT).show();
@@ -134,9 +144,9 @@ public class SettingsActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mTextView9.setOnClickListener(v -> {
+        mRelativeLayout6.setOnClickListener(v -> {
             GlideCacheUtil.getInstance().clearImageAllCache(mContext);
-            Snackbar.make(mTextView9, "本地缓存已清空~", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mRelativeLayout6, "本地缓存已清空~", Snackbar.LENGTH_SHORT).show();
             mTextView10.setText(R.string.zero_size);
         });
         mTextView10.setText(GlideCacheUtil.getInstance().getCacheSize(mContext));
@@ -144,27 +154,26 @@ public class SettingsActivity extends BaseActivity {
                 .with(this)
                 .build()
                 .create(MyImagePicker.class);
-        mTextView11.setOnClickListener(v -> imagePicker
+        mRelativeLayout7.setOnClickListener(v -> imagePicker
                 .openGallery()
                 .subscribe(result -> {
                     //获取到被选中图片的uri，保存到本地
                     editor.putString("header_img_path", result.getUri().toString());
                     editor.apply();
                 }));
-        mTextView12.setOnClickListener(v -> {
-            imagePicker
-                    .openGallery()
-                    .subscribe(result -> {
-                        File file = new File(Common.getRealFilePath(mContext, result.getUri()));
-                        changeHeadImage(file);
-                    });
-        });
+        mRelativeLayout8.setOnClickListener(v ->
+                imagePicker.openGallery().subscribe(result -> {
+                    File file = new File(Common.getRealFilePath(mContext, result.getUri()));
+                    changeHeadImage(file);
+                }));
         mTextView13.setText(arrayOfFileNameType[Common.getLocalDataSet().getInt("file_name_style", 0)]);
-        mTextView13.setOnClickListener(v -> setFileNameStyle());
-        mTextView14.setOnClickListener(view -> {
-            Intent intent = new Intent(mContext, DnsEditActivity.class);
-            mContext.startActivity(intent);
+        mRelativeLayout9.setOnClickListener(v -> setFileNameStyle());
+        mRelativeLayout10.setOnClickListener(v -> {
+            //Intent intent = new Intent()
         });
+        if (Common.getLocalDataSet().getString("email", "").length() != 0) {
+            mTextView6.setText(Common.getLocalDataSet().getString("email", ""));
+        }
 
         //初始化路径选择对话框
         Content c = new Content();
@@ -195,7 +204,7 @@ public class SettingsActivity extends BaseActivity {
         chooser.setOnCancelListener(() ->
                 TastyToast.makeText(mContext, "取消选择", Toast.LENGTH_SHORT, TastyToast.CONFUSING).show());
         //为路径选择Textview设置点击事件
-        mTextView5.setOnClickListener(view -> chooser.show());
+        mRelativeLayout5.setOnClickListener(view -> chooser.show());
     }
 
     @Override

@@ -120,9 +120,7 @@ class CommentActivity : BaseActivity() {
                 }
             }
             mEditText.setText("")
-            val imm = mContext!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            // 隐藏软键盘
-            imm.hideSoftInputFromWindow((mContext as Activity).window.decorView.windowToken, 0)
+            Common.hideKeyboard(mActivity)
         } else {
             TastyToast.makeText(mContext, "评论不能为空~", TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show()
         }

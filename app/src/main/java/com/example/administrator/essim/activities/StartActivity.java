@@ -27,7 +27,7 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         ImageView imageView = findViewById(R.id.splash_image);
-        Glide.with(StartActivity.this).load(R.mipmap.one_splash).into(imageView);
+        //Glide.with(StartActivity.this).load(R.mipmap.one_splash).into(imageView);
         Handler handler = new Handler();
         //当计时结束时，跳转至主界面
         handler.postDelayed(() -> {

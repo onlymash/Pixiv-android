@@ -105,6 +105,15 @@
             </RelativeLayout>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:paddingStart="@dimen/sixteen_dip"
+                android:paddingTop="@dimen/sixteen_dip"
+                android:padding="@dimen/sixteen_dip"
+                android:text="ufotable(ユーフォーテーブル有限会社)" />
+
+            <TextView
                 android:id="@+id/line4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -354,6 +363,76 @@
                 android:layout_marginStart="40dp"
                 android:padding="@dimen/sixteen_dip"
                 android:text="Foxtail-Grass Studio" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#f2f2f2"
+                android:layout_height="1dp">
+
+            </View>
+
+            <TextView
+                android:id="@+id/textView3_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginTop="@dimen/sixteen_dip"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:text="美術："
+                android:textColor="#666666"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/toolbar_pixiv"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_pixiv" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line12_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="J.C.STAFF美術部" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line12_2"
+                    android:autoLink="web"
+                    android:text="Triple A" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line12_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Echo animation" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line12_3"
+                    android:autoLink="web"
+                    android:text="Mercis Studio" />
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
