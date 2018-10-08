@@ -17,7 +17,13 @@ class TrendingtagAdapter(private val mPixivRankItem: List<TrendingtagResponse.Tr
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
     private var mOnItemClickListener: OnItemClickListener? = null
+    private var imageHeight = 0
 
+    init {
+        imageHeight = ((mContext.resources.displayMetrics.widthPixels -
+                4 * mContext.resources.getDimensionPixelSize(R.dimen.six_dp)) / 3) * 7 / 5
+
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TagHolder(mLayoutInflater.inflate(R.layout.tag_item_grid, parent, false))
     }

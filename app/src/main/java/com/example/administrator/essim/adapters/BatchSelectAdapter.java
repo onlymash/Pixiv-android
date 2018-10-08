@@ -24,11 +24,14 @@ public class BatchSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private LayoutInflater mLayoutInflater;
     private List<IllustsBean> allIllust;
     private OnItemClickListener mOnItemClickListener = null;
+    private int imageHeight = 0;
 
     public BatchSelectAdapter(List<IllustsBean> list, Context context) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(mContext);
         allIllust = list;
+        imageHeight = ((mContext.getResources().getDisplayMetrics().widthPixels -
+                3 * mContext.getResources().getDimensionPixelSize(R.dimen.eight_dip)) / 2) * 6 / 5;
     }
 
     @NonNull
@@ -40,6 +43,7 @@ public class BatchSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ((TagHolder) holder).mImageView.getLayoutParams().height = imageHeight;
         Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(allIllust.get(position)))
                 .into(((TagHolder) holder).mImageView);
         if (allIllust.get(position).getPage_count() == 1) {

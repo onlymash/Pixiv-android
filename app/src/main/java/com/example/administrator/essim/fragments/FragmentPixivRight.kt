@@ -38,7 +38,7 @@ class FragmentPixivRight : BaseFragment() {
         mRecyclerView.layoutManager = gridLayoutManager
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.addItemDecoration(GridItemDecoration(
-                3, DensityUtil.dip2px(mContext, 6.0f), true));
+                3, DensityUtil.dip2px(mContext, 6.0f), true))
         no_data.setOnClickListener {
             getHotTags()
         }

@@ -28,6 +28,11 @@
             android:icon="@drawable/ic_directions_car_black_24dp"
             android:title="@string/go_to_R18" />
 
+        <item
+            android:id="@+id/view_history"
+            android:icon="@drawable/ic_history_black_24dp"
+            android:title="@string/view_history" />
+
     </group>
 
     <group

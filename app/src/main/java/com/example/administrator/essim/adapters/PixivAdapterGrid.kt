@@ -19,13 +19,24 @@ import kotlinx.android.synthetic.main.pixiv_item_grid.view.*
 class PixivAdapterGrid(private val mPixivRankItem: List<IllustsBean>,
                        private val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+
     private var mOnItemClickListener: OnItemClickListener? = null
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
+
+    private var imageHeight = 0
+
+    init {
+        imageHeight = ((mContext.resources.displayMetrics.widthPixels -
+                3 * mContext.resources.getDimensionPixelSize(R.dimen.eight_dip)) / 2) * 6 / 5
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             PhotoHolder(mLayoutInflater.inflate(R.layout.pixiv_item_grid, parent, false))
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        holder.itemView.pixiv_image.layoutParams.height = imageHeight
+
         Glide.with(mContext).load(GlideUtil().getMediumImageUrl(mPixivRankItem[position]))
                 .into(holder.itemView.pixiv_image)
         when {

@@ -7,11 +7,18 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.DonaterAdapter;
+import com.example.administrator.essim.adapters.ViewHistoryAdapter;
+import com.example.administrator.essim.response.ViewHistory;
 import com.example.administrator.essim.utils.Constant;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.LinearItemDecoration;
 
-public class AboutDonationActivity extends BaseActivity {
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RecyclerViewActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +39,18 @@ public class AboutDonationActivity extends BaseActivity {
         if (dataType.equals("donation")) {
             adapter = new DonaterAdapter(Constant.donaterList, mContext);
             toolbar.setTitle("神豪列表");
+            recyclerView.setAdapter(adapter);
         } else if (dataType.equals("libraries")) {
             adapter = new DonaterAdapter(Constant.libraries, mContext);
             toolbar.setTitle("开源库列表");
+            recyclerView.setAdapter(adapter);
+        }else if (dataType.equals("history")) {
+            List<ViewHistory> list = new ArrayList<>();
+            list.addAll(DataSupport.findAll(ViewHistory.class));
+            ViewHistoryAdapter viewHistoryAdapter = new ViewHistoryAdapter(list, mContext);
+            toolbar.setTitle("浏览历史");
+            recyclerView.setAdapter(viewHistoryAdapter);
         }
-        recyclerView.setAdapter(adapter);
+
     }
 }

@@ -47,7 +47,7 @@
 
         <service android:name=".activities.BatchDownloadService" />
 
-        <activity android:name=".activities.AboutDonationActivity" />
+        <activity android:name=".activities.RecyclerViewActivity" />
         <activity android:name=".activities.DnsEditActivity" />
         <activity android:name=".activities.ThanksActivity" />
 

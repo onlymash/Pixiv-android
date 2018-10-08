@@ -35,6 +35,7 @@ import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.RelatedIllust;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideUtil;
+import com.example.administrator.essim.utils.LocalData;
 import com.example.administrator.essim.utils.PixivOperate;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -357,6 +358,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         if (isVisibleToUser) {
             if (getActivity() != null) {
                 ((ViewPagerActivity) getActivity()).changeTitle();
+                LocalData.saveViewHistory(mIllustsBean);
             }
         }
     }

@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -228,6 +229,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
             case R.id.thanks: {
                 Intent intent = new Intent(mContext, ThanksActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.view_history: {
+                Intent intent = new Intent(mContext, RecyclerViewActivity.class);
+                intent.putExtra("dataType", "history");
                 startActivity(intent);
                 break;
             }

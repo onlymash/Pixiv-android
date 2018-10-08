@@ -167,8 +167,8 @@ class FragmentPixivLeft : BaseFragment() {
         localHashMap["client_id"] = Constant.CLIENT_ID
         localHashMap["client_secret"] = Constant.CLIENT_SECRET
         localHashMap["grant_type"] = Constant.GRANT_TYPE
-        localHashMap["username"] = Common.getLocalDataSet().getString("useraccount", "")
-        localHashMap["password"] = Common.getLocalDataSet().getString("password", "")
+        localHashMap["username"] = LocalData.getUserAccount()
+        localHashMap["password"] = LocalData.getUserPwd()
         val call = RestClient().getretrofit_OAuthSecure().create(OAuthSecureService::class.java).postAuthToken(localHashMap)
         call.enqueue(object : Callback<PixivOAuthResponse> {
             override fun onResponse(call: Call<PixivOAuthResponse>, response: retrofit2.Response<PixivOAuthResponse>) {
@@ -188,7 +188,7 @@ class FragmentPixivLeft : BaseFragment() {
             }
 
             override fun onFailure(call: Call<PixivOAuthResponse>, throwable: Throwable) {
-                Common.showToast(mContext, getString(R.string.no_proxy));
+                Common.showToast(mContext, getString(R.string.no_proxy))
             }
         })
     }

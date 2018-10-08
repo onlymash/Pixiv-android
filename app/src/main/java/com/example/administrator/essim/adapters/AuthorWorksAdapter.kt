@@ -24,6 +24,13 @@ class AuthorWorksAdapter(private val mPixivRankItem: List<IllustsBean>,
     private val itemContent = 1
     private var mOnItemClickListener: OnItemClickListener? = null
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
+    private var imageHeight = 0
+
+    init {
+        imageHeight = ((mContext.resources.displayMetrics.widthPixels -
+                3 * mContext.resources.getDimensionPixelSize(R.dimen.eight_dip)) / 2) * 6 / 5
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             when (viewType) {
@@ -34,6 +41,7 @@ class AuthorWorksAdapter(private val mPixivRankItem: List<IllustsBean>,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, p: Int) = when (holder) {
         is PhotoHolder -> {
             val position = p - 1
+            holder.itemView.pixiv_image.layoutParams.height = imageHeight
             Glide.with(mContext).load(GlideUtil().getMediumImageUrl(mPixivRankItem[position]))
                     .into(holder.itemView.pixiv_image)
             when {

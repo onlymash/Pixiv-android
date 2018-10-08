@@ -2,7 +2,9 @@ package com.example.administrator.essim.utils;
 
 import android.content.SharedPreferences;
 
+import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.PixivOAuthResponse;
+import com.example.administrator.essim.response.ViewHistory;
 
 public class LocalData {
 
@@ -64,4 +66,13 @@ public class LocalData {
         return Common.getLocalDataSet().getString("password", "");
     }
 
+    public static void saveViewHistory(IllustsBean illustsBean){
+        ViewHistory viewHistory = new ViewHistory(
+                String.valueOf(illustsBean.getId()),
+                illustsBean.getUser().getName(),
+                illustsBean.getTitle(),
+                Common.getTime(String.valueOf(System.currentTimeMillis())),
+                String.valueOf(illustsBean.getPage_count()));
+        viewHistory.save();
+    }
 }
