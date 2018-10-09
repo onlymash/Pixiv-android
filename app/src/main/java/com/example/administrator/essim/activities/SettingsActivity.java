@@ -169,7 +169,9 @@ public class SettingsActivity extends BaseActivity {
         mTextView13.setText(arrayOfFileNameType[Common.getLocalDataSet().getInt("file_name_style", 0)]);
         mRelativeLayout9.setOnClickListener(v -> setFileNameStyle());
         mRelativeLayout10.setOnClickListener(v -> {
-            //Intent intent = new Intent()
+            Intent intent = new Intent(mContext, SignEmailActivity.class);
+            mContext.startActivity(intent);
+
         });
         if (Common.getLocalDataSet().getString("email", "").length() != 0) {
             mTextView6.setText(Common.getLocalDataSet().getString("email", ""));
