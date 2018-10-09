@@ -6,6 +6,10 @@ import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.PixivOAuthResponse;
 import com.example.administrator.essim.response.ViewHistory;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 public class LocalData {
 
     /**
@@ -50,29 +54,42 @@ public class LocalData {
         editor.apply();
     }
 
-    public static String getToken(){
+    public static String getToken() {
         return Common.getLocalDataSet().getString("Authorization", "");
     }
 
-    public static String getUserName(){
+    public static String getUserName() {
         return Common.getLocalDataSet().getString("username", "");
     }
 
-    public static String getUserAccount(){
+    public static String getUserAccount() {
         return Common.getLocalDataSet().getString("useraccount", "");
     }
 
-    public static String getUserPwd(){
+    public static String getUserPwd() {
         return Common.getLocalDataSet().getString("password", "");
     }
 
-    public static void saveViewHistory(IllustsBean illustsBean){
-        ViewHistory viewHistory = new ViewHistory(
-                String.valueOf(illustsBean.getId()),
-                illustsBean.getUser().getName(),
-                illustsBean.getTitle(),
-                Common.getTime(String.valueOf(System.currentTimeMillis())),
-                String.valueOf(illustsBean.getPage_count()));
-        viewHistory.save();
+    public static void saveViewHistory(IllustsBean illustsBean) {
+        List<ViewHistory> isSaved = DataSupport.where("illust_id=?",
+                String.valueOf(illustsBean.getId())).find(ViewHistory.class);
+        if (isSaved != null && isSaved.size() != 0) {
+            /*isSaved.get(0).setView_time(Common.getTime(String.valueOf(System.currentTimeMillis())));
+            isSaved.get(0).save();*/
+
+            ViewHistory book = new ViewHistory();
+            book.setView_time(System.currentTimeMillis());
+            book.updateAll("illust_id=?", String.valueOf(illustsBean.getId()));
+        } else {
+            ViewHistory viewHistory = new ViewHistory(
+                    String.valueOf(illustsBean.getId()),
+                    illustsBean.getUser().getName(),
+                    illustsBean.getTitle(),
+                    System.currentTimeMillis(),
+                    String.valueOf(illustsBean.getPage_count()),
+                    illustsBean.getImage_urls().getMedium());
+            viewHistory.save();
+        }
+
     }
 }

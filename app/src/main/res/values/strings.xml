@@ -230,4 +230,5 @@
     <string name="no_more_data">再怎么找也找不到了~</string>
     <string name="tranks">鸣谢</string>
     <string name="view_history">浏览历史</string>
+    <string name="delete_all">删除全部历史</string>
 </resources>
