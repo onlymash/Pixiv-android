@@ -33,6 +33,7 @@ import com.example.administrator.essim.R;
 import com.example.administrator.essim.interf.MyImagePicker;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
+import com.example.administrator.essim.utils.AlipayUtil;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideCacheUtil;
 import com.qingmei2.rximagepicker.core.RxImagePicker;
@@ -57,7 +58,7 @@ public class SettingsActivity extends BaseActivity {
     private ProgressBar mProgressBar;
     private RelativeLayout mRelativeLayout, mRelativeLayout2, mRelativeLayout3,
             mRelativeLayout4, mRelativeLayout5, mRelativeLayout6, mRelativeLayout7, mRelativeLayout8,
-            mRelativeLayout9, mRelativeLayout10;
+            mRelativeLayout9, mRelativeLayout10, mRelativeLayout11;
     private TextView mTextView, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6, mTextView7,
             mTextView8, mTextView9, mTextView10, mTextView11, mTextView12, mTextView13, mTextView14;
     private StorageChooser.Builder builder = new StorageChooser.Builder();
@@ -100,6 +101,9 @@ public class SettingsActivity extends BaseActivity {
         mTextView13 = findViewById(R.id.set_file_name_real);
         mRelativeLayout9 = findViewById(R.id.set_file_name);
         mRelativeLayout10 = findViewById(R.id.set_email);
+        mRelativeLayout11 = findViewById(R.id.pay_for_me);
+        mRelativeLayout11.setOnClickListener(view ->
+                AlipayUtil.startAlipayClient(mActivity, AlipayUtil.MY_ACCOUNT));
         mTextView6 = findViewById(R.id.real_email);
         aSwitch.setChecked(Common.getLocalDataSet().getBoolean("is_origin_pic", false));
         aSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
