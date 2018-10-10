@@ -8,10 +8,12 @@ import com.example.administrator.essim.response.ViewHistory;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocalData {
 
+    private static final int HISTORY_SIZE = 5;
     /**
      * 登陆成功后将账户信息保存到本地
      *
@@ -76,11 +78,15 @@ public class LocalData {
         if (isSaved != null && isSaved.size() != 0) {
             /*isSaved.get(0).setView_time(Common.getTime(String.valueOf(System.currentTimeMillis())));
             isSaved.get(0).save();*/
-
             ViewHistory book = new ViewHistory();
             book.setView_time(System.currentTimeMillis());
             book.updateAll("illust_id=?", String.valueOf(illustsBean.getId()));
         } else {
+            List<ViewHistory> list = new ArrayList<>();
+            list.addAll(DataSupport.order("view_time desc").find(ViewHistory.class));
+            if(list.size() >= HISTORY_SIZE){
+                list.get(list.size() - 1).delete();
+            }
             ViewHistory viewHistory = new ViewHistory(
                     String.valueOf(illustsBean.getId()),
                     illustsBean.getUser().getName(),

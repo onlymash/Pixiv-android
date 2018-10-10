@@ -74,15 +74,12 @@ public class RecyclerViewActivity extends BaseActivity {
     }
 
     private void refreshHistory(){
-        List<ViewHistory> list = new ArrayList<>();
-        list.addAll(DataSupport.findAll(ViewHistory.class));
+        List<ViewHistory> list = DataSupport.order("view_time desc").find(ViewHistory.class);
         if(list.size() != 0){
             mImageView.setVisibility(View.INVISIBLE);
-
         }else {
             mImageView.setVisibility(View.VISIBLE);
         }
-        Collections.sort(list);
         ViewHistoryAdapter viewHistoryAdapter = new ViewHistoryAdapter(list, mContext);
         viewHistoryAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
