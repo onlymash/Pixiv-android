@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/avator" />
+                android:src="@mipmap/kyoko" />
 
         </com.github.florent37.arclayout.ArcLayout>
 
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="五更琉璃"
+                android:text="岁纳京子"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="CV: 花泽香菜"
+                android:text="番剧: 摇曳百合"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 

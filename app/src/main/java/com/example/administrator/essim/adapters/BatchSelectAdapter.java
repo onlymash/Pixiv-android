@@ -24,7 +24,7 @@ public class BatchSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private LayoutInflater mLayoutInflater;
     private List<IllustsBean> allIllust;
     private OnItemClickListener mOnItemClickListener = null;
-    private int imageHeight = 0;
+    private int imageHeight;
 
     public BatchSelectAdapter(List<IllustsBean> list, Context context) {
         mContext = context;

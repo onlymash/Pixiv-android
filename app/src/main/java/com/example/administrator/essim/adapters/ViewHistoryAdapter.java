@@ -25,6 +25,7 @@ public class ViewHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private LayoutInflater mLayoutInflater;
     private List<ViewHistory> mDonaterNames;
     private OnItemClickListener mOnItemClickListener;
+    private int imageWidth, imageHeight;
 
     public OnItemClickListener getOnItemClickListener() {
         return mOnItemClickListener;
@@ -38,6 +39,8 @@ public class ViewHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mContext = context;
         mLayoutInflater = LayoutInflater.from(mContext);
         mDonaterNames = list;
+        imageWidth = (mContext.getResources().getDisplayMetrics().widthPixels)*5/ 12;
+        imageHeight = imageWidth * 4/ 5;
     }
 
     @NonNull
@@ -49,6 +52,8 @@ public class ViewHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ((TagHolder) holder).mNiceImageView.getLayoutParams().width = imageWidth;
+        ((TagHolder) holder).mNiceImageView.getLayoutParams().height = imageHeight;
         if(mDonaterNames.get(position).getImg_url() != null) {
             Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(
                     mDonaterNames.get(position).getIllust_id(),

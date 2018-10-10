@@ -114,6 +114,15 @@
                 android:text="ufotable(ユーフォーテーブル有限会社)" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:paddingStart="@dimen/sixteen_dip"
+                android:paddingTop="@dimen/sixteen_dip"
+                android:padding="@dimen/sixteen_dip"
+                android:text="A-1 Pictures(株式会社A-1 Pictures)" />
+
+            <TextView
                 android:id="@+id/line4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,6 +131,8 @@
                 android:paddingTop="@dimen/sixteen_dip"
                 android:padding="@dimen/sixteen_dip"
                 android:text="J.C.STAFF(株式会社 ジェーシースタッフ)" />
+
+
 
 
             <TextView
@@ -232,7 +243,7 @@
                     android:id="@+id/line10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="足立慎吾" />
+                    android:text="田中雄一" />
 
 
                 <TextView
@@ -242,7 +253,31 @@
                     android:layout_marginEnd="8dp"
                     android:layout_toEndOf="@+id/line10"
                     android:autoLink="web"
-                    android:text="田中雄一" />
+                    android:text="渡航" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line10_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="武本康弘" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line10_1"
+                    android:autoLink="web"
+                    android:text="虚淵 玄" />
 
             </RelativeLayout>
 
@@ -252,7 +287,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:padding="@dimen/sixteen_dip"
-                android:text="渡航" />
+                android:text="奈须きのこ" />
 
             <View
                 android:layout_width="match_parent"
@@ -365,6 +400,8 @@
                 android:text="Foxtail-Grass Studio" />
 
 
+
+
             <View
                 android:layout_width="match_parent"
                 android:background="#f2f2f2"
@@ -430,7 +467,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_toEndOf="@+id/line12_3"
                     android:autoLink="web"
-                    android:text="Mercis Studio" />
+                    android:text="REAL-T" />
 
             </RelativeLayout>
 
@@ -539,8 +576,6 @@
                 <TextView
                     android:id="@+id/line20"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:text="五更琉璃" />
 
@@ -626,6 +661,32 @@
                     android:layout_toEndOf="@+id/line23"
                     android:autoLink="web"
                     android:text="薙切绘里奈" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip">
+
+                <TextView
+                    android:id="@+id/line24"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:text="岁纳京子" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@+id/line24"
+                    android:autoLink="web"
+                    android:text="桐谷和人" />
 
             </RelativeLayout>
 

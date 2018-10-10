@@ -69,13 +69,12 @@ public class RecyclerViewActivity extends BaseActivity {
         }else if (dataType.equals("history")) {
             mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 8.0f)));
             toolbar.setTitle("浏览历史");
-            refreshHistory();
         }
     }
 
     private void refreshHistory(){
         List<ViewHistory> list = DataSupport.order("view_time desc").find(ViewHistory.class);
-        if(list.size() != 0){
+        if(list != null && list.size() != 0){
             mImageView.setVisibility(View.INVISIBLE);
         }else {
             mImageView.setVisibility(View.VISIBLE);
@@ -94,6 +93,14 @@ public class RecyclerViewActivity extends BaseActivity {
             }
         });
         mRecyclerView.setAdapter(viewHistoryAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (dataType.equals("history")) {
+            refreshHistory();
+        }
     }
 
     @Override

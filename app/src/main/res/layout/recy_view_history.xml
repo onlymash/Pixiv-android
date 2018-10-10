@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         app:cardCornerRadius="@dimen/six_dp"
         android:layout_marginStart="@dimen/eight_dip"
         android:layout_marginTop="@dimen/eight_dip"
@@ -14,7 +14,7 @@
         android:foreground="?attr/selectableItemBackground"
         android:stateListAnimator="@animator/touch_raise"
         android:id="@+id/card"
-        android:layout_height="95dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/image"
