@@ -44,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
@@ -98,6 +99,9 @@ import retrofit2.Callback;
 
 
 public class Common {
+
+
+
 
     public static AlphaAnimation getAnimation() {
         AlphaAnimation alphaAnimationShowIcon = new AlphaAnimation(0.2f, 1.0f);
@@ -231,9 +235,7 @@ public class Common {
         TastyToast.makeText(mContext, tag + " 已复制到剪切板~", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
     }
 
-    public static SharedPreferences getLocalDataSet() {
-        return PreferenceManager.getDefaultSharedPreferences(PixivApplication.getContext());
-    }
+
 
     public static Wave getLoaderAnimation(Context context) {
         Wave wave = new Wave();
@@ -243,7 +245,7 @@ public class Common {
 
     public static File generatePictureFile(Context context, IllustsBean illustsBean, int positionInIllust, int fileNameStyle, int downloadType) {
         //检验父文件夹是否存在在，若不存在则创建
-        File parentFile = new File(Common.getLocalDataSet().getString("download_path",
+        File parentFile = new File(LocalData.getLocalDataSet().getString("download_path",
                 "/storage/emulated/0/PixivPictures"));
         if (!parentFile.exists()) {
             parentFile.mkdir();
@@ -299,35 +301,7 @@ public class Common {
         return null;
     }
 
-    public static void getSingleIllust(ProgressBar progressBar, Context context, Long illustID) {
-        progressBar.setVisibility(View.VISIBLE);
-        Call<IllustDetailResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
-                .create(AppApiPixivService.class)
-                .getIllust(Common.getLocalDataSet().getString("Authorization", ""),
-                        illustID);
-        call.enqueue(new Callback<IllustDetailResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<IllustDetailResponse> call, @NonNull retrofit2.Response<IllustDetailResponse> response) {
-                IllustDetailResponse illustDetailResponse = response.body();
-                List<IllustsBean> singleIllust = new ArrayList<>();
-                try {
-                    singleIllust.add(illustDetailResponse.getIllust());
-                    Reference.sIllustsBeans = singleIllust;
-                    Intent intent = new Intent(context, ViewPagerActivity.class);
-                    intent.putExtra("which one is selected", 0);
-                    context.startActivity(intent);
-                } catch (Exception e) {
-                    Snackbar.make(progressBar, "没有这个作品", Snackbar.LENGTH_SHORT).show();
-                }
-                progressBar.setVisibility(View.INVISIBLE);
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<IllustDetailResponse> call, @NonNull Throwable throwable) {
-            }
-        });
-    }
 
     public static String getRealFilePath(final Context context, final Uri uri) {
         if (null == uri) return null;

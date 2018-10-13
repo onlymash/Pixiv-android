@@ -144,7 +144,7 @@ class FragmentRank : BaseFragment() {
         val call = RestClient()
                 .retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
-                .getFollowIllusts(Common.getLocalDataSet().getString("Authorization", "")!!, "all")
+                .getFollowIllusts(LocalData.getToken(), "all")
         call.enqueue(object : Callback<IllustfollowResponse> {
             override fun onResponse(call: Call<IllustfollowResponse>,
                                     response: retrofit2.Response<IllustfollowResponse>) {
@@ -208,8 +208,7 @@ class FragmentRank : BaseFragment() {
         val call = RestClient()
                 .retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
-                .getIllustRanking(Common.getLocalDataSet().getString("Authorization", "")!!,
-                        modeList[dataType], null)
+                .getIllustRanking(LocalData.getToken(), modeList[dataType], null)
         call.enqueue(object : Callback<IllustRankingResponse> {
             override fun onResponse(call: Call<IllustRankingResponse>,
                                     response: retrofit2.Response<IllustRankingResponse>) {

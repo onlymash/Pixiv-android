@@ -23,6 +23,7 @@ import com.example.administrator.essim.response.SearchUserResponse;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.LinearItemDecoration;
+import com.example.administrator.essim.utils.LocalData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class FollowShowActivity extends BaseActivity {
         Call<SearchUserResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getUserFollowing(Common.getLocalDataSet().getString("Authorization", ""), userID, followerType);
+                .getUserFollowing(LocalData.getToken(), userID, followerType);
         call.enqueue(new Callback<SearchUserResponse>() {
             @Override
             public void onResponse(Call<SearchUserResponse> call, retrofit2.Response<SearchUserResponse> response) {
@@ -152,7 +153,7 @@ public class FollowShowActivity extends BaseActivity {
         Call<SearchUserResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getRecommendUser(Common.getLocalDataSet().getString("Authorization", ""));
+                .getRecommendUser(LocalData.getToken());
         call.enqueue(new Callback<SearchUserResponse>() {
             @Override
             public void onResponse(Call<SearchUserResponse> call, retrofit2.Response<SearchUserResponse> response) {
@@ -206,7 +207,7 @@ public class FollowShowActivity extends BaseActivity {
         Call<SearchUserResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getSearchUser(Common.getLocalDataSet().getString("Authorization", ""), searchKey);
+                .getSearchUser(LocalData.getToken(), searchKey);
         call.enqueue(new Callback<SearchUserResponse>() {
             @Override
             public void onResponse(Call<SearchUserResponse> call, retrofit2.Response<SearchUserResponse> response) {
@@ -250,10 +251,11 @@ public class FollowShowActivity extends BaseActivity {
             Call<SearchUserResponse> call = new RestClient()
                     .getRetrofit_AppAPI()
                     .create(AppApiPixivService.class)
-                    .getNextUser(Common.getLocalDataSet().getString("Authorization", ""), next_url);
+                    .getNextUser(LocalData.getToken(), next_url);
             call.enqueue(new Callback<SearchUserResponse>() {
                 @Override
-                public void onResponse(Call<SearchUserResponse> call, retrofit2.Response<SearchUserResponse> response) {
+                public void onResponse(Call<SearchUserResponse> call,
+                                       retrofit2.Response<SearchUserResponse> response) {
                     next_url = response.body().getNext_url();
                     mUserPreviewsBeanList.addAll(response.body().getUser_previews());
                     mUserFollowAdapter.notifyDataSetChanged();
@@ -263,7 +265,7 @@ public class FollowShowActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Call<SearchUserResponse> call, Throwable throwable) {
-
+                    mProgressBar.setVisibility(View.INVISIBLE);
                 }
             });
         } else {
@@ -274,7 +276,7 @@ public class FollowShowActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        if (Common.getLocalDataSet().getInt("userid", 0) == userID) {
+        if (LocalData.getUserID() == userID) {
             //加载关于自己的菜单，可以查看自己的公开或者非公开收藏
             getMenuInflater().inflate(R.menu.user_follow, menu);
         }

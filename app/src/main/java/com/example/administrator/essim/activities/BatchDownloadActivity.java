@@ -20,6 +20,7 @@ import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.GridItemDecoration;
+import com.example.administrator.essim.utils.LocalData;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.jetbrains.annotations.NotNull;
@@ -116,7 +117,7 @@ public class BatchDownloadActivity extends BaseActivity {
                 if (Reference.downloadList.size() == 0) {
                     Snackbar.make(mRecyclerView, "你要下个什么？！", Snackbar.LENGTH_SHORT).show();
                 } else {
-                    if (Common.getLocalDataSet().getString("download_path", "/storage/emulated/0/PixivPictures").contains("emulated")) {
+                    if (LocalData.getDownloadPath().contains("emulated")) {
                         TastyToast.makeText(mContext, "开始下载了", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                         Intent intentService = new Intent(this, BatchDownloadService.class);
                         startService(intentService);

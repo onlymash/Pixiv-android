@@ -173,7 +173,7 @@ class FragmentPixivLeft : BaseFragment() {
         call.enqueue(object : Callback<PixivOAuthResponse> {
             override fun onResponse(call: Call<PixivOAuthResponse>, response: retrofit2.Response<PixivOAuthResponse>) {
                 val pixivOAuthResponse = response.body()
-                val editor = Common.getLocalDataSet().edit()
+                val editor = LocalData.getLocalDataSet().edit()
                 try {
                     val localStringBuilder = "Bearer " + pixivOAuthResponse!!.response.access_token
                     editor.putString("Authorization", localStringBuilder)

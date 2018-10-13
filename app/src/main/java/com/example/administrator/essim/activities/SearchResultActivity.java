@@ -47,7 +47,7 @@ public class SearchResultActivity extends BaseActivity {
 
     private static final String[] sort = {"popular_desc", "date_desc"};
     private static final String[] arrayOfSearchType = {" 500users入り", " 1000users入り",
-            " 5000users入り", " 10000users入り", "不筛选"};
+            " 2000users入り"," 5000users入り"," 7500users入り", " 10000users入り"," 50000users入り", "不筛选"};
     public String ketWords;
     private String temp;
     private String next_url;
@@ -58,8 +58,7 @@ public class SearchResultActivity extends BaseActivity {
     private ImageView mImageView;
     private RecyclerView mRecyclerView;
     private PixivAdapterGrid mPixivAdapter;
-    private int nowSearchType = 4, togo = 4;
-    private SharedPreferences mSharedPreferences;
+    private int nowSearchType = 7, togo = 7;
     private List<IllustsBean> mIllustsBeanList = new ArrayList<>();
 
     @Override
@@ -70,7 +69,6 @@ public class SearchResultActivity extends BaseActivity {
         mContext = this;
         Intent intent = getIntent();
         ketWords = intent.getStringExtra("what is the keyword");
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         initView();
         getData(sort[1], "");
@@ -115,7 +113,7 @@ public class SearchResultActivity extends BaseActivity {
                 .create(AppApiPixivService.class)
                 .getSearchIllust(ketWords + usersyori,
                         rankType, "partial_match_for_tags", null, null,
-                        mSharedPreferences.getString("Authorization", ""));
+                        LocalData.getToken());
         call.enqueue(new Callback<SearchIllustResponse>() {
             @Override
             public void onResponse(Call<SearchIllustResponse> call, retrofit2.Response<SearchIllustResponse> response) {
@@ -250,7 +248,7 @@ public class SearchResultActivity extends BaseActivity {
             createSearchTypeDialog();
             return true;
         } else if (id == R.id.action_get_hot) {
-            if (mSharedPreferences.getBoolean("ispremium", false)) {
+            if (LocalData.getIsVIP()) {
                 if (!isBestSort) {
                     getData(sort[0], "");
                 }

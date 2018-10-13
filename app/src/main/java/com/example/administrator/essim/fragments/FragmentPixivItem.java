@@ -101,7 +101,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 .into(imageView);
         ProgressBar progressBar = view.findViewById(R.id.try_login);
         progressBar.setIndeterminateDrawable(Common.getLoaderAnimation(mContext));
-        if (Common.getLocalDataSet().getBoolean("is_origin_pic", true)) {
+        if (LocalData.getLocalDataSet().getBoolean("is_origin_pic", true)) {
             Glide.with(mContext).load(new GlideUtil().getLargeImageUrl(mIllustsBean, 0))
                     .priority(priority.equals("high") ? Priority.IMMEDIATE : Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -231,8 +231,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         Call<RelatedIllust> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getRelatedIllust(Common.getLocalDataSet().getString("Authorization", ""),
-                        mIllustsBean.getId());
+                .getRelatedIllust(LocalData.getToken(), mIllustsBean.getId());
         call.enqueue(new retrofit2.Callback<RelatedIllust>() {
             @Override
             public void onResponse(Call<RelatedIllust> call, retrofit2.Response<RelatedIllust> response) {
@@ -277,30 +276,29 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.card_left:
                 File realFile = Common.generatePictureFile(mContext, mIllustsBean, 0,
-                        Common.getLocalDataSet().getInt("file_name_style", 0), 1);
+                        LocalData.getLocalDataSet().getInt("file_name_style", 0), 1);
                 if (realFile.length() != 0) {
                     TastyToast.makeText(mContext, "该文件已存在~",
                             TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
                 } else {
                     //只有一张图的情况下，从meta_single_page获取原图链接
                     if (mIllustsBean.getPage_count() == 1) {
-                        if (Common.getLocalDataSet().getString("download_path",
-                                "/storage/emulated/0/PixivPictures").contains("emulated")) {
+                        if (LocalData.getDownloadPath().contains("emulated")) {
                             //下载至内置SD存储介质，使用传统文件模式;
                             new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean
                                     .getMeta_single_page().getOriginal_image_url());
                         } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
                             new SDDownloadTask(realFile, mContext, mIllustsBean,
-                                    Common.getLocalDataSet()).execute(mIllustsBean.getMeta_single_page()
+                                    LocalData.getLocalDataSet()).execute(mIllustsBean.getMeta_single_page()
                                     .getOriginal_image_url());
                         }
                     } else { //有多图的情况下，从meta_pages获取原图链接
-                        if (Common.getLocalDataSet().getString("download_path", "/storage/emulated/0/PixivPictures").contains("emulated")) {
+                        if (LocalData.getToken().contains("emulated")) {
                             //下载至内置SD存储介质，使用传统文件模式;
                             new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean
                                     .getMeta_pages().get(0).getImage_urlsX().getOriginal());
                         } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
-                            new SDDownloadTask(realFile, mContext, mIllustsBean, Common.getLocalDataSet())
+                            new SDDownloadTask(realFile, mContext, mIllustsBean, LocalData.getLocalDataSet())
                                     .execute(mIllustsBean.getMeta_pages().get(0).getImage_urlsX().getOriginal());
                         }
                     }
@@ -308,12 +306,11 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.is_following:
                 if (mIllustsBean.getUser().isIs_followed()) {
-                    Common.postUnFollowUser(Common.getLocalDataSet().getString("Authorization", ""),
-                            mIllustsBean.getUser().getId(), mTextView);
+                    Common.postUnFollowUser(LocalData.getToken(), mIllustsBean.getUser().getId(), mTextView);
                     mIllustsBean.getUser().setIs_followed(false);
                     mTextView.setText("+关注");
                 } else {
-                    Common.postFollowUser(Common.getLocalDataSet().getString("Authorization", ""),
+                    Common.postFollowUser(LocalData.getToken(),
                             mIllustsBean.getUser().getId(), mTextView, "public");
                     mIllustsBean.getUser().setIs_followed(true);
                     mTextView.setText("取消关注");

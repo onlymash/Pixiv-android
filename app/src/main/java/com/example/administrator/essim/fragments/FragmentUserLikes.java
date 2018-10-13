@@ -26,6 +26,7 @@ import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.UserIllustsResponse;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
+import com.example.administrator.essim.utils.LocalData;
 import com.example.administrator.essim.utils.PixivOperate;
 import com.example.administrator.essim.utils.WorksItemDecoration;
 
@@ -50,7 +51,6 @@ public class FragmentUserLikes extends ScrollObservableFragment {
     private FragmentDialog mFragmentDialog;
     private ImageView mImageView;
     private AuthorWorksAdapter mPixivAdapterGrid;
-    private SharedPreferences mSharedPreferences;
     private int scrolledY = 0;
 
     public static FragmentUserLikes newInstance() {
@@ -63,7 +63,6 @@ public class FragmentUserLikes extends ScrollObservableFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getContext();
-        mSharedPreferences = Common.getLocalDataSet();
         View v = inflater.inflate(R.layout.fragment_home_list, container, false);
         initView(v);
         getLikeIllust("public", null);
@@ -112,7 +111,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
         Call<UserIllustsResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getLikeIllust(mSharedPreferences.getString("Authorization", ""),
+                .getLikeIllust(LocalData.getToken(),
                         ((UserDetailActivity) getActivity()).getUserID(), starType, tag);
         call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
             @Override
@@ -183,7 +182,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
             Call<UserIllustsResponse> call = new RestClient()
                     .getRetrofit_AppAPI()
                     .create(AppApiPixivService.class)
-                    .getNextUserIllusts(mSharedPreferences.getString("Authorization", ""), next_url);
+                    .getNextUserIllusts(LocalData.getToken(), next_url);
             call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {
                 @Override
                 public void onResponse(Call<UserIllustsResponse> call, retrofit2.Response<UserIllustsResponse> response) {

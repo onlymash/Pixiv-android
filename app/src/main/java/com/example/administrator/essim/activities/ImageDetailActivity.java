@@ -17,6 +17,7 @@ import com.example.administrator.essim.download.SDDownloadTask;
 import com.example.administrator.essim.fragments.FragmentImageDetail;
 import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.LocalData;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.io.File;
@@ -44,25 +45,25 @@ public class ImageDetailActivity extends BaseActivity {
         findViewById(R.id.download_origin).setOnClickListener(view -> {
             //生成图片文件，准备开始下载
             realFile = Common.generatePictureFile(mContext, mIllustsBean, mViewPager.getCurrentItem(),
-                    Common.getLocalDataSet().getInt("file_name_style", 0), 1);
+                    LocalData.getLocalDataSet().getInt("file_name_style", 0), 1);
             if (realFile.length() != 0) {
                 TastyToast.makeText(mContext, "该文件已存在~",
                         TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
             } else {
                 if (mIllustsBean.getPage_count() == 1) {
-                    if (Common.getLocalDataSet().getString("download_path", "/storage/emulated/0/PixivPictures").contains("emulated")) {
+                    if (LocalData.getDownloadPath().contains("emulated")) {
                         //下载至内置SD存储介质，使用传统文件模式;
                         new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean.getMeta_single_page().getOriginal_image_url());
                     } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
-                        new SDDownloadTask(realFile, mContext, mIllustsBean, Common.getLocalDataSet())
+                        new SDDownloadTask(realFile, mContext, mIllustsBean, LocalData.getLocalDataSet())
                                 .execute(mIllustsBean.getMeta_single_page().getOriginal_image_url());
                     }
                 } else {
-                    if (Common.getLocalDataSet().getString("download_path", "/storage/emulated/0/PixivPictures").contains("emulated")) {
+                    if (LocalData.getToken().contains("emulated")) {
                         //下载至内置SD存储介质，使用传统文件模式;
                         new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean.getMeta_pages().get(mViewPager.getCurrentItem()).getImage_urlsX().getOriginal());
                     } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
-                        new SDDownloadTask(realFile, mContext, mIllustsBean, Common.getLocalDataSet())
+                        new SDDownloadTask(realFile, mContext, mIllustsBean, LocalData.getLocalDataSet())
                                 .execute(mIllustsBean.getMeta_pages().get(mViewPager.getCurrentItem()).getImage_urlsX().getOriginal());
                     }
                 }

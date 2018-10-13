@@ -1,7 +1,9 @@
 package com.example.administrator.essim.utils;
 
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import com.example.administrator.essim.activities.PixivApplication;
 import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.PixivOAuthResponse;
 import com.example.administrator.essim.response.ViewHistory;
@@ -14,6 +16,7 @@ import java.util.List;
 public class LocalData {
 
     private static final int HISTORY_SIZE = 100;
+
     /**
      * 登陆成功后将账户信息保存到本地
      *
@@ -21,19 +24,22 @@ public class LocalData {
      * @param password           password
      */
     public static void saveLocalMessage(PixivOAuthResponse pixivOAuthResponse, String password) {
-        String headerImage = "";
-        int fileNameStyle = 0;
-        if (Common.getLocalDataSet().getString("header_img_path", "").length() != 0) {
-            //清空本地数据之前，先保存header图片的路径
-            headerImage = Common.getLocalDataSet().getString("header_img_path", "");
-        }
-        if (Common.getLocalDataSet().getInt("file_name_style", 0) != 0) {
-            fileNameStyle = Common.getLocalDataSet().getInt("file_name_style", 0);
-        }
-
-        SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
+        SharedPreferences sharedPreferences = getLocalDataSet();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+
+        String headerImage = "";
+        int fileNameStyle = 0;
+        if (sharedPreferences.getString("header_img_path", "").length() != 0) {
+            //清空本地数据之前，先保存header图片的路径
+            headerImage = sharedPreferences.getString("header_img_path", "");
+        }
+        if (sharedPreferences.getInt("file_name_style", 0) != 0) {
+            fileNameStyle = sharedPreferences.getInt("file_name_style", 0);
+        }
+
+
         //清空本地数据之后，重新保存header图片的路径和文件命名类型
         editor.putString("header_img_path", headerImage);
         editor.putInt("file_name_style", fileNameStyle);
@@ -56,20 +62,45 @@ public class LocalData {
         editor.apply();
     }
 
+    public static SharedPreferences getLocalDataSet() {
+        return PreferenceManager.getDefaultSharedPreferences(PixivApplication.getContext());
+    }
+
     public static String getToken() {
-        return Common.getLocalDataSet().getString("Authorization", "");
+        return getLocalDataSet().getString("Authorization", "");
     }
 
     public static String getUserName() {
-        return Common.getLocalDataSet().getString("username", "");
+        return getLocalDataSet().getString("username", "");
     }
 
     public static String getUserAccount() {
-        return Common.getLocalDataSet().getString("useraccount", "");
+        return getLocalDataSet().getString("useraccount", "");
     }
 
     public static String getUserPwd() {
-        return Common.getLocalDataSet().getString("password", "");
+        return getLocalDataSet().getString("password", "");
+    }
+
+    public static boolean getIsVIP() {
+        return getLocalDataSet().getBoolean("ispremium", false);
+    }
+
+    public static int getUserID() {
+        return getLocalDataSet().getInt("userid", 0);
+    }
+
+    public static int getFileNameStyle() {
+        return getLocalDataSet().getInt("file_name_style", 0);
+    }
+
+
+    public static String getDownloadPath() {
+        return getLocalDataSet().getString("download_path", "/storage/emulated/0/PixivPictures");
+    }
+
+    public static String getEmail() {
+        return getLocalDataSet().getString("email", "");
     }
 
     public static void saveViewHistory(IllustsBean illustsBean) {

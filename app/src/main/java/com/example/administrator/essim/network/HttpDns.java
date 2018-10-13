@@ -3,6 +3,7 @@ package com.example.administrator.essim.network;
 import com.example.administrator.essim.activities.PixivApplication;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DnsData;
+import com.example.administrator.essim.utils.LocalData;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -17,7 +18,7 @@ public class HttpDns implements Dns {
     private static HttpDns sHttpDns = null;
 
     private HttpDns() {
-        if (Common.getLocalDataSet().getBoolean("inner_dns", true)) {
+        if (LocalData.getLocalDataSet().getBoolean("inner_dns", true)) {
             for (String address : addresses) {
                 try {
                     newDns.add(InetAddress.getByName(address));

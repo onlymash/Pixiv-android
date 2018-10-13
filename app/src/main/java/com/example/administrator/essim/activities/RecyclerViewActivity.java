@@ -22,6 +22,7 @@ import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.Constant;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.LinearItemDecoration;
+import com.example.administrator.essim.utils.PixivOperate;
 
 import org.jetbrains.annotations.NotNull;
 import org.litepal.crud.DataSupport;
@@ -83,7 +84,7 @@ public class RecyclerViewActivity extends BaseActivity {
         viewHistoryAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NotNull View view, int position, int viewType) {
-                Common.getSingleIllust(mProgressBar, mContext,
+                PixivOperate.getSingleIllust(mProgressBar, mContext,
                         Long.parseLong(list.get(position).getIllust_id()));
             }
 

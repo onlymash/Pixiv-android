@@ -1,14 +1,23 @@
 package com.example.administrator.essim.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.BookmarkAddResponse;
+import com.example.administrator.essim.response.IllustDetailResponse;
 import com.example.administrator.essim.response.IllustsBean;
+import com.example.administrator.essim.response.Reference;
 import com.sdsmdg.tastytoast.TastyToast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -97,6 +106,44 @@ public class PixivOperate {
             @Override
             public void onFailure(Call<BookmarkAddResponse> call, Throwable throwable) {
                 Common.showToast(context, context.getString(R.string.no_proxy));
+            }
+        });
+    }
+
+
+    /**
+     *
+     * @param progressBar
+     * @param context
+     * @param illustID
+     */
+    public static void getSingleIllust(ProgressBar progressBar, Context context, Long illustID) {
+        progressBar.setVisibility(View.VISIBLE);
+        Call<IllustDetailResponse> call = new RestClient()
+                .getRetrofit_AppAPI()
+                .create(AppApiPixivService.class)
+                .getIllust(LocalData.getToken(), illustID);
+        call.enqueue(new Callback<IllustDetailResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<IllustDetailResponse> call,
+                                   @NonNull retrofit2.Response<IllustDetailResponse> response) {
+                IllustDetailResponse illustDetailResponse = response.body();
+                List<IllustsBean> singleIllust = new ArrayList<>();
+                try {
+                    singleIllust.add(illustDetailResponse.getIllust());
+                    Reference.sIllustsBeans = singleIllust;
+                    Intent intent = new Intent(context, ViewPagerActivity.class);
+                    intent.putExtra("which one is selected", 0);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    Snackbar.make(progressBar, "没有这个作品", Snackbar.LENGTH_SHORT).show();
+                }
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<IllustDetailResponse> call, @NonNull Throwable throwable) {
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }

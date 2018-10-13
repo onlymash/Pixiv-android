@@ -21,6 +21,7 @@ import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.AllBookmarkTagResponse;
 import com.example.administrator.essim.response.SingleTag;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.LocalData;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -51,11 +52,11 @@ public class FragmentBookmarkShow {
         Call<AllBookmarkTagResponse> call = new RestClient()
                 .getRetrofit_AppAPI()
                 .create(AppApiPixivService.class)
-                .getBookedTags(Common.getLocalDataSet().getString("Authorization", ""),
-                        (long) userId, dataType);
+                .getBookedTags(LocalData.getToken(), (long) userId, dataType);
         call.enqueue(new Callback<AllBookmarkTagResponse>() {
             @Override
-            public void onResponse(Call<AllBookmarkTagResponse> call, retrofit2.Response<AllBookmarkTagResponse> response) {
+            public void onResponse(Call<AllBookmarkTagResponse> call,
+                                   retrofit2.Response<AllBookmarkTagResponse> response) {
                 if (response.body() != null && response.body().bookmark_tags != null) {
                     allBookmarkTagResponse = response.body();
                     singleTags.clear();
@@ -70,7 +71,7 @@ public class FragmentBookmarkShow {
 
             @Override
             public void onFailure(Call<AllBookmarkTagResponse> call, Throwable throwable) {
-
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -118,7 +119,7 @@ public class FragmentBookmarkShow {
             Call<AllBookmarkTagResponse> call = new RestClient()
                     .getRetrofit_AppAPI()
                     .create(AppApiPixivService.class)
-                    .getNextTags(Common.getLocalDataSet().getString("Authorization", ""), url);
+                    .getNextTags(LocalData.getToken(), url);
             call.enqueue(new Callback<AllBookmarkTagResponse>() {
                 @Override
                 public void onResponse(Call<AllBookmarkTagResponse> call, retrofit2.Response<AllBookmarkTagResponse> response) {

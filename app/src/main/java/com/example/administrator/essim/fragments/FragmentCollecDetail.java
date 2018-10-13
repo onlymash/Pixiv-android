@@ -23,6 +23,7 @@ import com.example.administrator.essim.response.CollectionResponse;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.LinearItemDecoration;
+import com.example.administrator.essim.utils.PixivOperate;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.Objects;
@@ -86,7 +87,7 @@ public class FragmentCollecDetail extends BaseFragment {
                             @Override
                             public void onItemClick(@NonNull View view, int position, int viewType) {
                                 if (viewType == 0) {
-                                    Common.getSingleIllust(mProgressBar, mContext,
+                                    PixivOperate.getSingleIllust(mProgressBar, mContext,
                                             Long.parseLong(specialCollectionResponse.body.get(0).illusts.get(position).illust_id));
                                 } else if (viewType == 1) {
                                     Intent intent = new Intent(mContext, UserDetailActivity.class);

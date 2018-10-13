@@ -32,6 +32,7 @@ import com.example.administrator.essim.fragments.FragmentPixiv;
 import com.example.administrator.essim.fragments.FragmentRank;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideUtil;
+import com.example.administrator.essim.utils.LocalData;
 import com.roughike.bottombar.BottomBar;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -60,24 +61,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
         //判断是否有登录记录，没登录就去LoginActivity，登录了就加载视图
-        if (Common.getLocalDataSet().getBoolean("islogin", false)) {
+        if (LocalData.getLocalDataSet().getBoolean("islogin", false)) {
             TextView textView = navigationView.getHeaderView(0).findViewById(R.id.username);
             TextView textView2 = navigationView.getHeaderView(0).findViewById(R.id.useremail);
-            textView.setText(Common.getLocalDataSet().getString("username", "")
-                    .equals(Common.getLocalDataSet().getString("useraccount", "")) ?
-                    Common.getLocalDataSet().getString("username", "") : String.format("%s (%s)",
-                    Common.getLocalDataSet().getString("username", ""),
-                    Common.getLocalDataSet().getString("useraccount", "")));
-            if (Common.getLocalDataSet().getString("email", "").length() != 0) {
-                textView2.setText(Common.getLocalDataSet().getString("email", ""));
+            textView.setText(LocalData.getUserName()
+                    .equals(LocalData.getUserAccount()) ?
+                    LocalData.getUserName() : String.format("%s (%s)",
+                    LocalData.getUserName() ,
+                    LocalData.getUserAccount()));
+            if (LocalData.getLocalDataSet().getString("email", "").length() != 0) {
+                textView2.setText(LocalData.getLocalDataSet().getString("email", ""));
             }
             userHead = navigationView.getHeaderView(0).findViewById(R.id.imageView);
-            Glide.with(mContext).load(new GlideUtil().getHead(Common.getLocalDataSet().getInt("userid", 0),
-                    Common.getLocalDataSet().getString("hearurl", ""))).into(userHead);
+            Glide.with(mContext).load(new GlideUtil().getHead(LocalData.getLocalDataSet().getInt("userid", 0),
+                    LocalData.getLocalDataSet().getString("hearurl", ""))).into(userHead);
             userHead.setOnClickListener(view -> {
-                if (Common.getLocalDataSet().getBoolean("islogin", false)) {
+                if (LocalData.getLocalDataSet().getBoolean("islogin", false)) {
                     Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
-                    intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
+                    intent.putExtra("user id", LocalData.getLocalDataSet().getInt("userid", 0));
                     startActivity(intent);
                 }
             });
@@ -188,15 +189,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (id) {
             case R.id.show_my_followed_users: {
                 Intent intent = new Intent(mContext, FollowShowActivity.class);
-                intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
-                intent.putExtra("user name", Common.getLocalDataSet().getString("username", ""));
+                intent.putExtra("user id", LocalData.getUserID());
+                intent.putExtra("user name", LocalData.getUserName());
                 mContext.startActivity(intent);
                 break;
             }
             case R.id.show_recommend_users: {
                 Intent intent = new Intent(MainActivity.this, FollowShowActivity.class);
-                intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
-                intent.putExtra("user name", Common.getLocalDataSet().getString("username", ""));
+                intent.putExtra("user id", LocalData.getUserID());
+                intent.putExtra("user name", LocalData.getUserName());
                 intent.putExtra("show recommend user", true);
                 startActivity(intent);
                 break;
@@ -209,7 +210,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
             case R.id.show_my_favorite: {
                 Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
-                intent.putExtra("user id", Common.getLocalDataSet().getInt("userid", 0));
+                intent.putExtra("user id", LocalData.getUserID());
                 intent.putExtra("show favorite illust", true);
                 startActivity(intent);
                 break;
@@ -249,15 +250,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onResume() {
         super.onResume();
-        if (Common.getLocalDataSet().getString("header_img_path", "").length() != 0 &&
+        if (LocalData.getLocalDataSet().getString("header_img_path", "").length() != 0 &&
                 mImageView.getDrawable() == null) {
             Glide.with(mContext)
-                    .load(Common.getLocalDataSet().getString("header_img_path", ""))
+                    .load(LocalData.getLocalDataSet().getString("header_img_path", ""))
                     .into(mImageView);
         }
         if (userHead.getDrawable() == null) {
             Glide.with(mContext)
-                    .load(new GlideUtil().getHead(Common.getLocalDataSet().getString("hearurl", "")))
+                    .load(new GlideUtil().getHead(LocalData.getLocalDataSet().getString("hearurl", "")))
                     .into(userHead);
         }
     }

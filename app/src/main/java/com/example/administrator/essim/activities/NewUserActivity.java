@@ -22,6 +22,7 @@ import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.PixivAccountsResponse;
 import com.example.administrator.essim.response.PixivOAuthResponse;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.Constant;
 import com.example.administrator.essim.utils.LocalData;
 
 import java.util.HashMap;
@@ -76,9 +77,9 @@ public class NewUserActivity extends BaseActivity {
                 assert pixivOAuthResponse != null;
                 if (!pixivOAuthResponse.isError()) {
                     HashMap<String, String> localHashMap = new HashMap<>();
-                    localHashMap.put("client_id", "MOBrBDS8blbauoSck0ZfDbtuzpyT");
-                    localHashMap.put("client_secret", "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj");
-                    localHashMap.put("grant_type", "password");
+                    localHashMap.put("client_id", Constant.CLIENT_ID);
+                    localHashMap.put("client_secret", Constant.CLIENT_SECRET);
+                    localHashMap.put("grant_type", Constant.GRANT_TYPE);
                     localHashMap.put("username", pixivOAuthResponse.getBody().getUser_account());
                     localHashMap.put("password", pixivOAuthResponse.getBody().getPassword());
                     Snackbar.make(mProgressBar, "创建成功，正在登陆~", Snackbar.LENGTH_SHORT).show();

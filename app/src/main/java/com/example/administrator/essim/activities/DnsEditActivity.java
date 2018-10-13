@@ -16,6 +16,7 @@ import com.example.administrator.essim.R;
 import com.example.administrator.essim.network.HttpDns;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DnsData;
+import com.example.administrator.essim.utils.LocalData;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.net.InetAddress;
@@ -68,13 +69,13 @@ public class DnsEditActivity extends BaseActivity {
             }
         });
         showDnsView();
-        if(Common.getLocalDataSet().getBoolean("inner_dns", true))
+        if(LocalData.getLocalDataSet().getBoolean("inner_dns", true))
         {
             changeEditState(false);
         }
-        mSwitch.setChecked(Common.getLocalDataSet().getBoolean("inner_dns", true));
+        mSwitch.setChecked(LocalData.getLocalDataSet().getBoolean("inner_dns", true));
         mSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
-            SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
+            SharedPreferences.Editor editor = LocalData.getLocalDataSet().edit();
             editor.putBoolean("inner_dns", b);
             editor.apply();
             if(b){

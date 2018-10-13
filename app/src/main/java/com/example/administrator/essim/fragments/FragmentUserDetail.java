@@ -193,7 +193,7 @@ public class FragmentUserDetail extends Fragment {
         });
         tabStrip.setViewPager(viewPager);
         viewPager.setCurrentItem(((UserDetailActivity) getActivity()).getShowFavoriteIllust() ? 1 : currentPosition);
-        if (userDetailResponse.getUser().getId() != Common.getLocalDataSet().getInt("userid", 0)) {
+        if (userDetailResponse.getUser().getId() != LocalData.getLocalDataSet().getInt("userid", 0)) {
             mTextView3.setVisibility(View.VISIBLE);
             if (userDetailResponse.getUser().isIs_followed()) {
                 mTextView3.setText("取消关注");
@@ -202,12 +202,12 @@ public class FragmentUserDetail extends Fragment {
             }
             mTextView3.setOnClickListener(view -> {
                 if (userDetailResponse.getUser().isIs_followed()) {
-                    Common.postUnFollowUser(Common.getLocalDataSet().getString("Authorization", ""),
+                    Common.postUnFollowUser(LocalData.getToken(),
                             userDetailResponse.getUser().getId(), mTextView3);
                     mTextView3.setText("+关注");
                     userDetailResponse.getUser().setIs_followed(false);
                 } else {
-                    Common.postFollowUser(Common.getLocalDataSet().getString("Authorization", ""),
+                    Common.postFollowUser(LocalData.getToken(),
                             userDetailResponse.getUser().getId(), mTextView3, "public");
                     mTextView3.setText("取消关注");
                     userDetailResponse.getUser().setIs_followed(true);
@@ -215,16 +215,16 @@ public class FragmentUserDetail extends Fragment {
             });
             mTextView3.setOnLongClickListener(view -> {
                 if (!userDetailResponse.getUser().isIs_followed()) {
-                    Common.postFollowUser(Common.getLocalDataSet().getString("Authorization", ""),
+                    Common.postFollowUser(LocalData.getToken(),
                             userDetailResponse.getUser().getId(), mTextView3, "private");
                     mTextView3.setText("取消关注");
                     userDetailResponse.getUser().setIs_followed(true);
                 }
                 return true;
             });
-        } else if (!Common.getLocalDataSet().getString("hearurl", "")
+        } else if (!LocalData.getLocalDataSet().getString("hearurl", "")
                 .equals(userDetailResponse.getUser().getProfile_image_urls().getMedium())) {
-            SharedPreferences.Editor editor = Common.getLocalDataSet().edit();
+            SharedPreferences.Editor editor = LocalData.getLocalDataSet().edit();
             editor.putString("hearurl", userDetailResponse.getUser().getProfile_image_urls().getMedium());
             editor.apply();
         }
@@ -271,7 +271,7 @@ public class FragmentUserDetail extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         if (((UserDetailActivity) Objects.requireNonNull(getActivity())).getUserID() ==
-                Common.getLocalDataSet().getInt("userid", 0)) {
+                LocalData.getUserID()) {
             inflater.inflate(R.menu.user_star, menu);
         } else {
             inflater.inflate(R.menu.other_user, menu);
@@ -283,7 +283,7 @@ public class FragmentUserDetail extends Fragment {
         if (viewPager.getCurrentItem() == 1) {
             switch (item.getItemId()) {
                 case R.id.action_get_public:
-                    fragmentDialog = new FragmentBookmarkShow(mContext, Common.getLocalDataSet().getInt("userid", 0));
+                    fragmentDialog = new FragmentBookmarkShow(mContext, LocalData.getLocalDataSet().getInt("userid", 0));
                     fragmentDialog.showDialog();
                     break;
                 case R.id.action_download:
@@ -299,7 +299,7 @@ public class FragmentUserDetail extends Fragment {
         } else if (viewPager.getCurrentItem() == 0) {
             switch (item.getItemId()) {
                 case R.id.action_get_public:
-                    fragmentDialog = new FragmentBookmarkShow(mContext, Common.getLocalDataSet().getInt("userid", 0));
+                    fragmentDialog = new FragmentBookmarkShow(mContext, LocalData.getLocalDataSet().getInt("userid", 0));
                     fragmentDialog.showDialog();
                     break;
                 case R.id.action_download:

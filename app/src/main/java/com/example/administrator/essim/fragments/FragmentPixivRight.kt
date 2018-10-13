@@ -13,9 +13,7 @@ import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.network.AppApiPixivService
 import com.example.administrator.essim.network.RestClient
 import com.example.administrator.essim.response.TrendingtagResponse
-import com.example.administrator.essim.utils.GridItemDecoration
-import com.example.administrator.essim.utils.Common
-import com.example.administrator.essim.utils.DensityUtil
+import com.example.administrator.essim.utils.*
 import kotlinx.android.synthetic.main.fragment_pixiv_right.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +48,7 @@ class FragmentPixivRight : BaseFragment() {
         val call = RestClient()
                 .retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
-                .getIllustTrendTags(Common.getLocalDataSet().getString("Authorization", "")!!)
+                .getIllustTrendTags(LocalData.getToken())
         call.enqueue(object : Callback<TrendingtagResponse> {
             override fun onResponse(call: Call<TrendingtagResponse>, response: retrofit2.Response<TrendingtagResponse>) {
                 try {
@@ -65,7 +63,7 @@ class FragmentPixivRight : BaseFragment() {
 
                             override fun onItemLongClick(view: View, position: Int) {
                                 //长按标签，可以跳转至标签封面的出处
-                                Common.getSingleIllust(mProgressbar, mContext,
+                                PixivOperate.getSingleIllust(mProgressbar, mContext,
                                         response.body()!!.trend_tags[position].illust.id.toLong())
                             }
                         })

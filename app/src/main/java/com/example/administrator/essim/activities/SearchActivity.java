@@ -28,6 +28,7 @@ import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.PixivResponse;
 import com.example.administrator.essim.response.TagResponse;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.PixivOperate;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mancj.materialsearchbar.MaterialSearchBar;
@@ -151,7 +152,7 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
             startActivity(intent);
         } else if (searchType == 1) {
             if (Common.isNumeric(searchBar.getText().trim())) {
-                Common.getSingleIllust(mProgressBar, mContext, Long.parseLong(searchBar.getText().trim()));
+                PixivOperate.getSingleIllust(mProgressBar, mContext, Long.parseLong(searchBar.getText().trim()));
             } else {
                 Snackbar.make(searchBar, "ID有误~（当前状态 ID搜作品）", Snackbar.LENGTH_SHORT).show();
             }

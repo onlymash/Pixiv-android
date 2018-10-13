@@ -23,11 +23,13 @@ class ViewPagerActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.statusBarColor = Color.TRANSPARENT
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         setContentView(R.layout.activity_view_pager)
 
         val intent = intent
         val index = intent.getIntExtra("which one is selected", 0)
+        allIllust.clear()
         allIllust.addAll(Reference.sIllustsBeans)
 
         mToolbar.setNavigationOnClickListener { finish() }
