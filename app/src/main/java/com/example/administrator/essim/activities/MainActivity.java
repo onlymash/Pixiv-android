@@ -2,6 +2,7 @@ package com.example.administrator.essim.activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -30,19 +31,24 @@ import com.example.administrator.essim.fragments.FragmentHitokoto;
 import com.example.administrator.essim.fragments.FragmentMine;
 import com.example.administrator.essim.fragments.FragmentPixiv;
 import com.example.administrator.essim.fragments.FragmentRank;
+import com.example.administrator.essim.network.RestClient;
+import com.example.administrator.essim.presenter.MainPresenter;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideUtil;
 import com.example.administrator.essim.utils.LocalData;
+import com.example.administrator.essim.views.MainView;
 import com.roughike.bottombar.BottomBar;
 import com.sdsmdg.tastytoast.TastyToast;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener , MainView {
 
     private long mExitTime;
     private DrawerLayout drawer;
     private int lastShowFragment;
     private Fragment[] mFragments;
     private ImageView mImageView, userHead;
+    private MainPresenter mPresenter;
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +109,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 }
             });
             initFragments();
+            mTextView = findViewById(R.id.online_count);
+            mPresenter = new MainPresenter(this);
+            mPresenter.start();
+
         } else {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -220,11 +230,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             }
-            case R.id.nav_share:
-                createDialog();
-                break;
             case R.id.nav_send: {
-                Intent intent = new Intent(mContext, AboutActivity.class);
+                Intent intent = new Intent(mContext, AboutAppActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -286,5 +293,25 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             finish();
         }
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void setNowPressure(String nowOnline) {
+        mTextView.setText(nowOnline);
+    }
+
+    @Override
+    public Context getSelfContext() {
+        return mContext;
     }
 }

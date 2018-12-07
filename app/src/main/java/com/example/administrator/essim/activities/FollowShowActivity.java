@@ -95,8 +95,7 @@ public class FollowShowActivity extends BaseActivity {
     private void getUserFollowing(String followerType) {
         mProgressBar.setVisibility(View.VISIBLE);
         dataType = followerType.equals("public") ? 0 : 1;
-        Call<SearchUserResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<SearchUserResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getUserFollowing(LocalData.getToken(), userID, followerType);
         call.enqueue(new Callback<SearchUserResponse>() {
@@ -150,8 +149,7 @@ public class FollowShowActivity extends BaseActivity {
     private void getRecommendUser() {
         mProgressBar.setVisibility(View.VISIBLE);
         dataType = 2;
-        Call<SearchUserResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<SearchUserResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getRecommendUser(LocalData.getToken());
         call.enqueue(new Callback<SearchUserResponse>() {
@@ -204,8 +202,7 @@ public class FollowShowActivity extends BaseActivity {
 
     private void getUserByName() {
         mProgressBar.setVisibility(View.VISIBLE);
-        Call<SearchUserResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<SearchUserResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getSearchUser(LocalData.getToken(), searchKey);
         call.enqueue(new Callback<SearchUserResponse>() {
@@ -248,8 +245,7 @@ public class FollowShowActivity extends BaseActivity {
     private void getNextData() {
         if (next_url != null) {
             mProgressBar.setVisibility(View.VISIBLE);
-            Call<SearchUserResponse> call = new RestClient()
-                    .getRetrofit_AppAPI()
+            Call<SearchUserResponse> call = RestClient.retrofit_AppAPI
                     .create(AppApiPixivService.class)
                     .getNextUser(LocalData.getToken(), next_url);
             call.enqueue(new Callback<SearchUserResponse>() {

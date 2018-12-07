@@ -88,8 +88,7 @@ class CommentActivity : BaseActivity() {
             when (parentCommentID) {
             //没有父评论，就是普通评论
                 0 -> {
-                    val call = RestClient()
-                            .retrofit_AppAPI
+                    val call = RestClient.retrofit_AppAPI
                             .create(AppApiPixivService::class.java)
                             .postIllustComment(LocalData.getToken(), illustID.toLong(),
                                     mEditText.text.toString().trim { it <= ' ' }, null)
@@ -104,8 +103,7 @@ class CommentActivity : BaseActivity() {
                 }
             //有父评论则是在回复他人
                 else -> {
-                    val call = RestClient()
-                            .retrofit_AppAPI
+                    val call = RestClient.retrofit_AppAPI
                             .create(AppApiPixivService::class.java)
                             .postIllustComment(LocalData.getToken(), illustID.toLong(),
                                     mEditText.text.toString().trim { it <= ' ' }, parentCommentID)
@@ -129,8 +127,7 @@ class CommentActivity : BaseActivity() {
 
     private fun getIllustComment() {
         mProgressbar.visibility = View.VISIBLE
-        val call = RestClient()
-                .retrofit_AppAPI
+        val call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
                 .getIllustComments(LocalData.getToken(), illustID.toLong())
         call.enqueue(object : Callback<IllustCommentsResponse> {
@@ -170,8 +167,7 @@ class CommentActivity : BaseActivity() {
     private fun getMoreComment() {
         if (mIllustCommentsResponse!!.next_url != null) {
             mProgressbar.visibility = View.VISIBLE
-            val call = RestClient()
-                    .retrofit_AppAPI
+            val call = RestClient.retrofit_AppAPI
                     .create(AppApiPixivService::class.java)
                     .getNextComment(LocalData.getToken(),
                             mIllustCommentsResponse!!.next_url)

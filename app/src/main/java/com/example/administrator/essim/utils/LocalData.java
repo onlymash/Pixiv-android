@@ -70,6 +70,39 @@ public class LocalData {
         return getLocalDataSet().getString("Authorization", "");
     }
 
+    public static String getR18Pwd() {
+        return getLocalDataSet().getString("r18_password", "");
+    }
+
+    public static void setNoProxy(boolean isProxy){
+        SharedPreferences sharedPreferences = getLocalDataSet();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isProxy", isProxy);
+        editor.apply();
+    }
+
+    public static Boolean getNoProxy() {
+        return getLocalDataSet().getBoolean("isProxy", true);
+    }
+
+    public static void setR18Pwd(String pwd){
+        SharedPreferences sharedPreferences = getLocalDataSet();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("r18_password", pwd);
+        editor.apply();
+    }
+
+    public static String getRealR18Pwd() {
+        return getLocalDataSet().getString("real_r18_password", "");
+    }
+
+    public static void setRealR18Pwd(String pwd){
+        SharedPreferences sharedPreferences = getLocalDataSet();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("real_r18_password", pwd);
+        editor.apply();
+    }
+
     public static String getUserName() {
         return getLocalDataSet().getString("username", "");
     }
@@ -92,6 +125,10 @@ public class LocalData {
 
     public static int getFileNameStyle() {
         return getLocalDataSet().getInt("file_name_style", 0);
+    }
+
+    public static int getNetworkStyle() {
+        return getLocalDataSet().getInt("network_style", 0);
     }
 
 
@@ -124,6 +161,5 @@ public class LocalData {
                     illustsBean.getImage_urls().getMedium());
             viewHistory.save();
         }
-
     }
 }

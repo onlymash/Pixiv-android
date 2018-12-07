@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.administrator.essim.R
 import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.response.IllustsBean
+import com.example.administrator.essim.utils.GlideKey
 import com.example.administrator.essim.utils.GlideUtil
 import kotlinx.android.synthetic.main.pixiv_item_grid.view.*
 
@@ -37,7 +38,7 @@ class PixivAdapterGrid(private val mPixivRankItem: List<IllustsBean>,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder.itemView.pixiv_image.layoutParams.height = imageHeight
 
-        Glide.with(mContext).load(GlideUtil().getMediumImageUrl(mPixivRankItem[position]))
+        Glide.with(mContext).load(GlideKey.getMediumImg(mPixivRankItem[position]))
                 .into(holder.itemView.pixiv_image)
         when {
             mPixivRankItem[position].isIs_bookmarked -> holder.itemView.post_like.setImageResource(R.drawable.ic_favorite_white_24dp)

@@ -90,8 +90,7 @@ public class DownloadTask extends AsyncTask<String, Integer, Bitmap> {
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         progressDialog.dismiss();
-        ((Activity) mContext).runOnUiThread(() -> TastyToast.makeText(mContext, "下载完成~",
-                TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show());
+        ((Activity) mContext).runOnUiThread(() -> Common.showToast(mContext, "下载完成~"));
         mContext = null;
     }
 }

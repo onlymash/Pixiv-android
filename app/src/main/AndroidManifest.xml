@@ -51,6 +51,7 @@
         <activity android:name=".activities.DnsEditActivity" />
         <activity android:name=".activities.ThanksActivity" />
         <activity android:name=".activities.SignEmailActivity" />
+        <activity android:name=".activities.AboutAppActivity" />
 
 
     </application>

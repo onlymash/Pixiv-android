@@ -87,8 +87,7 @@ public class FragmentSpecialCollec extends BaseFragment {
 
     private void getSpecialCollection() {
         mProgressBar.setVisibility(View.VISIBLE);
-        Call<PixivCollectionResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<PixivCollectionResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getSpecialCollection(LocalData.getToken());
         call.enqueue(new Callback<PixivCollectionResponse>() {
@@ -141,8 +140,7 @@ public class FragmentSpecialCollec extends BaseFragment {
     private void getNextData() {
         if (next_url != null) {
             mProgressBar.setVisibility(View.VISIBLE);
-            Call<PixivCollectionResponse> call = new RestClient()
-                    .getRetrofit_AppAPI()
+            Call<PixivCollectionResponse> call = RestClient.retrofit_AppAPI
                     .create(AppApiPixivService.class)
                     .getNextSpecialCollection(LocalData.getToken(), next_url);
             call.enqueue(new Callback<PixivCollectionResponse>() {

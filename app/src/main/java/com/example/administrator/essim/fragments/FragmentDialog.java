@@ -48,8 +48,7 @@ public class FragmentDialog {
     }
 
     private void getBookedTag(RecyclerView recyclerView, ProgressBar progressBar, List<String> tagList) {
-        Call<BookmarkDetailResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<BookmarkDetailResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getBookmarkDetail(LocalData.getToken(), mIllustsBean.getId());
         call.enqueue(new Callback<BookmarkDetailResponse>() {

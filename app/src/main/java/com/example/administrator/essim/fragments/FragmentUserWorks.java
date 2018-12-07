@@ -105,8 +105,7 @@ public class FragmentUserWorks extends ScrollObservableFragment {
 
     private void getUserIllust() {
         FragmentUserDetail.mShowProgress.showProgress(true);
-        Call<UserIllustsResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<UserIllustsResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getUserIllusts(LocalData.getToken(),
                         ((UserDetailActivity) Objects.requireNonNull(getActivity())).getUserID(), null);
@@ -174,8 +173,7 @@ public class FragmentUserWorks extends ScrollObservableFragment {
     private void getNextUserIllust() {
         if (next_url != null) {
             FragmentUserDetail.mShowProgress.showProgress(true);
-            Call<UserIllustsResponse> call = new RestClient()
-                    .getRetrofit_AppAPI()
+            Call<UserIllustsResponse> call = RestClient.retrofit_AppAPI
                     .create(AppApiPixivService.class)
                     .getNextUserIllusts(LocalData.getToken(), next_url);
             call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {

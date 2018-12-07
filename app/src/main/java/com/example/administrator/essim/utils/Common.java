@@ -125,8 +125,7 @@ public class Common {
     }
 
     public static void postFollowUser(String auth, int userID, View view, String followType) {
-        Call<BookmarkAddResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<BookmarkAddResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .postFollowUser(auth, userID, followType);
         call.enqueue(new Callback<BookmarkAddResponse>() {
@@ -146,8 +145,7 @@ public class Common {
     }
 
     public static void postUnFollowUser(String auth, int userID, View view) {
-        Call<ResponseBody> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<ResponseBody> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .postUnfollowUser(auth, userID);
         call.enqueue(new Callback<ResponseBody>() {
@@ -271,7 +269,7 @@ public class Common {
             if (!secondParent.exists()) {
                 secondParent.mkdir();
             }
-            Common.showLog(secondParent.getPath());
+            showLog(secondParent.getPath());
             switch (fileNameStyle) {
                 case 0:
                     return new File(secondParent.getPath(), illustsBean.getId() + "_" + String.valueOf(positionInIllust) + ".jpeg");
@@ -364,6 +362,16 @@ public class Common {
     public static <T> void showToast(Context context, T t) {
         if (toast == null) {
             toast = Toast.makeText(context, String.valueOf(t), Toast.LENGTH_SHORT);
+        } else {
+            toast.setText(String.valueOf(t));
+            toast.setDuration(Toast.LENGTH_SHORT);
+        }
+        toast.show();
+    }
+
+    public static <T> void showToast(T t) {
+        if (toast == null) {
+            toast = Toast.makeText(PixivApplication.getContext(), String.valueOf(t), Toast.LENGTH_SHORT);
         } else {
             toast.setText(String.valueOf(t));
             toast.setDuration(Toast.LENGTH_SHORT);

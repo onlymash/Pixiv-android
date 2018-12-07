@@ -108,8 +108,7 @@ public class SearchResultActivity extends BaseActivity {
         isBestSort = rankType.equals(sort[0]);
         mProgressBar.setVisibility(View.VISIBLE);
         mImageView.setVisibility(View.INVISIBLE);
-        Call<SearchIllustResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<SearchIllustResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getSearchIllust(ketWords + usersyori,
                         rankType, "partial_match_for_tags", null, null,
@@ -176,8 +175,7 @@ public class SearchResultActivity extends BaseActivity {
     private void getNextData() {
         if (next_url != null) {
             mProgressBar.setVisibility(View.VISIBLE);
-            Call<RecommendResponse> call = new RestClient()
-                    .getRetrofit_AppAPI()
+            Call<RecommendResponse> call = RestClient.retrofit_AppAPI
                     .create(AppApiPixivService.class)
                     .getNext(LocalData.getToken(), next_url);
             call.enqueue(new Callback<RecommendResponse>() {

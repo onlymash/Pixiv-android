@@ -3,11 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
-    android:orientation="vertical">
+    android:background="@color/white">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,8 +15,6 @@
             android:id="@+id/diagonalLayout"
             android:layout_width="match_parent"
             android:layout_height="280dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:elevation="10dip"
             app:arc_cropDirection="cropOutside"
@@ -29,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/kyoko" />
+                android:src="@mipmap/mirai" />
 
         </com.github.florent37.arclayout.ArcLayout>
 
@@ -38,12 +34,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="225dp"
-            android:clickable="true"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/arclayout_ic_add"
             app:backgroundTint="@color/colorAccent"
-            app:elevation="15dp"
+            app:elevation="@dimen/twelve_dip"
             app:fabSize="normal" />
 
         <LinearLayout
@@ -58,23 +53,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="岁纳京子"
+                android:text="@string/lover_name"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/arclayout_description"
                 android:textColor="@color/colorNavItemUnselected"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="番剧: 摇曳百合"
+                android:text="@string/bangumi_name"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -84,16 +79,17 @@
                 android:layout_marginBottom="18dp"
                 android:text="@string/arclayout_development"
                 android:textColor="@color/colorNavItemUnselected"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
+
 
             <TextView
+                android:id="@+id/app_qun"
                 android:layout_width="match_parent"
-                android:textSize="18sp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sixteen_dip"
-                android:id="@+id/you_are_free"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/you_are_free"
-                android:layout_height="wrap_content" />
+                android:autoLink="all"
+                android:text="@string/app_qun"
+                android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

@@ -108,8 +108,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
     private void getLikeIllust(String starType, String tag) {
         FragmentUserDetail.mShowProgress.showProgress(true);
         dataType = starType.equals("public") ? 0 : 1;
-        Call<UserIllustsResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<UserIllustsResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getLikeIllust(LocalData.getToken(),
                         ((UserDetailActivity) getActivity()).getUserID(), starType, tag);
@@ -179,8 +178,7 @@ public class FragmentUserLikes extends ScrollObservableFragment {
     private void getNextUserIllust() {
         if (next_url != null) {
             FragmentUserDetail.mShowProgress.showProgress(true);
-            Call<UserIllustsResponse> call = new RestClient()
-                    .getRetrofit_AppAPI()
+            Call<UserIllustsResponse> call = RestClient.retrofit_AppAPI
                     .create(AppApiPixivService.class)
                     .getNextUserIllusts(LocalData.getToken(), next_url);
             call.enqueue(new retrofit2.Callback<UserIllustsResponse>() {

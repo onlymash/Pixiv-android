@@ -10,6 +10,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AccountPixivService {
+
     @FormUrlEncoded
     @POST("/api/provisional-accounts/create")
     fun createProvisionalAccount(@Field("user_name") paramString1: String,

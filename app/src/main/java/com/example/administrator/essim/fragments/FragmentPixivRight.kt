@@ -45,8 +45,7 @@ class FragmentPixivRight : BaseFragment() {
     fun getHotTags() {
         mProgressbar.visibility = View.VISIBLE
         no_data.visibility = View.INVISIBLE
-        val call = RestClient()
-                .retrofit_AppAPI
+        val call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
                 .getIllustTrendTags(LocalData.getToken())
         call.enqueue(object : Callback<TrendingtagResponse> {

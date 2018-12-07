@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.codekidlabs.storagechooser.Content;
 import com.codekidlabs.storagechooser.StorageChooser;
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.dialoag.R18Dialog;
 import com.example.administrator.essim.interf.MyImagePicker;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
@@ -53,15 +54,14 @@ public class SettingsActivity extends BaseActivity {
 
     private static final String[] arrayOfFileNameType = {"作品id_p数.jpeg", "作品id_p数.png",
             "作品标题_作品id_p数.jpeg", "作品标题_作品id_p数.png"};
-    private int fileNameStyle;
+    private static final String[] arrayOfNetworkType = {"自行代理(官方api)", "直连服务器1", "直连服务器2"};
+    private int fileNameStyle, networkStyle;
     private Context mContext;
     private Activity mActivity;
     private ProgressBar mProgressBar;
-    private RelativeLayout mRelativeLayout, mRelativeLayout2, mRelativeLayout3,
-            mRelativeLayout4, mRelativeLayout5, mRelativeLayout6, mRelativeLayout7, mRelativeLayout8,
-            mRelativeLayout9, mRelativeLayout10, mRelativeLayout11;
+    private RelativeLayout mRelativeLayout6;
     private TextView mTextView, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6, mTextView7,
-            mTextView8, mTextView9, mTextView10, mTextView11, mTextView12, mTextView13, mTextView14;
+            mTextView8, mTextView9, mTextView10, mTextView11, mTextView13;
     private StorageChooser.Builder builder = new StorageChooser.Builder();
     private StorageChooser chooser;
 
@@ -83,28 +83,47 @@ public class SettingsActivity extends BaseActivity {
         mProgressBar = findViewById(R.id.mProgressbar);
         mProgressBar.setVisibility(View.INVISIBLE);
         mTextView = findViewById(R.id.user_real_name);
-        mRelativeLayout2 = findViewById(R.id.username);
+        RelativeLayout relativeLayout2 = findViewById(R.id.username);
         mTextView2 = findViewById(R.id.user_account_real);
-        mRelativeLayout3 = findViewById(R.id.user_account);
-        mRelativeLayout4 = findViewById(R.id.password);
+        RelativeLayout relativeLayout3 = findViewById(R.id.user_account);
+        RelativeLayout relativeLayout4 = findViewById(R.id.password);
         mTextView3 = findViewById(R.id.password_real);
         mTextView4 = findViewById(R.id.quit);
         mTextView5 = findViewById(R.id.real_path_real);
-        mRelativeLayout5 = findViewById(R.id.real_path);
-        mRelativeLayout = findViewById(R.id.rela_2);
+        RelativeLayout relativeLayout5 = findViewById(R.id.real_path);
+        RelativeLayout relativeLayout = findViewById(R.id.rela_2);
         mTextView7 = findViewById(R.id.text_has_permission);
         mTextView8 = findViewById(R.id.app_detail);
         mTextView9 = findViewById(R.id.clear_cache);
         mTextView10 = findViewById(R.id.cache_size_real);
         mRelativeLayout6 = findViewById(R.id.cache_size);
-        mRelativeLayout7 = findViewById(R.id.set_header);
-        mRelativeLayout8 = findViewById(R.id.set_color);
+        RelativeLayout relativeLayout7 = findViewById(R.id.set_header);
+        RelativeLayout relativeLayout8 = findViewById(R.id.set_color);
         mTextView13 = findViewById(R.id.set_file_name_real);
-        mRelativeLayout9 = findViewById(R.id.set_file_name);
-        mRelativeLayout10 = findViewById(R.id.set_email);
-        mRelativeLayout11 = findViewById(R.id.pay_for_me);
-        mRelativeLayout11.setOnClickListener(view ->
+
+        RelativeLayout relativeLayout9 = findViewById(R.id.set_file_name);
+        RelativeLayout relativeLayout10 = findViewById(R.id.set_email);
+        RelativeLayout relativeLayout11 = findViewById(R.id.pay_for_me1);
+        relativeLayout11.setOnClickListener(view ->
                 AlipayUtil.startAlipayClient(mActivity, AlipayUtil.MY_ACCOUNT));
+        RelativeLayout relativeLayout12 = findViewById(R.id.set_password);
+        relativeLayout12.setOnClickListener(view -> {
+            R18Dialog r18Dialog = new R18Dialog();
+            r18Dialog.show(getFragmentManager(), "R18");
+        });
+        RelativeLayout relativeLayout13 = findViewById(R.id.pay_for_me2);
+        relativeLayout13.setOnClickListener(view ->
+                AlipayUtil.startAlipayClient(mActivity, AlipayUtil.ACCOUNT_2));
+        RelativeLayout relativeLayout14 = findViewById(R.id.pay_for_me3);
+        relativeLayout14.setOnClickListener(view ->
+                AlipayUtil.startAlipayClient(mActivity, AlipayUtil.ACCOUNT_3));
+        RelativeLayout relativeLayout15 = findViewById(R.id.pay_for_me4);
+        relativeLayout15.setOnClickListener(view ->
+                AlipayUtil.startAlipayClient(mActivity, AlipayUtil.ACCOUNT_4));
+        RelativeLayout relativeLayout16 = findViewById(R.id.rela_set_network);
+        relativeLayout16.setOnClickListener(view ->
+                setNetworkStyle());
+        mTextView11 = findViewById(R.id.now_set_network);
         mTextView6 = findViewById(R.id.real_email);
         aSwitch.setChecked(LocalData.getLocalDataSet().getBoolean("is_origin_pic", false));
         aSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -112,17 +131,17 @@ public class SettingsActivity extends BaseActivity {
             editor.apply();
         });
         mTextView.setText(LocalData.getUserName());
-        mRelativeLayout2.setOnLongClickListener(view -> {
+        relativeLayout2.setOnLongClickListener(view -> {
             Common.copyMessage(mContext, mTextView.getText().toString());
             return true;
         });
         mTextView2.setText(LocalData.getUserAccount());
-        mRelativeLayout3.setOnLongClickListener(view -> {
+        relativeLayout3.setOnLongClickListener(view -> {
             Common.copyMessage(mContext, mTextView2.getText().toString());
             return true;
         });
         mTextView3.setText(LocalData.getUserPwd());
-        mRelativeLayout4.setOnLongClickListener(view -> {
+        relativeLayout4.setOnLongClickListener(view -> {
             ClipboardManager cm = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData mClipData = ClipData.newPlainText("Label", mTextView3.getText().toString());
             assert cm != null;
@@ -136,7 +155,7 @@ public class SettingsActivity extends BaseActivity {
             finish();
         });
         mTextView5.setText(LocalData.getDownloadPath());
-        mRelativeLayout.setOnClickListener(view -> {
+        relativeLayout.setOnClickListener(view -> {
             Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             mActivity.startActivityForResult(i, 1);
             TastyToast.makeText(mContext, "请进入可插拔sd卡根目录，然后点击'确定'", Toast.LENGTH_LONG, TastyToast.DEFAULT).show();
@@ -159,25 +178,27 @@ public class SettingsActivity extends BaseActivity {
                 .with(this)
                 .build()
                 .create(MyImagePicker.class);
-        mRelativeLayout7.setOnClickListener(v -> imagePicker
+        relativeLayout7.setOnClickListener(v -> imagePicker
                 .openGallery()
                 .subscribe(result -> {
                     //获取到被选中图片的uri，保存到本地
                     editor.putString("header_img_path", result.getUri().toString());
                     editor.apply();
                 }));
-        mRelativeLayout8.setOnClickListener(v ->
+        relativeLayout8.setOnClickListener(v ->
                 imagePicker.openGallery().subscribe(result -> {
                     File file = new File(Common.getRealFilePath(mContext, result.getUri()));
                     changeHeadImage(file);
                 }));
         mTextView13.setText(arrayOfFileNameType[LocalData.getFileNameStyle()]);
-        mRelativeLayout9.setOnClickListener(v -> setFileNameStyle());
-        mRelativeLayout10.setOnClickListener(v -> {
+        relativeLayout9.setOnClickListener(v -> setFileNameStyle());
+        relativeLayout10.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, SignEmailActivity.class);
             mContext.startActivity(intent);
 
         });
+        mTextView13.setText(arrayOfFileNameType[LocalData.getFileNameStyle()]);
+        mTextView11.setText(arrayOfNetworkType[LocalData.getNetworkStyle()]);
         if (LocalData.getEmail().length() != 0) {
             mTextView6.setText(LocalData.getEmail());
         }
@@ -211,7 +232,7 @@ public class SettingsActivity extends BaseActivity {
         chooser.setOnCancelListener(() ->
                 TastyToast.makeText(mContext, "取消选择", Toast.LENGTH_SHORT, TastyToast.CONFUSING).show());
         //为路径选择Textview设置点击事件
-        mRelativeLayout5.setOnClickListener(view -> chooser.show());
+        relativeLayout5.setOnClickListener(view -> chooser.show());
     }
 
     @Override
@@ -224,6 +245,8 @@ public class SettingsActivity extends BaseActivity {
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE}, 199);
         }
+
+
     }
 
     @Override
@@ -249,8 +272,7 @@ public class SettingsActivity extends BaseActivity {
         mProgressBar.setVisibility(View.VISIBLE);
         RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("profile_image", file.getName(), photoRequestBody);
-        Call<ResponseBody> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<ResponseBody> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .changeHeadImg(LocalData.getToken(), photo,
                         RequestBody.create(null, file.getName()));
@@ -258,7 +280,7 @@ public class SettingsActivity extends BaseActivity {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull retrofit2.Response<ResponseBody> response) {
                 mProgressBar.setVisibility(View.INVISIBLE);
-                Snackbar.make(mTextView12, "我也不知道修改成功了没，打开个人主页看看吧...", Snackbar.LENGTH_LONG)
+                Snackbar.make(mTextView, "我也不知道修改成功了没，打开个人主页看看吧...", Snackbar.LENGTH_LONG)
                         .setAction("去看看", v -> {
                             Intent intent = new Intent(mContext, UserDetailActivity.class);
                             intent.putExtra("user id", LocalData.getLocalDataSet().getInt("userid", 0));
@@ -288,6 +310,34 @@ public class SettingsActivity extends BaseActivity {
                 SharedPreferences.Editor editor = LocalData.getLocalDataSet().edit();
                 editor.putInt("file_name_style", fileNameStyle);
                 editor.apply();
+                mTextView13.setText(arrayOfFileNameType[LocalData.getFileNameStyle()]);
+            }
+        })
+                .setNegativeButton("取消", (dialogInterface, i) -> {
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+    private void setNetworkStyle() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setIcon(R.mipmap.logo);
+        builder.setTitle("设置网络请求方式：");
+        builder.setCancelable(true);
+        builder.setSingleChoiceItems(arrayOfNetworkType, LocalData.getLocalDataSet().getInt("network_style", 0),
+                (dialogInterface, i) -> {
+                    if (networkStyle != i) {
+                        networkStyle = i;
+                    }
+                });
+        builder.setPositiveButton("确定", (dialogInterface, i) -> {
+            if (networkStyle != LocalData.getLocalDataSet().getInt("network_style", 0)) {
+                SharedPreferences.Editor editor = LocalData.getLocalDataSet().edit();
+                editor.putInt("network_style", networkStyle);
+                editor.apply();
+                mTextView11.setText(arrayOfNetworkType[LocalData.getNetworkStyle()]);
+                Common.showToast(mContext, "重启APP生效");
             }
         })
                 .setNegativeButton("取消", (dialogInterface, i) -> {

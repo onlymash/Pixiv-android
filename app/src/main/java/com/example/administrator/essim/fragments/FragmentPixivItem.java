@@ -228,8 +228,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         TextView textView = view.findViewById(R.id.text_get_related);
         TextView textView2 = view.findViewById(R.id.text_related);
         textView.setOnClickListener(this);
-        Call<RelatedIllust> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<RelatedIllust> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getRelatedIllust(LocalData.getToken(), mIllustsBean.getId());
         call.enqueue(new retrofit2.Callback<RelatedIllust>() {
@@ -293,7 +292,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                                     .getOriginal_image_url());
                         }
                     } else { //有多图的情况下，从meta_pages获取原图链接
-                        if (LocalData.getToken().contains("emulated")) {
+                        if (LocalData.getDownloadPath().contains("emulated")) {
                             //下载至内置SD存储介质，使用传统文件模式;
                             new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean
                                     .getMeta_pages().get(0).getImage_urlsX().getOriginal());

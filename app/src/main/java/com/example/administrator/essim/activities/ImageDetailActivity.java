@@ -59,7 +59,7 @@ public class ImageDetailActivity extends BaseActivity {
                                 .execute(mIllustsBean.getMeta_single_page().getOriginal_image_url());
                     }
                 } else {
-                    if (LocalData.getToken().contains("emulated")) {
+                    if (LocalData.getDownloadPath().contains("emulated")) {
                         //下载至内置SD存储介质，使用传统文件模式;
                         new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean.getMeta_pages().get(mViewPager.getCurrentItem()).getImage_urlsX().getOriginal());
                     } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;

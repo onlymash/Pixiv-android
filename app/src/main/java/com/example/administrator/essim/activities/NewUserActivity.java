@@ -49,7 +49,7 @@ public class NewUserActivity extends BaseActivity {
         mProgressBar = findViewById(R.id.try_login);
         mProgressBar.setVisibility(View.INVISIBLE);
         mEditText = findViewById(R.id.login_username);
-        CardView cardView = findViewById(R.id.card_login);
+        CardView cardView = findViewById(R.id.now_login);
         cardView.setOnClickListener(view -> {
             if (mEditText.getText().toString().trim().isEmpty()) {
                 Snackbar.make(view, "用户名不能为空", Snackbar.LENGTH_LONG)
@@ -65,8 +65,7 @@ public class NewUserActivity extends BaseActivity {
     private void generateNewAccount() {
         mProgressBar.setVisibility(View.VISIBLE);
         String authorization = "Bearer l-f9qZ0ZyqSwRyZs8-MymbtWBbSxmCu1pmbOlyisou8";
-        Call<PixivAccountsResponse> call = new RestClient()
-                .getRetrofit_Account().create(AccountPixivService.class)
+        Call<PixivAccountsResponse> call = RestClient.retrofit_Account.create(AccountPixivService.class)
                 .createProvisionalAccount(mEditText.getText().toString().trim(),
                         "pixiv_android_app_provisional_account", authorization);
         call.enqueue(new Callback<PixivAccountsResponse>() {
@@ -99,16 +98,19 @@ public class NewUserActivity extends BaseActivity {
     }
 
     private void loginIn(HashMap localHashMap) {
-        Call<PixivOAuthResponse> call = new RestClient().getretrofit_OAuthSecure().create(OAuthSecureService.class).postAuthToken(localHashMap);
+        Call<PixivOAuthResponse> call = RestClient.retrofit_OAuthSecure.create(OAuthSecureService.class).postAuthToken(localHashMap);
         call.enqueue(new Callback<PixivOAuthResponse>() {
             @Override
             public void onResponse(@NonNull Call<PixivOAuthResponse> call, @NonNull retrofit2.Response<PixivOAuthResponse> response) {
-                PixivOAuthResponse pixivOAuthResponse = response.body();
-                LocalData.saveLocalMessage(pixivOAuthResponse, localHashMap.get("password").toString());
-                mProgressBar.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(NewUserActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                try {
+                    PixivOAuthResponse pixivOAuthResponse = response.body();
+                    LocalData.saveLocalMessage(pixivOAuthResponse, localHashMap.get("password").toString());
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    Intent intent = new Intent(NewUserActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }catch (Exception e){
+                }
             }
 
             @Override

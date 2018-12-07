@@ -119,8 +119,7 @@ public class FragmentUserDetail extends Fragment {
     }
 
     private void getUserDetail() {
-        Call<UserDetailResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<UserDetailResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getUserDetail(LocalData.getToken(), ((UserDetailActivity) getActivity()).getUserID());
         call.enqueue(new retrofit2.Callback<UserDetailResponse>() {
@@ -147,9 +146,9 @@ public class FragmentUserDetail extends Fragment {
         rlNavBar.setTitle(userDetailResponse.getUser().getName() + "的个人主页");
         displayPageTitles = Arrays.asList("投稿(" + String.valueOf(userDetailResponse.getProfile().getTotal_illusts() + ")"),
                 "收藏(" + String.valueOf(userDetailResponse.getProfile().getTotal_illust_bookmarks_public()) + ")");
-        mTextView.setText(userDetailResponse.getProfile().getTotal_follower() < 1000 ?
-                String.format(getString(R.string.followers), userDetailResponse.getProfile().getTotal_follower()) :
-                String.format(getString(R.string.followers_k), userDetailResponse.getProfile().getTotal_follower() / 1000));
+        mTextView.setText(userDetailResponse.getProfile().getTotal_mypixiv_users() < 1000 ?
+                String.format(getString(R.string.followers), userDetailResponse.getProfile().getTotal_mypixiv_users()) :
+                String.format(getString(R.string.followers_k), userDetailResponse.getProfile().getTotal_mypixiv_users() / 1000));
         mTextView2.setText(userDetailResponse.getProfile().getTotal_follow_users() < 1000 ?
                 String.format(getString(R.string.follow), userDetailResponse.getProfile().getTotal_follow_users()) :
                 String.format(getString(R.string.follow_k), userDetailResponse.getProfile().getTotal_follow_users() / 1000));

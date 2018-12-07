@@ -54,10 +54,9 @@
     <string name="share_view_press_it">You can press it</string>
     <string name="item_swipe_dismissed">Dismissed</string>
     <string name="item_swipe_undo">Undo</string>
-    <string name="arclayout_description">漫画《摇曳百合》及其衍生作品中的人物。在某方面而言，京子比灯里存在感高出不少，拥有更多的戏份，所以其实是真·女主角。金色长发，头有红色蝴蝶结，蓝色眼睛是其特征。暴走状态时周围的人完全无法阻止，极容易得意忘形又自我中心的女孩，没人能够跟上她的步调也没问题。喜欢吃零食，对金钱的感知力为无穷大。喜欢动画《小魔女米拉库》，并从事其同人志创作。喜欢长相酷似米拉库的千夏。成绩优秀，有着学年第一的实力。</string>
-    <string name="arclayout_development">灯里、京子、结衣，还有原本想加入茶道社的新生─千夏，四个女生占领了已经废社的茶道社旧社团办公室，成立了“娱乐社”。娱乐社没有特别的社团活动内容，只是一群人聚在一起闲聊。学生会副会长─杉浦绫乃，考试时老是考第二名，于是她便对第一名的京子说，如果下次考试她考赢了，就不准京子她们继续擅自使用旧社办。京子却反过来对绫乃说，如果绫乃输了就必须加入“娱乐社”…
-        \n\n另： Kyouko林！
-    \n\n感谢以下朋友的热心建议：@守护世界之树，@◤康◢◤鑫◢
+    <string name="arclayout_description">戴着大眼镜显得天然萌，内心憧憬着成为普通的女孩子，喜欢园艺、盆栽，且喜欢用“我不高兴”表达自己的任何情感，对朋友十分关心，拯救了伊波樱。在战斗中有着优秀的异能，但平时生活却总是一团糟，说谎的时候会一边擦眼镜，一边慌张地左顾右盼，一边解释。初登场时是带着高中一年级新生特有的深蓝色缎带。一头蓬松的茶色短发，大镜框眼镜被神原秋人认为很适合戴眼镜，右手上平时缠着绷带。</string>
+    <string name="arclayout_development">电视动画《境界的彼方》改编自鸟居なごむ原作的同名轻小说，由石立太一监督率领《日常》原班制作人马打造。故事描述了有特殊能力的异界士少女栗山未来与稀有存在的半妖神原秋人相遇以后发生的一系列不平凡的故事。2013年4月3日，在京都动画旗下KA Esuma文库在官网上，正式宣布《境界的彼方》动画化企划进行中的消息。动画官网于2013年8月1日上线，并且每天更新一张带有数字的图片进行倒计时，直到8月5日倒计时完毕动画官网方正式公开，此时《境界的彼方》正式确认将以TV动画的形式与观众见面…
+    \n\n感谢以下朋友的热心帮助与建议：@守护世界之树，@◤康◢◤鑫◢，@MrFox
     </string>
     <string name="title_activity_settings">Settings</string>
 
@@ -172,7 +171,7 @@
     <string name="download_path">下载路径</string>
     <string name="get_permission">添加可插拔SD卡读写权限</string>
     <string name="permission_state">权限状态:</string>
-    <string name="ceuilisa_detail">目前团队中只有一个人 CeuiLiSA 如果觉得这款软件不错的话，请开发者喝杯咖啡吧~</string>
+    <string name="ceuilisa_detail">如果觉得这款软件不错的话，请开发者们喝杯咖啡吧~</string>
     <string name="pay_way">支付宝：13990845246</string>
     <string name="public_item">筛选</string>
     <string name="public_follow">显示公开关注</string>
@@ -184,8 +183,8 @@
     <string name="zero_size">0.0B</string>
     <string name="has_sd_permission">已获取SD卡读写权限</string>
     <string name="no_sd_permission">无SD卡读写权限或无SD卡</string>
-    <string name="followers">粉丝: %d</string>
-    <string name="followers_k">粉丝: %dK</string>
+    <string name="followers">好P友: %d</string>
+    <string name="followers_k">好P友: %dK</string>
     <string name="follow">关注: %d</string>
     <string name="follow_k">关注: %dK</string>
     <string name="sinple_illust">查看普通投稿</string>
@@ -198,6 +197,7 @@
     <string name="ralated_illust">相关作品</string>
     <string name="get_ralated_illust">查看更多 〉</string>
     <string name="head_image">修改头像</string>
+    <string name="r18_pwd">设置神秘领域密码</string>
     <string name="sub_users">关注的画师</string>
     <string name="favor_illusts">收藏的作品</string>
     <string name="refresh_bottom">刷新</string>
@@ -213,22 +213,24 @@
     <string name="libraries">使用到的开源库</string>
     <string name="save_edit">保存当前修改</string>
     <string name="you_are_free">零境交错</string>
+    <string name="app_qun">软件交流群(470779245)：https://jq.qq.com/?_wv=1027&#038;k=5C2LFIx</string>
     <string name="login_title">战场原の起点</string>
     <string name="cant_login">无法登陆看这里</string>
-    <string name="no_proxy">你的飞机飞的不够高啊</string>
+    <string name="no_proxy">加载失败~</string>
     <string name="private_star">成功添加到非公开收藏~</string>
     <string name="public_star">成功添加到公开收藏~</string>
     <string name="remove_star">取消收藏~</string>
-    <string name="client_id">client_id</string>
-    <string name="client_secret">client_secret</string>
-    <string name="grant_type">grant_type</string>
-    <string name="user_name">username</string>
-    <string name="pass_word">password</string>
-    <string name="account_error">您的账户或密码有误</string>
-    <string name="input_pwd">请输入密码</string>
+    <string name="account_error">用户名或密码错误</string>
+    <string name="input_pwd">密码不能为空</string>
     <string name="username_no_null">用户名不能为空</string>
     <string name="no_more_data">再怎么找也找不到了~</string>
     <string name="tranks">鸣谢</string>
     <string name="view_history">浏览历史</string>
     <string name="delete_all">删除全部历史</string>
+    <string name="now_online">在线人数：获取中</string>
+    <string name="enter_r18_pwd">请输入密码</string>
+    <string name="now_login">登录</string>
+    <string name="wrong_layout_id">未初始化布局文件</string>
+    <string name="bangumi_name">番剧: 境界的彼方</string>
+    <string name="lover_name">栗山未来</string>
 </resources>

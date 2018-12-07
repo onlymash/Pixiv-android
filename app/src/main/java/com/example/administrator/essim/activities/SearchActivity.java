@@ -232,8 +232,7 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
     private void getAutoCompleteWords() {
         mCardView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
-        Call<PixivResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<PixivResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getSearchAutoCompleteKeywords(mSharedPreferences.getString("Authorization", ""),
                         searchBar.getText());

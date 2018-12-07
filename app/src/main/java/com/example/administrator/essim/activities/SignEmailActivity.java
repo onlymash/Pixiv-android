@@ -68,8 +68,8 @@ public class SignEmailActivity extends BaseActivity {
 
     private void updateUserInfo() {
         mProgressBar.setVisibility(View.VISIBLE);
-        Call<UpdateInfoResponse> call = new RestClient()
-                .getRetrofit_Account()
+        Call<UpdateInfoResponse> call = RestClient
+                .retrofit_Account
                 .create(AccountPixivService.class)
                 .updateUserInfo(LocalData.getToken(),
                         mEditText.getText().toString(),

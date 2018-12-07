@@ -10,7 +10,11 @@ import android.content.pm.PackageManager;
 import java.net.URISyntaxException;
 
 public class AlipayUtil {
+
     public static final String MY_ACCOUNT = "FKX06500UXERPRXFYBV102";
+    public static final String ACCOUNT_2 = "FKX00207SI2YQ0GCDHAU73";
+    public static final String ACCOUNT_3 = "FKX03258JYIGPFVZAN15F3";
+    public static final String ACCOUNT_4 = "FKX05738OA8WPOW0FTXOF5";
     // 支付宝包名
     private static final String ALIPAY_PACKAGE_NAME = "com.eg.android.AlipayGphone";
 
@@ -79,6 +83,4 @@ public class AlipayUtil {
             return false;
         }
     }
-
-
 }

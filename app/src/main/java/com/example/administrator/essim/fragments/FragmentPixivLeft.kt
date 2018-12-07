@@ -73,8 +73,7 @@ class FragmentPixivLeft : BaseFragment() {
     private fun initData() {
         mProgressbar.visibility = View.VISIBLE
         no_data.visibility = View.INVISIBLE
-        val call = RestClient()
-                .retrofit_AppAPI
+        val call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
                 .getRecommend(LocalData.getToken())
         call.enqueue(object : Callback<RecommendResponse> {
@@ -142,8 +141,7 @@ class FragmentPixivLeft : BaseFragment() {
 
     private fun getNextData() {
         mProgressbar.visibility = View.VISIBLE
-        val call = RestClient()
-                .retrofit_AppAPI
+        val call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
                 .getNext(LocalData.getToken(), nextDataUrl!!)
         call.enqueue(object : Callback<RecommendResponse> {
@@ -169,7 +167,7 @@ class FragmentPixivLeft : BaseFragment() {
         localHashMap["grant_type"] = Constant.GRANT_TYPE
         localHashMap["username"] = LocalData.getUserAccount()
         localHashMap["password"] = LocalData.getUserPwd()
-        val call = RestClient().getretrofit_OAuthSecure().create(OAuthSecureService::class.java).postAuthToken(localHashMap)
+        val call = RestClient.retrofit_OAuthSecure.create(OAuthSecureService::class.java).postAuthToken(localHashMap)
         call.enqueue(object : Callback<PixivOAuthResponse> {
             override fun onResponse(call: Call<PixivOAuthResponse>, response: retrofit2.Response<PixivOAuthResponse>) {
                 val pixivOAuthResponse = response.body()

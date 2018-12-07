@@ -15,6 +15,7 @@ import com.example.administrator.essim.activities.MainActivity
 import com.example.administrator.essim.activities.SearchActivity
 import com.example.administrator.essim.activities.ViewPagerActivity
 import com.example.administrator.essim.adapters.PixivAdapterGrid
+import com.example.administrator.essim.dialoag.R18Dialog
 import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.network.AppApiPixivService
 import com.example.administrator.essim.network.RestClient
@@ -78,8 +79,15 @@ class FragmentRank : BaseFragment() {
                 getRankList(currentDataType)
             }
             8 -> if (currentDataType != 7) {
-                currentDataType = 7
-                getRankList(currentDataType)
+                val pwd = LocalData.getR18Pwd()
+                if(pwd.isEmpty()){
+                    Common.showToast(mContext, "请去设置页面填写神秘密码")
+                }else if(LocalData.getR18Pwd().equals(LocalData.getRealR18Pwd())){
+                    currentDataType = 7
+                    getRankList(currentDataType)
+                }else{
+                    Common.showToast(mContext, "神秘密码错误, 去关于页面加群了解更多")
+                }
             }
             else -> {
             }
@@ -129,7 +137,7 @@ class FragmentRank : BaseFragment() {
                     .imagePadding(Rect(20, 20, 20, 60))
                     .normalText(arrayOfRankMode[i])
                     .textRect(Rect(Util.dp2px(15f), Util.dp2px(42f), Util.dp2px(65f), Util.dp2px(72f)))
-                    .textSize(16)
+                    .textSize(14)
                     .listener(clickListener)
             mFab.addBuilder(builder)
         }
@@ -141,8 +149,7 @@ class FragmentRank : BaseFragment() {
     private fun getFollowUserNewIllust() {
         mProgressbar.visibility = View.VISIBLE
         no_data.visibility = View.INVISIBLE
-        val call = RestClient()
-                .retrofit_AppAPI
+        val call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
                 .getFollowIllusts(LocalData.getToken(), "all")
         call.enqueue(object : Callback<IllustfollowResponse> {
@@ -205,8 +212,7 @@ class FragmentRank : BaseFragment() {
     private fun getRankList(dataType: Int) {
         mProgressbar.visibility = View.VISIBLE
         no_data.visibility = View.INVISIBLE
-        val call = RestClient()
-                .retrofit_AppAPI
+        val call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService::class.java)
                 .getIllustRanking(LocalData.getToken(), modeList[dataType], null)
         call.enqueue(object : Callback<IllustRankingResponse> {
@@ -235,8 +241,7 @@ class FragmentRank : BaseFragment() {
     private fun getNextData() {
         if (nextDataUrl != null) {
             mProgressbar.visibility = View.VISIBLE
-            val call = RestClient()
-                    .retrofit_AppAPI
+            val call = RestClient.retrofit_AppAPI
                     .create(AppApiPixivService::class.java)
                     .getNext(LocalData.getToken(), nextDataUrl!!)
             call.enqueue(object : Callback<RecommendResponse> {

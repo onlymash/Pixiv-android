@@ -673,8 +673,6 @@
                 <TextView
                     android:id="@+id/line24"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:text="岁纳京子" />
 
@@ -685,8 +683,9 @@
                     android:layout_marginStart="@dimen/sixteen_dip"
                     android:layout_marginEnd="8dp"
                     android:layout_toEndOf="@+id/line24"
-                    android:autoLink="web"
-                    android:text="桐谷和人" />
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:text="栗山未来" />
 
             </RelativeLayout>
 

@@ -49,8 +49,7 @@ public class FragmentBookmarkShow {
 
     private void getBookedTag(RecyclerView recyclerView, ProgressBar progressBar, String dataType) {
         progressBar.setVisibility(View.VISIBLE);
-        Call<AllBookmarkTagResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<AllBookmarkTagResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getBookedTags(LocalData.getToken(), (long) userId, dataType);
         call.enqueue(new Callback<AllBookmarkTagResponse>() {
@@ -116,8 +115,7 @@ public class FragmentBookmarkShow {
     private void getNextData(RecyclerView recyclerView, ProgressBar progressBar, String url) {
         if (allBookmarkTagResponse.next_url != null) {
             progressBar.setVisibility(View.VISIBLE);
-            Call<AllBookmarkTagResponse> call = new RestClient()
-                    .getRetrofit_AppAPI()
+            Call<AllBookmarkTagResponse> call = RestClient.retrofit_AppAPI
                     .create(AppApiPixivService.class)
                     .getNextTags(LocalData.getToken(), url);
             call.enqueue(new Callback<AllBookmarkTagResponse>() {

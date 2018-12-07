@@ -34,8 +34,7 @@ public class PixivOperate {
      * @param starType 公开/非公开收藏
      */
     public static void postStarIllust(int id, Context context, String starType) {
-        Call<BookmarkAddResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<BookmarkAddResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .postLikeIllust(LocalData.getToken(), id, starType, null);
         call.enqueue(new Callback<BookmarkAddResponse>() {
@@ -62,8 +61,7 @@ public class PixivOperate {
      * @param context context
      */
     public static void postUnstarIllust(int id, Context context) {
-        Call<ResponseBody> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<ResponseBody> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .postUnlikeIllust(LocalData.getToken(), id);
         call.enqueue(new Callback<ResponseBody>() {
@@ -88,8 +86,7 @@ public class PixivOperate {
      * @param starType    公开/非公开收藏
      */
     public static void postStarIllust(IllustsBean illustsBean, List<String> tagList, Context context, String starType) {
-        Call<BookmarkAddResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<BookmarkAddResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .postLikeIllust(LocalData.getToken(), illustsBean.getId(), starType, tagList);
         call.enqueue(new Callback<BookmarkAddResponse>() {
@@ -119,8 +116,7 @@ public class PixivOperate {
      */
     public static void getSingleIllust(ProgressBar progressBar, Context context, Long illustID) {
         progressBar.setVisibility(View.VISIBLE);
-        Call<IllustDetailResponse> call = new RestClient()
-                .getRetrofit_AppAPI()
+        Call<IllustDetailResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
                 .getIllust(LocalData.getToken(), illustID);
         call.enqueue(new Callback<IllustDetailResponse>() {

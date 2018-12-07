@@ -73,12 +73,52 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/sixteen_dip"
                 android:layout_marginTop="@dimen/sixteen_dip"
+                android:text="网络"
+                android:textColor="@color/colorPrimary"
+                android:textSize="13sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:id="@+id/rela_set_network"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/set_network"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/sixteen_dip"
+                    android:text="设置网络请求方式"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/now_set_network"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/set_network"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/four_dp"
+                    android:layout_marginBottom="@dimen/sixteen_dip"
+                    android:text="@string/set_header"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginTop="@dimen/sixteen_dip"
                 android:text="浏览"
                 android:textColor="@color/colorPrimary"
                 android:textSize="13sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -126,6 +166,8 @@
 
             <RelativeLayout
                 android:id="@+id/real_path"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -154,6 +196,8 @@
 
             <RelativeLayout
                 android:id="@+id/set_file_name"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -185,6 +229,8 @@
             <RelativeLayout
                 android:id="@+id/cache_size"
                 android:layout_width="match_parent"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -214,6 +260,8 @@
             <RelativeLayout
                 android:id="@+id/rela_2"
                 android:layout_width="match_parent"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_height="wrap_content">
 
 
@@ -283,6 +331,8 @@
             <RelativeLayout
                 android:id="@+id/username"
                 android:layout_width="match_parent"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_height="wrap_content">
 
 
@@ -312,6 +362,8 @@
 
             <RelativeLayout
                 android:id="@+id/user_account"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -343,6 +395,8 @@
 
             <RelativeLayout
                 android:id="@+id/password"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -375,6 +429,8 @@
 
             <RelativeLayout
                 android:id="@+id/set_header"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -404,6 +460,8 @@
 
             <RelativeLayout
                 android:id="@+id/set_color"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -430,9 +488,41 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/set_password"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/r18_pwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/sixteen_dip"
+                    android:text="@string/r18_pwd"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sixteen_sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/r18_pwd"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/four_dp"
+                    android:layout_marginEnd="@dimen/sixteen_dip"
+                    android:layout_marginBottom="@dimen/sixteen_dip"
+                    android:text="@string/set_header_two"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:id="@+id/set_email"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -470,6 +560,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_height="wrap_content">
 
 
@@ -520,24 +612,26 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:id="@+id/pay_for_me"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/pay_for_me1"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/head_image2"
+                    android:id="@+id/send_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/sixteen_dip"
                     android:layout_marginTop="@dimen/sixteen_dip"
-                    android:text="支付宝(点击捐赠)"
+                    android:text="支付宝(点击为CeuiLiSA捐赠)"
                     android:textColor="#333333"
                     android:textSize="@dimen/sixteen_sp" />
 
                 <TextView
-                    android:id="@+id/set_color2"
+                    android:id="@+id/number_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/head_image2"
+                    android:layout_below="@+id/send_one"
                     android:layout_marginStart="@dimen/sixteen_dip"
                     android:layout_marginTop="@dimen/four_dp"
                     android:layout_marginEnd="@dimen/sixteen_dip"
@@ -546,6 +640,101 @@
                     android:textSize="14sp" />
 
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/pay_for_me2"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/send_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/sixteen_dip"
+                    android:text="支付宝(点击为Fox捐赠)"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sixteen_sp" />
+
+                <TextView
+                    android:id="@+id/number_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/send_two"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/four_dp"
+                    android:layout_marginEnd="@dimen/sixteen_dip"
+                    android:layout_marginBottom="@dimen/sixteen_dip"
+                    android:text="17692560176"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/pay_for_me3"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/send_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/sixteen_dip"
+                    android:text="支付宝(点击为猫神捐赠)"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sixteen_sp" />
+
+                <TextView
+                    android:id="@+id/number_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/send_three"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/four_dp"
+                    android:layout_marginEnd="@dimen/sixteen_dip"
+                    android:layout_marginBottom="@dimen/sixteen_dip"
+                    android:text="15195970410"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/pay_for_me4"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/send_four"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/sixteen_dip"
+                    android:text="支付宝(点击为◤NEKO◢捐赠)"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/sixteen_sp" />
+
+                <TextView
+                    android:id="@+id/number_four"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/send_four"
+                    android:layout_marginStart="@dimen/sixteen_dip"
+                    android:layout_marginTop="@dimen/four_dp"
+                    android:layout_marginEnd="@dimen/sixteen_dip"
+                    android:layout_marginBottom="@dimen/sixteen_dip"
+                    android:text="17631637010"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/quit"
