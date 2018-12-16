@@ -54,7 +54,8 @@ public class SettingsActivity extends BaseActivity {
 
     private static final String[] arrayOfFileNameType = {"作品id_p数.jpeg", "作品id_p数.png",
             "作品标题_作品id_p数.jpeg", "作品标题_作品id_p数.png"};
-    private static final String[] arrayOfNetworkType = {"自行代理(官方api)", "直连服务器1", "直连服务器2"};
+    //private static final String[] arrayOfNetworkType = {"自行代理(官方api)", "直连服务器1", "直连服务器2"};
+    private static final String[] arrayOfNetworkType = {"自行代理"};
     private int fileNameStyle, networkStyle;
     private Context mContext;
     private Activity mActivity;
@@ -130,12 +131,12 @@ public class SettingsActivity extends BaseActivity {
             editor.putBoolean("is_origin_pic", b);
             editor.apply();
         });
-        mTextView.setText(LocalData.getUserName());
+        mTextView.setText(LocalData.getUserName().length() == 0 ? "未登录" : LocalData.getUserName());
         relativeLayout2.setOnLongClickListener(view -> {
             Common.copyMessage(mContext, mTextView.getText().toString());
             return true;
         });
-        mTextView2.setText(LocalData.getUserAccount());
+        mTextView2.setText(LocalData.getUserAccount().length() == 0 ? "未登录" : LocalData.getUserAccount());
         relativeLayout3.setOnLongClickListener(view -> {
             Common.copyMessage(mContext, mTextView2.getText().toString());
             return true;

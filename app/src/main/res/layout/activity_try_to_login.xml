@@ -117,6 +117,22 @@
         app:layout_constraintEnd_toEndOf="@+id/card_pixiv"
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
+
+    <TextView
+        android:id="@+id/login_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login"
+        android:layout_marginTop="@dimen/twelve_dip"
+        android:text="@string/cannot_login"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/card_pixiv"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
+
+
+
+
     <ProgressBar
         android:id="@+id/try_login"
         android:layout_width="wrap_content"

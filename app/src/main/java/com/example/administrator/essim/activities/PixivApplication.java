@@ -13,6 +13,5 @@ public class PixivApplication extends LitePalApplication {
         super.onCreate();
 
         StatService.registerActivityLifecycleCallbacks(PixivApplication.this);
-        RestClient.init();
     }
 }

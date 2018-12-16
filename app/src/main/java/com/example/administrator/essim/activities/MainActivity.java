@@ -36,6 +36,7 @@ import com.example.administrator.essim.presenter.MainPresenter;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.GlideUtil;
 import com.example.administrator.essim.utils.LocalData;
+import com.example.administrator.essim.utils.VersionCheck;
 import com.example.administrator.essim.views.MainView;
 import com.roughike.bottombar.BottomBar;
 import com.sdsmdg.tastytoast.TastyToast;

@@ -63,6 +63,11 @@ public class LoginActivity extends MvpBaseActivity<LoginPresenter> implements Lo
             startActivity(intent);
             finish();
         });
+        TextView cannotLogin = findViewById(R.id.login_error);
+        cannotLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, FreeActivity.class);
+            startActivity(intent);
+        });
         CardView nowLogin = findViewById(R.id.login);
         nowLogin.setOnClickListener(view -> mPresenter.login());
     }

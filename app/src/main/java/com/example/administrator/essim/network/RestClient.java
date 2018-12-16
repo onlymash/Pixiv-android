@@ -22,12 +22,10 @@ public class RestClient {
     public static Retrofit retrofit_AppAPI;
     public static Retrofit retrofit_OAuthSecure;
     public static Retrofit retrofit_Account;
-    public static int nowLine;
 
-    public static void init(){
-        nowLine = LocalData.getNetworkStyle();
+    static {
         Gson localGson = new GsonBuilder().create();
-        if(nowLine == 0){
+        /*if(nowLine == 0){*/
             retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.secure.pixiv.net/")
                     //retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.secure.pixiv.net/")
                     .client(getOkHttpClient())
@@ -41,7 +39,7 @@ public class RestClient {
                     .client(getOkHttpClient())
                     .addConverterFactory(GsonConverterFactory.create(localGson))
                     .build();
-        }else if(nowLine == 1){
+        /*}else if(nowLine == 1){
             retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.ceuilisa.com/")
                     //retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.secure.pixiv.net/")
                     .client(getOkHttpClient())
@@ -69,7 +67,7 @@ public class RestClient {
                     .client(getOkHttpClient())
                     .addConverterFactory(GsonConverterFactory.create(localGson))
                     .build();
-        }
+        }*/
     }
 
     private static OkHttpClient getOkHttpClient() {

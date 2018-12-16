@@ -230,7 +230,7 @@ public class Common {
         ClipData mClipData = ClipData.newPlainText("Label", tag);
         assert cm != null;
         cm.setPrimaryClip(mClipData);
-        TastyToast.makeText(mContext, tag + " 已复制到剪切板~", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+        Toast.makeText(mContext, tag + " 已复制到剪切板~", Toast.LENGTH_SHORT).show();
     }
 
 

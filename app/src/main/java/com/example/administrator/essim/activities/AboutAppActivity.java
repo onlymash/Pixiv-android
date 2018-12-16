@@ -1,8 +1,10 @@
 package com.example.administrator.essim.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.administrator.essim.R;
 
@@ -23,7 +25,11 @@ public class AboutAppActivity extends MvpBaseActivity{
 
     @Override
     void initView() {
-
+        TextView textView = findViewById(R.id.be_free);
+        textView.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, FreeActivity.class);
+            mContext.startActivity(intent);
+        });
     }
 
     @Override

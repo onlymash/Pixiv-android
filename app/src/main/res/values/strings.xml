@@ -233,4 +233,5 @@
     <string name="wrong_layout_id">未初始化布局文件</string>
     <string name="bangumi_name">番剧: 境界的彼方</string>
     <string name="lover_name">栗山未来</string>
+    <string name="cannot_login">无法登陆看这里</string>
 </resources>
