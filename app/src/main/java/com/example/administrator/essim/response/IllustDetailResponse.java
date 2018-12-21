@@ -1,9 +1,10 @@
 package com.example.administrator.essim.response;
 
+import com.example.administrator.essim.response_re.IllustsBean;
+
 import java.io.Serializable;
 
-public class IllustDetailResponse
-        implements Serializable {
+public class IllustDetailResponse{
     private IllustsBean illust;
 
     public IllustsBean getIllust() {

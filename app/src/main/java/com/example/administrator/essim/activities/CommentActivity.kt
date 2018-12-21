@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.example.administrator.essim.R
+import com.example.administrator.essim.activities_re.UserDetailActivity
 import com.example.administrator.essim.adapters.IllustCommentAdapter
 import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.network.AppApiPixivService
@@ -56,8 +57,8 @@ class CommentActivity : BaseActivity() {
         mRecyclerView.layoutManager = linearLayoutManager
         mProgressbar.visibility = View.INVISIBLE
         mRecyclerView.addItemDecoration(DividerItemDecoration(mContext!!, DividerItemDecoration.VERTICAL_LIST))
-        mRecyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        mRecyclerView.setOnScrollListener(object:RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
                 val totalItemCount = illustCommentAdapter!!.itemCount

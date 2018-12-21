@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.ToxicBakery.viewpager.transforms.*
 import com.example.administrator.essim.R
 import com.example.administrator.essim.fragments.FragmentPixivItem
-import com.example.administrator.essim.response.IllustsBean
 import com.example.administrator.essim.response.Reference
+import com.example.administrator.essim.response_re.IllustsBean
 import kotlinx.android.synthetic.main.activity_view_pager.*
 import java.util.ArrayList
 
@@ -40,6 +40,8 @@ class ViewPagerActivity : BaseActivity() {
 
             override fun getCount(): Int = allIllust.size
         }
+        mViewPager.setPageTransformer(true, ZoomOutTranformer())
+        //mViewPager.setPageTransformer(true, AccordionTransformer())
         mViewPager.currentItem = index
     }
 

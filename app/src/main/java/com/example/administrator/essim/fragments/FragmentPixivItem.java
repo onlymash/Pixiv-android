@@ -1,7 +1,6 @@
 package com.example.administrator.essim.fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -25,15 +24,16 @@ import com.example.administrator.essim.activities.CommentActivity;
 import com.example.administrator.essim.activities.ImageDetailActivity;
 import com.example.administrator.essim.activities.RelatedActivity;
 import com.example.administrator.essim.activities.SearchResultActivity;
-import com.example.administrator.essim.activities.UserDetailActivity;
 import com.example.administrator.essim.activities.ViewPagerActivity;
+import com.example.administrator.essim.activities_re.UserDetailActivity;
 import com.example.administrator.essim.download.DownloadTask;
 import com.example.administrator.essim.download.SDDownloadTask;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
-import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.RelatedIllust;
+import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.utils.GlideKey;
 import com.example.administrator.essim.utils.GlideUtil;
 import com.example.administrator.essim.utils.LocalData;
 import com.example.administrator.essim.utils.PixivOperate;
@@ -47,6 +47,7 @@ import java.util.Objects;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import retrofit2.Call;
+
 
 
 /**
@@ -96,6 +97,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         imageView2.setOnClickListener(this);
         imageView3.setOnClickListener(this);
         Glide.get(mContext).clearMemory();
+
         Glide.with(getContext()).load(new GlideUtil().getMediumImageUrl(mIllustsBean))
                 .bitmapTransform(new BlurTransformation(mContext, 20, 2))
                 .into(imageView);
@@ -295,10 +297,10 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                         if (LocalData.getDownloadPath().contains("emulated")) {
                             //下载至内置SD存储介质，使用传统文件模式;
                             new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean
-                                    .getMeta_pages().get(0).getImage_urlsX().getOriginal());
+                                    .getMeta_pages().get(0).getImage_urls().getOriginal());
                         } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
                             new SDDownloadTask(realFile, mContext, mIllustsBean, LocalData.getLocalDataSet())
-                                    .execute(mIllustsBean.getMeta_pages().get(0).getImage_urlsX().getOriginal());
+                                    .execute(mIllustsBean.getMeta_pages().get(0).getImage_urls().getOriginal());
                         }
                     }
                 }

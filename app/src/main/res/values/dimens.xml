@@ -52,5 +52,8 @@
     <dimen name="fourty_eight_dip">48dp</dimen>
     <dimen name="tweenty_four_dip">24dp</dimen>
     <dimen name="four_dp">4dp</dimen>
+    <dimen name="two_dp">2dp</dimen>
+    <dimen name="one_dp">1dp</dimen>
     <dimen name="six_dp">6dp</dimen>
+    <dimen name="sixteen_dp">16dp</dimen>
 </resources>

@@ -80,7 +80,7 @@ public class FragmentBookmarkShow {
         mIllustTagAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NotNull View view, int position, int viewType) {
-                if (dataKind == 0) {
+                /*if (dataKind == 0) {
                     if (position == 0) {
                         FragmentUserLikes.sRefreshLayout.refreData("public", null);
                         mDialog.dismiss();
@@ -102,7 +102,7 @@ public class FragmentBookmarkShow {
                         FragmentUserLikes.sRefreshLayout.refreData("private", singleTags.get(position).name);
                         mDialog.dismiss();
                     }
-                }
+                }*/
             }
 
             @Override

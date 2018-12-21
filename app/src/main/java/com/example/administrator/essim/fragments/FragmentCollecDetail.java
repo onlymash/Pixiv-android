@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.UserDetailActivity;
+import com.example.administrator.essim.activities_re.UserDetailActivity;
 import com.example.administrator.essim.adapters.CollecDetailAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network.AppApiPixivService;

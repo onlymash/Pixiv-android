@@ -30,6 +30,8 @@ import android.widget.Toast;
 import com.codekidlabs.storagechooser.Content;
 import com.codekidlabs.storagechooser.StorageChooser;
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities_re.LoginActivity;
+import com.example.administrator.essim.activities_re.UserDetailActivity;
 import com.example.administrator.essim.dialoag.R18Dialog;
 import com.example.administrator.essim.interf.MyImagePicker;
 import com.example.administrator.essim.network.AppApiPixivService;

@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
     <application
-        android:name=".activities.PixivApplication"
+        android:name=".activities_re.PixivApp"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:roundIcon="@mipmap/logo"
@@ -52,7 +52,13 @@
         <activity android:name=".activities.ThanksActivity" />
         <activity android:name=".activities.SignEmailActivity" />
         <activity android:name=".activities.AboutAppActivity" />
-        <activity android:name=".activities.WebViewActivity" />
+        <activity android:name=".activities_re.WebViewActivity" />
+        <activity android:name=".activities_re.FollowActivity" />
+        <activity android:name=".activities_re.LoginActivity" />
+        <activity android:name=".activities_re.RankActivity" />
+        <activity android:name=".activities_re.UserDetailActivity" />
+        <activity android:name=".activities_re.IllustListActivity" />
+        <activity android:name=".activities_re.ArticleActivity" />
 
 
     </application>

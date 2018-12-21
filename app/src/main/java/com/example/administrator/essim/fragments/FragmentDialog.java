@@ -21,8 +21,7 @@ import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.BookmarkDetailResponse;
-import com.example.administrator.essim.response.IllustsBean;
-import com.example.administrator.essim.utils.Common;
+import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.LocalData;
 import com.example.administrator.essim.utils.PixivOperate;
 

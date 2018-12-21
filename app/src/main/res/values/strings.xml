@@ -213,7 +213,7 @@
     <string name="libraries">使用到的开源库</string>
     <string name="save_edit">保存当前修改</string>
     <string name="you_are_free">零境交错</string>
-    <string name="app_qun">软件交流群(470779245)：https://jq.qq.com/?_wv=1027&#038;k=5C2LFIx</string>
+    <string name="app_qun">软件交流群(470779245)，有什么问题就来群里提问吧：https://jq.qq.com/?_wv=1027&#038;k=5C2LFIx</string>
     <string name="login_title">战场原の起点</string>
     <string name="cant_login">无法登陆看这里</string>
     <string name="no_proxy">加载失败~</string>
@@ -234,4 +234,11 @@
     <string name="bangumi_name">番剧: 境界的彼方</string>
     <string name="lover_name">栗山未来</string>
     <string name="cannot_login">无法登陆看这里</string>
+    <string name="login_error">登录失败</string>
+    <string name="load_error">加载失败</string>
+    <string name="cancel_follow_him">取消关注</string>
+    <string name="follow_him">+关注</string>
+    <string name="good_friend">好P友 %d</string>
+    <string name="i_follow">关注 %d</string>
+    <string name="operate_error">操作失败，请检查网络连接</string>
 </resources>

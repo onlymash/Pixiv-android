@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,9 +17,9 @@ import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.PixivAdapterGrid;
 import com.example.administrator.essim.fragments.FragmentDialog;
 import com.example.administrator.essim.interf.OnItemClickListener;
-import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response.RelatedIllust;
+import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.GridItemDecoration;
@@ -28,7 +27,6 @@ import com.example.administrator.essim.utils.PixivOperate;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class RelatedActivity extends BaseActivity {
@@ -122,7 +120,7 @@ public class RelatedActivity extends BaseActivity {
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.download, menu);
         return true;
@@ -141,5 +139,5 @@ public class RelatedActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

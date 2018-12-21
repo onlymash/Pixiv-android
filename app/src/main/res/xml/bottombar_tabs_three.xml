@@ -3,16 +3,16 @@
     <tab
         id="@+id/tab_pixiv"
         icon="@drawable/ic_gesture_black_24dp"
-        activeColor="@color/bottom_item_selected"
+        activeColor="@color/colorPrimary"
         inActiveColor="@color/bottom_item_unselected"
         title="推荐"
         barColorWhenSelected="@color/bottom_bg_white" />
     <tab
         id="@+id/tab_rank"
         icon="@drawable/ic_equalizer_black_24dp"
-        title="动态"
+        title="发现"
         inActiveColor="@color/bottom_item_unselected"
-        activeColor="@color/bottom_item_selected"
+        activeColor="@color/colorPrimary"
         barColorWhenSelected="@color/bottom_bg_white" />
 
     <tab
@@ -20,13 +20,13 @@
         icon="@drawable/ic_event_note_black_24dp"
         title="一言"
         inActiveColor="@color/bottom_item_unselected"
-        activeColor="@color/bottom_item_selected"
+        activeColor="@color/colorPrimary"
         barColorWhenSelected="@color/bottom_bg_white" />
     <tab
         id="@+id/tab_mine"
         icon="@drawable/ic_favorite_white_24dp"
         title="我的"
         inActiveColor="@color/bottom_item_unselected"
-        activeColor="@color/bottom_item_selected"
+        activeColor="@color/colorPrimary"
         barColorWhenSelected="@color/bottom_bg_white" />
 </tabs>

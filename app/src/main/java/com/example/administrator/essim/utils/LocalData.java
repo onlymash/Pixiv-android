@@ -4,13 +4,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.administrator.essim.activities.PixivApplication;
-import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.PixivOAuthResponse;
 import com.example.administrator.essim.response.ViewHistory;
+import com.example.administrator.essim.response_re.IllustsBean;
 
 import org.litepal.crud.DataSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LocalData {

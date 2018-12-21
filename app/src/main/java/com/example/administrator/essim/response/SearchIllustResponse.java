@@ -1,5 +1,7 @@
 package com.example.administrator.essim.response;
 
+import com.example.administrator.essim.response_re.IllustsBean;
+
 import java.io.Serializable;
 import java.util.List;
 

@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/sixteen_dip"
-            android:text="前言：Pixiv (beta) 前期的联网策略失效，为了让大家可以继续使用pixiv，我们搭建了一个辅助网站，不知道如何正常登陆的请务必去辅助网站兜一圈，下面的网址轻按直接前往手机端浏览器，长按复制可以去电脑端打开，GO！" />
+            android:text="前言：Pixiv (beta) 前期的联网策略失效，为了让大家可以继续使用pixiv，我们租用了一台VPS，会使用SS的朋友直接复制下面的神秘代码导入SS即可" />
 
         <TextView
             android:id="@+id/key"
@@ -40,17 +40,28 @@
             android:layout_marginBottom="@dimen/sixteen_dip"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="ssrr.world/user"
+            android:text="ss://YWVzLTI1Ni1jZmI6TVRjMVlqSXlPVEA2NS40OS4yMzUuMTAwOjQ0Mw==#mine"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+        android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/sixteen_dip"
-            android:text="网站里有非常详细的配套的傻瓜教程，如果实在有不懂的，来我们的QQ群咨询吧："
-            android:textColor="#333333"
-            android:textSize="16sp" />
+            android:text="不会用SS的同学，下面链接指向的PPT文档是一个使用教程" />
+
+        <TextView
+            android:id="@+id/help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen_dip"
+            android:layout_marginStart="@dimen/sixteen_dip"
+            android:layout_marginEnd="@dimen/sixteen_dip"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:text="http://pixiv-meapi.ceuilisa.com/pan/pixiv.pptx"/>
 
         <TextView
             android:id="@+id/app_qun"

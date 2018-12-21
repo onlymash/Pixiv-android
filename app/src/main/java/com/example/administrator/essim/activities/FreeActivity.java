@@ -13,7 +13,7 @@ import com.example.administrator.essim.utils.Common;
 public class FreeActivity extends BaseActivity {
 
     private Context mContext;
-    private TextView mTextView;
+    private TextView mTextView, mTextView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,13 @@ public class FreeActivity extends BaseActivity {
 
         mTextView.setOnLongClickListener(view -> {
             Common.copyMessage(mContext, mTextView.getText().toString());
+            return true;
+        });
+
+        mTextView2 = findViewById(R.id.help);
+
+        mTextView2.setOnLongClickListener(view -> {
+            Common.copyMessage(mContext, mTextView2.getText().toString());
             return true;
         });
     }

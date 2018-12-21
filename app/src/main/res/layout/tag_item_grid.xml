@@ -17,7 +17,6 @@
             android:id="@+id/pixiv_image"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:foreground="@mipmap/tag_bg"
             android:scaleType="centerCrop" />
 
         <TextView

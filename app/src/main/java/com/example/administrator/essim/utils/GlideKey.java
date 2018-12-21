@@ -2,11 +2,9 @@ package com.example.administrator.essim.utils;
 
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.Headers;
-import com.bumptech.glide.load.model.LazyHeaders;
-import com.example.administrator.essim.response.IllustsBean;
+import com.example.administrator.essim.response_re.IllustsBean;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 为每次图片请求添加Referer
@@ -23,5 +21,21 @@ public class GlideKey {
             return hashMap;
         };
         return new GlideUrl(illustsBean.getImage_urls().getMedium(), header);
+    }
+
+
+    public static GlideUrl getLargeImg(IllustsBean illustsBean, int index){
+
+        Headers header = () -> {
+            HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put(MAP_KEY, MAP_VALUE_HEAD + illustsBean.getId());
+            return hashMap;
+        };
+        if(illustsBean.getPage_count() > 1){
+            return new GlideUrl(illustsBean.getMeta_pages().get(index).getImage_urls().getLarge(), header);
+        }else {
+            return new GlideUrl(illustsBean.getMeta_single_page().getOriginal_image_url(), header);
+        }
+
     }
 }

@@ -2,13 +2,9 @@ package com.example.administrator.essim.network;
 
 import android.util.Log;
 
-import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.LocalData;
+import com.example.administrator.essim.network_re.Retro;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,19 +22,16 @@ public class RestClient {
     static {
         Gson localGson = new GsonBuilder().create();
         /*if(nowLine == 0){*/
-            retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.secure.pixiv.net/")
-                    //retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.secure.pixiv.net/")
-                    .client(getOkHttpClient())
-                    .addConverterFactory(GsonConverterFactory.create(localGson))
-                    .build();
-            retrofit_AppAPI = new Retrofit.Builder().baseUrl("https://app-api.pixiv.net/")
-                    .client(getOkHttpClient())
-                    .addConverterFactory(GsonConverterFactory.create(localGson))
-                    .build();
-            retrofit_Account = new Retrofit.Builder().baseUrl("https://accounts.pixiv.net/")
-                    .client(getOkHttpClient())
-                    .addConverterFactory(GsonConverterFactory.create(localGson))
-                    .build();
+        retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.secure.pixiv.net/")
+                //retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.secure.pixiv.net/")
+                .client(getOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create(localGson))
+                .build();
+        retrofit_AppAPI = Retro.getRetrofitApi();
+        retrofit_Account = new Retrofit.Builder().baseUrl("https://accounts.pixiv.net/")
+                .client(getOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create(localGson))
+                .build();
         /*}else if(nowLine == 1){
             retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.ceuilisa.com/")
                     //retrofit_OAuthSecure = new Retrofit.Builder().baseUrl("https://oauth.secure.pixiv.net/")
@@ -71,7 +64,7 @@ public class RestClient {
     }
 
     private static OkHttpClient getOkHttpClient() {
-        if(okHttpClient == null) {
+        if (okHttpClient == null) {
             HttpLoggingInterceptor localHttpLoggingInterceptor = new HttpLoggingInterceptor(paramString -> {
                 StringBuilder localStringBuilder = new StringBuilder();
                 localStringBuilder.append("message====");
@@ -80,7 +73,6 @@ public class RestClient {
             });
             localHttpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            //builder.dns(HttpDns.getInstance());
             builder.addInterceptor(paramChain -> {//User-Agent: PixivAndroidApp/5.0.104 (Android 6.0.1; D6653)
                 Request localRequest = paramChain.request().newBuilder().addHeader("User-Agent",
                         "PixivAndroidApp/5.0.104 (Android 6.0.1; D6653)").build();

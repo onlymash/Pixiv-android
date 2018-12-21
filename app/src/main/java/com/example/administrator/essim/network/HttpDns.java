@@ -18,7 +18,6 @@ public class HttpDns implements Dns {
     private static HttpDns sHttpDns = null;
 
     private HttpDns() {
-        if (LocalData.getLocalDataSet().getBoolean("inner_dns", true)) {
             for (String address : addresses) {
                 try {
                     newDns.add(InetAddress.getByName(address));
@@ -26,17 +25,6 @@ public class HttpDns implements Dns {
                     e.printStackTrace();
                 }
             }
-        }
-        else {
-            Map<String, ?> map = DnsData.getAllDns(PixivApplication.getContext());
-            for (Map.Entry<String, ?> entry : map.entrySet()) {
-                try {
-                    newDns.add(InetAddress.getByName(String.valueOf(entry.getValue())));
-                } catch (UnknownHostException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     public static void reformatLocalDns(){
@@ -116,7 +104,8 @@ public class HttpDns implements Dns {
      210.129.120.55 www.pixiv.net
      */
 
-    private static final String[] addresses = {"210.140.131.147", "210.129.120.50", "210.140.92.135", "210.140.131.144", "210.129.120.46", "210.140.131.144"};
+    private static final String[] addresses = {"134.175.87.79"};
+    //private static final String[] addresses = {"210.140.131.147", "210.129.120.50", "210.140.92.135", "210.140.131.144", "210.129.120.46", "210.140.131.144"};
     //private static final String[] addresses = {"210.129.120.55", "210.129.120.44", "210.140.131.145", "210.140.131.160", "210.140.131.144"};
     //private static final String[] addresses = {"210.129.120.49", "210.140.131.146", "210.129.120.56", "210.129.120.44", "210.129.120.48"};
     //private static final String[] addresses = {"123.207.137.88", "202.141.162.123", "123.207.56.160", "115.159.220.214"};

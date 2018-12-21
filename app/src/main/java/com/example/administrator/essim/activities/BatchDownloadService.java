@@ -78,7 +78,7 @@ public class BatchDownloadService extends IntentService {
                     File file = Common.generatePictureFile(mContext, Reference.downloadList.get(i), j,
                             LocalData.getLocalDataSet().getInt("file_name_style", 0), 0);
                     if (!file.exists()) {
-                        downloadToLocalSD(Reference.downloadList.get(i).getMeta_pages().get(j).getImage_urlsX().getOriginal(), file,
+                        downloadToLocalSD(Reference.downloadList.get(i).getMeta_pages().get(j).getImage_urls().getOriginal(), file,
                                 String.valueOf(Reference.downloadList.get(i).getId()));
                     }
                 }

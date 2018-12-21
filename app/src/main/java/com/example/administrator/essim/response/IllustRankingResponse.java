@@ -1,10 +1,10 @@
 package com.example.administrator.essim.response;
 
-import java.io.Serializable;
+import com.example.administrator.essim.response_re.IllustsBean;
+
 import java.util.List;
 
-public class IllustRankingResponse
-        implements Serializable {
+public class IllustRankingResponse {
     private List<IllustsBean> illusts;
     private String next_url;
 

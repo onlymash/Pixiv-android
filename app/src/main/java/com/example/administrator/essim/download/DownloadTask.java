@@ -7,9 +7,8 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-import com.example.administrator.essim.response.IllustsBean;
+import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
-import com.sdsmdg.tastytoast.TastyToast;
 
 import java.io.File;
 import java.io.FileOutputStream;

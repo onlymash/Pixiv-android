@@ -27,10 +27,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities_re.FollowActivity;
+import com.example.administrator.essim.activities_re.LoginActivity;
+import com.example.administrator.essim.activities_re.UserDetailActivity;
 import com.example.administrator.essim.fragments.FragmentHitokoto;
 import com.example.administrator.essim.fragments.FragmentMine;
-import com.example.administrator.essim.fragments.FragmentPixiv;
-import com.example.administrator.essim.fragments.FragmentRank;
+import com.example.administrator.essim.fragments_re.FragmentNews;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.presenter.MainPresenter;
 import com.example.administrator.essim.utils.Common;
@@ -53,10 +55,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -80,11 +83,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 textView2.setText(LocalData.getLocalDataSet().getString("email", ""));
             }
             userHead = navigationView.getHeaderView(0).findViewById(R.id.imageView);
-            Glide.with(mContext).load(new GlideUtil().getHead(LocalData.getLocalDataSet().getInt("userid", 0),
-                    LocalData.getLocalDataSet().getString("hearurl", ""))).into(userHead);
             userHead.setOnClickListener(view -> {
                 if (LocalData.getLocalDataSet().getBoolean("islogin", false)) {
-                    Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
+                    Intent intent = new Intent(MainActivity.this, com.example.administrator.essim.activities_re.UserDetailActivity.class);
                     intent.putExtra("user id", LocalData.getLocalDataSet().getInt("userid", 0));
                     startActivity(intent);
                 }
@@ -146,11 +147,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void initFragments() {
-        FragmentPixiv fragmentPixiv = new FragmentPixiv();
-        FragmentRank fragmentRank = new FragmentRank();
+        com.example.administrator.essim.fragments_re.FragmentPixiv fragmentPixiv = new com.example.administrator.essim.fragments_re.FragmentPixiv();
+        FragmentNews fragmentNews = new FragmentNews();
         FragmentHitokoto fragmentHitokoto = new FragmentHitokoto();
         FragmentMine fragmentMine = new FragmentMine();
-        mFragments = new Fragment[]{fragmentPixiv, fragmentRank, fragmentHitokoto, fragmentMine};
+        mFragments = new Fragment[]{fragmentPixiv, fragmentNews, fragmentHitokoto, fragmentMine};
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, fragmentPixiv)
@@ -199,17 +200,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         switch (id) {
             case R.id.show_my_followed_users: {
-                Intent intent = new Intent(mContext, FollowShowActivity.class);
+                Intent intent = new Intent(mContext, FollowActivity.class);
                 intent.putExtra("user id", LocalData.getUserID());
                 intent.putExtra("user name", LocalData.getUserName());
                 mContext.startActivity(intent);
                 break;
             }
             case R.id.show_recommend_users: {
-                Intent intent = new Intent(MainActivity.this, FollowShowActivity.class);
+                Intent intent = new Intent(MainActivity.this, FollowActivity.class);
                 intent.putExtra("user id", LocalData.getUserID());
                 intent.putExtra("user name", LocalData.getUserName());
-                intent.putExtra("show recommend user", true);
                 startActivity(intent);
                 break;
             }
@@ -266,15 +266,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         if (userHead.getDrawable() == null) {
             Glide.with(mContext)
-                    .load(new GlideUtil().getHead(LocalData.getLocalDataSet().getString("hearurl", "")))
+                    .load(new GlideUtil().getHead(LocalData.getLocalDataSet().getString("headurl", "")))
                     .into(userHead);
         }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Common.showLog("点击了一次");
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
             return true;
@@ -289,7 +287,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void exit() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
-            TastyToast.makeText(MainActivity.this, "再按一次退出~", Toast.LENGTH_SHORT, TastyToast.INFO).show();
+            Toast.makeText(mContext, "再按一次退出~", Toast.LENGTH_SHORT).show();
             mExitTime = System.currentTimeMillis();
         } else {
             finish();

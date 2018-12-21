@@ -9,17 +9,23 @@ import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.ViewPagerActivity;
+import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
+import com.example.administrator.essim.network_re.Retro;
 import com.example.administrator.essim.response.BookmarkAddResponse;
 import com.example.administrator.essim.response.IllustDetailResponse;
-import com.example.administrator.essim.response.IllustsBean;
 import com.example.administrator.essim.response.Reference;
-import com.sdsmdg.tastytoast.TastyToast;
+import com.example.administrator.essim.response_re.IllustsBean;
+import com.example.administrator.essim.response_re.SingleIllustResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -141,6 +147,108 @@ public class PixivOperate {
             public void onFailure(@NonNull Call<IllustDetailResponse> call, @NonNull Throwable throwable) {
                 progressBar.setVisibility(View.INVISIBLE);
             }
+        });
+    }
+
+
+
+    public static void postFollowUser(int userID, String followType) {
+        Retro.initToken(() ->
+                Retro.getAppApi().postFollow(
+                        com.example.administrator.essim.utils_re.LocalData.getToken(), userID, followType)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<BookmarkAddResponse>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(BookmarkAddResponse bookmarkAddResponse) {
+                                if (followType.equals("public")) {
+                                    Common.showToast("关注成功~(公开的)");
+                                } else {
+                                    Common.showToast("关注成功~(非公开的)");
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Common.showToast(PixivApp.getContext().getString(R.string.operate_error));
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }));
+    }
+
+    public static void postUnFollowUser(int userID) {
+        Retro.initToken(() ->
+                Retro.getAppApi().postUnFollow(
+                        com.example.administrator.essim.utils_re.LocalData.getToken(), userID)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<BookmarkAddResponse>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(BookmarkAddResponse bookmarkAddResponse) {
+                                Common.showToast("取消关注~");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Common.showToast(PixivApp.getContext().getString(R.string.operate_error));
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }));
+    }
+
+
+    public static void getSingleIllust(Context context, int illustID) {
+        Retro.initToken(() -> {
+            Retro.getAppApi().getSingleIllust(
+                    com.example.administrator.essim.utils_re.LocalData.getToken(), "for_android", illustID)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<SingleIllustResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(SingleIllustResponse singleIllustResponse) {
+                            if (singleIllustResponse != null && singleIllustResponse.getIllust() != null) {
+                                Reference.sIllustsBeans = new ArrayList<>();
+                                Reference.sIllustsBeans.add(singleIllustResponse.getIllust());
+                                Intent intent = new Intent(context, ViewPagerActivity.class);
+                                context.startActivity(intent);
+                            } else {
+                                Common.showToast(context.getString(R.string.load_error));
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Common.showToast(context.getString(R.string.load_error));
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
         });
     }
 }

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,7 +14,7 @@ import com.example.administrator.essim.R;
 import com.example.administrator.essim.download.DownloadTask;
 import com.example.administrator.essim.download.SDDownloadTask;
 import com.example.administrator.essim.fragments.FragmentImageDetail;
-import com.example.administrator.essim.response.IllustsBean;
+import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.LocalData;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -61,10 +60,10 @@ public class ImageDetailActivity extends BaseActivity {
                 } else {
                     if (LocalData.getDownloadPath().contains("emulated")) {
                         //下载至内置SD存储介质，使用传统文件模式;
-                        new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean.getMeta_pages().get(mViewPager.getCurrentItem()).getImage_urlsX().getOriginal());
+                        new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean.getMeta_pages().get(mViewPager.getCurrentItem()).getImage_urls().getOriginal());
                     } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
                         new SDDownloadTask(realFile, mContext, mIllustsBean, LocalData.getLocalDataSet())
-                                .execute(mIllustsBean.getMeta_pages().get(mViewPager.getCurrentItem()).getImage_urlsX().getOriginal());
+                                .execute(mIllustsBean.getMeta_pages().get(mViewPager.getCurrentItem()).getImage_urls().getOriginal());
                     }
                 }
             }

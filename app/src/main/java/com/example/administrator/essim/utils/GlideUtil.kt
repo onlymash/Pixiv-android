@@ -1,9 +1,9 @@
 package com.example.administrator.essim.utils
 
 import com.bumptech.glide.load.model.GlideUrl
-import com.example.administrator.essim.response.IllustsBean
 import com.example.administrator.essim.response.SearchUserResponse
 import com.example.administrator.essim.response.UserDetailResponse
+import com.example.administrator.essim.response_re.IllustsBean
 import java.util.*
 
 /*
@@ -44,7 +44,7 @@ class GlideUtil {
         return if (illustsBean.page_count == 1) {
             GlideUrl(illustsBean.image_urls.medium, headers)
         } else {
-            GlideUrl(illustsBean.meta_pages[index].image_urlsX.medium, headers)
+            GlideUrl(illustsBean.meta_pages[index].image_urls.medium, headers)
         }
     }
 
@@ -64,7 +64,7 @@ class GlideUtil {
             header
         }
         return when {
-            illustsBean.page_count > 1 -> GlideUrl(illustsBean.meta_pages[index].image_urlsX.original, headers)
+            illustsBean.page_count > 1 -> GlideUrl(illustsBean.meta_pages[index].image_urls.original, headers)
             else -> GlideUrl(illustsBean.meta_single_page.original_image_url, headers)
         }
     }

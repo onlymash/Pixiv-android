@@ -16,15 +16,14 @@ import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.network.AppApiPixivService
 import com.example.administrator.essim.network.OAuthSecureService
 import com.example.administrator.essim.network.RestClient
-import com.example.administrator.essim.response.IllustsBean
 import com.example.administrator.essim.response.PixivOAuthResponse
 import com.example.administrator.essim.response.RecommendResponse
 import com.example.administrator.essim.response.Reference
+import com.example.administrator.essim.response_re.IllustsBean
 import com.example.administrator.essim.utils.*
 import kotlinx.android.synthetic.main.fragment_pixiv_left.*
 import retrofit2.Call
 import retrofit2.Callback
-import java.io.Serializable
 import java.util.*
 
 class FragmentPixivLeft : BaseFragment() {
@@ -47,8 +46,8 @@ class FragmentPixivLeft : BaseFragment() {
 
     private fun initView() {
         mRecyclerView.layoutManager = gridLayoutManager
-        mRecyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        mRecyclerView.setOnScrollListener(object:RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition()
                 val totalItemCount = mPixivAdapter?.itemCount
@@ -117,7 +116,7 @@ class FragmentPixivLeft : BaseFragment() {
                         mRecyclerView.visibility = View.VISIBLE
                         no_data.visibility = View.INVISIBLE;
                         mProgressbar.visibility = View.INVISIBLE
-                        ((parentFragment as FragmentPixiv).mFragments[1] as FragmentPixivRight).getHotTags()
+                        //((parentFragment as FragmentPixiv).mFragments[1] as FragmentPixivRight).getHotTags()
                     }else{
                         mProgressbar.visibility = View.INVISIBLE
                         no_data.visibility = View.VISIBLE;

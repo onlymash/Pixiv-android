@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.administrator.essim.R
 import com.example.administrator.essim.interf.OnItemClickListener
-import com.example.administrator.essim.response.IllustsBean
+import com.example.administrator.essim.response_re.IllustsBean
 import com.example.administrator.essim.utils.GlideUtil
 import kotlinx.android.synthetic.main.pixiv_item_grid.view.*
 

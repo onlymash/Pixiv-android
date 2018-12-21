@@ -116,7 +116,7 @@ public class FollowShowActivity extends BaseActivity {
                         @Override
                         public void onItemClick(View view, int position, int viewType) {
                             try {
-                                Intent intent = new Intent(mContext, UserDetailActivity.class);
+                                Intent intent = new Intent(mContext, com.example.administrator.essim.activities_re.UserDetailActivity.class);
                                 intent.putExtra("user id", mUserPreviewsBeanList.get(position)
                                         .getUser().getId());
                                 startActivity(intent);
@@ -170,7 +170,7 @@ public class FollowShowActivity extends BaseActivity {
                         @Override
                         public void onItemClick(View view, int position, int viewType) {
                             try {
-                                Intent intent = new Intent(mContext, UserDetailActivity.class);
+                                Intent intent = new Intent(mContext, com.example.administrator.essim.activities_re.UserDetailActivity.class);
                                 intent.putExtra("user id", mUserPreviewsBeanList.get(position)
                                         .getUser().getId());
                                 startActivity(intent);
@@ -217,7 +217,7 @@ public class FollowShowActivity extends BaseActivity {
                     @Override
                     public void onItemClick(View view, int position, int viewType) {
                         try {
-                            Intent intent = new Intent(mContext, UserDetailActivity.class);
+                            Intent intent = new Intent(mContext, com.example.administrator.essim.activities_re.UserDetailActivity.class);
                             intent.putExtra("user id", mUserPreviewsBeanList.get(position)
                                     .getUser().getId());
                             startActivity(intent);

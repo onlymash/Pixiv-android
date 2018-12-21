@@ -28,7 +28,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="36dp"
-        android:src="@mipmap/login_logo"
+        android:src="@mipmap/logo_trans"
         app:layout_constraintBottom_toTopOf="@+id/card_pixiv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
