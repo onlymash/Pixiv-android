@@ -13,7 +13,7 @@ import android.support.v4.provider.DocumentFile;
 
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
-import com.sdsmdg.tastytoast.TastyToast;
+import com.example.administrator.essim.utils_re.LocalData;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,11 +49,11 @@ public class SDDownloadTask extends AsyncTask<String, Integer, Bitmap> {
     private SharedPreferences mSharedPreferences;
     private DocumentFile finalDocument;
 
-    public SDDownloadTask(File file, Context context, IllustsBean illustsBean, SharedPreferences sharedPreferences) {
+    public SDDownloadTask(File file, Context context, IllustsBean illustsBean) {
         realFile = file;
         mContext = context;
         mIllustsBeans = illustsBean;
-        mSharedPreferences = sharedPreferences;
+        mSharedPreferences = LocalData.getLocalDataSet();
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setTitle("提示信息");
         progressDialog.setMessage("正在下载...");
@@ -91,8 +91,7 @@ public class SDDownloadTask extends AsyncTask<String, Integer, Bitmap> {
             // 这一步，将会获取到目标文件的DocumentFile
             finalDocument = document;
         } catch (Exception e) {
-            ((Activity) mContext).runOnUiThread(() -> TastyToast.makeText(mContext, "请先配置SD卡的读写权限!",
-                    TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show());
+            ((Activity) mContext).runOnUiThread(() -> Common.showToast("请先配置SD卡的读写权限!"));
             return null;
         }
         // 之后就好办了，直接输出流，到finalDocument
@@ -127,8 +126,7 @@ public class SDDownloadTask extends AsyncTask<String, Integer, Bitmap> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ((Activity) mContext).runOnUiThread(() -> TastyToast.makeText(mContext, "下载完成~",
-                TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show());
+        ((Activity) mContext).runOnUiThread(() -> Common.showToast("下载完成~"));
         return null;
     }
 

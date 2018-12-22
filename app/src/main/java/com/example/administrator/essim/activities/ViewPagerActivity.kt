@@ -40,7 +40,6 @@ class ViewPagerActivity : BaseActivity() {
 
             override fun getCount(): Int = allIllust.size
         }
-        mViewPager.setPageTransformer(true, ZoomOutTranformer())
         //mViewPager.setPageTransformer(true, AccordionTransformer())
         mViewPager.currentItem = index
     }

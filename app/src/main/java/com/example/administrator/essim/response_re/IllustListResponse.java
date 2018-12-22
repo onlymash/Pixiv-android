@@ -12,6 +12,12 @@ public class IllustListResponse {
     private String next_url;
     private List<IllustsBean> illusts;
 
+
+
+
+
+
+
     public String getNext_url() {
         return next_url;
     }

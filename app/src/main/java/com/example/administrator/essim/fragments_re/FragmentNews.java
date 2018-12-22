@@ -17,7 +17,7 @@ public class FragmentNews extends BaseFragment {
 
     private ViewPager mViewPager;
     private TextView mTextView;
-    private static final String[] TITLES = new String[]{"榜单", "动态", "特辑"};
+    private static final String[] TITLES = new String[]{"动态", "榜单", "特辑"};
 
 
     @Override
@@ -61,6 +61,7 @@ public class FragmentNews extends BaseFragment {
 
             }
         });
+        mViewPager.setCurrentItem(1);
     }
 
     @Override

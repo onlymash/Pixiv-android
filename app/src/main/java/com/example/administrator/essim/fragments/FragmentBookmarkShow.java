@@ -21,7 +21,7 @@ import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.AllBookmarkTagResponse;
 import com.example.administrator.essim.response.SingleTag;
 import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.LocalData;
+import com.example.administrator.essim.utils_re.LocalData;
 
 import org.jetbrains.annotations.NotNull;
 

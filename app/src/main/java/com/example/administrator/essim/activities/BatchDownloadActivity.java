@@ -19,8 +19,7 @@ import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.GridItemDecoration;
-import com.example.administrator.essim.utils.LocalData;
-import com.sdsmdg.tastytoast.TastyToast;
+import com.example.administrator.essim.utils_re.LocalData;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -114,10 +113,10 @@ public class BatchDownloadActivity extends BaseActivity {
                 break;
             case R.id.action_start:
                 if (Reference.downloadList.size() == 0) {
-                    Snackbar.make(mRecyclerView, "你要下个什么？！", Snackbar.LENGTH_SHORT).show();
+                    Common.showToast("你要下个什么？！");
                 } else {
                     if (LocalData.getDownloadPath().contains("emulated")) {
-                        TastyToast.makeText(mContext, "开始下载了", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                        Common.showToast("开始下载了");
                         Intent intentService = new Intent(this, BatchDownloadService.class);
                         startService(intentService);
                     } else {

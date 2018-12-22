@@ -1,19 +1,14 @@
 package com.example.administrator.essim.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 
-import com.example.administrator.essim.activities.MainActivity;
-import com.example.administrator.essim.activities.SearchResultActivity;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.AnnounceResponse;
 import com.example.administrator.essim.response.OnlineResponse;
 import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.LocalData;
+import com.example.administrator.essim.utils_re.LocalData;
 import com.example.administrator.essim.views.MainView;
-import com.sdsmdg.tastytoast.TastyToast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +28,6 @@ public class MainPresenter implements BasePresenter {
     @Override
     public void start() {
         timeHandler.post(runnable);
-        getR18Pwd();
     }
 
     @Override
@@ -44,7 +38,6 @@ public class MainPresenter implements BasePresenter {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Common.showLog("正在获取在线人数~");
             getOnlineCount();
             timeHandler.postDelayed(this, 60 * 1000);
         }
@@ -69,7 +62,7 @@ public class MainPresenter implements BasePresenter {
         });
     }
 
-    private void getR18Pwd() {
+    /*private void getR18Pwd() {
         Call<AnnounceResponse> call = new RestClient().getOnlineApi().getPassword();
         call.enqueue(new Callback<AnnounceResponse>() {
             @Override
@@ -85,5 +78,5 @@ public class MainPresenter implements BasePresenter {
 
             }
         });
-    }
+    }*/
 }

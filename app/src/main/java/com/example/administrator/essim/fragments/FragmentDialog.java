@@ -22,8 +22,8 @@ import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.BookmarkDetailResponse;
 import com.example.administrator.essim.response_re.IllustsBean;
-import com.example.administrator.essim.utils.LocalData;
 import com.example.administrator.essim.utils.PixivOperate;
+import com.example.administrator.essim.utils_re.LocalData;
 
 import org.jetbrains.annotations.NotNull;
 

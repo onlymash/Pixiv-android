@@ -27,7 +27,6 @@ import com.example.administrator.essim.response.HitoModel;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.LinearItemDecoration;
-import com.sdsmdg.tastytoast.TastyToast;
 
 import org.litepal.crud.DataSupport;
 
@@ -74,13 +73,7 @@ public class FragmentMine extends BaseFragment {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData mClipData = ClipData.newPlainText("Label", mHitoModels.get(position).getHitokoto());
-                if (cm != null) {
-                    cm.setPrimaryClip(mClipData);
-                }
-                TastyToast.makeText(mContext, mHitoModels.get(position).getHitokoto() + " 已复制到剪切板~"
-                        , TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                Common.copyMessage(mContext, mHitoModels.get(position).getHitokoto());
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -171,7 +164,7 @@ public class FragmentMine extends BaseFragment {
             if (ListHitokotoAdapter.is_editable) {
                 createDialog(0, "选中的", 1);
             } else {
-                TastyToast.makeText(mContext, "请先进入<编辑>模式", TastyToast.LENGTH_SHORT, TastyToast.CONFUSING);
+                Common.showToast("请先进入<编辑>模式");
             }
         } else if (item.getItemId() == R.id.delete_all) {
             if (mHitoModels.size() != 0) {

@@ -84,8 +84,7 @@ public class RecyclerViewActivity extends BaseActivity {
         viewHistoryAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NotNull View view, int position, int viewType) {
-                PixivOperate.getSingleIllust(mProgressBar, mContext,
-                        Long.parseLong(list.get(position).getIllust_id()));
+                PixivOperate.getSingleIllust(mContext, Integer.valueOf(list.get(position).getIllust_id()), mProgressBar);
             }
 
             @Override

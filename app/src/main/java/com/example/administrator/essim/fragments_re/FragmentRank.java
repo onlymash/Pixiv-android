@@ -1,23 +1,31 @@
 package com.example.administrator.essim.fragments_re;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.adapters_re.IllustAdapter;
+import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network_re.Retro;
+import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response_re.IllustListResponse;
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.GridItemDecoration;
+import com.example.administrator.essim.utils.PixivOperate;
 import com.example.administrator.essim.utils_re.LocalData;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +101,26 @@ public class FragmentRank extends BaseFragment {
                                     allIllusts = illustListResponse.getIllusts();
                                     nextUrl = illustListResponse.getNext_url();
                                     mAdapter = new IllustAdapter(allIllusts, mContext);
+                                    mAdapter.setOnItemClickListener(new OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(@NotNull View view, int position, int viewType) {
+                                            if (viewType == 0){
+                                                Reference.sIllustsBeans = allIllusts;
+                                                Intent intent = new Intent(mContext, ViewPagerActivity.class);
+                                                intent.putExtra("which one is selected", position);
+                                                mContext.startActivity(intent);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onItemLongClick(@NotNull View view, int position) {
+                                            if(!allIllusts.get(position).isIs_bookmarked()){
+                                                allIllusts.get(position).setIs_bookmarked(true);
+                                                ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
+                                                PixivOperate.postStarIllust(allIllusts.get(position).getId(), mContext, "private");
+                                            }
+                                        }
+                                    });
                                     mRecyclerView.setAdapter(mAdapter);
                                     mRefreshLayout.finishRefresh(true);
                                 } else {

@@ -14,7 +14,7 @@
         android:layout_marginTop="54dp"
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
-        android:text="推荐"
+        android:text="榜单"
         android:layout_height="wrap_content" />
 
 
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:id="@+id/view_pager"
         android:clipToPadding="false"
-        android:padding="48dp"
+        android:padding="32dp"
         android:layout_height="match_parent">
 
 

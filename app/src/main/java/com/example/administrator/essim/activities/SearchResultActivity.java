@@ -28,8 +28,8 @@ import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.GridItemDecoration;
-import com.example.administrator.essim.utils.LocalData;
 import com.example.administrator.essim.utils.PixivOperate;
+import com.example.administrator.essim.utils_re.LocalData;
 
 import org.jetbrains.annotations.NotNull;
 

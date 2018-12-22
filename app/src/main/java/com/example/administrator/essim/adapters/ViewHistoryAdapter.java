@@ -14,8 +14,7 @@ import com.example.administrator.essim.R;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.response.ViewHistory;
 import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.GlideUtil;
-import com.othershe.library.NiceImageView;
+import com.example.administrator.essim.utils_re.GlideUtil;
 
 import java.util.List;
 
@@ -55,9 +54,8 @@ public class ViewHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ((TagHolder) holder).mNiceImageView.getLayoutParams().width = imageWidth;
         ((TagHolder) holder).mNiceImageView.getLayoutParams().height = imageHeight;
         if(mDonaterNames.get(position).getImg_url() != null) {
-            Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(
-                    mDonaterNames.get(position).getIllust_id(),
-                    mDonaterNames.get(position).getImg_url()))
+            Glide.with(mContext).load(
+                    GlideUtil.getMediumImg(mDonaterNames.get(position).getImg_url()))
                     .into(((TagHolder) holder).mNiceImageView);
         }
         ((TagHolder) holder).mTextView.setText(mDonaterNames.get(position).getIllust_title());

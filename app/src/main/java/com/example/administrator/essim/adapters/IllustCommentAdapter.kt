@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.administrator.essim.R
 import com.example.administrator.essim.interf.OnItemClickListener
 import com.example.administrator.essim.response.IllustCommentsResponse
-import com.example.administrator.essim.utils.GlideUtil
+import com.example.administrator.essim.utils_re.GlideUtil
 import kotlinx.android.synthetic.main.comment_item.view.*
 
 class IllustCommentAdapter(private val mPixivRankItem: List<IllustCommentsResponse.CommentsBean>,
@@ -22,8 +22,7 @@ class IllustCommentAdapter(private val mPixivRankItem: List<IllustCommentsRespon
             TagHolder(mLayoutInflater.inflate(R.layout.comment_item, parent, false))
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Glide.with(mContext).load(GlideUtil().getHead(mPixivRankItem[position].user.id.toLong(),
-                mPixivRankItem[position].user.profile_image_urls.medium))
+        Glide.with(mContext).load(GlideUtil.getUserHead(mPixivRankItem[position].user))
                 .into((holder as TagHolder).itemView.comment_head)
         holder.itemView.comment_content.text = mPixivRankItem[position].comment
         holder.itemView.comment_name.text = mPixivRankItem[position].user.name

@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.LocalData;
+import com.example.administrator.essim.utils_re.LocalData;
 
 public class R18Dialog extends DialogFragment {
 

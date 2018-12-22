@@ -33,11 +33,9 @@ import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.RelatedIllust;
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.GlideKey;
-import com.example.administrator.essim.utils.GlideUtil;
-import com.example.administrator.essim.utils.LocalData;
 import com.example.administrator.essim.utils.PixivOperate;
-import com.sdsmdg.tastytoast.TastyToast;
+import com.example.administrator.essim.utils_re.GlideUtil;
+import com.example.administrator.essim.utils_re.LocalData;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -96,15 +94,13 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         imageView2.setLayoutParams(params);
         imageView2.setOnClickListener(this);
         imageView3.setOnClickListener(this);
-        Glide.get(mContext).clearMemory();
-
-        Glide.with(getContext()).load(new GlideUtil().getMediumImageUrl(mIllustsBean))
+        Glide.with(getContext()).load(GlideUtil.getSquare(mIllustsBean))
                 .bitmapTransform(new BlurTransformation(mContext, 20, 2))
                 .into(imageView);
         ProgressBar progressBar = view.findViewById(R.id.try_login);
         progressBar.setIndeterminateDrawable(Common.getLoaderAnimation(mContext));
         if (LocalData.getLocalDataSet().getBoolean("is_origin_pic", true)) {
-            Glide.with(mContext).load(new GlideUtil().getLargeImageUrl(mIllustsBean, 0))
+            Glide.with(mContext).load(GlideUtil.getLargeImage(mIllustsBean))
                     .priority(priority.equals("high") ? Priority.IMMEDIATE : Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(new GlideDrawableImageViewTarget(imageView2) {
@@ -115,7 +111,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                         }
                     });
         } else {
-            Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(mIllustsBean))
+            Glide.with(mContext).load(GlideUtil.getMediumImg(mIllustsBean))
                     .priority(priority.equals("high") ? Priority.IMMEDIATE : Priority.NORMAL)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(new GlideDrawableImageViewTarget(imageView2) {
@@ -126,7 +122,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                         }
                     });
         }
-        Glide.with(mContext).load(new GlideUtil().getHead(mIllustsBean.getUser().getProfile_image_urls().getMedium()))
+        Glide.with(mContext).load(GlideUtil.getUserHead(mIllustsBean.getUser()))
                 .into(imageView3);
         TextView textView = view.findViewById(R.id.detail_author);
         mTextView = view.findViewById(R.id.is_following);
@@ -238,13 +234,13 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
             public void onResponse(Call<RelatedIllust> call, retrofit2.Response<RelatedIllust> response) {
                 mRelatedIllust = response.body();
                 if (mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3 && getView() != null) {
-                    Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(mRelatedIllust.illusts.get(0)))
+                    Glide.with(mContext).load(GlideUtil.getMediumImg(mRelatedIllust.illusts.get(0)))
                             .priority(Priority.LOW)
                             .into(imageView);
-                    Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(mRelatedIllust.illusts.get(1)))
+                    Glide.with(mContext).load(GlideUtil.getMediumImg(mRelatedIllust.illusts.get(1)))
                             .priority(Priority.LOW)
                             .into(imageView2);
-                    Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(mRelatedIllust.illusts.get(2)))
+                    Glide.with(mContext).load(GlideUtil.getMediumImg(mRelatedIllust.illusts.get(2)))
                             .priority(Priority.LOW)
                             .into(imageView3);
                 } else {
@@ -279,8 +275,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 File realFile = Common.generatePictureFile(mContext, mIllustsBean, 0,
                         LocalData.getLocalDataSet().getInt("file_name_style", 0), 1);
                 if (realFile.length() != 0) {
-                    TastyToast.makeText(mContext, "该文件已存在~",
-                            TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
+                    Common.showToast("该文件已存在~");
                 } else {
                     //只有一张图的情况下，从meta_single_page获取原图链接
                     if (mIllustsBean.getPage_count() == 1) {
@@ -289,8 +284,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                             new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean
                                     .getMeta_single_page().getOriginal_image_url());
                         } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
-                            new SDDownloadTask(realFile, mContext, mIllustsBean,
-                                    LocalData.getLocalDataSet()).execute(mIllustsBean.getMeta_single_page()
+                            new SDDownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean.getMeta_single_page()
                                     .getOriginal_image_url());
                         }
                     } else { //有多图的情况下，从meta_pages获取原图链接
@@ -299,7 +293,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                             new DownloadTask(realFile, mContext, mIllustsBean).execute(mIllustsBean
                                     .getMeta_pages().get(0).getImage_urls().getOriginal());
                         } else {//下载至可插拔SD存储介质，使用SAF 框架，DocumentFile文件模式;
-                            new SDDownloadTask(realFile, mContext, mIllustsBean, LocalData.getLocalDataSet())
+                            new SDDownloadTask(realFile, mContext, mIllustsBean)
                                     .execute(mIllustsBean.getMeta_pages().get(0).getImage_urls().getOriginal());
                         }
                     }
@@ -311,8 +305,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                     mIllustsBean.getUser().setIs_followed(false);
                     mTextView.setText("+关注");
                 } else {
-                    Common.postFollowUser(LocalData.getToken(),
-                            mIllustsBean.getUser().getId(), mTextView, "public");
+                    PixivOperate.postFollowUser(mIllustsBean.getUser().getId(), "public");
                     mIllustsBean.getUser().setIs_followed(true);
                     mTextView.setText("取消关注");
                 }

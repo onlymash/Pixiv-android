@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.response.Reference;
+import com.example.administrator.essim.utils.PixivOperate;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -114,7 +115,11 @@ public class FragmentUserWorks extends BaseFragment {
 
                                             @Override
                                             public void onItemLongClick(@NotNull View view, int position) {
-
+                                                if(!allIllusts.get(position).isIs_bookmarked()){
+                                                    allIllusts.get(position).setIs_bookmarked(true);
+                                                    ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
+                                                    PixivOperate.postStarIllust(allIllusts.get(position).getId(), mContext, "private");
+                                                }
                                             }
                                         });
                                         mRecyclerView.setAdapter(mAdapter);

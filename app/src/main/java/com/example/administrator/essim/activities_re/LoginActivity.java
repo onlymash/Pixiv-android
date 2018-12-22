@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.MainActivity;
@@ -57,7 +58,23 @@ public class LoginActivity extends BaseActivity {
                 2, DensityUtil.dip2px(mContext, 4.0f), false));
         mRecyclerView.setHasFixedSize(true);
         userName = findViewById(R.id.login_username);
+        if(LocalData.getUserAccount().length() != 0){
+            userName.setText(LocalData.getUserAccount());
+        }
         password = findViewById(R.id.login_password);
+        if(LocalData.getUserPwd().length() != 0){
+            password.setText(LocalData.getUserPwd());
+        }
+        TextView loginError = findViewById(R.id.login_error);
+        loginError.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, FreeActivity.class);
+            startActivity(intent);
+        });
+        TextView newUser = findViewById(R.id.new_user);
+        newUser.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, NewUserActivity.class);
+            startActivity(intent);
+        });
         CardView loginButton = findViewById(R.id.login);
         loginButton.setOnClickListener(v -> login());
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -82,7 +99,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(mRecyclerView.getAdapter() != null) {
+        if (mRecyclerView.getAdapter() != null) {
             /**
              * 继续滚动背景图
              */
@@ -95,7 +112,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mRecyclerView.getAdapter() != null) {
+        if (mRecyclerView.getAdapter() != null) {
             /**
              * 停止滚动背景图
              */

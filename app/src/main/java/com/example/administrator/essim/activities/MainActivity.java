@@ -1,22 +1,16 @@
 package com.example.administrator.essim.activities;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,29 +21,29 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities_re.ArticleActivity;
 import com.example.administrator.essim.activities_re.FollowActivity;
 import com.example.administrator.essim.activities_re.LoginActivity;
 import com.example.administrator.essim.activities_re.UserDetailActivity;
 import com.example.administrator.essim.fragments.FragmentHitokoto;
 import com.example.administrator.essim.fragments.FragmentMine;
 import com.example.administrator.essim.fragments_re.FragmentNews;
-import com.example.administrator.essim.network.RestClient;
+import com.example.administrator.essim.interf.OnPrepared;
 import com.example.administrator.essim.presenter.MainPresenter;
 import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.GlideUtil;
-import com.example.administrator.essim.utils.LocalData;
-import com.example.administrator.essim.utils.VersionCheck;
+import com.example.administrator.essim.utils_re.GlideUtil;
+import com.example.administrator.essim.utils_re.LocalData;
 import com.example.administrator.essim.views.MainView;
 import com.roughike.bottombar.BottomBar;
-import com.sdsmdg.tastytoast.TastyToast;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener , MainView {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainView {
 
     private long mExitTime;
     private DrawerLayout drawer;
     private int lastShowFragment;
     private Fragment[] mFragments;
-    private ImageView mImageView, userHead;
+    private ImageView userHead;
     private MainPresenter mPresenter;
     private TextView mTextView;
 
@@ -59,52 +53,46 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        drawer = findViewById(R.id.drawer_layout);
+
+        checkPermission(this::initView);
+    }
+
+    private void initView() {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //获取读写本地文件的权限
-        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((Activity) mContext, new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
-        //判断是否有登录记录，没登录就去LoginActivity，登录了就加载视图
-        if (LocalData.getLocalDataSet().getBoolean("islogin", false)) {
+        userHead = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        if (LocalData.isLogin()) {
+            drawer = findViewById(R.id.drawer_layout);
             TextView textView = navigationView.getHeaderView(0).findViewById(R.id.username);
             TextView textView2 = navigationView.getHeaderView(0).findViewById(R.id.useremail);
             textView.setText(LocalData.getUserName()
                     .equals(LocalData.getUserAccount()) ?
                     LocalData.getUserName() : String.format("%s (%s)",
-                    LocalData.getUserName() ,
+                    LocalData.getUserName(),
                     LocalData.getUserAccount()));
             if (LocalData.getLocalDataSet().getString("email", "").length() != 0) {
                 textView2.setText(LocalData.getLocalDataSet().getString("email", ""));
             }
-            userHead = navigationView.getHeaderView(0).findViewById(R.id.imageView);
             userHead.setOnClickListener(view -> {
-                if (LocalData.getLocalDataSet().getBoolean("islogin", false)) {
-                    Intent intent = new Intent(MainActivity.this, com.example.administrator.essim.activities_re.UserDetailActivity.class);
-                    intent.putExtra("user id", LocalData.getLocalDataSet().getInt("userid", 0));
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
+                intent.putExtra("user id", LocalData.getUserID());
+                startActivity(intent);
             });
-            mImageView = navigationView.getHeaderView(0).findViewById(R.id.header_img);
             BottomBar bottomBar = findViewById(R.id.bottomBar);
             bottomBar.setOnTabSelectListener(tabId -> {
                 switch (tabId) {
                     case R.id.tab_pixiv:
-                        switchFrament(0);
+                        switchFragment(0);
                         break;
                     case R.id.tab_rank:
-                        switchFrament(1);
+                        switchFragment(1);
                         break;
                     case R.id.tab_hitokoto:
-                        switchFrament(2);
+                        switchFragment(2);
                         break;
                     case R.id.tab_mine:
-                        switchFrament(3);
+                        switchFragment(3);
                         break;
                     default:
                         break;
@@ -122,12 +110,28 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
+    private void checkPermission(OnPrepared onPrepared) {
+        final RxPermissions rxPermissions = new RxPermissions(this);
+
+        rxPermissions
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_PHONE_STATE)
+                .subscribe(granted -> {
+                    if (granted) {
+                        onPrepared.doSomething();
+                    } else {
+                        // At least one permission is denied
+                        Common.showToast("请给予足够的权限");
+                    }
+                });
+    }
+
     /**
      * 切换Fragment
      *
      * @param index 需要显示的index
      */
-    public void switchFrament(int index) {
+    public void switchFragment(int index) {
         if (lastShowFragment == index) {
             return;
         }
@@ -175,27 +179,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return super.onOptionsItemSelected(item);
     }
 
-    private void createDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("店长推荐：");
-        builder.setMessage("请确认你的账号已开启R-18");
-        builder.setCancelable(true);
-        builder.setPositiveButton("我已经开好了", (dialogInterface, i) -> {
-            Intent intent = new Intent(mContext, SearchResultActivity.class);
-            intent.putExtra("what is the keyword", "R-18");
-            mContext.startActivity(intent);
-        });
-        builder.setNegativeButton("没开", (dialogInterface, i) -> runOnUiThread(() ->
-                TastyToast.makeText(MainActivity.this, "你是个好人",
-                        TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show()));
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id) {
@@ -215,7 +201,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
             case R.id.nav_gallery: {
                 //特辑走一波
-                Intent intent = new Intent(mContext, SpecialCollectionActivity.class);
+                Intent intent = new Intent(mContext, ArticleActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -258,16 +244,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onResume() {
         super.onResume();
-        if (LocalData.getLocalDataSet().getString("header_img_path", "").length() != 0 &&
-                mImageView.getDrawable() == null) {
-            Glide.with(mContext)
-                    .load(LocalData.getLocalDataSet().getString("header_img_path", ""))
-                    .into(mImageView);
-        }
-        if (userHead.getDrawable() == null) {
-            Glide.with(mContext)
-                    .load(new GlideUtil().getHead(LocalData.getLocalDataSet().getString("headurl", "")))
-                    .into(userHead);
+        if (LocalData.getHeadImage().length() != 0) {
+            if (userHead.getDrawable() == null) {
+                Glide.with(mContext)
+                        .load(GlideUtil.getUserHead(LocalData.getHeadImage()))
+                        .into(userHead);
+            }
         }
     }
 

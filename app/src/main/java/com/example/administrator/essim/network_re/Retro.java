@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities_re.PixivApp;
-import com.example.administrator.essim.interf.OnTokenPrepared;
+import com.example.administrator.essim.interf.OnPrepared;
 import com.example.administrator.essim.response_re.LoginResponse;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils_re.LocalData;
@@ -26,6 +26,7 @@ public class Retro {
 
     private static final String API_BASE_URL = "https://app-api.pixiv.net";
     private static final String LOGIN_BASE_URL = "https://oauth.secure.pixiv.net";
+    private static final String ACCOUNT_BASE_URL = "https://accounts.pixiv.net";
     //private static final String LOGIN_BASE_URL = "https://144.34.229.245";
 
     private static final String HEADER_NAME = "User-Agent";
@@ -71,6 +72,16 @@ public class Retro {
         return retrofit.create(LoginApi.class);
     }
 
+    public static AccountApi getAccountApi() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(getOkhttp())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(ACCOUNT_BASE_URL)
+                .build();
+        return retrofit.create(AccountApi.class);
+    }
+
     private static OkHttpClient getOkhttp() {
         return new OkHttpClient
                 .Builder()
@@ -92,7 +103,7 @@ public class Retro {
         return loggingInterceptor;
     }
 
-    public static void initToken(OnTokenPrepared onTokenPrepared) {
+    public static void initToken(OnPrepared onPrepared) {
         if (System.currentTimeMillis() - LocalData.getLastTokenTime() >= ONE_HOUR) {
             Retro.getLoginApi().refreshToken(
                     LOGIN_PARAM_1,
@@ -125,11 +136,11 @@ public class Retro {
 
                         @Override
                         public void onComplete() {
-                            onTokenPrepared.doSomething();
+                            onPrepared.doSomething();
                         }
                     });
         } else {
-            onTokenPrepared.doSomething();
+            onPrepared.doSomething();
         }
     }
 }

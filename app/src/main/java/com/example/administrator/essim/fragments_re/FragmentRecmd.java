@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
@@ -17,6 +18,7 @@ import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.GridItemDecoration;
+import com.example.administrator.essim.utils.PixivOperate;
 import com.example.administrator.essim.utils_re.LocalData;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -99,7 +101,11 @@ public class FragmentRecmd extends BaseFragment {
 
                                     @Override
                                     public void onItemLongClick(@NotNull View view, int position) {
-
+                                        if(!allIllusts.get(position).isIs_bookmarked()){
+                                            allIllusts.get(position).setIs_bookmarked(true);
+                                            ((ImageView) view).setImageResource(R.drawable.ic_favorite_white_24dp);
+                                            PixivOperate.postStarIllust(allIllusts.get(position).getId(), mContext, "private");
+                                        }
                                     }
                                 });
                                 mRecyclerView.setAdapter(mAdapter);

@@ -46,6 +46,7 @@ public class LoginBgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((TagHolder) holder).mImageView.getLayoutParams().height = imgHeight;
         Glide.with(mContext).load(GlideUtil.getMediumImg(allIllust.get(position))).into(((TagHolder) holder).mImageView);
         ((TagHolder) holder).star.setVisibility(View.INVISIBLE);
+        ((TagHolder) holder).mTextView.setVisibility(View.INVISIBLE);
         if(mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position, 0));
         }

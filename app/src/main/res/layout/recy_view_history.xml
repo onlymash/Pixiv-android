@@ -10,9 +10,6 @@
         android:layout_marginStart="@dimen/eight_dip"
         android:layout_marginTop="@dimen/eight_dip"
         android:layout_marginBottom="@dimen/eight_dip"
-        android:clickable="true"
-        android:foreground="?attr/selectableItemBackground"
-        android:stateListAnimator="@animator/touch_raise"
         android:id="@+id/card"
         android:layout_height="wrap_content">
 

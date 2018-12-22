@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.response_re.IllustsBean;
-import com.example.administrator.essim.utils.GlideUtil;
+import com.example.administrator.essim.utils_re.GlideUtil;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class BatchSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((TagHolder) holder).mImageView.getLayoutParams().height = imageHeight;
-        Glide.with(mContext).load(new GlideUtil().getMediumImageUrl(allIllust.get(position)))
+        Glide.with(mContext).load(GlideUtil.getMediumImg(allIllust.get(position)))
                 .into(((TagHolder) holder).mImageView);
         if (allIllust.get(position).getPage_count() == 1) {
             ((TagHolder) holder).mTextView.setVisibility(View.INVISIBLE);

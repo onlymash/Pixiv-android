@@ -11,7 +11,7 @@ import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
 import com.example.administrator.essim.R
 import com.example.administrator.essim.activities.ImageDetailActivity
-import com.example.administrator.essim.utils.GlideUtil
+import com.example.administrator.essim.utils_re.GlideUtil
 import com.github.ybq.android.spinkit.style.Wave
 import kotlinx.android.synthetic.main.fragment_image_detail.*
 
@@ -28,7 +28,7 @@ class FragmentImageDetail : BaseFragment() {
         val wave = Wave()
         mProgressbar.indeterminateDrawable = wave
         Glide.get(mContext).clearMemory()
-        Glide.with(mContext).load<GlideUrl>(GlideUtil().getLargeImageUrl(illustsBean, index))
+        Glide.with(mContext).load<GlideUrl>(GlideUtil.getLargeImage(illustsBean, index))
                 .into<GlideDrawableImageViewTarget>(object : GlideDrawableImageViewTarget(originalImage) {
                     override fun onResourceReady(drawable: GlideDrawable?, animation: GlideAnimation<in GlideDrawable>?) {
                         if (mProgressbar != null) {

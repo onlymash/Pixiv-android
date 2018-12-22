@@ -45,7 +45,7 @@ public class UserFollowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((TagHolder) holder).mTextView.setText(allUsers.get(position).getUser().getAccount());
+        ((TagHolder) holder).mTextView.setText(allUsers.get(position).getUser().getName());
         Glide.with(mContext).load(GlideUtil.getUserHead(allUsers.get(position))).into(((TagHolder) holder).mCircleImageView);
         if (allUsers.get(position).getIllusts().size() == 3) {
             Glide.with(mContext).load(GlideUtil.getMediumImg(allUsers.get(position).getIllusts().get(0)))

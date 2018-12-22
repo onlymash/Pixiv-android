@@ -1,15 +1,11 @@
 package com.example.administrator.essim.activities
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import com.example.administrator.essim.R
 import com.example.administrator.essim.activities_re.UserDetailActivity
 import com.example.administrator.essim.adapters.IllustCommentAdapter
@@ -19,8 +15,7 @@ import com.example.administrator.essim.network.RestClient
 import com.example.administrator.essim.response.IllustCommentsResponse
 import com.example.administrator.essim.utils.Common
 import com.example.administrator.essim.utils.DividerItemDecoration
-import com.example.administrator.essim.utils.LocalData
-import com.sdsmdg.tastytoast.TastyToast
+import com.example.administrator.essim.utils_re.LocalData
 import kotlinx.android.synthetic.main.activity_commetn.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -95,7 +90,7 @@ class CommentActivity : BaseActivity() {
                                     mEditText.text.toString().trim { it <= ' ' }, null)
                     call.enqueue(object : Callback<ResponseBody> {
                         override fun onResponse(call: Call<ResponseBody>, response: retrofit2.Response<ResponseBody>) {
-                            TastyToast.makeText(mContext, "评论成功~", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show()
+                            Common.showToast("评论成功~")
                             getIllustComment()
                         }
 
@@ -110,7 +105,7 @@ class CommentActivity : BaseActivity() {
                                     mEditText.text.toString().trim { it <= ' ' }, parentCommentID)
                     call.enqueue(object : Callback<ResponseBody> {
                         override fun onResponse(call: Call<ResponseBody>, response: retrofit2.Response<ResponseBody>) {
-                            TastyToast.makeText(mContext, "评论成功~", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show()
+                            Common.showToast("评论成功~")
                             getIllustComment()
                             mEditText.hint = "留下你的评论吧~"
                         }
@@ -122,7 +117,7 @@ class CommentActivity : BaseActivity() {
             mEditText.setText("")
             Common.hideKeyboard(mActivity)
         } else {
-            TastyToast.makeText(mContext, "评论不能为空~", TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show()
+            Common.showToast("评论不能为空~")
         }
     }
 
@@ -186,7 +181,7 @@ class CommentActivity : BaseActivity() {
                 override fun onFailure(call: Call<IllustCommentsResponse>, throwable: Throwable) {}
             })
         } else {
-            Snackbar.make(mRecyclerView, "再怎么找也找不到了~", Snackbar.LENGTH_SHORT).show()
+            Common.showToast("再怎么找也找不到了~")
         }
     }
 }

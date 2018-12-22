@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities_re.FollowActivity;
 import com.example.administrator.essim.activities_re.UserDetailActivity;
 import com.example.administrator.essim.adapters.AutoFieldAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
@@ -30,6 +31,7 @@ import com.example.administrator.essim.response.PixivResponse;
 import com.example.administrator.essim.response.TagResponse;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.PixivOperate;
+import com.example.administrator.essim.utils_re.LocalData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mancj.materialsearchbar.MaterialSearchBar;
@@ -153,12 +155,12 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
             startActivity(intent);
         } else if (searchType == 1) {
             if (Common.isNumeric(searchBar.getText().trim())) {
-                PixivOperate.getSingleIllust(mProgressBar, mContext, Long.parseLong(searchBar.getText().trim()));
+                PixivOperate.getSingleIllust(mContext, Integer.valueOf(searchBar.getText().trim()), mProgressBar);
             } else {
                 Snackbar.make(searchBar, "ID有误~（当前状态 ID搜作品）", Snackbar.LENGTH_SHORT).show();
             }
         } else if (searchType == 2) {
-            Intent intent = new Intent(mContext, FollowShowActivity.class);
+            Intent intent = new Intent(mContext, FollowActivity.class);
             intent.putExtra("search_key", searchBar.getText().trim());
             mContext.startActivity(intent);
         } else if (searchType == 3) {
@@ -235,7 +237,7 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
         mProgressBar.setVisibility(View.VISIBLE);
         Call<PixivResponse> call = RestClient.retrofit_AppAPI
                 .create(AppApiPixivService.class)
-                .getSearchAutoCompleteKeywords(mSharedPreferences.getString("Authorization", ""),
+                .getSearchAutoCompleteKeywords(LocalData.getToken(),
                         searchBar.getText());
         call.enqueue(new Callback<PixivResponse>() {
             @Override

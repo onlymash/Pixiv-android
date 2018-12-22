@@ -44,11 +44,12 @@ public class HotTagAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(position == 0){
+            Glide.with(mContext).load(GlideUtil.getLargeImage(allIllust.get(position).getIllust())).into(((TagHolder) holder).mImageView);
             ((TagHolder) holder).mImageView.getLayoutParams().height = 2 * imgHeight;
         }else {
+            Glide.with(mContext).load(GlideUtil.getSquare(allIllust.get(position).getIllust())).into(((TagHolder) holder).mImageView);
             ((TagHolder) holder).mImageView.getLayoutParams().height = imgHeight;
         }
-        Glide.with(mContext).load(GlideUtil.getMediumImg(allIllust.get(position).getIllust())).into(((TagHolder) holder).mImageView);
         ((TagHolder) holder).mTextView.setText(allIllust.get(position).getTag());
         if(mOnItemClickListener != null){
             holder.itemView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position, 0));

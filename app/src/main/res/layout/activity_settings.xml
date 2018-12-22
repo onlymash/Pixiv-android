@@ -80,8 +80,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:clickable="true"
-                android:id="@+id/rela_set_network"
                 android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/rela_set_network"
+
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -90,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/sixteen_dip"
                     android:layout_marginTop="@dimen/sixteen_dip"
-                    android:text="设置网络请求方式"
+                    android:text="网络请求方式"
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
@@ -102,7 +103,7 @@
                     android:layout_marginStart="@dimen/sixteen_dip"
                     android:layout_marginTop="@dimen/four_dp"
                     android:layout_marginBottom="@dimen/sixteen_dip"
-                    android:text="@string/set_header"
+                    android:text="自行代理"
                     android:textSize="14dp" />
             </RelativeLayout>
 
@@ -426,38 +427,6 @@
 
             </RelativeLayout>
 
-
-            <RelativeLayout
-                android:id="@+id/set_header"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/sixteen_dip"
-                    android:layout_marginTop="@dimen/sixteen_dip"
-                    android:text="@string/header_main"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/sixteen_sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/header"
-                    android:layout_marginStart="@dimen/sixteen_dip"
-                    android:layout_marginTop="@dimen/four_dp"
-                    android:layout_marginEnd="@dimen/sixteen_dip"
-                    android:layout_marginBottom="@dimen/sixteen_dip"
-                    android:text="@string/set_header"
-                    android:textSize="14dp" />
-
-            </RelativeLayout>
-
-
             <RelativeLayout
                 android:id="@+id/set_color"
                 android:clickable="true"
@@ -487,37 +456,6 @@
                     android:textSize="14sp" />
 
             </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/set_password"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/r18_pwd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/sixteen_dip"
-                    android:layout_marginTop="@dimen/sixteen_dip"
-                    android:text="@string/r18_pwd"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/sixteen_sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/r18_pwd"
-                    android:layout_marginStart="@dimen/sixteen_dip"
-                    android:layout_marginTop="@dimen/four_dp"
-                    android:layout_marginEnd="@dimen/sixteen_dip"
-                    android:layout_marginBottom="@dimen/sixteen_dip"
-                    android:text="@string/set_header_two"
-                    android:textSize="14sp" />
-
-            </RelativeLayout>
-
 
             <RelativeLayout
                 android:id="@+id/set_email"

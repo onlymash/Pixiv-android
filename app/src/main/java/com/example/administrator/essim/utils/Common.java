@@ -25,8 +25,8 @@ import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.BookmarkAddResponse;
 import com.example.administrator.essim.response_re.IllustsBean;
+import com.example.administrator.essim.utils_re.LocalData;
 import com.github.ybq.android.spinkit.style.Wave;
-import com.sdsmdg.tastytoast.TastyToast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -231,12 +231,10 @@ public class Common {
 
     public static File generatePictureFile(Context context, IllustsBean illustsBean, int positionInIllust, int fileNameStyle, int downloadType) {
         //检验父文件夹是否存在在，若不存在则创建
-        File parentFile = new File(LocalData.getLocalDataSet().getString("download_path",
-                "/storage/emulated/0/PixivPictures"));
+        File parentFile = new File(LocalData.getDownloadPath());
         if (!parentFile.exists()) {
             parentFile.mkdir();
-            TastyToast.makeText(context, "文件夹创建成功~",
-                    TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+            Common.showToast("文件夹创建成功~");
         }
         //File file = new File(父文件夹路径， 文件名); 此格式生成具体的文件，File其他构造方法会生成文件夹无法写入
         if (illustsBean.getPage_count() == 1) {

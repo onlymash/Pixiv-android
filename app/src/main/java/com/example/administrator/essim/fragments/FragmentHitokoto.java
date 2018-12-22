@@ -22,7 +22,6 @@ import com.example.administrator.essim.response.HitoModel;
 import com.example.administrator.essim.response.HitokotoType;
 import com.example.administrator.essim.utils.Common;
 import com.google.gson.Gson;
-import com.sdsmdg.tastytoast.TastyToast;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -68,8 +67,7 @@ public class FragmentHitokoto extends BaseFragment {
             HitoModel hitoModel = mHitoModel;
             hitoModel.save();
             need_to_refresh = true;
-            TastyToast.makeText(mContext, "已添加到收藏~",
-                    TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+            Common.showToast("已添加到收藏~");
         });
         mAppCompatSpinner = view.findViewById(R.id.spinner);
         mAppCompatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -118,7 +116,7 @@ public class FragmentHitokoto extends BaseFragment {
         Common.sendOkhttpRequest(address, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                getActivity().runOnUiThread(() -> TastyToast.makeText(mContext, "数据加载失败", TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show());
+                getActivity().runOnUiThread(() -> Common.showToast("数据加载失败"));
             }
 
             @Override

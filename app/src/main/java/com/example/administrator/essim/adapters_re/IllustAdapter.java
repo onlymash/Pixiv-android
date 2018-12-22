@@ -66,11 +66,7 @@ public class IllustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
         ((TagHolder) holder).star.setOnLongClickListener(v -> {
-            if(!allIllust.get(position).isIs_bookmarked()){
-                allIllust.get(position).setIs_bookmarked(true);
-                ((TagHolder) holder).star.setImageResource(R.drawable.ic_favorite_white_24dp);
-                PixivOperate.postStarIllust(allIllust.get(position).getId(), mContext, "private");
-            }
+            mOnItemClickListener.onItemLongClick(((TagHolder) holder).star, position);
             return true;
         });
         if(mOnItemClickListener != null) {

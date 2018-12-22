@@ -26,6 +26,16 @@ public interface LoginApi {
                                        @Field("username") String username);
 
 
+    /**
+     * 刷新token
+     * @param client_id
+     * @param client_secret
+     * @param grant_type
+     * @param refresh_token
+     * @param device_token
+     * @param get_secure_url
+     * @return
+     */
     @FormUrlEncoded
     @POST("/auth/token")
     Observable<LoginResponse> refreshToken(@Field("client_id") String client_id,

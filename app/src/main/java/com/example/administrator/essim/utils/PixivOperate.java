@@ -18,6 +18,7 @@ import com.example.administrator.essim.response.IllustDetailResponse;
 import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.response_re.SingleIllustResponse;
+import com.example.administrator.essim.utils_re.LocalData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,44 +113,6 @@ public class PixivOperate {
             }
         });
     }
-
-
-    /**
-     *
-     * @param progressBar
-     * @param context
-     * @param illustID
-     */
-    public static void getSingleIllust(ProgressBar progressBar, Context context, Long illustID) {
-        progressBar.setVisibility(View.VISIBLE);
-        Call<IllustDetailResponse> call = RestClient.retrofit_AppAPI
-                .create(AppApiPixivService.class)
-                .getIllust(LocalData.getToken(), illustID);
-        call.enqueue(new Callback<IllustDetailResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<IllustDetailResponse> call,
-                                   @NonNull retrofit2.Response<IllustDetailResponse> response) {
-                IllustDetailResponse illustDetailResponse = response.body();
-                List<IllustsBean> singleIllust = new ArrayList<>();
-                try {
-                    singleIllust.add(illustDetailResponse.getIllust());
-                    Reference.sIllustsBeans = singleIllust;
-                    Intent intent = new Intent(context, ViewPagerActivity.class);
-                    intent.putExtra("which one is selected", 0);
-                    context.startActivity(intent);
-                } catch (Exception e) {
-                    Snackbar.make(progressBar, "没有这个作品", Snackbar.LENGTH_SHORT).show();
-                }
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<IllustDetailResponse> call, @NonNull Throwable throwable) {
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-        });
-    }
-
 
 
     public static void postFollowUser(int userID, String followType) {
@@ -250,5 +213,43 @@ public class PixivOperate {
                         }
                     });
         });
+    }
+
+    public static void getSingleIllust(Context context, int illustID, ProgressBar progressBar) {
+        progressBar.setVisibility(View.VISIBLE);
+        Retro.initToken(() -> Retro.getAppApi().getSingleIllust(
+                LocalData.getToken(), "for_android", illustID)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SingleIllustResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SingleIllustResponse singleIllustResponse) {
+                        if (singleIllustResponse != null && singleIllustResponse.getIllust() != null) {
+                            Reference.sIllustsBeans = new ArrayList<>();
+                            Reference.sIllustsBeans.add(singleIllustResponse.getIllust());
+                            Intent intent = new Intent(context, ViewPagerActivity.class);
+                            context.startActivity(intent);
+                        } else {
+                            Common.showToast(context.getString(R.string.load_error));
+                        }
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Common.showToast(context.getString(R.string.load_error));
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
     }
 }

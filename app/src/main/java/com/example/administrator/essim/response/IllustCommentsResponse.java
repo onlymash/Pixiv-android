@@ -1,5 +1,7 @@
 package com.example.administrator.essim.response;
 
+import com.example.administrator.essim.response_re.UserBean;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -165,57 +167,6 @@ public class IllustCommentsResponse implements Serializable {
                     public void setMedium(String paramString) {
                         this.medium = paramString;
                     }
-                }
-            }
-        }
-
-        public static class UserBean implements Serializable {
-            private String account;
-            private int id;
-            private String name;
-            private ProfileImageUrlsBean profile_image_urls;
-
-            public String getAccount() {
-                return this.account;
-            }
-
-            public void setAccount(String paramString) {
-                this.account = paramString;
-            }
-
-            public int getId() {
-                return this.id;
-            }
-
-            public void setId(int paramInt) {
-                this.id = paramInt;
-            }
-
-            public String getName() {
-                return this.name;
-            }
-
-            public void setName(String paramString) {
-                this.name = paramString;
-            }
-
-            public ProfileImageUrlsBean getProfile_image_urls() {
-                return this.profile_image_urls;
-            }
-
-            public void setProfile_image_urls(ProfileImageUrlsBean paramProfileImageUrlsBean) {
-                this.profile_image_urls = paramProfileImageUrlsBean;
-            }
-
-            public static class ProfileImageUrlsBean implements Serializable {
-                private String medium;
-
-                public String getMedium() {
-                    return this.medium;
-                }
-
-                public void setMedium(String paramString) {
-                    this.medium = paramString;
                 }
             }
         }

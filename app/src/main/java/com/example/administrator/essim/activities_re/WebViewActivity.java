@@ -1,7 +1,9 @@
 package com.example.administrator.essim.activities_re;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
@@ -38,12 +40,6 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        /*mWebView = findViewById(R.id.webView1);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setDomStorageEnabled(true);
-        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
-        mWebView.setWebViewClient();*/
         url = getIntent().getStringExtra("article url");
         mRelativeLayout = findViewById(R.id.parent);
         mAgentWeb = AgentWeb.with(this)

@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 可选权限< -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
     <application
         android:name=".activities_re.PixivApp"
@@ -20,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.BaseActivity" />
-        <activity android:name=".activities.FreeActivity" />
+        <activity android:name=".activities_re.FreeActivity" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name">
@@ -30,25 +29,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.FollowShowActivity" />
         <activity android:name=".activities.ImageDetailActivity" />
-        <activity android:name=".activities.NewUserActivity" />
+        <activity android:name=".activities_re.NewUserActivity" />
         <activity android:name=".activities.SearchResultActivity" />
         <activity android:name=".activities.ViewPagerActivity" />
-        <activity android:name=".activities.UserDetailActivity" />
-        <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.SearchActivity" />
-        <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.CommentActivity" />
         <activity android:name=".activities.SettingsActivity" />
-        <activity android:name=".activities.SpecialCollectionActivity" />
         <activity android:name=".activities.RelatedActivity" />
         <activity android:name=".activities.BatchDownloadActivity" />
 
         <service android:name=".activities.BatchDownloadService" />
 
         <activity android:name=".activities.RecyclerViewActivity" />
-        <activity android:name=".activities.DnsEditActivity" />
         <activity android:name=".activities.ThanksActivity" />
         <activity android:name=".activities.SignEmailActivity" />
         <activity android:name=".activities.AboutAppActivity" />

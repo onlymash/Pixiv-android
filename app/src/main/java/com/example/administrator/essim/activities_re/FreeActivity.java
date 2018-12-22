@@ -1,4 +1,4 @@
-package com.example.administrator.essim.activities;
+package com.example.administrator.essim.activities_re;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -12,15 +12,15 @@ import com.example.administrator.essim.utils.Common;
 
 public class FreeActivity extends BaseActivity {
 
-    private Context mContext;
     private TextView mTextView, mTextView2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_free);
+    void initLayout() {
+        mLayoutID = R.layout.activity_free;
+    }
 
-        mContext = this;
+    @Override
+    void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(view -> finish());
         mTextView = findViewById(R.id.key);
@@ -36,5 +36,20 @@ public class FreeActivity extends BaseActivity {
             Common.copyMessage(mContext, mTextView2.getText().toString());
             return true;
         });
+    }
+
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void getFirstData() {
+
+    }
+
+    @Override
+    void getNextData() {
+
     }
 }

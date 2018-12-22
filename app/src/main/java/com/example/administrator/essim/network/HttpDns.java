@@ -1,15 +1,9 @@
 package com.example.administrator.essim.network;
 
-import com.example.administrator.essim.activities.PixivApplication;
-import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.DnsData;
-import com.example.administrator.essim.utils.LocalData;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.Dns;
 

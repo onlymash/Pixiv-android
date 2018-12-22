@@ -1,6 +1,6 @@
 package com.example.administrator.essim.interf;
 
-public interface OnTokenPrepared {
+public interface OnPrepared {
 
     void doSomething();
 }

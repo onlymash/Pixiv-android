@@ -12,7 +12,7 @@ import com.example.administrator.essim.network.AccountPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.UpdateInfoResponse;
 import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.LocalData;
+import com.example.administrator.essim.utils_re.LocalData;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;

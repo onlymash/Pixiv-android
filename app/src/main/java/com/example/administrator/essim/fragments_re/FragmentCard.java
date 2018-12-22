@@ -14,7 +14,7 @@ import com.example.administrator.essim.activities_re.RankActivity;
 public class FragmentCard extends BaseFragment{
 
     private ImageView mImageView;
-    private static final int[] IMAGES = new int[]{R.mipmap.rank_logo, R.mipmap.recommend_logo, R.mipmap.pivision};
+    private static final int[] IMAGES = new int[]{R.mipmap.recomend_logo,R.mipmap.rank_logo,  R.mipmap.pivision};
 
     public static FragmentCard newInstance(int index) {
         Bundle args = new Bundle();
@@ -41,10 +41,10 @@ public class FragmentCard extends BaseFragment{
         mImageView.setOnClickListener(v -> {
             Intent intent;
             if(index == 0){
-                intent = new Intent(mContext, RankActivity.class);
+                intent = new Intent(mContext, IllustListActivity.class);
                 mContext.startActivity(intent);
             }else if(index == 1){
-                intent = new Intent(mContext, IllustListActivity.class);
+                intent = new Intent(mContext, RankActivity.class);
                 mContext.startActivity(intent);
             }else if(index == 2){
                 intent = new Intent(mContext, ArticleActivity.class);

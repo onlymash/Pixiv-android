@@ -18,7 +18,6 @@ import com.example.administrator.essim.R;
 import com.example.administrator.essim.fragments_re.BaseFragment;
 import com.example.administrator.essim.fragments_re.FragmentUserCollect;
 import com.example.administrator.essim.fragments_re.FragmentUserWorks;
-import com.example.administrator.essim.interf.OnTokenPrepared;
 import com.example.administrator.essim.network_re.Retro;
 import com.example.administrator.essim.response_re.UserResponse;
 import com.example.administrator.essim.utils.Common;
