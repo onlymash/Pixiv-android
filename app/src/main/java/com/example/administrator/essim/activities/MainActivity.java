@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ import com.example.administrator.essim.presenter.MainPresenter;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils_re.GlideUtil;
 import com.example.administrator.essim.utils_re.LocalData;
+import com.example.administrator.essim.utils_re.NotifiUtil;
 import com.example.administrator.essim.views.MainView;
 import com.roughike.bottombar.BottomBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -54,6 +56,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         checkPermission(this::initView);
     }
@@ -114,10 +118,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         final RxPermissions rxPermissions = new RxPermissions(this);
 
         rxPermissions
-                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                .requestEachCombined(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_PHONE_STATE)
-                .subscribe(granted -> {
-                    if (granted) {
+                .subscribe(permission  -> {
+                    if (permission.granted ) {
                         onPrepared.doSomething();
                     } else {
                         // At least one permission is denied
