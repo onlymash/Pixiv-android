@@ -67,6 +67,7 @@ public class UserDetailActivity extends BaseActivity {
         iFollow.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, FollowActivity.class);
             intent.putExtra("user id", userID);
+            intent.putExtra("dataType", "公开关注");
             intent.putExtra("user name", userName);
             startActivity(intent);
         });

@@ -2,9 +2,9 @@ package com.example.administrator.essim.utils_re;
 
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.Headers;
-import com.example.administrator.essim.response_re.FollowResponse;
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.response_re.UserBean;
+import com.example.administrator.essim.response_re.UserPreviewsBean;
 
 import java.util.HashMap;
 
@@ -33,7 +33,7 @@ public class GlideUtil {
     }
 
 
-    public static GlideUrl getUserHead(FollowResponse.UserPreviewsBean user){
+    public static GlideUrl getUserHead(UserPreviewsBean user){
         return new GlideUrl(user.getUser().getProfile_image_urls().getMedium(), sHeaders);
     }
 

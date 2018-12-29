@@ -12,8 +12,8 @@ android {
         applicationId "com.example.administrator.essim"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 61
-        versionName "5.0.8"
+        versionCode 62
+        versionName "5.0.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,7 +31,7 @@ android {
         defaultConfig {
             ndk {
                 //根据需要 自行选择添加的对应cpu类型的.so库。
-                abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a','x86', 'x86_64'
+                abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
                 // 还可以添加 , 'mips', 'mips64'
             }
             manifestPlaceholders = [
@@ -77,7 +77,7 @@ android {
         implementation 'com.github.mancj:MaterialSearchBar:0.7.6'
 
 
-        
+
         implementation 'com.hyman:flowlayout-lib:1.1.2'
         implementation 'com.github.codekidX:storage-chooser:2.0.3'
         implementation 'com.github.ybq:Android-SpinKit:1.1.0'

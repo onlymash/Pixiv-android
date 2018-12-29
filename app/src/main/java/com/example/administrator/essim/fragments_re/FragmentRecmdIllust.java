@@ -33,7 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentRecmd extends BaseFragment {
+public class FragmentRecmdIllust extends BaseFragment {
 
     private RecyclerView mRecyclerView;
     private RefreshLayout mRefreshLayout;
@@ -86,6 +86,8 @@ public class FragmentRecmd extends BaseFragment {
                             if (recmdIllustResponse != null && recmdIllustResponse.getIllusts() != null) {
                                 allIllusts.clear();
                                 allIllusts = recmdIllustResponse.getIllusts();
+                                Common.showLog(allIllusts.size());
+                                Common.showLog("这里有多少个");
                                 nextUrl = recmdIllustResponse.getNext_url();
                                 mAdapter = new IllustAdapter(allIllusts, mContext);
                                 mAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -152,7 +154,9 @@ public class FragmentRecmd extends BaseFragment {
                                 mRefreshLayout.finishLoadMore(true);
                                 allIllusts.addAll(recmdIllustResponse.getIllusts());
                                 nextUrl = recmdIllustResponse.getNext_url();
-                                mAdapter.notifyItemRangeChanged(allIllusts.size() - 30, 30);
+                                mAdapter.notifyItemRangeChanged(allIllusts.size() -
+                                        recmdIllustResponse.getIllusts().size(),
+                                        recmdIllustResponse.getIllusts().size());
                             } else {
                                 mRefreshLayout.finishLoadMore(false);
                                 Common.showToast(getString(R.string.load_error));

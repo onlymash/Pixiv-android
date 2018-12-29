@@ -222,24 +222,9 @@ public class SettingsActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //申请读写权限
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(SettingsActivity.this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 199);
-        }
-
-
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             Uri treeUri = data.getData();
-            assert treeUri != null;
             SharedPreferences.Editor editor = LocalData.getLocalDataSet().edit();
             if (":".equals(treeUri.getPath().substring(treeUri.getPath().length() - 1)) && !treeUri.getPath().contains("primary")) {
                 editor.putString("treeUri", treeUri.toString());
@@ -285,17 +270,15 @@ public class SettingsActivity extends BaseActivity {
         builder.setIcon(R.mipmap.logo);
         builder.setTitle("文件命名方式：");
         builder.setCancelable(true);
-        builder.setSingleChoiceItems(arrayOfFileNameType, LocalData.getLocalDataSet().getInt("file_name_style", 0),
+        builder.setSingleChoiceItems(arrayOfFileNameType, LocalData.getFileNameStyle(),
                 (dialogInterface, i) -> {
                     if (fileNameStyle != i) {
                         fileNameStyle = i;
                     }
                 });
         builder.setPositiveButton("确定", (dialogInterface, i) -> {
-            if (fileNameStyle != LocalData.getLocalDataSet().getInt("file_name_style", 0)) {
-                SharedPreferences.Editor editor = LocalData.getLocalDataSet().edit();
-                editor.putInt("file_name_style", fileNameStyle);
-                editor.apply();
+            if (fileNameStyle != LocalData.getFileNameStyle()) {
+                LocalData.setFileNameStyle(fileNameStyle);
                 mTextView13.setText(arrayOfFileNameType[LocalData.getFileNameStyle()]);
             }
         })

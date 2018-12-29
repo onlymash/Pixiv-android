@@ -1,9 +1,5 @@
 package com.example.administrator.essim.activities_re;
 
-import android.app.Application;
-import android.content.Context;
-
-import com.example.administrator.essim.activities.PixivApplication;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.tencent.stat.StatService;
@@ -15,7 +11,7 @@ public class PixivApp extends LitePalApplication {
 
     static {
         SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) ->
-                new ClassicsFooter(context).setDrawableSize(13));
+                new ClassicsFooter(context).setDrawableSize(16));
     }
 
 

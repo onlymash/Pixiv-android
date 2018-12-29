@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.MainActivity;
+import com.example.administrator.essim.activities_re.MainActivity;
 import com.example.administrator.essim.response.HitoModel;
 import com.example.administrator.essim.response.HitokotoType;
 import com.example.administrator.essim.utils.Common;

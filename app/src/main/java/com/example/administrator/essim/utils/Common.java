@@ -20,7 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.PixivApplication;
+import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.BookmarkAddResponse;
@@ -357,7 +357,7 @@ public class Common {
 
     public static <T> void showToast(T t) {
         if (toast == null) {
-            toast = Toast.makeText(PixivApplication.getContext(), String.valueOf(t), Toast.LENGTH_SHORT);
+            toast = Toast.makeText(PixivApp.getContext(), String.valueOf(t), Toast.LENGTH_SHORT);
         } else {
             toast.setText(String.valueOf(t));
             toast.setDuration(Toast.LENGTH_SHORT);

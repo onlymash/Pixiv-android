@@ -21,13 +21,11 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.CommentActivity;
-import com.example.administrator.essim.activities.ImageDetailActivity;
+import com.example.administrator.essim.activities_re.ImageDetailActivity;
 import com.example.administrator.essim.activities.RelatedActivity;
 import com.example.administrator.essim.activities.SearchResultActivity;
 import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.activities_re.UserDetailActivity;
-import com.example.administrator.essim.download.DownloadTask;
-import com.example.administrator.essim.download.SDDownloadTask;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.response.RelatedIllust;
@@ -41,7 +39,6 @@ import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
-import java.io.File;
 import java.util.Objects;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;

@@ -105,6 +105,7 @@ public class Retro {
 
     public static void initToken(OnPrepared onPrepared) {
         if (System.currentTimeMillis() - LocalData.getLastTokenTime() >= ONE_HOUR) {
+            Common.showToast(PixivApp.getContext().getString(R.string.refresh_token));
             Retro.getLoginApi().refreshToken(
                     LOGIN_PARAM_1,
                     LOGIN_PARAM_2,

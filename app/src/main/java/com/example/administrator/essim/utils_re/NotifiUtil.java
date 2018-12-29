@@ -48,7 +48,7 @@ public class NotifiUtil extends ContextWrapper {
         return mManager;
     }
 
-    public static void showStartNotification(String title, String content) {
+    public static void showStartNotification(int id, String title, String content) {
         NotificationCompat.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder = new NotificationCompat.Builder(PixivApp.getContext(), CHANNEL_ID);
@@ -62,10 +62,10 @@ public class NotifiUtil extends ContextWrapper {
         builder.setSmallIcon(R.drawable.ic_file_download_black_24dp);
         //点击自动删除通知
         builder.setAutoCancel(true);
-        getManager().notify(1, builder.build());
+        getManager().notify(id, builder.build());
     }
 
-    public static void showFinishNotification(String title, String content) {
+    public static void showFinishNotification(int id,String title, String content) {
         NotificationCompat.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder = new NotificationCompat.Builder(PixivApp.getContext(), CHANNEL_ID);
@@ -79,6 +79,6 @@ public class NotifiUtil extends ContextWrapper {
         builder.setSmallIcon(R.drawable.ic_file_download_black_24dp);
         //点击自动删除通知
         builder.setAutoCancel(true);
-        getManager().notify(1, builder.build());
+        getManager().notify(id, builder.build());
     }
 }

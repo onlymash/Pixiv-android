@@ -59,18 +59,28 @@
             android:layout_marginEnd="@dimen/sixteen_dip"
             android:ellipsize="end"
             android:maxLines="1"
+            android:singleLine="true"
+            android:autoLink="all"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
-            android:text="http://pixiv-meapi.ceuilisa.com/pan/pixiv.pptx"/>
+            android:text="https://pan.baidu.com/s/1wfU-TXAs3s-ilz_a6NKU_Q"/>
 
         <TextView
-            android:id="@+id/app_qun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sixteen_dip"
+            android:layout_marginEnd="@dimen/sixteen_dp"
             android:layout_marginStart="@dimen/sixteen_dip"
-            android:autoLink="all"
             android:text="@string/app_qun" />
+
+
+        <TextView
+            android:id="@+id/join_app_qun"
+            android:layout_width="match_parent"
+            android:textColor="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sixteen_dp"
+            android:text="@string/join_app_qun" />
     </LinearLayout>
 
 </ScrollView>

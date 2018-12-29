@@ -624,9 +624,11 @@
 
                 <TextView
                     android:id="@+id/line22"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="上条当麻" />
+                    android:text="K-ON轻音部" />
 
 
                 <TextView
@@ -683,8 +685,7 @@
                     android:layout_marginStart="@dimen/sixteen_dip"
                     android:layout_marginEnd="8dp"
                     android:layout_toEndOf="@+id/line24"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
+
                     android:text="栗山未来" />
 
             </RelativeLayout>

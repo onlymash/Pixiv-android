@@ -1,11 +1,9 @@
-package com.example.administrator.essim.activities;
+package com.example.administrator.essim.activities_re;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -22,47 +20,42 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities_re.ArticleActivity;
-import com.example.administrator.essim.activities_re.FollowActivity;
-import com.example.administrator.essim.activities_re.LoginActivity;
-import com.example.administrator.essim.activities_re.UserDetailActivity;
+import com.example.administrator.essim.activities.RecyclerViewActivity;
+import com.example.administrator.essim.activities.SettingsActivity;
+import com.example.administrator.essim.activities.ThanksActivity;
 import com.example.administrator.essim.fragments.FragmentHitokoto;
 import com.example.administrator.essim.fragments.FragmentMine;
 import com.example.administrator.essim.fragments_re.FragmentNews;
+import com.example.administrator.essim.fragments_re.FragmentPixiv;
 import com.example.administrator.essim.interf.OnPrepared;
-import com.example.administrator.essim.presenter.MainPresenter;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils_re.GlideUtil;
 import com.example.administrator.essim.utils_re.LocalData;
-import com.example.administrator.essim.utils_re.NotifiUtil;
-import com.example.administrator.essim.views.MainView;
 import com.roughike.bottombar.BottomBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainView {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private long mExitTime;
     private DrawerLayout drawer;
     private int lastShowFragment;
     private Fragment[] mFragments;
     private ImageView userHead;
-    private MainPresenter mPresenter;
-    private TextView mTextView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    void initLayout() {
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-
-        checkPermission(this::initView);
+        mLayoutID = R.layout.activity_main;
     }
 
-    private void initView() {
+    @Override
+    void initView() {
+        checkPermission(this::loadView);
+    }
+
+    void loadView() {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         userHead = navigationView.getHeaderView(0).findViewById(R.id.imageView);
@@ -75,11 +68,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     LocalData.getUserName() : String.format("%s (%s)",
                     LocalData.getUserName(),
                     LocalData.getUserAccount()));
-            if (LocalData.getLocalDataSet().getString("email", "").length() != 0) {
-                textView2.setText(LocalData.getLocalDataSet().getString("email", ""));
+            if (LocalData.getEmail().length() == 0) {
+                textView2.setText(LocalData.getEmail());
             }
             userHead.setOnClickListener(view -> {
-                Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
+                Intent intent = new Intent(mContext, UserDetailActivity.class);
                 intent.putExtra("user id", LocalData.getUserID());
                 startActivity(intent);
             });
@@ -103,10 +96,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 }
             });
             initFragments();
-            mTextView = findViewById(R.id.online_count);
-            mPresenter = new MainPresenter(this);
-            mPresenter.start();
-
         } else {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -114,9 +103,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void getFirstData() {
+
+    }
+
+    @Override
+    void getNextData() {
+
+    }
+
     private void checkPermission(OnPrepared onPrepared) {
         final RxPermissions rxPermissions = new RxPermissions(this);
-
         rxPermissions
                 .requestEachCombined(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_PHONE_STATE)
@@ -155,7 +158,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void initFragments() {
-        com.example.administrator.essim.fragments_re.FragmentPixiv fragmentPixiv = new com.example.administrator.essim.fragments_re.FragmentPixiv();
+        FragmentPixiv fragmentPixiv = new FragmentPixiv();
         FragmentNews fragmentNews = new FragmentNews();
         FragmentHitokoto fragmentHitokoto = new FragmentHitokoto();
         FragmentMine fragmentMine = new FragmentMine();
@@ -192,6 +195,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.show_my_followed_users: {
                 Intent intent = new Intent(mContext, FollowActivity.class);
                 intent.putExtra("user id", LocalData.getUserID());
+                intent.putExtra("dataType", "我的关注");
                 intent.putExtra("user name", LocalData.getUserName());
                 mContext.startActivity(intent);
                 break;
@@ -199,12 +203,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.show_recommend_users: {
                 Intent intent = new Intent(MainActivity.this, FollowActivity.class);
                 intent.putExtra("user id", LocalData.getUserID());
+                intent.putExtra("dataType", "推荐关注");
                 intent.putExtra("user name", LocalData.getUserName());
                 startActivity(intent);
                 break;
             }
             case R.id.nav_gallery: {
-                //特辑走一波
                 Intent intent = new Intent(mContext, ArticleActivity.class);
                 startActivity(intent);
                 break;
@@ -212,7 +216,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.show_my_favorite: {
                 Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
                 intent.putExtra("user id", LocalData.getUserID());
-                intent.putExtra("show favorite illust", true);
                 startActivity(intent);
                 break;
             }
@@ -278,25 +281,5 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             finish();
         }
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
-    public void setNowPressure(String nowOnline) {
-        mTextView.setText(nowOnline);
-    }
-
-    @Override
-    public Context getSelfContext() {
-        return mContext;
     }
 }

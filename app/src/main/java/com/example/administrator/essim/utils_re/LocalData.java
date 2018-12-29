@@ -17,6 +17,8 @@ public class LocalData {
 
     private static final int HISTORY_SIZE = 100;
 
+
+
     public static SharedPreferences getLocalDataSet() {
         return PreferenceManager.getDefaultSharedPreferences(PixivApp.getContext());
     }
@@ -51,10 +53,21 @@ public class LocalData {
         editor.putString("headurl", pixivOAuthResponse.getResponse().getUser().getProfile_image_urls().getPx_170x170());
         editor.putBoolean("is_origin_pic", true);
         editor.putString("download_path", "/storage/emulated/0/PixivPictures");
+        editor.putInt("file_name_style", FileName.NAME_STYLE_0);
         editor.putLong("last_token_time", System.currentTimeMillis());
         editor.apply();
     }
 
+    public static void setFileNameStyle(int i){
+        SharedPreferences sharedPreferences = getLocalDataSet();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("file_name_style", i);
+        editor.apply();
+    }
+
+    public static int getFileNameStyle(){
+        return getLocalDataSet().getInt("file_name_style", 0);
+    }
     public static void setDeviceToken(String deviceToken){
         SharedPreferences sharedPreferences = getLocalDataSet();
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -82,6 +95,7 @@ public class LocalData {
         editor.putString("headurl", pixivOAuthResponse.getResponse().getUser().getProfile_image_urls().getPx_170x170());
         editor.putBoolean("is_origin_pic", true);
         editor.putString("download_path", "/storage/emulated/0/PixivPictures");
+        editor.putInt("file_name_style", FileName.NAME_STYLE_0);
         editor.putLong("last_token_time", System.currentTimeMillis());
         editor.apply();
     }
@@ -154,10 +168,6 @@ public class LocalData {
 
     public static String getDownloadPath() {
         return getLocalDataSet().getString("download_path", "/storage/emulated/0/PixivPictures");
-    }
-
-    public static int getFileNameStyle() {
-        return getLocalDataSet().getInt("file_name_style", 0);
     }
 
     public static String getUserAccount() {

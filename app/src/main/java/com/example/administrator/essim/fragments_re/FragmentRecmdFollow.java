@@ -1,7 +1,6 @@
 package com.example.administrator.essim.fragments_re;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -32,25 +31,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentFollow extends BaseFragment {
+/**
+ * 推荐关注
+ * 2018年12月29日18:36:19
+ */
+public class FragmentRecmdFollow extends BaseFragment {
 
     private RecyclerView mRecyclerView;
     private RefreshLayout mRefreshLayout;
     private ProgressBar mProgressBar;
     private UserFollowAdapter mAdapter;
     private List<UserPreviewsBean> allIllusts = new ArrayList<>();
-    private String nextUrl = null, dataType = "";
-    private static final String[] API_TITLES = new String[]{"public", "private"};
-    private int index, userID;
-
-    public static FragmentFollow newInstance(int index, int id) {
-        Bundle args = new Bundle();
-        args.putSerializable("index", index);
-        args.putSerializable("user id", id);
-        FragmentFollow fragment = new FragmentFollow();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private String nextUrl = null;
 
     @Override
     void initLayout() {
@@ -76,17 +68,14 @@ public class FragmentFollow extends BaseFragment {
 
     @Override
     void initData() {
-        index = (int) getArguments().getSerializable("index");
-        userID = (int) getArguments().getSerializable("user id");
-        dataType = API_TITLES[index];
         getFirstData();
     }
 
     @Override
     void getFirstData() {
         Retro.initToken(() ->
-                Retro.getAppApi().getFollowUser(
-                        LocalData.getToken(), "for_android", userID, dataType)
+                Retro.getAppApi().getRecmdUser(
+                        LocalData.getToken(), "for_android")
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Observer<ListUserResponse>() {

@@ -2,9 +2,6 @@ package com.example.administrator.essim.activities_re;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,29 +9,16 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.MainActivity;
-import com.example.administrator.essim.adapters_re.LoginBgAdapter;
-import com.example.administrator.essim.network.AccountPixivService;
-import com.example.administrator.essim.network.OAuthSecureService;
-import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.network_re.Retro;
-import com.example.administrator.essim.response.PixivAccountsResponse;
-import com.example.administrator.essim.response.PixivOAuthResponse;
-import com.example.administrator.essim.response_re.IllustListResponse;
 import com.example.administrator.essim.response_re.LoginResponse;
 import com.example.administrator.essim.response_re.NewAccountResponse;
 import com.example.administrator.essim.utils.Common;
-import com.example.administrator.essim.utils.Constant;
 import com.example.administrator.essim.utils_re.LocalData;
-
-import java.util.HashMap;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class NewUserActivity extends BaseActivity {
 

@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.MainActivity;
+import com.example.administrator.essim.activities_re.MainActivity;
 import com.example.administrator.essim.activities.SearchActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -44,7 +44,7 @@ public class FragmentPixiv extends BaseFragment {
             ((MainActivity) getActivity()).getDrawer().openDrawer(Gravity.START, true);
         });
         mFragments = new BaseFragment[2];
-        mFragments[0] = new FragmentRecmd();
+        mFragments[0] = new FragmentRecmdIllust();
         mFragments[1] = new FragmentHotTag();
         ViewPager viewPager = v.findViewById(R.id.mViewPager);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {

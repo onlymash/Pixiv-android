@@ -54,8 +54,8 @@
     <string name="share_view_press_it">You can press it</string>
     <string name="item_swipe_dismissed">Dismissed</string>
     <string name="item_swipe_undo">Undo</string>
-    <string name="arclayout_description">戴着大眼镜显得天然萌，内心憧憬着成为普通的女孩子，喜欢园艺、盆栽，且喜欢用“我不高兴”表达自己的任何情感，对朋友十分关心，拯救了伊波樱。在战斗中有着优秀的异能，但平时生活却总是一团糟，说谎的时候会一边擦眼镜，一边慌张地左顾右盼，一边解释。初登场时是带着高中一年级新生特有的深蓝色缎带。一头蓬松的茶色短发，大镜框眼镜被神原秋人认为很适合戴眼镜，右手上平时缠着绷带。</string>
-    <string name="arclayout_development">电视动画《境界的彼方》改编自鸟居なごむ原作的同名轻小说，由石立太一监督率领《日常》原班制作人马打造。故事描述了有特殊能力的异界士少女栗山未来与稀有存在的半妖神原秋人相遇以后发生的一系列不平凡的故事。2013年4月3日，在京都动画旗下KA Esuma文库在官网上，正式宣布《境界的彼方》动画化企划进行中的消息。动画官网于2013年8月1日上线，并且每天更新一张带有数字的图片进行倒计时，直到8月5日倒计时完毕动画官网方正式公开，此时《境界的彼方》正式确认将以TV动画的形式与观众见面…
+    <string name="arclayout_description">《轻音少女》是由京都动画制作的电视动画，2009年4月2日开始在TBS系电视台播放。该动画改编自日本漫画家kakifly创作的同名四格漫画作品，讲述了四人女子组合在一个即将废部的轻音乐部从零开始展开音乐活动的故事。</string>
+    <string name="arclayout_development">主角们上学途中沿路和快餐店，是参照京都市左京区北山通和白川通一带，而乐器店和商店街即参照了京都市中心四条河原町一带的商业区，琴吹䌷平日通学时搭乘电车与候车月台参照京都市内营运的睿山电铁出町柳站与修学院站，三年级修学旅行时当中则出现金阁寺、北野天满宫、今宫神社等京都知名历史文化建筑，主角们就读的樱丘女子高等学校，则是以滋贺县犬上郡丰乡町的町立丰乡小学旧校舍为舞台，此地后来成为了大量动画爱好者前往“圣地巡礼”的地点之一
     \n\n感谢以下朋友的热心帮助与建议：@守护世界之树，@◤康◢◤鑫◢，@MrFox
     </string>
     <string name="title_activity_settings">Settings</string>
@@ -213,7 +213,8 @@
     <string name="libraries">使用到的开源库</string>
     <string name="save_edit">保存当前修改</string>
     <string name="you_are_free">零境交错</string>
-    <string name="app_qun">软件交流群(470779245)，有什么问题就来群里提问吧：https://jq.qq.com/?_wv=1027&#038;k=5C2LFIx</string>
+    <string name="app_qun">软件交流群(882869310)，有什么问题就来群里提问吧</string>
+    <string name="join_app_qun">戳这里快速加群</string>
     <string name="login_title">战场原の起点</string>
     <string name="cant_login">无法登陆看这里</string>
     <string name="no_proxy">加载失败~</string>
@@ -231,10 +232,11 @@
     <string name="enter_r18_pwd">请输入密码</string>
     <string name="now_login">登录</string>
     <string name="wrong_layout_id">未初始化布局文件</string>
-    <string name="bangumi_name">番剧: 境界的彼方</string>
-    <string name="lover_name">栗山未来</string>
-    <string name="cannot_login">无法登陆看这里</string>
+    <string name="bangumi_name">番剧: 轻音少女</string>
+    <string name="lover_name">K-ON</string>
+    <string name="cannot_login">无法登录看这里</string>
     <string name="login_error">登录失败</string>
+    <string name="refresh_token">获取登录信息</string>
     <string name="load_error">加载失败</string>
     <string name="cancel_follow_him">取消关注</string>
     <string name="follow_him">+关注</string>

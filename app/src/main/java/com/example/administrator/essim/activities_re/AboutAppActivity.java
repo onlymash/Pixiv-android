@@ -1,4 +1,4 @@
-package com.example.administrator.essim.activities;
+package com.example.administrator.essim.activities_re;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,9 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities.MvpBaseActivity;
 import com.example.administrator.essim.activities_re.FreeActivity;
 
-public class AboutAppActivity extends MvpBaseActivity{
+public class AboutAppActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,16 @@ public class AboutAppActivity extends MvpBaseActivity{
 
     @Override
     void initData() {
+
+    }
+
+    @Override
+    void getFirstData() {
+
+    }
+
+    @Override
+    void getNextData() {
 
     }
 }

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             app:navigationIcon="@drawable/ic_arrow_back_black_two_24dp"
             android:layout_height="wrap_content"
-            app:title="我关注的"
+            app:title=" "
             app:layout_scrollFlags="scroll|enterAlways"
             app:titleTextColor="@android:color/white">
 

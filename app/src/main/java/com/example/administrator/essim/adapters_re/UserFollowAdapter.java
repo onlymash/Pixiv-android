@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.interf.OnItemClickListener;
-import com.example.administrator.essim.response_re.FollowResponse;
+import com.example.administrator.essim.response_re.UserPreviewsBean;
 import com.example.administrator.essim.utils.PixivOperate;
 import com.example.administrator.essim.utils_re.GlideUtil;
 
@@ -28,9 +28,9 @@ public class UserFollowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private OnItemClickListener mOnItemClickListener;
-    private List<FollowResponse.UserPreviewsBean> allUsers = new ArrayList<>();
+    private List<UserPreviewsBean> allUsers = new ArrayList<>();
 
-    public UserFollowAdapter(List<FollowResponse.UserPreviewsBean> users, Context context) {
+    public UserFollowAdapter(List<UserPreviewsBean> users, Context context) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(mContext);
         allUsers = users;

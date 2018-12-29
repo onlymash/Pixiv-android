@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities_re.MainActivity;
 
 
 import static com.example.administrator.essim.utils.Constant.SPLASH_TIME;

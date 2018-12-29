@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.MainActivity;
 import com.example.administrator.essim.adapters_re.LoginBgAdapter;
 import com.example.administrator.essim.network_re.Retro;
 import com.example.administrator.essim.response_re.IllustListResponse;

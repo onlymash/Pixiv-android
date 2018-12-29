@@ -3,7 +3,7 @@ package com.example.administrator.essim.network_re;
 import com.example.administrator.essim.response.BookmarkAddResponse;
 import com.example.administrator.essim.response.TrendingtagResponse;
 import com.example.administrator.essim.response_re.ArticleResponse;
-import com.example.administrator.essim.response_re.FollowResponse;
+import com.example.administrator.essim.response_re.ListUserResponse;
 import com.example.administrator.essim.response_re.IllustListResponse;
 import com.example.administrator.essim.response_re.SingleIllustResponse;
 import com.example.administrator.essim.response_re.UserResponse;
@@ -85,8 +85,8 @@ public interface AppApi {
                                            @Url String nextUrl);
 
     @GET
-    Observable<FollowResponse> getNextFollowUser(@Header("Authorization") String token,
-                                                 @Url String nextUrl);
+    Observable<ListUserResponse> getNextFollowUser(@Header("Authorization") String token,
+                                                   @Url String nextUrl);
 
 
     /**
@@ -118,10 +118,10 @@ public interface AppApi {
      * @return
      */
     @GET("/v1/user/following")
-    Observable<FollowResponse> getFollowUser(@Header("Authorization") String token,
-                                             @Query("filter") String filter,
-                                             @Query("user_id") int user_id,
-                                             @Query("restrict") String restrict);
+    Observable<ListUserResponse> getFollowUser(@Header("Authorization") String token,
+                                               @Query("filter") String filter,
+                                               @Query("user_id") int user_id,
+                                               @Query("restrict") String restrict);
 
 
     @GET("/v1/trending-tags/illust")
@@ -161,4 +161,9 @@ public interface AppApi {
     Observable<SingleIllustResponse> getSingleIllust(@Header("Authorization") String token,
                                                  @Query("filter") String filter,
                                                  @Query("illust_id") int illust_id);
+
+
+    @GET("/v1/user/recommended")
+    Observable<ListUserResponse> getRecmdUser(@Header("Authorization") String token,
+                                                  @Query("filter") String filter);
 }

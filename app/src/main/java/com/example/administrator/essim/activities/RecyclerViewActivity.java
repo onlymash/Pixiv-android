@@ -60,12 +60,12 @@ public class RecyclerViewActivity extends BaseActivity {
         if (dataType.equals("donation")) {
             mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
             adapter = new DonaterAdapter(Constant.donaterList, mContext);
-            toolbar.setTitle("神豪列表");
+            toolbar.setTitle("神豪列表(共" + Constant.donaterList.length + "位热心用户)");
             mRecyclerView.setAdapter(adapter);
         } else if (dataType.equals("libraries")) {
             mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
             adapter = new DonaterAdapter(Constant.libraries, mContext);
-            toolbar.setTitle("开源库列表");
+            toolbar.setTitle("使用的开源库列表");
             mRecyclerView.setAdapter(adapter);
         }else if (dataType.equals("history")) {
             mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 8.0f)));

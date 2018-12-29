@@ -1,8 +1,5 @@
 package com.example.administrator.essim.fragments;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -20,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.MainActivity;
+import com.example.administrator.essim.activities_re.MainActivity;
 import com.example.administrator.essim.adapters.ListHitokotoAdapter;
 import com.example.administrator.essim.interf.OnListHitokotoClickListener;
 import com.example.administrator.essim.response.HitoModel;
