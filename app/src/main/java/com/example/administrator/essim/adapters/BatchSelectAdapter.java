@@ -30,8 +30,8 @@ public class BatchSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mContext = context;
         mLayoutInflater = LayoutInflater.from(mContext);
         allIllust = list;
-        imageHeight = ((mContext.getResources().getDisplayMetrics().widthPixels -
-                3 * mContext.getResources().getDimensionPixelSize(R.dimen.eight_dip)) / 2) * 6 / 5;
+        imageHeight = (mContext.getResources().getDisplayMetrics().widthPixels -
+                mContext.getResources().getDimensionPixelSize(R.dimen.four_dp)) / 2;
     }
 
     @NonNull

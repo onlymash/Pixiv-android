@@ -27,13 +27,13 @@
 
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_below="@+id/line_one"
             android:id="@+id/img1"
-            android:src="@drawable/ic_email_black_24dp"
-            android:tint="@color/colorPrimary"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_below="@+id/line_one"
             android:layout_marginStart="@dimen/sixteen_dip"
-            android:layout_height="36dp" />
+            android:src="@drawable/ic_email_black_24dp"
+            android:tint="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/line_one"
@@ -45,19 +45,17 @@
             android:textSize="13sp" />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_toEndOf="@+id/img1"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:layout_marginEnd="@dimen/sixteen_dip"
-            android:hint="可以用作登陆"
-            android:layout_below="@+id/line_one"
             android:id="@+id/email"
-            android:layout_marginStart="@dimen/sixteen_dip" />
-
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line_one"
+            android:layout_marginStart="@dimen/sixteen_dip"
+            android:layout_marginEnd="@dimen/sixteen_dip"
+            android:layout_toEndOf="@+id/img1"
+            android:ellipsize="end"
+            android:hint="可以用作登陆"
+            android:maxLines="1"
+            android:singleLine="true" />
 
 
     </RelativeLayout>
@@ -71,13 +69,13 @@
 
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_below="@+id/line_2"
-            android:tint="@color/colorPrimary"
             android:id="@+id/img2"
-            android:src="@drawable/ic_tag_faces_black_24dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_below="@+id/line_2"
             android:layout_marginStart="@dimen/sixteen_dip"
-            android:layout_height="36dp" />
+            android:src="@drawable/ic_tag_faces_black_24dp"
+            android:tint="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/line_2"
@@ -89,17 +87,17 @@
             android:textSize="13sp" />
 
         <EditText
+            android:id="@+id/pixiv_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/img2"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:layout_marginEnd="@dimen/sixteen_dip"
-            android:hint="ID只能更改一次"
             android:layout_below="@+id/line_2"
-            android:id="@+id/pixiv_id"
-            android:layout_marginStart="@dimen/sixteen_dip" />
+            android:layout_marginStart="@dimen/sixteen_dip"
+            android:layout_marginEnd="@dimen/sixteen_dip"
+            android:layout_toEndOf="@+id/img2"
+            android:ellipsize="end"
+            android:hint="ID只能更改一次"
+            android:maxLines="1"
+            android:singleLine="true" />
 
 
     </RelativeLayout>
@@ -112,13 +110,13 @@
         android:layout_below="@+id/rela_2">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_below="@+id/line_3"
             android:id="@+id/img3"
-            android:tint="@color/colorPrimary"
-            android:src="@drawable/ic_lock_outline_black_24dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_below="@+id/line_3"
             android:layout_marginStart="@dimen/sixteen_dip"
-            android:layout_height="36dp" />
+            android:src="@drawable/ic_lock_outline_black_24dp"
+            android:tint="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/line_3"
@@ -130,32 +128,31 @@
             android:textSize="13sp" />
 
         <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/img3"
-            android:id="@+id/password"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:inputType="textPassword"
-            android:ellipsize="end"
-            android:layout_marginEnd="@dimen/sixteen_dip"
-            android:hint="新密码不能与旧密码相同"
             android:layout_below="@+id/line_3"
             android:layout_marginStart="@dimen/sixteen_dip"
-             />
+            android:layout_marginEnd="@dimen/sixteen_dip"
+            android:layout_toEndOf="@+id/img3"
+            android:ellipsize="end"
+            android:hint="新密码不能与旧密码相同"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
 
 
     </RelativeLayout>
 
 
     <TextView
+        android:id="@+id/update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/sixteen_dip"
         android:background="@drawable/btn_sign_bg"
         android:gravity="center"
-        android:id="@+id/update"
         android:padding="@dimen/sixteen_dip"
         android:text="更新用户信息"
         android:textColor="@color/white"
@@ -164,7 +161,7 @@
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

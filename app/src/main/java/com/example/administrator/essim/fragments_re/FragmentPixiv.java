@@ -14,8 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities_re.BatchDownloadActivity;
 import com.example.administrator.essim.activities_re.MainActivity;
 import com.example.administrator.essim.activities.SearchActivity;
+import com.example.administrator.essim.activities_re.PixivApp;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -94,6 +96,11 @@ public class FragmentPixiv extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
             Intent intent = new Intent(mContext, SearchActivity.class);
+            startActivity(intent);
+        }else if (item.getItemId() == R.id.action_download) {
+            PixivApp.sIllustsBeans = ((FragmentRecmdIllust) mFragments[0]).getAllIllusts();
+            Intent intent = new Intent(mContext, BatchDownloadActivity.class);
+            intent.putExtra("scroll dist", ((FragmentRecmdIllust) mFragments[0]).getScrollIndex());
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

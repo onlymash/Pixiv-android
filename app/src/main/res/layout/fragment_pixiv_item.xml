@@ -24,10 +24,10 @@
                 android:id="@+id/card_first"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/eight_dip"
-                android:layout_marginEnd="@dimen/sixteen_dip"
                 android:layout_marginStart="@dimen/sixteen_dip"
                 android:layout_marginTop="81dp"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:layout_marginBottom="@dimen/eight_dip"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:stateListAnimator="@animator/touch_raise"
@@ -69,10 +69,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/card_first"
-                android:layout_marginBottom="@dimen/eight_dip"
-                android:layout_marginEnd="@dimen/sixteen_dip"
                 android:layout_marginStart="@dimen/sixteen_dip"
                 android:layout_marginTop="@dimen/eight_dip"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:layout_marginBottom="@dimen/eight_dip"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:stateListAnimator="@animator/touch_raise"
@@ -86,22 +86,22 @@
                         android:id="@+id/author_head"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:layout_marginBottom="@dimen/sixteen_dip"
                         android:layout_marginStart="@dimen/sixteen_dip"
-                        android:layout_marginTop="@dimen/sixteen_dip" />
+                        android:layout_marginTop="@dimen/sixteen_dip"
+                        android:layout_marginBottom="@dimen/sixteen_dip" />
 
 
                     <TextView
                         android:id="@+id/detail_author"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/eight_dip"
                         android:layout_marginStart="@dimen/eight_dip"
-                        android:maxLines="1"
-                        android:ellipsize="end"
                         android:layout_marginTop="27dp"
-                        android:layout_toEndOf="@+id/author_head"
+                        android:layout_marginEnd="@dimen/eight_dip"
                         android:layout_toStartOf="@+id/is_following"
+                        android:layout_toEndOf="@+id/author_head"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp" />
 
@@ -110,13 +110,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="@dimen/sixteen_dip"
                         android:layout_marginTop="27dp"
+                        android:layout_marginEnd="@dimen/sixteen_dip"
                         android:background="@drawable/btn_bg"
-                        android:paddingBottom="2dp"
-                        android:paddingEnd="@dimen/eight_dip"
                         android:paddingStart="@dimen/eight_dip"
                         android:paddingTop="2dp"
+                        android:paddingEnd="@dimen/eight_dip"
+                        android:paddingBottom="2dp"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
@@ -125,9 +125,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/author_head"
-                        android:layout_marginBottom="@dimen/eight_dip"
-                        android:layout_marginEnd="@dimen/sixteen_dip"
                         android:layout_marginStart="@dimen/sixteen_dip"
+                        android:layout_marginEnd="@dimen/sixteen_dip"
+                        android:layout_marginBottom="@dimen/eight_dip"
                         android:autoLink="all"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -138,10 +138,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/card_one_point_five"
-                android:layout_marginBottom="@dimen/eight_dip"
-                android:layout_marginEnd="@dimen/sixteen_dip"
                 android:layout_marginStart="@dimen/sixteen_dip"
                 android:layout_marginTop="@dimen/eight_dip"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:layout_marginBottom="@dimen/eight_dip"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:stateListAnimator="@animator/touch_raise"
@@ -155,11 +155,13 @@
                         android:id="@+id/author_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="75dp"
                         android:layout_marginStart="@dimen/sixteen_dip"
                         android:layout_marginTop="@dimen/eight_dip"
+                        android:layout_marginEnd="75dp"
                         android:singleLine="true"
-                        android:textSize="14sp" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/illust_id"
@@ -168,45 +170,47 @@
                         android:layout_below="@+id/author_id"
                         android:layout_marginStart="@dimen/sixteen_dip"
                         android:layout_marginTop="4dp"
-                        android:textSize="14sp" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/detail_img_size"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/illust_id"
-                        android:layout_marginEnd="@dimen/sixteen_dip"
                         android:layout_marginStart="@dimen/sixteen_dip"
                         android:layout_marginTop="4dp"
-                        android:textSize="14sp" />
+                        android:layout_marginEnd="@dimen/sixteen_dip"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/detail_create_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/detail_img_size"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginEnd="@dimen/sixteen_dip"
                         android:layout_marginStart="@dimen/sixteen_dip"
                         android:layout_marginTop="4dp"
-                        android:textSize="14sp" />
+                        android:layout_marginEnd="@dimen/sixteen_dip"
+                        android:layout_marginBottom="4dp"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/viewed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
                         android:layout_alignBottom="@+id/author_id"
+                        android:layout_marginEnd="4dp"
                         android:layout_toStartOf="@+id/img_viewd"
                         android:text="16k"
-                        android:textSize="14sp" />
+                        android:textSize="15sp" />
 
                     <ImageView
                         android:id="@+id/img_viewd"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/viewed"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginEnd="@dimen/sixteen_dip"
                         android:src="@drawable/ic_remove_red_eye_black_24dp" />
 
@@ -214,18 +218,18 @@
                         android:id="@+id/liked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
                         android:layout_alignBottom="@+id/illust_id"
+                        android:layout_marginEnd="4dp"
                         android:layout_toStartOf="@+id/img_liked"
                         android:text="6K"
-                        android:textSize="14sp" />
+                        android:textSize="15sp" />
 
                     <ImageView
                         android:id="@+id/img_liked"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/liked"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginEnd="@dimen/sixteen_dip"
                         android:padding="1dp"
                         android:src="@drawable/ic_favorite_white_24dp" />
@@ -235,9 +239,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/detail_create_time"
-                        android:layout_marginBottom="@dimen/eight_dip"
-                        android:layout_marginEnd="@dimen/twelve_dip"
                         android:layout_marginStart="@dimen/twelve_dip"
+                        android:layout_marginEnd="@dimen/twelve_dip"
+                        android:layout_marginBottom="@dimen/eight_dip"
                         zhy:max_select="1" />
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -253,10 +257,10 @@
                     android:id="@+id/card_left"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="@dimen/eight_dip"
-                    android:layout_marginEnd="@dimen/eight_dip"
                     android:layout_marginStart="@dimen/sixteen_dip"
                     android:layout_marginTop="@dimen/eight_dip"
+                    android:layout_marginEnd="@dimen/eight_dip"
+                    android:layout_marginBottom="@dimen/eight_dip"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
@@ -278,10 +282,10 @@
                     android:id="@+id/card_right"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="@dimen/eight_dip"
-                    android:layout_marginEnd="@dimen/sixteen_dip"
                     android:layout_marginStart="@dimen/eight_dip"
                     android:layout_marginTop="@dimen/eight_dip"
+                    android:layout_marginEnd="@dimen/sixteen_dip"
+                    android:layout_marginBottom="@dimen/eight_dip"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
@@ -306,8 +310,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/card_fifth"
-                android:layout_marginBottom="@dimen/eight_dip"
                 android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginBottom="@dimen/eight_dip"
                 android:text="@string/ralated_illust"
                 android:textColor="@color/white"
                 android:textSize="13sp" />
@@ -316,10 +320,10 @@
                 android:id="@+id/text_get_related"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_below="@+id/card_fifth"
-                android:layout_marginBottom="@dimen/eight_dip"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/twelve_dip"
+                android:layout_marginBottom="@dimen/eight_dip"
                 android:text="@string/get_ralated_illust"
                 android:textColor="@color/colorPrimary"
                 android:textSize="13sp" />
@@ -329,9 +333,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_related"
-                android:layout_marginBottom="@dimen/sixteen_dip"
-                android:layout_marginEnd="@dimen/sixteen_dip"
                 android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginEnd="@dimen/sixteen_dip"
+                android:layout_marginBottom="@dimen/sixteen_dip"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:stateListAnimator="@animator/touch_raise"

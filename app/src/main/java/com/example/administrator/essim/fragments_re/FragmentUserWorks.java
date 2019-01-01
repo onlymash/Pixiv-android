@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.administrator.essim.activities.ViewPagerActivity;
+import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.utils.PixivOperate;
@@ -41,6 +42,7 @@ public class FragmentUserWorks extends BaseFragment {
     private RecyclerView mRecyclerView;
     private RefreshLayout mRefreshLayout;
     private ProgressBar mProgressBar;
+    private GridLayoutManager mGridLayoutManager;
     private IllustAdapter mAdapter;
     private List<IllustsBean> allIllusts = new ArrayList<>();
     private String nextUrl = null;
@@ -63,8 +65,8 @@ public class FragmentUserWorks extends BaseFragment {
         mRecyclerView = v.findViewById(R.id.recy_list);
         mProgressBar = v.findViewById(R.id.progress);
         noData = v.findViewById(R.id.no_data);
-        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mGridLayoutManager = new GridLayoutManager(mContext, 2);
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.addItemDecoration(new GridItemDecoration(
                 2, DensityUtil.dip2px(mContext, 4.0f), false));
         mRecyclerView.setHasFixedSize(true);
@@ -106,7 +108,7 @@ public class FragmentUserWorks extends BaseFragment {
                                             @Override
                                             public void onItemClick(@NotNull View view, int position, int viewType) {
                                                 if (viewType == 0){
-                                                    Reference.sIllustsBeans = allIllusts;
+                                                    PixivApp.sIllustsBeans = allIllusts;
                                                     Intent intent = new Intent(mContext, ViewPagerActivity.class);
                                                     intent.putExtra("which one is selected", position);
                                                     mContext.startActivity(intent);
@@ -190,5 +192,17 @@ public class FragmentUserWorks extends BaseFragment {
             mRefreshLayout.finishLoadMore(true);
             Common.showToast(getString(R.string.no_more_data));
         }
+    }
+
+    public List<IllustsBean> getAllIllusts() {
+        return allIllusts;
+    }
+
+    public void setAllIllusts(List<IllustsBean> allIllusts) {
+        this.allIllusts = allIllusts;
+    }
+
+    public int getScrollIndex(){
+        return mGridLayoutManager.findFirstCompletelyVisibleItemPosition();
     }
 }

@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     LocalData.getUserName() : String.format("%s (%s)",
                     LocalData.getUserName(),
                     LocalData.getUserAccount()));
-            if (LocalData.getEmail().length() == 0) {
+            if (LocalData.getEmail().length() != 0) {
                 textView2.setText(LocalData.getEmail());
             }
             userHead.setOnClickListener(view -> {

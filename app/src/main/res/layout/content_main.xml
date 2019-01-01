@@ -10,15 +10,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
             android:layout_above="@+id/bottomBar"
+            android:fitsSystemWindows="true"
             android:gravity="center" />
 
         <com.roughike.bottombar.BottomBar

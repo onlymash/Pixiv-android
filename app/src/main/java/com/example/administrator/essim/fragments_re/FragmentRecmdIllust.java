@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.ViewPagerActivity;
+import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.adapters_re.IllustAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network_re.Retro;
@@ -39,7 +40,9 @@ public class FragmentRecmdIllust extends BaseFragment {
     private RefreshLayout mRefreshLayout;
     private ProgressBar mProgressBar;
     private IllustAdapter mAdapter;
+    private GridLayoutManager mGridLayoutManager;
     private List<IllustsBean> allIllusts = new ArrayList<>();
+    private ImageView loadError;
     private String nextUrl = null;
 
     @Override
@@ -51,11 +54,13 @@ public class FragmentRecmdIllust extends BaseFragment {
     View initView(View v) {
         mRecyclerView = v.findViewById(R.id.recy_list);
         mProgressBar = v.findViewById(R.id.progress);
-        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mGridLayoutManager = new GridLayoutManager(mContext, 2);
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.addItemDecoration(new GridItemDecoration(
                 2, DensityUtil.dip2px(mContext, 4.0f), false));
         mRecyclerView.setHasFixedSize(true);
+        loadError = v.findViewById(R.id.load_error);
+        loadError.setOnClickListener(v1 -> getFirstData());
         mRefreshLayout = v.findViewById(R.id.refreshLayout);
         mRefreshLayout.setRefreshHeader(new DeliveryHeader(mContext));
         mRefreshLayout.setOnLoadMoreListener(layout -> getNextData());
@@ -70,6 +75,8 @@ public class FragmentRecmdIllust extends BaseFragment {
 
     @Override
     void getFirstData() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        loadError.setVisibility(View.INVISIBLE);
         Retro.initToken(() -> {
             Retro.getAppApi().getRecmdIllust(
                     LocalData.getToken(), "for_android", false)
@@ -94,7 +101,7 @@ public class FragmentRecmdIllust extends BaseFragment {
                                     @Override
                                     public void onItemClick(@NotNull View view, int position, int viewType) {
                                         if (viewType == 0){
-                                            Reference.sIllustsBeans = allIllusts;
+                                            PixivApp.sIllustsBeans = allIllusts;
                                             Intent intent = new Intent(mContext, ViewPagerActivity.class);
                                             intent.putExtra("which one is selected", position);
                                             mContext.startActivity(intent);
@@ -111,10 +118,16 @@ public class FragmentRecmdIllust extends BaseFragment {
                                     }
                                 });
                                 mRecyclerView.setAdapter(mAdapter);
+                                mRefreshLayout.getLayout().setVisibility(View.VISIBLE);
+                                loadError.setVisibility(View.INVISIBLE);
                                 mRefreshLayout.finishRefresh(true);
+                                ((FragmentPixiv) getParentFragment()).getFragments()[1].getFirstData();
                             } else {
                                 Common.showToast(getString(R.string.load_error));
                                 mRefreshLayout.finishRefresh(false);
+                                mRefreshLayout.getLayout().setVisibility(View.INVISIBLE);
+                                loadError.setVisibility(View.VISIBLE);
+                                ((FragmentHotTag)((FragmentPixiv) getParentFragment()).getFragments()[1]).noNetwork();
                             }
                             mProgressBar.setVisibility(View.INVISIBLE);
                         }
@@ -122,7 +135,10 @@ public class FragmentRecmdIllust extends BaseFragment {
                         @Override
                         public void onError(Throwable e) {
                             mRefreshLayout.finishRefresh(false);
+                            mRefreshLayout.getLayout().setVisibility(View.INVISIBLE);
+                            loadError.setVisibility(View.VISIBLE);
                             mProgressBar.setVisibility(View.INVISIBLE);
+                            ((FragmentHotTag)((FragmentPixiv) getParentFragment()).getFragments()[1]).noNetwork();
                             Common.showToast(getString(R.string.load_error));
                         }
 
@@ -131,7 +147,6 @@ public class FragmentRecmdIllust extends BaseFragment {
 
                         }
                     });
-            ((FragmentPixiv) getParentFragment()).getFragments()[1].getFirstData();
         });
 
     }
@@ -178,5 +193,17 @@ public class FragmentRecmdIllust extends BaseFragment {
             mRefreshLayout.finishLoadMore(true);
             Common.showToast(getString(R.string.no_more_data));
         }
+    }
+
+    public List<IllustsBean> getAllIllusts() {
+        return allIllusts;
+    }
+
+    public void setAllIllusts(List<IllustsBean> allIllusts) {
+        this.allIllusts = allIllusts;
+    }
+
+    public int getScrollIndex(){
+        return mGridLayoutManager.findFirstCompletelyVisibleItemPosition();
     }
 }

@@ -1,9 +1,12 @@
 package com.example.administrator.essim.activities_re;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
@@ -29,7 +32,6 @@ public class WebViewActivity extends BaseActivity {
 
     private String url;
     private AgentWeb mAgentWeb;
-    private RelativeLayout mRelativeLayout;
     private static final String USER_URL = "https://www.pixiv.net/member.php?id=";
     private static final String ILLUST_URL = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=";
 
@@ -41,28 +43,28 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void initView() {
         url = getIntent().getStringExtra("article url");
-        mRelativeLayout = findViewById(R.id.parent);
+        RelativeLayout relativeLayout = findViewById(R.id.parent);
         mAgentWeb = AgentWeb.with(this)
-                .setAgentWebParent(mRelativeLayout, new RelativeLayout.LayoutParams(-1, -1))
+                .setAgentWebParent(relativeLayout, new RelativeLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .setWebViewClient(new WebViewClient() {
+
                     @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        Common.showLog(url);
-                        if (url.contains(ILLUST_URL)) {
-                            PixivOperate.getSingleIllust(mContext, Integer.valueOf(url.substring(ILLUST_URL.length())));
+                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                        String destiny = request.getUrl().toString();
+                        Common.showLog(destiny);
+                        if (destiny.contains(ILLUST_URL)) {
+                            PixivOperate.getSingleIllust(mContext, Integer.valueOf(destiny.substring(ILLUST_URL.length())));
                             return true;
-                        } else if (url.contains(USER_URL)) {
+                        } else if (destiny.contains(USER_URL)) {
                             Intent intent = new Intent(mContext, UserDetailActivity.class);
-                            intent.putExtra("user id", Integer.valueOf(USER_URL.length()));
+                            intent.putExtra("user id", Integer.valueOf(destiny.substring(USER_URL.length())));
                             startActivity(intent);
                             return true;
                         } else {
-                            return false;
+                            return super.shouldOverrideUrlLoading(view, request);
                         }
-
                     }
-
                 })
                 .createAgentWeb()
                 .ready()

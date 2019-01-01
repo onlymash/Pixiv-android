@@ -1,6 +1,7 @@
 package com.example.administrator.essim.network_re;
 
 import com.example.administrator.essim.response.BookmarkAddResponse;
+import com.example.administrator.essim.response.IllustCommentsResponse;
 import com.example.administrator.essim.response.TrendingtagResponse;
 import com.example.administrator.essim.response_re.ArticleResponse;
 import com.example.administrator.essim.response_re.ListUserResponse;
@@ -9,6 +10,7 @@ import com.example.administrator.essim.response_re.SingleIllustResponse;
 import com.example.administrator.essim.response_re.UserResponse;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -100,7 +102,8 @@ public interface AppApi {
     @GET("/v1/illust/ranking")
     Observable<IllustListResponse> getRank(@Header("Authorization") String token,
                                            @Query("filter") String filter,
-                                           @Query("mode") String mode);
+                                           @Query("mode") String mode,
+                                           @Query("date") String date);
 
     @GET("/v1/user/detail")
     Observable<UserResponse> getUserDetail(@Header("Authorization") String token,
@@ -166,4 +169,27 @@ public interface AppApi {
     @GET("/v1/user/recommended")
     Observable<ListUserResponse> getRecmdUser(@Header("Authorization") String token,
                                                   @Query("filter") String filter);
+
+
+    @GET("/v2/illust/related")
+    Observable<IllustListResponse> getRelated(@Header("Authorization") String token,
+                                              @Query("filter") String filter,
+                                              @Query("illust_id") int illust_id);
+
+    @GET("/v1/illust/comments")
+    Observable<IllustCommentsResponse> getComment(@Header("Authorization") String token,
+                                                  @Query("illust_id") int illust_id);
+
+
+    @GET
+    Observable<IllustCommentsResponse> getNextComment(@Header("Authorization") String token,
+                                                      @Url String nextUrl);
+
+
+    @FormUrlEncoded
+    @POST("v1/illust/comment/add")
+    Observable<ResponseBody> postComment(@Header("Authorization") String token,
+                                          @Field("illust_id") int illust_id,
+                                         @Field("comment") String comment,
+                                         @Field("parent_comment_id") int parent_comment_id);
 }

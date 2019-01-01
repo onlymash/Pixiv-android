@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
 
     <ScrollView
@@ -108,18 +108,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip"
                 android:paddingStart="@dimen/sixteen_dip"
                 android:paddingTop="@dimen/sixteen_dip"
-                android:padding="@dimen/sixteen_dip"
                 android:text="ufotable(ユーフォーテーブル有限会社)" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip"
                 android:paddingStart="@dimen/sixteen_dip"
                 android:paddingTop="@dimen/sixteen_dip"
-                android:padding="@dimen/sixteen_dip"
                 android:text="A-1 Pictures(株式会社A-1 Pictures)" />
 
             <TextView
@@ -127,12 +127,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
+                android:padding="@dimen/sixteen_dip"
                 android:paddingStart="@dimen/sixteen_dip"
                 android:paddingTop="@dimen/sixteen_dip"
-                android:padding="@dimen/sixteen_dip"
                 android:text="J.C.STAFF(株式会社 ジェーシースタッフ)" />
-
-
 
 
             <TextView
@@ -164,8 +162,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:background="#f2f2f2"
-                android:layout_height="1dp">
+                android:layout_height="1dp"
+                android:background="#f2f2f2">
 
             </View>
 
@@ -291,8 +289,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:background="#f2f2f2"
-                android:layout_height="1dp">
+                android:layout_height="1dp"
+                android:background="#f2f2f2">
 
             </View>
 
@@ -400,12 +398,10 @@
                 android:text="Foxtail-Grass Studio" />
 
 
-
-
             <View
                 android:layout_width="match_parent"
-                android:background="#f2f2f2"
-                android:layout_height="1dp">
+                android:layout_height="1dp"
+                android:background="#f2f2f2">
 
             </View>
 
@@ -473,8 +469,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:background="#f2f2f2"
-                android:layout_height="1dp">
+                android:layout_height="1dp"
+                android:background="#f2f2f2">
 
             </View>
 
@@ -624,11 +620,11 @@
 
                 <TextView
                     android:id="@+id/line22"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="K-ON轻音部" />
+                    android:text="K-ON轻音部"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
 
 
                 <TextView
@@ -693,32 +689,32 @@
 
             <View
                 android:layout_width="match_parent"
-                android:background="#f2f2f2"
-                android:layout_height="1dp">
+                android:layout_height="1dp"
+                android:background="#f2f2f2">
 
             </View>
 
 
             <TextView
-                android:layout_width="match_parent"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginStart="@dimen/sixteen_dip"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/sixteen_dip"
-                android:text="@string/donate_names"
                 android:id="@+id/getDonaterList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dip"
+                android:layout_marginTop="@dimen/sixteen_dip"
                 android:layout_marginBottom="@dimen/sixteen_dip"
-                android:layout_height="wrap_content" />
+                android:text="@string/donate_names"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_width="match_parent"
                 android:id="@+id/getUsedLibraries"
-                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/sixteen_dip"
                 android:layout_marginBottom="@dimen/sixteen_dip"
-                android:textColor="@color/colorPrimary"
                 android:text="@string/libraries"
-                android:layout_height="wrap_content" />
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

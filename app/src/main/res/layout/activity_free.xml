@@ -28,59 +28,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/sixteen_dip"
-            android:text="前言：Pixiv (beta) 前期的联网策略失效，为了让大家可以继续使用pixiv，我们租用了一台VPS，会使用SS的朋友直接复制下面的神秘代码导入SS即可" />
+            android:text="前言：Pixiv (beta) 前期的联网策略失效，为了让大家可以继续使用pixiv，我们租用了一台VPS供大家使用，现在这台VPS由于过多人使用已被封， 已被封，已被封，所以以后请你们自行寻找代理工具，或者学习如何自己搭建VPS" />
 
         <TextView
             android:id="@+id/key"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoLink="all"
             android:layout_marginStart="@dimen/sixteen_dip"
             android:layout_marginEnd="@dimen/sixteen_dip"
             android:layout_marginBottom="@dimen/sixteen_dip"
+            android:autoLink="all"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="ss://YWVzLTI1Ni1jZmI6TVRjMVlqSXlPVEA2NS40OS4yMzUuMTAwOjQ0Mw==#mine"
+            android:text="https://segmentfault.com/a/1190000015725355"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
 
-        <TextView
-        android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sixteen_dip"
-            android:text="不会用SS的同学，下面链接指向的PPT文档是一个使用教程" />
-
-        <TextView
-            android:id="@+id/help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sixteen_dip"
-            android:layout_marginStart="@dimen/sixteen_dip"
-            android:layout_marginEnd="@dimen/sixteen_dip"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:autoLink="all"
-            android:textColor="@color/colorPrimary"
-            android:textSize="15sp"
-            android:text="https://pan.baidu.com/s/1wfU-TXAs3s-ilz_a6NKU_Q"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sixteen_dip"
+            android:layout_marginStart="@dimen/sixteen_dip"
             android:layout_marginEnd="@dimen/sixteen_dp"
-            android:layout_marginStart="@dimen/sixteen_dip"
             android:text="@string/app_qun" />
 
 
         <TextView
             android:id="@+id/join_app_qun"
             android:layout_width="match_parent"
-            android:textColor="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/sixteen_dp"
-            android:text="@string/join_app_qun" />
+            android:text="@string/join_app_qun"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
 </ScrollView>

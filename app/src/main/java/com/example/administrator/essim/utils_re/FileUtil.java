@@ -4,7 +4,7 @@ import com.example.administrator.essim.response_re.IllustsBean;
 
 import java.io.File;
 
-public class FileName {
+public class FileUtil {
 
     static final int NAME_STYLE_0 = 0;        //"作品id_p数.jpeg"
     private static final int NAME_STYLE_1 = 1;//"作品id_p数.png"

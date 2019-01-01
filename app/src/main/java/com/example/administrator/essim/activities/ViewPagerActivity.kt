@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager
 import android.view.View
 import com.ToxicBakery.viewpager.transforms.*
 import com.example.administrator.essim.R
+import com.example.administrator.essim.activities_re.PixivApp
 import com.example.administrator.essim.fragments.FragmentPixivItem
 import com.example.administrator.essim.response.Reference
 import com.example.administrator.essim.response_re.IllustsBean
@@ -30,7 +31,7 @@ class ViewPagerActivity : BaseActivity() {
         val intent = intent
         val index = intent.getIntExtra("which one is selected", 0)
         allIllust.clear()
-        allIllust.addAll(Reference.sIllustsBeans)
+        allIllust.addAll(PixivApp.sIllustsBeans)
 
         mToolbar.setNavigationOnClickListener { finish() }
         val fragmentManager = supportFragmentManager

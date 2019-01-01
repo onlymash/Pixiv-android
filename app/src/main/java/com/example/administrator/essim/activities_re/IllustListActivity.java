@@ -4,15 +4,17 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities.SearchActivity;
 import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.adapters_re.IllustAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network_re.Retro;
-import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response_re.IllustListResponse;
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
@@ -39,6 +41,7 @@ public class IllustListActivity extends BaseActivity{
     private ProgressBar mProgressBar;
     private IllustAdapter mAdapter;
     private List<IllustsBean> allIllusts = new ArrayList<>();
+    private GridLayoutManager mGridLayoutManager;
     private String nextUrl = null;
 
     @Override
@@ -49,11 +52,12 @@ public class IllustListActivity extends BaseActivity{
     @Override
     void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
         mRecyclerView = findViewById(R.id.recy_list);
         mProgressBar = findViewById(R.id.progress);
-        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mGridLayoutManager = new GridLayoutManager(mContext, 2);
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.addItemDecoration(new GridItemDecoration(
                 2, DensityUtil.dip2px(mContext, 4.0f), false));
         mRecyclerView.setHasFixedSize(true);
@@ -92,7 +96,7 @@ public class IllustListActivity extends BaseActivity{
                                     @Override
                                     public void onItemClick(@NotNull View view, int position, int viewType) {
                                         if (viewType == 0){
-                                            Reference.sIllustsBeans = allIllusts;
+                                            PixivApp.sIllustsBeans = allIllusts;
                                             Intent intent = new Intent(mContext, ViewPagerActivity.class);
                                             intent.putExtra("which one is selected", position);
                                             mContext.startActivity(intent);
@@ -168,5 +172,28 @@ public class IllustListActivity extends BaseActivity{
             mRefreshLayout.finishLoadMore(true);
             Common.showToast(getString(R.string.no_more_data));
         }
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_pixiv, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_search) {
+            Intent intent = new Intent(mContext, SearchActivity.class);
+            startActivity(intent);
+        }else if (item.getItemId() == R.id.action_download) {
+            PixivApp.sIllustsBeans = allIllusts;
+            Intent intent = new Intent(mContext, BatchDownloadActivity.class);
+            intent.putExtra("scroll dist", mGridLayoutManager.findFirstCompletelyVisibleItemPosition());
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

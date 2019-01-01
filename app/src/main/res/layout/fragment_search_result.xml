@@ -8,10 +8,10 @@
         android:id="@+id/card_result"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:layout_marginBottom="@dimen/eight_dip"
-        android:layout_marginEnd="@dimen/sixteen_dip"
         android:layout_marginStart="@dimen/sixteen_dip"
         android:layout_marginTop="@dimen/sixteen_dip"
+        android:layout_marginEnd="@dimen/sixteen_dip"
+        android:layout_marginBottom="@dimen/eight_dip"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         android:stateListAnimator="@animator/touch_raise"
@@ -50,10 +50,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/rela_left"
-                android:paddingBottom="4dp"
-                android:paddingEnd="4dp"
                 android:paddingLeft="8dp"
-                android:paddingTop="4dp">
+                android:paddingTop="4dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="4dp">
 
                 <TextView
                     android:id="@+id/author_item_title"
@@ -68,8 +68,8 @@
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginStart="@dimen/three_dip"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:text="@string/action_view_detail"

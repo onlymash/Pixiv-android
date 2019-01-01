@@ -49,17 +49,15 @@ import retrofit2.Callback;
 
 public class SearchActivity extends BaseActivity implements MaterialSearchBar.OnSearchActionListener {
 
-    private static final String url = "https://api.imjad.cn/pixiv/v1/?type=tags";
+    private static final String GET_TAG_URL = "https://api.imjad.cn/pixiv/v1/?type=tags";
+
     private int searchType;
-    private Activity mActivity;
-    private Context mContext;
     private CardView mCardView;
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerView;
     private MaterialSearchBar searchBar;
     private TagFlowLayout mTagFlowLayout;
     private NestedScrollView mNestedScrollView;
-    private SharedPreferences mSharedPreferences;
     private AutoFieldAdapter customSuggestionsAdapter;
 
     @Override
@@ -70,14 +68,11 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
     }
 
     private void initView() {
-        mActivity = this;
-        mContext = this;
         mCardView = findViewById(R.id.card_search);
         mRecyclerView = findViewById(R.id.recy);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         mProgressBar = findViewById(R.id.try_login);
         mProgressBar.setVisibility(View.INVISIBLE);
         searchBar = findViewById(R.id.searchBar);
@@ -157,7 +152,7 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
             if (Common.isNumeric(searchBar.getText().trim())) {
                 PixivOperate.getSingleIllust(mContext, Integer.valueOf(searchBar.getText().trim()), mProgressBar);
             } else {
-                Snackbar.make(searchBar, "ID有误~（当前状态 ID搜作品）", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(searchBar, "作品ID有误~（当前状态 ID搜作品）", Snackbar.LENGTH_SHORT).show();
             }
         } else if (searchType == 2) {
             Intent intent = new Intent(mContext, FollowActivity.class);
@@ -170,7 +165,7 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
                 startActivity(intent);
                 searchBar.setText("");
             } else {
-                Snackbar.make(searchBar, "ID有误~（当前状态 ID搜画师）", Snackbar.LENGTH_SHORT).show();
+                Common.showToast("画师ID有误~（当前状态 ID搜画师）");
             }
         }
     }
@@ -190,7 +185,7 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
 
     private void getTagGroup() {
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
+        Request request = new Request.Builder().url(GET_TAG_URL).build();
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
@@ -242,23 +237,28 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
         call.enqueue(new Callback<PixivResponse>() {
             @Override
             public void onResponse(@NonNull Call<PixivResponse> call, @NonNull retrofit2.Response<PixivResponse> response) {
-                customSuggestionsAdapter = new AutoFieldAdapter(response.body(), mContext);
-                customSuggestionsAdapter.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position, int viewType) {
-                        Intent intent = new Intent(mContext, SearchResultActivity.class);
-                        intent.putExtra("what is the keyword", ((TextView) view).getText());
-                        startActivity(intent);
-                    }
+                if(response.body() != null) {
+                    customSuggestionsAdapter = new AutoFieldAdapter(response.body(), mContext);
+                    customSuggestionsAdapter.setOnItemClickListener(new OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position, int viewType) {
+                            Intent intent = new Intent(mContext, SearchResultActivity.class);
+                            intent.putExtra("what is the keyword", ((TextView) view).getText());
+                            startActivity(intent);
+                        }
 
-                    @Override
-                    public void onItemLongClick(View view, int position) {
+                        @Override
+                        public void onItemLongClick(View view, int position) {
 
-                    }
-                });
-                mRecyclerView.setAdapter(customSuggestionsAdapter);
-                mCardView.setVisibility(View.VISIBLE);
-                mNestedScrollView.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                    mRecyclerView.setAdapter(customSuggestionsAdapter);
+                    mCardView.setVisibility(View.VISIBLE);
+                    mNestedScrollView.setVisibility(View.INVISIBLE);
+
+                }else {
+                    Common.showToast("相关搜索词获取失败");
+                }
                 mProgressBar.setVisibility(View.INVISIBLE);
             }
 

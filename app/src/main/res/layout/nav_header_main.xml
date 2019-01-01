@@ -8,38 +8,38 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="match_parent"
         android:id="@+id/header_img"
-        android:scaleType="centerCrop"
-        android:layout_height="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
         android:layout_width="62dp"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="@dimen/sixteen_dip"
         android:layout_height="62dp"
         android:layout_above="@+id/username"
+        android:layout_marginStart="@dimen/sixteen_dip"
+        android:scaleType="centerCrop"
         app:srcCompat="@mipmap/logo" />
 
     <TextView
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:layout_marginBottom="4dp"
-        android:layout_marginStart="@dimen/sixteen_dip"
         android:layout_above="@+id/useremail"
+        android:layout_marginStart="@dimen/sixteen_dip"
+        android:layout_marginBottom="4dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/not_login"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/useremail"
-        android:layout_marginBottom="@dimen/sixteen_dip"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/sixteen_dip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/sixteen_dip"
+        android:layout_marginBottom="@dimen/sixteen_dip"
         android:text="@string/nothing_to_show" />
 
 </RelativeLayout>

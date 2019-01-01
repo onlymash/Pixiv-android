@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.BatchDownloadActivity">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/mToolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
@@ -16,14 +14,14 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="@drawable/ic_arrow_back_black_two_24dp"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:title="批量选择"
+        app:title=" "
         app:titleTextColor="#fff" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/mToolbar"
-        android:id="@+id/select_recy"
+        android:id="@+id/recy_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
 
     </android.support.v7.widget.RecyclerView>
 

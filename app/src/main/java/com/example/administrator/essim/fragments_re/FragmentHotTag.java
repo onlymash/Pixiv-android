@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
@@ -32,6 +33,7 @@ public class FragmentHotTag extends BaseFragment {
 
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
+    private ImageView loadError;
 
     @Override
     void initLayout() {
@@ -42,6 +44,8 @@ public class FragmentHotTag extends BaseFragment {
     View initView(View v) {
         mRecyclerView = v.findViewById(R.id.recy_list);
         mProgressBar = v.findViewById(R.id.progress);
+        loadError = v.findViewById(R.id.load_error);
+        loadError.setOnClickListener(v1 -> getFirstData());
         GridLayoutManager layoutManager = new GridLayoutManager(mContext, 3);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -67,6 +71,8 @@ public class FragmentHotTag extends BaseFragment {
 
     @Override
     void getFirstData() {
+        loadError.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
         Retro.initToken(() ->
                 Retro.getAppApi().getHotTags(
                         LocalData.getToken(), "for_android")
@@ -97,8 +103,12 @@ public class FragmentHotTag extends BaseFragment {
                                         }
                                     });
                                     mRecyclerView.setAdapter(adapter);
+                                    loadError.setVisibility(View.INVISIBLE);
+                                    mRecyclerView.setVisibility(View.VISIBLE);
                                 } else {
                                     Common.showToast(getString(R.string.load_error));
+                                    loadError.setVisibility(View.VISIBLE);
+                                    mRecyclerView.setVisibility(View.INVISIBLE);
                                 }
                                 mProgressBar.setVisibility(View.INVISIBLE);
                             }
@@ -106,6 +116,8 @@ public class FragmentHotTag extends BaseFragment {
                             @Override
                             public void onError(Throwable e) {
                                 mProgressBar.setVisibility(View.INVISIBLE);
+                                loadError.setVisibility(View.VISIBLE);
+                                mRecyclerView.setVisibility(View.INVISIBLE);
                                 Common.showToast(getString(R.string.load_error));
                             }
 
@@ -118,5 +130,11 @@ public class FragmentHotTag extends BaseFragment {
 
     @Override
     void getNextData() {
+    }
+
+    public void noNetwork(){
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        loadError.setVisibility(View.VISIBLE);
     }
 }

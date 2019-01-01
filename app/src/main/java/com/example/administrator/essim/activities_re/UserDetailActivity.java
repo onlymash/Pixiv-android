@@ -9,12 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities.SearchActivity;
 import com.example.administrator.essim.fragments_re.BaseFragment;
 import com.example.administrator.essim.fragments_re.FragmentUserCollect;
 import com.example.administrator.essim.fragments_re.FragmentUserWorks;
@@ -45,6 +48,7 @@ public class UserDetailActivity extends BaseActivity {
     private TabLayout mTabLayout;
     private int userID;
     private String userName;
+    private BaseFragment[] baseFragments;
 
     @Override
     void initLayout() {
@@ -57,6 +61,7 @@ public class UserDetailActivity extends BaseActivity {
     @Override
     void initView() {
         mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(v -> finish());
         mTabLayout = findViewById(R.id.tab_layout);
         mViewPager = findViewById(R.id.view_pager);
@@ -81,7 +86,6 @@ public class UserDetailActivity extends BaseActivity {
     void initData() {
         userID = getIntent().getIntExtra("user id", 0);
         getUserDetail(userID);
-        BaseFragment[] baseFragments;
         if (userID != LocalData.getUserID()) {
             baseFragments = new BaseFragment[]{
                     FragmentUserWorks.newInstance(userID),
@@ -193,5 +197,35 @@ public class UserDetailActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_pixiv, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_search) {
+            Intent intent = new Intent(mContext, SearchActivity.class);
+            startActivity(intent);
+        }else if (item.getItemId() == R.id.action_download) {
+            Intent intent = new Intent(mContext, BatchDownloadActivity.class);
+            if(mViewPager.getCurrentItem() == 0){
+                PixivApp.sIllustsBeans = ((FragmentUserWorks) baseFragments[0]).getAllIllusts();
+                intent.putExtra("scroll dist", ((FragmentUserWorks) baseFragments[0]).getScrollIndex());
+            }else if(mViewPager.getCurrentItem() == 1){
+                PixivApp.sIllustsBeans = ((FragmentUserCollect) baseFragments[1]).getAllIllusts();
+                intent.putExtra("scroll dist", ((FragmentUserCollect) baseFragments[1]).getScrollIndex());
+            }else if(mViewPager.getCurrentItem() == 2){
+                PixivApp.sIllustsBeans = ((FragmentUserCollect) baseFragments[2]).getAllIllusts();
+                intent.putExtra("scroll dist", ((FragmentUserCollect) baseFragments[2]).getScrollIndex());
+            }
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

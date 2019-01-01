@@ -32,12 +32,12 @@ public class FreeActivity extends BaseActivity {
             return true;
         });
 
-        mTextView2 = findViewById(R.id.help);
+        /*mTextView2 = findViewById(R.id.help);
 
         mTextView2.setOnLongClickListener(view -> {
             Common.copyMessage(mContext, mTextView2.getText().toString());
             return true;
-        });
+        });*/
 
         mTextView3 = findViewById(R.id.join_app_qun);
 

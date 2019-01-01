@@ -85,10 +85,10 @@
                 android:id="@+id/be_free"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="@dimen/sixteen_dip"
                 android:autoLink="all"
                 android:text="@string/you_are_free"
+                android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />
         </LinearLayout>
     </RelativeLayout>

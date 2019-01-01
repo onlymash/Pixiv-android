@@ -243,4 +243,8 @@
     <string name="good_friend">好P友 %d</string>
     <string name="i_follow">关注 %d</string>
     <string name="operate_error">操作失败，请检查网络连接</string>
+    <string name="create_error">创建失败,请检查网络连接</string>
+    <string name="create_success">创建成功，正在登录</string>
+    <string name="username_nonnull">用户名不能为空</string>
+    <string name="select_day">选择日期</string>
 </resources>

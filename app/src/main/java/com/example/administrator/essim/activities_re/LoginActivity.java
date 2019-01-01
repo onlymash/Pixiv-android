@@ -2,15 +2,19 @@ package com.example.administrator.essim.activities_re;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities.SettingsActivity;
 import com.example.administrator.essim.adapters_re.LoginBgAdapter;
 import com.example.administrator.essim.network_re.Retro;
 import com.example.administrator.essim.response_re.IllustListResponse;
@@ -19,6 +23,7 @@ import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.GridItemDecoration;
 import com.example.administrator.essim.utils_re.AutoScrollRecyclerView;
+import com.example.administrator.essim.utils_re.FileDownload;
 import com.example.administrator.essim.utils_re.LocalData;
 
 import io.reactivex.Observer;
@@ -48,6 +53,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     void initView() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
         mProgressBar = findViewById(R.id.progress);
         mProgressBar.setVisibility(View.INVISIBLE);
         mRecyclerView = findViewById(R.id.recy_list);
@@ -76,8 +84,6 @@ public class LoginActivity extends BaseActivity {
         });
         CardView loginButton = findViewById(R.id.login);
         loginButton.setOnClickListener(v -> login());
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     @Override
@@ -210,5 +216,27 @@ public class LoginActivity extends BaseActivity {
         } else {
             return true;
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_setting:
+                Intent intent = new Intent(mContext, SettingsActivity.class);
+                startActivity(intent);
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

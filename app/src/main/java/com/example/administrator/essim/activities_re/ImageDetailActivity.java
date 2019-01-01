@@ -9,14 +9,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.fragments.FragmentImageDetail;
+import com.example.administrator.essim.fragments_re.FragmentImageDetail;
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils_re.FileDownload;
 
 public class ImageDetailActivity extends BaseActivity {
 
     public ViewPager mViewPager;
-    public IllustsBean mIllustsBean;
+    private IllustsBean mIllustsBean;
     private TextView mTextView;
 
     @Override
@@ -42,7 +42,7 @@ public class ImageDetailActivity extends BaseActivity {
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return FragmentImageDetail.Companion.newInstance(position);
+                return FragmentImageDetail.newInstance(position);
             }
 
             @Override
@@ -79,5 +79,10 @@ public class ImageDetailActivity extends BaseActivity {
     @Override
     void getNextData() {
 
+    }
+
+
+    public IllustsBean getIllustsBean() {
+        return mIllustsBean;
     }
 }

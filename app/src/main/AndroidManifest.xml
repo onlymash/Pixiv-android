@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.administrator.essim">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,10 +35,9 @@
         <activity android:name=".activities.SearchResultActivity" />
         <activity android:name=".activities.ViewPagerActivity" />
         <activity android:name=".activities.SearchActivity" />
-        <activity android:name=".activities.CommentActivity" />
         <activity android:name=".activities.SettingsActivity" />
-        <activity android:name=".activities.RelatedActivity" />
-        <activity android:name=".activities.BatchDownloadActivity" />
+        <activity android:name=".activities_re.RelatedActivity" />
+        <activity android:name=".activities_re.BatchDownloadActivity" />
 
         <service android:name=".activities.BatchDownloadService" />
 
@@ -52,6 +52,7 @@
         <activity android:name=".activities_re.UserDetailActivity" />
         <activity android:name=".activities_re.IllustListActivity" />
         <activity android:name=".activities_re.ArticleActivity" />
+        <activity android:name=".activities_re.CommentActivity" />
 
 
     </application>

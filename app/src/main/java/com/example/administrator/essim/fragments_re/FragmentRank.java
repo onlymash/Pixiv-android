@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.activities_re.PixivApp;
+import com.example.administrator.essim.activities_re.RankActivity;
 import com.example.administrator.essim.adapters_re.IllustAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network_re.Retro;
@@ -40,9 +41,10 @@ public class FragmentRank extends BaseFragment {
     private RecyclerView mRecyclerView;
     private RefreshLayout mRefreshLayout;
     private ProgressBar mProgressBar;
+    private GridLayoutManager mGridLayoutManager;
     private IllustAdapter mAdapter;
     private List<IllustsBean> allIllusts = new ArrayList<>();
-    private String nextUrl = null, dataType = "";
+    private String nextUrl = null, dataType = "", date = null;
     private static final String[] API_TITLES = new String[]{"day", "week", "month","day_male", "day_female", "week_original", "week_rookie",  "day_r18"};
 
     public static FragmentRank newInstance(int index) {
@@ -62,8 +64,8 @@ public class FragmentRank extends BaseFragment {
     View initView(View v) {
         mRecyclerView = v.findViewById(R.id.recy_list);
         mProgressBar = v.findViewById(R.id.progress);
-        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mGridLayoutManager = new GridLayoutManager(mContext, 2);
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.addItemDecoration(new GridItemDecoration(
                 2, DensityUtil.dip2px(mContext, 4.0f), false));
         mRecyclerView.setHasFixedSize(true);
@@ -78,6 +80,7 @@ public class FragmentRank extends BaseFragment {
     void initData() {
         int index = (int) getArguments().getSerializable("index");
         dataType = API_TITLES[index];
+        date = ((RankActivity) getActivity()).getDateString();
         getFirstData();
     }
 
@@ -85,7 +88,7 @@ public class FragmentRank extends BaseFragment {
     void getFirstData() {
         Retro.initToken(() ->
                 Retro.getAppApi().getRank(
-                        LocalData.getToken(), "for_android", dataType)
+                        LocalData.getToken(), "for_android", dataType, date)
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Observer<IllustListResponse>() {
@@ -105,7 +108,7 @@ public class FragmentRank extends BaseFragment {
                                         @Override
                                         public void onItemClick(@NotNull View view, int position, int viewType) {
                                             if (viewType == 0){
-                                                Reference.sIllustsBeans = allIllusts;
+                                                PixivApp.sIllustsBeans = allIllusts;
                                                 Intent intent = new Intent(mContext, ViewPagerActivity.class);
                                                 intent.putExtra("which one is selected", position);
                                                 mContext.startActivity(intent);
@@ -192,5 +195,17 @@ public class FragmentRank extends BaseFragment {
         if (isVisibleToUser) {
         } else {
         }
+    }
+
+    public List<IllustsBean> getAllIllusts() {
+        return allIllusts;
+    }
+
+    public void setAllIllusts(List<IllustsBean> allIllusts) {
+        this.allIllusts = allIllusts;
+    }
+
+    public int getScrollIndex(){
+        return mGridLayoutManager.findFirstCompletelyVisibleItemPosition();
     }
 }

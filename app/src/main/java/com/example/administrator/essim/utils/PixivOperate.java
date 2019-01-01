@@ -193,8 +193,8 @@ public class PixivOperate {
                         @Override
                         public void onNext(SingleIllustResponse singleIllustResponse) {
                             if (singleIllustResponse != null && singleIllustResponse.getIllust() != null) {
-                                Reference.sIllustsBeans = new ArrayList<>();
-                                Reference.sIllustsBeans.add(singleIllustResponse.getIllust());
+                                PixivApp.sIllustsBeans = new ArrayList<>();
+                                PixivApp.sIllustsBeans.add(singleIllustResponse.getIllust());
                                 Intent intent = new Intent(context, ViewPagerActivity.class);
                                 context.startActivity(intent);
                             } else {
@@ -230,8 +230,8 @@ public class PixivOperate {
                     @Override
                     public void onNext(SingleIllustResponse singleIllustResponse) {
                         if (singleIllustResponse != null && singleIllustResponse.getIllust() != null) {
-                            Reference.sIllustsBeans = new ArrayList<>();
-                            Reference.sIllustsBeans.add(singleIllustResponse.getIllust());
+                            PixivApp.sIllustsBeans = new ArrayList<>();
+                            PixivApp.sIllustsBeans.add(singleIllustResponse.getIllust());
                             Intent intent = new Intent(context, ViewPagerActivity.class);
                             context.startActivity(intent);
                         } else {

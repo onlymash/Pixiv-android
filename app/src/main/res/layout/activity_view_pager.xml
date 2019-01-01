@@ -9,7 +9,7 @@
         android:id="@+id/mViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.administrator.kujoukaren.activities.ViewPagerActivity"/>
+        tools:context="com.example.administrator.kujoukaren.activities.ViewPagerActivity" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/mToolbar"

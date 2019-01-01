@@ -12,8 +12,8 @@ import com.example.administrator.essim.response.IllustCommentsResponse
 import com.example.administrator.essim.utils_re.GlideUtil
 import kotlinx.android.synthetic.main.comment_item.view.*
 
-class IllustCommentAdapter(private val mPixivRankItem: List<IllustCommentsResponse.CommentsBean>,
-                           private val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CommentAdapter(private val mPixivRankItem: List<IllustCommentsResponse.CommentsBean>,
+                     private val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
     private var mOnItemClickListener: OnItemClickListener? = null

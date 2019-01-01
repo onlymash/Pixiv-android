@@ -20,15 +20,17 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.CommentActivity;
+import com.example.administrator.essim.activities_re.CommentActivity;
 import com.example.administrator.essim.activities_re.ImageDetailActivity;
-import com.example.administrator.essim.activities.RelatedActivity;
+import com.example.administrator.essim.activities_re.RelatedActivity;
 import com.example.administrator.essim.activities.SearchResultActivity;
 import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.activities_re.UserDetailActivity;
+import com.example.administrator.essim.interf.OnPrepared;
 import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
-import com.example.administrator.essim.response.RelatedIllust;
+import com.example.administrator.essim.network_re.Retro;
+import com.example.administrator.essim.response_re.IllustListResponse;
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.PixivOperate;
@@ -41,6 +43,10 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.Objects;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import retrofit2.Call;
 
@@ -55,7 +61,7 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
     private int index;
     private String priority;
     private TextView mTextView;
-    private RelatedIllust mRelatedIllust;
+    private IllustListResponse mRelatedIllust;
     private IllustsBean mIllustsBean;
     private FloatingActionButton mFloatingActionButton;
 
@@ -130,7 +136,9 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         TextView textView4 = view.findViewById(R.id.viewed);
         TextView textView5 = view.findViewById(R.id.liked);
         TextView textView6 = view.findViewById(R.id.illust_id);
+        textView6.setOnClickListener(this);
         TextView textView7 = view.findViewById(R.id.author_id);
+        textView7.setOnClickListener(this);
         TextView textView8 = view.findViewById(R.id.all_item_size);
         TextView textView9 = view.findViewById(R.id.description);
         textView9.setOnLongClickListener(v -> {
@@ -209,49 +217,70 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
     }
 
     private void getRelatedIllust(View view) {
-        ImageView imageView = view.findViewById(R.id.related_one);
-        ViewGroup.LayoutParams params2 = imageView.getLayoutParams();
-        params2.width = (getResources().getDisplayMetrics().widthPixels - getResources().getDimensionPixelSize(R.dimen.thirty_two_dp)) / 3;
-        params2.height = params2.width * 6 / 5;
-        Common.showLog(params2.width);
-        imageView.setLayoutParams(params2);
-        ImageView imageView2 = view.findViewById(R.id.related_two);
-        imageView2.setLayoutParams(params2);
-        ImageView imageView3 = view.findViewById(R.id.related_three);
-        imageView3.setLayoutParams(params2);
-        CardView cardView = view.findViewById(R.id.get_related_illust);
-        cardView.setOnClickListener(this);
-        TextView textView = view.findViewById(R.id.text_get_related);
-        TextView textView2 = view.findViewById(R.id.text_related);
-        textView.setOnClickListener(this);
-        Call<RelatedIllust> call = RestClient.retrofit_AppAPI
-                .create(AppApiPixivService.class)
-                .getRelatedIllust(LocalData.getToken(), mIllustsBean.getId());
-        call.enqueue(new retrofit2.Callback<RelatedIllust>() {
-            @Override
-            public void onResponse(Call<RelatedIllust> call, retrofit2.Response<RelatedIllust> response) {
-                mRelatedIllust = response.body();
-                if (mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3 && getView() != null) {
-                    Glide.with(mContext).load(GlideUtil.getMediumImg(mRelatedIllust.illusts.get(0)))
-                            .priority(Priority.LOW)
-                            .into(imageView);
-                    Glide.with(mContext).load(GlideUtil.getMediumImg(mRelatedIllust.illusts.get(1)))
-                            .priority(Priority.LOW)
-                            .into(imageView2);
-                    Glide.with(mContext).load(GlideUtil.getMediumImg(mRelatedIllust.illusts.get(2)))
-                            .priority(Priority.LOW)
-                            .into(imageView3);
-                } else {
-                    cardView.setVisibility(View.GONE);
-                    textView.setVisibility(View.INVISIBLE);
-                    textView2.setVisibility(View.INVISIBLE);
-                }
-            }
+        Retro.initToken(() ->
+                Retro.getAppApi().getRelated(LocalData.getToken(), "for_android", mIllustsBean.getId())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<IllustListResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onFailure(Call<RelatedIllust> call, Throwable throwable) {
-            }
-        });
+                    }
+
+                    @Override
+                    public void onNext(IllustListResponse illustListResponse) {
+                        if(illustListResponse != null && illustListResponse.getIllusts().size() >= 3){
+                            mRelatedIllust = illustListResponse;
+                            ImageView imageView = view.findViewById(R.id.related_one);
+                            ViewGroup.LayoutParams params2 = imageView.getLayoutParams();
+                            params2.width = (getResources().getDisplayMetrics().widthPixels - getResources().getDimensionPixelSize(R.dimen.thirty_two_dp)) / 3;
+                            params2.height = params2.width * 6 / 5;
+                            Common.showLog(params2.width);
+                            imageView.setLayoutParams(params2);
+                            ImageView imageView2 = view.findViewById(R.id.related_two);
+                            imageView2.setLayoutParams(params2);
+                            ImageView imageView3 = view.findViewById(R.id.related_three);
+                            imageView3.setLayoutParams(params2);
+                            CardView cardView = view.findViewById(R.id.get_related_illust);
+                            cardView.setOnClickListener(FragmentPixivItem.this);
+                            TextView textView = view.findViewById(R.id.text_get_related);
+                            textView.setOnClickListener(FragmentPixivItem.this);
+
+                            Glide.with(mContext).load(GlideUtil.getMediumImg(mRelatedIllust.getIllusts().get(0)))
+                                    .priority(Priority.LOW)
+                                    .into(imageView);
+                            Glide.with(mContext).load(GlideUtil.getMediumImg(mRelatedIllust.getIllusts().get(1)))
+                                    .priority(Priority.LOW)
+                                    .into(imageView2);
+                            Glide.with(mContext).load(GlideUtil.getMediumImg(mRelatedIllust.getIllusts().get(2)))
+                                    .priority(Priority.LOW)
+                                    .into(imageView3);
+                        }else {
+                            CardView cardView = view.findViewById(R.id.get_related_illust);
+                            TextView textView = view.findViewById(R.id.text_get_related);
+                            TextView textView2 = view.findViewById(R.id.text_related);
+                            cardView.setVisibility(View.GONE);
+                            textView.setVisibility(View.INVISIBLE);
+                            textView2.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        CardView cardView = view.findViewById(R.id.get_related_illust);
+                        TextView textView = view.findViewById(R.id.text_get_related);
+                        TextView textView2 = view.findViewById(R.id.text_related);
+                        cardView.setVisibility(View.GONE);
+                        textView.setVisibility(View.INVISIBLE);
+                        textView2.setVisibility(View.INVISIBLE);
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
     }
 
     @Override
@@ -304,12 +333,20 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.get_related_illust:
             case R.id.text_get_related:
-                if (mRelatedIllust != null && mRelatedIllust.illusts.size() >= 3) {
+                if (mRelatedIllust != null && mRelatedIllust.getIllusts().size() >= 3) {
                     intent = new Intent(mContext, RelatedActivity.class);
                     intent.putExtra("illust set", mRelatedIllust);
                     intent.putExtra("illust title", mIllustsBean.getTitle());
                     mContext.startActivity(intent);
                 }
+                break;
+
+            case R.id.illust_id:
+                Common.copyMessage(mContext, String.valueOf(mIllustsBean.getId()));
+                break;
+
+            case R.id.author_id:
+                Common.copyMessage(mContext, String.valueOf(mIllustsBean.getUser().getId()));
                 break;
             default:
                 break;

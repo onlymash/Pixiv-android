@@ -1,9 +1,8 @@
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcvGoodsList"
@@ -23,12 +22,12 @@
         android:layout_marginBottom="8dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/no_result"
-        app:layout_constraintVertical_bias="0.65"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/rcvGoodsList"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rcvGoodsList" />
+        app:layout_constraintTop_toTopOf="@+id/rcvGoodsList"
+        app:layout_constraintVertical_bias="0.65" />
 
 </android.support.constraint.ConstraintLayout>
 

@@ -4,18 +4,18 @@
     android:layout_height="wrap_content">
 
     <EditText
+        android:id="@+id/dns_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/sixteen_dip"
         android:layout_marginBottom="@dimen/sixteen_dip"
         android:background="@drawable/btn_bg"
         android:paddingStart="@dimen/sixteen_dip"
+        android:paddingTop="6dp"
+        android:paddingEnd="@dimen/sixteen_dip"
+        android:paddingBottom="6dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:paddingEnd="@dimen/sixteen_dip"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:id="@+id/dns_content"
-        android:textSize="@dimen/sixteen_sp"
-        android:layout_height="wrap_content" />
+        android:textSize="@dimen/sixteen_sp" />
 
 </RelativeLayout>

@@ -17,8 +17,8 @@
         <LinearLayout
             android:id="@+id/user_follow_linear"
             android:layout_width="match_parent"
-            android:background="@android:color/white"
             android:layout_height="120dp"
+            android:background="@android:color/white"
             android:orientation="horizontal">
 
             <ImageView
@@ -33,8 +33,8 @@
                 android:id="@+id/user_show_two"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="1dp"
                 android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop" />
 
@@ -52,31 +52,31 @@
             android:id="@+id/user_head"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginBottom="@dimen/twelve_dip"
             android:layout_marginStart="@dimen/twelve_dip"
             android:layout_marginTop="100dp"
+            android:layout_marginBottom="@dimen/twelve_dip"
             app:civ_border_color="@color/colorPrimary"
             app:civ_border_width="2dp" />
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="match_parent"
-            android:layout_toStartOf="@+id/post_like_user"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/user_head"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:layout_marginStart="@dimen/eight_dip"
             android:layout_marginTop="35dp"
+            android:layout_toStartOf="@+id/post_like_user"
             android:layout_toEndOf="@+id/user_head"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/post_like_user"
             android:layout_width="75dp"
             android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
             android:layout_below="@+id/user_follow_linear"
+            android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/twelve_dip"
             android:background="@drawable/btn_follow"
             android:gravity="center"

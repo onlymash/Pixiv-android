@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.adapters.PixivAdapterGrid;
 import com.example.administrator.essim.fragments.FragmentDialog;
 import com.example.administrator.essim.interf.OnItemClickListener;
@@ -122,7 +123,7 @@ public class SearchResultActivity extends BaseActivity {
                             @Override
                             public void onItemClick(@NotNull View view, int position, int viewType) {
                                 if (viewType == 0) {
-                                    Reference.sIllustsBeans = mIllustsBeanList;
+                                    PixivApp.sIllustsBeans = mIllustsBeanList;
                                     Intent intent = new Intent(mContext, ViewPagerActivity.class);
                                     intent.putExtra("which one is selected", position);
                                     mContext.startActivity(intent);

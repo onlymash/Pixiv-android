@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
+import com.example.administrator.essim.activities.SettingsActivity;
 import com.example.administrator.essim.network_re.Retro;
 import com.example.administrator.essim.response_re.LoginResponse;
 import com.example.administrator.essim.response_re.NewAccountResponse;
@@ -44,6 +47,7 @@ public class NewUserActivity extends BaseActivity {
     @Override
     void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(view -> finish());
         mProgressBar = findViewById(R.id.progress);
         mProgressBar.setVisibility(View.INVISIBLE);
@@ -51,7 +55,7 @@ public class NewUserActivity extends BaseActivity {
         CardView cardView = findViewById(R.id.now_login);
         cardView.setOnClickListener(view -> {
             if (mEditText.getText().toString().trim().isEmpty()) {
-                Common.showToast("用户名不能为空");
+                Common.showToast(getString(R.string.username_nonnull));
             } else if (!mEditText.getText().toString().trim().isEmpty()) {
                 Common.hideKeyboard(mActivity);
                 createAccount();
@@ -88,18 +92,18 @@ public class NewUserActivity extends BaseActivity {
                     @Override
                     public void onNext(NewAccountResponse newAccountResponse) {
                         if (newAccountResponse != null && !newAccountResponse.isError()){
-                            Common.showToast("创建成功，正在登录");
+                            Common.showToast(getString(R.string.create_success));
                             LocalData.setDeviceToken(newAccountResponse.getBody().getDevice_token());
                             login(newAccountResponse);
                         }else {
-                            Common.showToast("创建失败,请检查网络连接");
+                            Common.showToast(getString(R.string.create_error));
                             mProgressBar.setVisibility(View.INVISIBLE);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Common.showToast("创建失败,请检查网络连接");
+                        Common.showToast(getString(R.string.create_error));
                         mProgressBar.setVisibility(View.INVISIBLE);
                     }
 
@@ -153,5 +157,27 @@ public class NewUserActivity extends BaseActivity {
 
                         }
                     });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_setting:
+                Intent intent = new Intent(mContext, SettingsActivity.class);
+                startActivity(intent);
+                break;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -2,6 +2,7 @@ package com.example.administrator.essim.network
 
 
 import com.example.administrator.essim.response.*
+import com.example.administrator.essim.response_re.IllustListResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -59,10 +60,6 @@ interface AppApiPixivService {
                          @Query("user_id") paramLong: Long,
                          @Query("restrict") paramString2: String): Call<SearchUserResponse>
 
-    //&illust_id=62443212
-    @GET("/v2/illust/related?filter=for_android")
-    fun getRelatedIllust(@Header("Authorization") paramString1: String,
-                         @Query("illust_id") paramLong: Long): Call<RelatedIllust>
 
     //GET /v1/user/recommended?filter=for_android HTTP/1.1
     @GET("/v1/user/recommended?filter=for_android")

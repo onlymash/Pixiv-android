@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities_re.MainActivity">
+    android:background="@color/white">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/mToolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
@@ -19,12 +18,20 @@
         app:title="评论详情"
         app:titleTextColor="#fff" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/card_fourth"
-        android:layout_below="@+id/mToolbar"/>
+        android:layout_below="@+id/toolbar">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
     <RelativeLayout
         android:id="@+id/card_fourth"
@@ -49,15 +56,15 @@
             android:id="@+id/mEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:layout_toStartOf="@+id/sendComment"
             android:hint="留下你的评论吧~"
             android:singleLine="true"
             android:textSize="@dimen/sixteen_sp" />
 
         <ImageView
-            android:id="@+id/clearHint"
+            android:id="@+id/clear_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/mEditText"
@@ -66,8 +73,17 @@
 
     </RelativeLayout>
 
+
+    <ImageView
+        android:id="@+id/no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/no_result"
+        android:visibility="invisible" />
+
     <ProgressBar
-        android:id="@+id/mProgressbar"
+        android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />

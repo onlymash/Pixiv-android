@@ -29,12 +29,12 @@
                 android:id="@+id/text_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/text_date"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/sixteen_dip"
+                android:layout_toStartOf="@+id/text_date"
+                android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:ellipsize="end"
                 android:textColor="@color/colorPrimary"
                 android:textSize="17sp" />
 

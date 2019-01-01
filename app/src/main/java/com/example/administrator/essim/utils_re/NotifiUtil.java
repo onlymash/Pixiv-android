@@ -5,9 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
 import com.example.administrator.essim.R;
@@ -25,20 +23,19 @@ public class NotifiUtil extends ContextWrapper {
 
     public NotifiUtil(Context base) {
         super(base);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel();
-        }
     }
 
     @TargetApi(Build.VERSION_CODES.O)
-    private static void createNotificationChannel() {
-        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
-        channel.canBypassDnd();//是否绕过请勿打扰模式
-        channel.setLockscreenVisibility(VISIBILITY_SECRET);//锁屏显示通知
-        channel.canShowBadge();//桌面launcher的消息角标
-        channel.getGroup();//获取通知取到组
-        channel.setBypassDnd(true);//设置可绕过  请勿打扰模式
-        getManager().createNotificationChannel(channel);
+    public static void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.canBypassDnd();//是否绕过请勿打扰模式
+            channel.setLockscreenVisibility(VISIBILITY_SECRET);//锁屏显示通知
+            channel.canShowBadge();//桌面launcher的消息角标
+            channel.getGroup();//获取通知取到组
+            channel.setBypassDnd(true);//设置可绕过  请勿打扰模式
+            getManager().createNotificationChannel(channel);
+        }
     }
 
     private static NotificationManager getManager() {
@@ -65,7 +62,7 @@ public class NotifiUtil extends ContextWrapper {
         getManager().notify(id, builder.build());
     }
 
-    public static void showFinishNotification(int id,String title, String content) {
+    public static void showFinishNotification(int id, String title, String content) {
         NotificationCompat.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder = new NotificationCompat.Builder(PixivApp.getContext(), CHANNEL_ID);

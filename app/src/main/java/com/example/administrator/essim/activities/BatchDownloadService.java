@@ -55,7 +55,7 @@ public class BatchDownloadService extends IntentService {
         //VISIBILITY_PUBLIC  只有在没有锁屏时会显示通知
         //VISIBILITY_PRIVATE 任何情况都会显示通知
         //VISIBILITY_SECRET  在安全锁和没有锁屏的情况下显示通知
-        for (int i = 0; i < Reference.downloadList.size(); i++) {
+        /*for (int i = 0; i < Reference.downloadList.size(); i++) {
             if (Reference.downloadList.get(i).getPage_count() == 1) {
                 myBuilder.setContentText("单个进度1/1");
                 myBuilder.setProgress(Reference.downloadList.size(), i + 1, false);
@@ -87,7 +87,7 @@ public class BatchDownloadService extends IntentService {
         }
         myBuilder.setContentText("下载完成！");
         myNotification = myBuilder.build();
-        myManager.notify(100001, myNotification);
+        myManager.notify(100001, myNotification);*/
     }
 
     @Override

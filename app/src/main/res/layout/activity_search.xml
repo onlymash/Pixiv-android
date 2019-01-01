@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:zhy="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:zhy="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/card_tag"
@@ -13,14 +13,13 @@
 
         <com.zhy.view.flowlayout.TagFlowLayout
             android:id="@+id/tag_group"
-            zhy:max_select="1"
-            android:layout_marginEnd="@dimen/twelve_dip"
-            android:layout_marginStart="4dp"
-            android:paddingBottom="@dimen/eight_dip"
-            android:layout_marginTop="6dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.zhy.view.flowlayout.TagFlowLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="@dimen/twelve_dip"
+            android:paddingBottom="@dimen/eight_dip"
+            zhy:max_select="1"></com.zhy.view.flowlayout.TagFlowLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
@@ -36,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            app:mt_maxSuggestionsCount="10"/>
+            app:mt_maxSuggestionsCount="10" />
 
     </RelativeLayout>
 

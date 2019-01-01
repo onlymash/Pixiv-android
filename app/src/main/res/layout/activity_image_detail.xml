@@ -23,10 +23,10 @@
         android:id="@+id/download_origin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="@dimen/twelve_dip"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="@dimen/eight_dip"
+        android:layout_marginBottom="@dimen/twelve_dip"
         android:text="@string/download_origin"
         android:textColor="@color/white"
         android:textSize="15sp" />

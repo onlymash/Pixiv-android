@@ -85,7 +85,7 @@ public class IllustCommentsResponse implements Serializable {
             private String comment;
             private String date;
             private int id;
-            private UserBeanX user;
+            private UserBean user;
 
             public String getComment() {
                 return this.comment;
@@ -111,63 +111,12 @@ public class IllustCommentsResponse implements Serializable {
                 this.id = paramInt;
             }
 
-            public UserBeanX getUser() {
+            public UserBean getUser() {
                 return this.user;
             }
 
-            public void setUser(UserBeanX paramUserBeanX) {
+            public void setUser(UserBean paramUserBeanX) {
                 this.user = paramUserBeanX;
-            }
-
-            public static class UserBeanX implements Serializable {
-                private String account;
-                private int id;
-                private String name;
-                private ProfileImageUrlsBeanX profile_image_urls;
-
-                public String getAccount() {
-                    return this.account;
-                }
-
-                public void setAccount(String paramString) {
-                    this.account = paramString;
-                }
-
-                public int getId() {
-                    return this.id;
-                }
-
-                public void setId(int paramInt) {
-                    this.id = paramInt;
-                }
-
-                public String getName() {
-                    return this.name;
-                }
-
-                public void setName(String paramString) {
-                    this.name = paramString;
-                }
-
-                public ProfileImageUrlsBeanX getProfile_image_urls() {
-                    return this.profile_image_urls;
-                }
-
-                public void setProfile_image_urls(ProfileImageUrlsBeanX paramProfileImageUrlsBeanX) {
-                    this.profile_image_urls = paramProfileImageUrlsBeanX;
-                }
-
-                public static class ProfileImageUrlsBeanX implements Serializable {
-                    private String medium;
-
-                    public String getMedium() {
-                        return this.medium;
-                    }
-
-                    public void setMedium(String paramString) {
-                        this.medium = paramString;
-                    }
-                }
             }
         }
     }
