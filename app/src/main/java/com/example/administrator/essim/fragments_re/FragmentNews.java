@@ -22,6 +22,11 @@ public class FragmentNews extends BaseFragment {
     private ViewPager mViewPager;
     private TextView mTextView;
     private static final String[] TITLES = new String[]{"动态", "榜单", "特辑"};
+    //从背景墙随机抽取3张图来填充"动态", "榜单", "特辑" 这三张卡片
+    //可以向像面这样直接写死，也可以调用这个接口
+
+    //http://65.49.235.124:8080/unibest_war/all
+
     public static final String[] ILLUST_ID = new String[]{
             "2012/09/29/13/38/30/30441213",
             "2015/05/24/01/37/35/50528486",
