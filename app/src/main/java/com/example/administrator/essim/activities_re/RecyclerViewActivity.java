@@ -1,4 +1,4 @@
-package com.example.administrator.essim.activities;
+package com.example.administrator.essim.activities_re;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,13 +39,12 @@ public class RecyclerViewActivity extends BaseActivity {
     private ProgressBar mProgressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_donation);
-        initView();
+    void initLayout() {
+        mLayoutID = R.layout.activity_about_donation;
     }
 
-    private void initView() {
+    @Override
+    void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar_pixiv);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(view -> finish());
@@ -56,7 +55,7 @@ public class RecyclerViewActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setHasFixedSize(true);
         dataType = getIntent().getStringExtra("dataType");
-        DonaterAdapter adapter = null;
+        DonaterAdapter adapter;
         if (dataType.equals("donation")) {
             mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
             adapter = new DonaterAdapter(Constant.donaterList, mContext);
@@ -71,6 +70,21 @@ public class RecyclerViewActivity extends BaseActivity {
             mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 8.0f)));
             toolbar.setTitle("浏览历史");
         }
+    }
+
+    @Override
+    void initData() {
+
+    }
+
+    @Override
+    void getFirstData() {
+
+    }
+
+    @Override
+    void getNextData() {
+
     }
 
     private void refreshHistory(){

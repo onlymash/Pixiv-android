@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.MvpBaseActivity;
-import com.example.administrator.essim.activities_re.FreeActivity;
 
 public class AboutAppActivity extends BaseActivity {
 

@@ -39,10 +39,8 @@
         <activity android:name=".activities_re.RelatedActivity" />
         <activity android:name=".activities_re.BatchDownloadActivity" />
 
-        <service android:name=".activities.BatchDownloadService" />
-
-        <activity android:name=".activities.RecyclerViewActivity" />
-        <activity android:name=".activities.ThanksActivity" />
+        <activity android:name=".activities_re.RecyclerViewActivity" />
+        <activity android:name=".activities_re.ThanksActivity" />
         <activity android:name=".activities.SignEmailActivity" />
         <activity android:name=".activities_re.AboutAppActivity" />
         <activity android:name=".activities_re.WebViewActivity" />

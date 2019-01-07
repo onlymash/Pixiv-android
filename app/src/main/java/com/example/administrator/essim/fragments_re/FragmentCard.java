@@ -10,15 +10,18 @@ import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities_re.ArticleActivity;
 import com.example.administrator.essim.activities_re.IllustListActivity;
 import com.example.administrator.essim.activities_re.RankActivity;
+import com.example.administrator.essim.utils_re.GlideUtil;
 
 public class FragmentCard extends BaseFragment{
 
     private ImageView mImageView;
-    private static final int[] IMAGES = new int[]{R.mipmap.recomend_logo,R.mipmap.rank_logo,  R.mipmap.pivision};
+    private static final String URL_HEAD = "https://i.pximg.net/c/600x1200_90/img-master/img/";
+    private static final String URL_BOTTOM = "_p0_master1200.jpg";
 
-    public static FragmentCard newInstance(int index) {
+    public static FragmentCard newInstance(int index, String id) {
         Bundle args = new Bundle();
         args.putSerializable("index", index);
+        args.putSerializable("id", id);
         FragmentCard fragment = new FragmentCard();
         fragment.setArguments(args);
         return fragment;
@@ -38,6 +41,7 @@ public class FragmentCard extends BaseFragment{
     @Override
     void initData() {
         int index = (int) getArguments().getSerializable("index");
+        String id = (String) getArguments().getSerializable("id");
         mImageView.setOnClickListener(v -> {
             Intent intent;
             if(index == 0){
@@ -52,7 +56,7 @@ public class FragmentCard extends BaseFragment{
             }
 
         });
-        Glide.with(mContext).load(IMAGES[index]).into(mImageView);
+        Glide.with(mContext).load(GlideUtil.getMediumImg(URL_HEAD + id + URL_BOTTOM)).into(mImageView);
     }
 
     @Override

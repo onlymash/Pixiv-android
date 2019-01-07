@@ -20,9 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.RecyclerViewActivity;
 import com.example.administrator.essim.activities.SettingsActivity;
-import com.example.administrator.essim.activities.ThanksActivity;
 import com.example.administrator.essim.fragments.FragmentHitokoto;
 import com.example.administrator.essim.fragments.FragmentMine;
 import com.example.administrator.essim.fragments_re.FragmentNews;
@@ -140,6 +138,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
      */
     public void switchFragment(int index) {
         if (lastShowFragment == index) {
+            return;
+        }
+        if(mFragments[index] == null){
             return;
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
