@@ -1,5 +1,8 @@
 # KujouKaren 九条可怜
 
+app被下架，包名被封，停止更新，项目全部重写，请移步https://github.com/CeuiLiSA/Shaft
+从0开始
+
 Pixiv( P站 ) / Hitokoto( 一言 ) client for android
 
 ![截图](https://github.com/CeuiLiSA/images/blob/master/Screenshot_1523181515.png)
