@@ -1,9 +1,9 @@
 package com.example.administrator.essim.activities_re;
 
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.CommentAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
-import com.example.administrator.essim.interf.OnPrepared;
 import com.example.administrator.essim.network_re.Retro;
 import com.example.administrator.essim.response.IllustCommentsResponse;
 import com.example.administrator.essim.utils.Common;

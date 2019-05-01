@@ -1,10 +1,19 @@
 package com.example.administrator.essim.fragments;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.CardView;
+import androidx.annotation.NonNull;
+
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.example.administrator.essim.glide.GlideApp;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +24,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.activities_re.CommentActivity;
 import com.example.administrator.essim.activities_re.ImageDetailActivity;
@@ -26,9 +31,6 @@ import com.example.administrator.essim.activities_re.RelatedActivity;
 import com.example.administrator.essim.activities.SearchResultActivity;
 import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.activities_re.UserDetailActivity;
-import com.example.administrator.essim.interf.OnPrepared;
-import com.example.administrator.essim.network.AppApiPixivService;
-import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.network_re.Retro;
 import com.example.administrator.essim.response_re.IllustListResponse;
 import com.example.administrator.essim.response_re.IllustsBean;
@@ -48,8 +50,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import jp.wasabeef.glide.transformations.BlurTransformation;
-import retrofit2.Call;
-
 
 
 /**
@@ -98,33 +98,45 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
         imageView2.setLayoutParams(params);
         imageView2.setOnClickListener(this);
         imageView3.setOnClickListener(this);
-        Glide.with(getContext()).load(GlideUtil.getSquare(mIllustsBean))
-                .bitmapTransform(new BlurTransformation(mContext, 20, 2))
+        GlideApp.with(getContext()).load(GlideUtil.getSquare(mIllustsBean))
+                .transform(new BlurTransformation(mContext, 20, 2))
                 .into(imageView);
         ProgressBar progressBar = view.findViewById(R.id.try_login);
         progressBar.setIndeterminateDrawable(Common.getLoaderAnimation(mContext));
         if (LocalData.getLocalDataSet().getBoolean("is_origin_pic", true)) {
-            Glide.with(mContext).load(GlideUtil.getLargeImage(mIllustsBean))
+            GlideApp.with(mContext).load(GlideUtil.getLargeImage(mIllustsBean))
                     .priority(priority.equals("high") ? Priority.IMMEDIATE : Priority.NORMAL)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(new GlideDrawableImageViewTarget(imageView2) {
+                    .addListener(new RequestListener<Drawable>() {
                         @Override
-                        public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             progressBar.setVisibility(View.INVISIBLE);
-                            super.onResourceReady(drawable, anim);
+                            return false;
                         }
-                    });
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            return false;
+                        }
+                    })
+                    .into(imageView2);
         } else {
-            Glide.with(mContext).load(GlideUtil.getMediumImg(mIllustsBean))
+            GlideApp.with(mContext).load(GlideUtil.getMediumImg(mIllustsBean))
                     .priority(priority.equals("high") ? Priority.IMMEDIATE : Priority.NORMAL)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(new GlideDrawableImageViewTarget(imageView2) {
+                    .addListener(new RequestListener<Drawable>() {
                         @Override
-                        public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             progressBar.setVisibility(View.INVISIBLE);
-                            super.onResourceReady(drawable, anim);
+                            return false;
                         }
-                    });
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            return false;
+                        }
+                    })
+                    .into(imageView2);
         }
         Glide.with(mContext).load(GlideUtil.getUserHead(mIllustsBean.getUser()))
                 .into(imageView3);

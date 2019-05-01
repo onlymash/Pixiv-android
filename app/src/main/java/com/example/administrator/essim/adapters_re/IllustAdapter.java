@@ -1,8 +1,8 @@
 package com.example.administrator.essim.adapters_re;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.response_re.IllustsBean;
-import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.PixivOperate;
 import com.example.administrator.essim.utils_re.GlideUtil;
 

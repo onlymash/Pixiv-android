@@ -1,8 +1,8 @@
 package com.example.administrator.essim.fragments_re;
 
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -13,7 +13,6 @@ import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.adapters_re.IllustAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network_re.Retro;
-import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response_re.IllustListResponse;
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;

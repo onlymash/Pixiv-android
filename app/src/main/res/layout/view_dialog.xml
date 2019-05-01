@@ -42,13 +42,13 @@
         android:layout_toStartOf="@+id/add_tag"
         android:hint="添加标签(收藏夹)" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tag_recy"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:layout_below="@+id/mEditText">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <ProgressBar
         android:id="@+id/mProgressbar"

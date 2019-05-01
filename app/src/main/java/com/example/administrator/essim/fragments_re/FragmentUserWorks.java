@@ -2,8 +2,8 @@ package com.example.administrator.essim.fragments_re;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.interf.OnItemClickListener;
-import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.utils.PixivOperate;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

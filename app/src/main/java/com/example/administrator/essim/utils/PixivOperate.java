@@ -2,8 +2,6 @@ package com.example.administrator.essim.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -14,8 +12,6 @@ import com.example.administrator.essim.network.AppApiPixivService;
 import com.example.administrator.essim.network.RestClient;
 import com.example.administrator.essim.network_re.Retro;
 import com.example.administrator.essim.response.BookmarkAddResponse;
-import com.example.administrator.essim.response.IllustDetailResponse;
-import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.response_re.SingleIllustResponse;
 import com.example.administrator.essim.utils_re.LocalData;

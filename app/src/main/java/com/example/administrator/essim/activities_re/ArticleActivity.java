@@ -1,26 +1,20 @@
 package com.example.administrator.essim.activities_re;
 
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities.ViewPagerActivity;
 import com.example.administrator.essim.adapters_re.ArticleAdapter;
-import com.example.administrator.essim.adapters_re.IllustAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
 import com.example.administrator.essim.network_re.Retro;
-import com.example.administrator.essim.response.Reference;
 import com.example.administrator.essim.response_re.ArticleResponse;
-import com.example.administrator.essim.response_re.IllustListResponse;
-import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
-import com.example.administrator.essim.utils.GridItemDecoration;
 import com.example.administrator.essim.utils.LinearItemDecoration;
 import com.example.administrator.essim.utils_re.LocalData;
 import com.scwang.smartrefresh.header.DeliveryHeader;

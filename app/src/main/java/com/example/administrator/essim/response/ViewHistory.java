@@ -1,6 +1,6 @@
 package com.example.administrator.essim.response;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.litepal.crud.DataSupport;
 

@@ -1,22 +1,16 @@
 package com.example.administrator.essim.activities_re;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.administrator.essim.R;
-import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.adapters.BatchSelectAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
-import com.example.administrator.essim.response.Reference;
-import com.example.administrator.essim.response_re.IllustsBean;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.GridItemDecoration;
@@ -24,8 +18,6 @@ import com.example.administrator.essim.utils_re.FileDownload;
 import com.example.administrator.essim.utils_re.LocalData;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 
 
 public class BatchDownloadActivity extends BaseActivity {

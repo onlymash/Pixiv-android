@@ -1,8 +1,8 @@
 package com.example.administrator.essim.utils_re;
 
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.administrator.essim.activities_re.PixivApp;
 import com.example.administrator.essim.response_re.IllustsBean;

@@ -1,21 +1,17 @@
 package com.example.administrator.essim.fragments_re;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.essim.R;
 import com.example.administrator.essim.utils_re.CustPagerTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class FragmentNews extends BaseFragment {
 

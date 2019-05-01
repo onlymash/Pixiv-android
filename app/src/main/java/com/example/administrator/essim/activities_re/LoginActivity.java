@@ -2,10 +2,10 @@ package com.example.administrator.essim.activities_re;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.Toolbar;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +23,6 @@ import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.GridItemDecoration;
 import com.example.administrator.essim.utils_re.AutoScrollRecyclerView;
-import com.example.administrator.essim.utils_re.FileDownload;
 import com.example.administrator.essim.utils_re.LocalData;
 
 import io.reactivex.Observer;

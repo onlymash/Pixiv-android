@@ -1,8 +1,8 @@
 package com.example.administrator.essim.fragments_re;
 
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,7 +15,6 @@ import com.example.administrator.essim.network_re.Retro;
 import com.example.administrator.essim.response.TrendingtagResponse;
 import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.DensityUtil;
-import com.example.administrator.essim.utils.GridItemDecoration;
 import com.example.administrator.essim.utils.PixivOperate;
 import com.example.administrator.essim.utils.TagItemDecoration;
 import com.example.administrator.essim.utils_re.LocalData;

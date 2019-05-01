@@ -1,11 +1,8 @@
 package com.example.administrator.essim.activities_re;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +13,7 @@ import com.example.administrator.essim.R;
 import com.example.administrator.essim.adapters.DonaterAdapter;
 import com.example.administrator.essim.adapters.ViewHistoryAdapter;
 import com.example.administrator.essim.interf.OnItemClickListener;
-import com.example.administrator.essim.response.HitoModel;
 import com.example.administrator.essim.response.ViewHistory;
-import com.example.administrator.essim.utils.Common;
 import com.example.administrator.essim.utils.Constant;
 import com.example.administrator.essim.utils.DensityUtil;
 import com.example.administrator.essim.utils.LinearItemDecoration;
@@ -27,8 +22,6 @@ import com.example.administrator.essim.utils.PixivOperate;
 import org.jetbrains.annotations.NotNull;
 import org.litepal.crud.DataSupport;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class RecyclerViewActivity extends BaseActivity {

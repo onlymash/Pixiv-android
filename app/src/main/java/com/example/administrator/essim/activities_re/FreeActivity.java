@@ -1,12 +1,10 @@
 package com.example.administrator.essim.activities_re;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+
+import androidx.appcompat.widget.Toolbar;
+
 import android.widget.TextView;
 
 import com.example.administrator.essim.R;
