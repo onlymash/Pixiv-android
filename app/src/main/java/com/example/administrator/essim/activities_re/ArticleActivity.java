@@ -51,7 +51,7 @@ public class ArticleActivity extends BaseActivity{
         mRecyclerView = findViewById(R.id.recy_list);
         mProgressBar = findViewById(R.id.progress);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
         mRecyclerView.setHasFixedSize(true);

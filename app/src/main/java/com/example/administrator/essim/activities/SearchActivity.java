@@ -36,6 +36,7 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -197,22 +198,18 @@ public class SearchActivity extends BaseActivity implements MaterialSearchBar.On
                 try {
                     final List<TagResponse> booksInfo = gson.fromJson(responseData, new TypeToken<List<TagResponse>>() {
                     }.getType());
-                    String allTag[] = new String[90];
-                    for (int i = 0; i < 90; i++) {
-                        allTag[i] = booksInfo.get(i).getName();
-                    }
                     mTagFlowLayout.setOnTagClickListener((view, position, parent) -> {
                         Intent intent = new Intent(mContext, SearchResultActivity.class);
-                        intent.putExtra("what is the keyword", allTag[position]);
+                        intent.putExtra("what is the keyword", booksInfo.get(position).getName());
                         startActivity(intent);
                         return true;
                     });
-                    runOnUiThread(() -> mTagFlowLayout.setAdapter(new TagAdapter<String>(allTag) {
+                    runOnUiThread(() -> mTagFlowLayout.setAdapter(new TagAdapter<List<TagResponse>>(Collections.singletonList(booksInfo)) {
                         @Override
-                        public View getView(FlowLayout parent, int position, String s) {
+                        public View getView(FlowLayout parent, int position, List<TagResponse> tagResponses) {
                             TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R.layout.tag_textview_search,
                                     mTagFlowLayout, false);
-                            tv.setText(s);
+                            tv.setText(tagResponses.get(position).getName());
                             return tv;
                         }
                     }));

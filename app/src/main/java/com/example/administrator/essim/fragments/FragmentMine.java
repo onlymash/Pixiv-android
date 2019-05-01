@@ -4,10 +4,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,10 +52,10 @@ public class FragmentMine extends BaseFragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar_mine);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> ((MainActivity) Objects.requireNonNull(getActivity()))
-                .getDrawer().openDrawer(Gravity.START, true));
+                .getDrawer().openDrawer(GravityCompat.START, true));
         mRecyclerView = view.findViewById(R.id.mine_recy);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(new LinearItemDecoration(DensityUtil.dip2px(mContext, 16.0f)));
         mImageView = view.findViewById(R.id.no_data);

@@ -62,7 +62,7 @@ public class FragmentFollow extends BaseFragment {
         mRecyclerView = v.findViewById(R.id.recy_list);
         mProgressBar = v.findViewById(R.id.progress);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new LinearItemDecoration(
                 DensityUtil.dip2px(mContext, 12.0f)));

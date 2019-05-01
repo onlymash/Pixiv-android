@@ -50,7 +50,7 @@ public class ImageDetailActivity extends BaseActivity {
                 return mIllustsBean.getPage_count();
             }
         });
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

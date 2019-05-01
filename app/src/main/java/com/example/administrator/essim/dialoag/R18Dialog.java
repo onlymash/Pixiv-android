@@ -1,5 +1,6 @@
 package com.example.administrator.essim.dialoag;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class R18Dialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        @SuppressLint("InflateParams")
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_download, null);
         mEditText = view.findViewById(R.id.song_size);
         view.findViewById(R.id.download_now).setOnClickListener(v -> setPwd());

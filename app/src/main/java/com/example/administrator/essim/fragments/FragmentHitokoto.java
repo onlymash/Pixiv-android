@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -109,7 +111,7 @@ public class FragmentHitokoto extends BaseFragment {
         mToolbar = view.findViewById(R.id.toolbar_hitokoto);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(v -> ((MainActivity) Objects.requireNonNull(getActivity()))
-                .getDrawer().openDrawer(Gravity.START, true));
+                .getDrawer().openDrawer(GravityCompat.START, true));
     }
 
     private void getData(String address) {

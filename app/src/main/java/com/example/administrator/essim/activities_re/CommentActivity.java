@@ -55,7 +55,7 @@ public class CommentActivity extends BaseActivity{
         mRecyclerView = findViewById(R.id.recy_list);
         mProgressBar = findViewById(R.id.progress);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRefreshLayout = findViewById(R.id.refreshLayout);

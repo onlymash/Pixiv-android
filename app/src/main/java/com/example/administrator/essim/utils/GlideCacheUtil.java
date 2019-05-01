@@ -5,7 +5,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
+import com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory;
 import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 
 import java.io.File;
@@ -96,7 +96,7 @@ public class GlideCacheUtil {
     public void clearImageAllCache(Context context) {
         clearImageDiskCache(context);
         clearImageMemoryCache(context);
-        String ImageExternalCatchDir = context.getExternalCacheDir() + ExternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR;
+        String ImageExternalCatchDir = context.getExternalCacheDir() + ExternalPreferredCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR;
         deleteFolderFile(ImageExternalCatchDir, true);
     }
 

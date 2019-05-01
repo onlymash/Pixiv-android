@@ -81,9 +81,9 @@ public class SearchResultActivity extends BaseActivity {
         mRecyclerView = findViewById(R.id.pixiv_recy);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
                 int totalItemCount = mPixivAdapter.getItemCount();

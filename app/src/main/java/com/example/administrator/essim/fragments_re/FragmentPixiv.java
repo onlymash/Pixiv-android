@@ -3,6 +3,8 @@ package com.example.administrator.essim.fragments_re;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -43,7 +45,7 @@ public class FragmentPixiv extends BaseFragment {
         Toolbar toolbar = v.findViewById(R.id.toolbar);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v1 -> {
-            ((MainActivity) getActivity()).getDrawer().openDrawer(Gravity.START, true);
+            ((MainActivity) getActivity()).getDrawer().openDrawer(GravityCompat.START, true);
         });
         mFragments = new BaseFragment[2];
         mFragments[0] = new FragmentRecmdIllust();

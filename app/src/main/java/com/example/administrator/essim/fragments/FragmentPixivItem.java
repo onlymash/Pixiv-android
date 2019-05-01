@@ -43,6 +43,8 @@ import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.Observer;
@@ -158,28 +160,27 @@ public class FragmentPixivItem extends BaseFragment implements View.OnClickListe
             return true;
         });
         TagFlowLayout mTagGroup = view.findViewById(R.id.tag_group);
-        String allTag[] = new String[mIllustsBean.getTags().size()];
-        for (int i = 0; i < mIllustsBean.getTags().size(); i++) {
-            allTag[i] = mIllustsBean.getTags().get(i).getName();
-        }
-        mTagGroup.setAdapter(new TagAdapter<String>(allTag) {
-            @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R.layout.tag_textview,
-                        mTagGroup, false);
-                tv.setText(s);
-                tv.setOnClickListener(v -> {
-                    Intent intent = new Intent(mContext, SearchResultActivity.class);
-                    intent.putExtra("what is the keyword", allTag[position]);
-                    mContext.startActivity(intent);
-                });
-                tv.setOnLongClickListener(v -> {
-                    Common.copyMessage(mContext, s);
-                    return true;
-                });
-                return tv;
-            }
-        });
+        mTagGroup.setAdapter(
+                new TagAdapter<List<IllustsBean.TagsBean>>(Collections.singletonList(mIllustsBean.getTags())) {
+                    @Override
+                    public View getView(FlowLayout parent, int position, List<IllustsBean.TagsBean> tagsBeans) {
+                        String name = tagsBeans.get(position).getName();
+                        TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R.layout.tag_textview,
+                                mTagGroup, false);
+                        tv.setText(name);
+                        tv.setOnClickListener(v -> {
+                            Intent intent = new Intent(mContext, SearchResultActivity.class);
+                            intent.putExtra("what is the keyword", name);
+                            mContext.startActivity(intent);
+                        });
+                        tv.setOnLongClickListener(v -> {
+                            Common.copyMessage(mContext, name);
+                            return true;
+                        });
+                        return tv;
+                    }
+                }
+        );
         mFloatingActionButton = view.findViewById(R.id.fab_like);
         textView.setText(mIllustsBean.getUser().getName());
         textView.setOnClickListener(this);

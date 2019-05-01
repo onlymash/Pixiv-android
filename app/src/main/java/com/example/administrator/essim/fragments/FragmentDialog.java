@@ -1,5 +1,6 @@
 package com.example.administrator.essim.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -85,6 +86,7 @@ public class FragmentDialog {
         mDialog = new Dialog(mContext);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(mContext);
+        @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.view_dialog, null);
         ImageView close = dialogView.findViewById(R.id.close);
         close.setOnClickListener(v -> mDialog.dismiss());

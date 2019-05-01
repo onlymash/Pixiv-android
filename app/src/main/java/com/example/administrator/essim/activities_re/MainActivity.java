@@ -1,6 +1,7 @@
 package com.example.administrator.essim.activities_re;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -152,6 +153,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         lastShowFragment = index;
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //super.onSaveInstanceState(outState);
